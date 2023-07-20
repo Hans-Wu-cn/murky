@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.noear</groupId>
+        <artifactId>solon-parent</artifactId>
+        <version>2.4.0-RC</version>
+    </parent>
+    <groupId>cn.poem.solon</groupId>
+    <artifactId>poem-solon</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>main</module>
+        <module>poem-core</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <solon.version>2.4.0-RC</solon.version>
+        <lombok.version>1.18.26</lombok.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <mybaits-flex.version>1.5.1</mybaits-flex.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+
+            <!--poem核心依赖-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--mybatis-flex orm依赖-->
+            <dependency>
+                <groupId>com.mybatis-flex</groupId>
+                <artifactId>mybatis-flex-solon-plugin</artifactId>
+                <version>${mybaits-flex.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <repositories>
+        <repository>
+            <id>tencent</id>
+            <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

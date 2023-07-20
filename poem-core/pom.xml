@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.poem.solon</groupId>
+        <artifactId>poem-solon</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>poem-core</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <beetlsql.verion>2.3.8</beetlsql.verion>
+        <HikariCP.verion>5.0.1</HikariCP.verion>
+        <postgresql.verion>42.6.0</postgresql.verion>
+    </properties>
+
+    <dependencies>
+        <!--beetlsql orm框架依赖-->
+<!--        <dependency>-->
+<!--            <groupId>org.noear</groupId>-->
+<!--            <artifactId>beetlsql-solon-plugin</artifactId>-->
+<!--            <version>${beetlsql.verion}</version>-->
+<!--        </dependency>-->
+        <!--mybaits-flex orm框架依赖-->
+        <dependency>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-solon-plugin</artifactId>
+        </dependency>
+        <!-- HikariCP连接池 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${HikariCP.verion}</version>
+        </dependency>
+        <!-- pgsql连接驱动 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.verion}</version>
+        </dependency>
+        <!--接口文档依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-swagger2-knife4j</artifactId>
+        </dependency>
+        <!--实体转换依赖-->
+        <dependency>
+            <groupId>org.dromara.solon-plugins</groupId>
+            <artifactId>mapstruct-plus-solon-plugin</artifactId>
+        </dependency>
+        <!--参数校验-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.validation</artifactId>
+        </dependency>
+        <!--jackson序列化-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.serialization.jackson</artifactId>
+        </dependency>
+        <!--web-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-web</artifactId>
+        </dependency>
+    </dependencies>
+</project>

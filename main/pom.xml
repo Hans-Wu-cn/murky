@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.poem.solon</groupId>
+        <artifactId>poem-solon</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <name>main</name>
+
+    <artifactId>main</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!--jackson序列化-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.serialization.jackson</artifactId>
+        </dependency>
+        <!-- 内核 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon</artifactId>
+        </dependency>
+        <!--solon 依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-lib</artifactId>
+        </dependency>
+        <!--solon api-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-api</artifactId>
+        </dependency>
+        <!--poem核心依赖包-->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+        <!--配置读取yml-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.config.yaml</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.logging.simple</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.1-jre</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>io.github.linpeilie</groupId>
+                            <artifactId>mapstruct-plus-processor</artifactId>
+                            <version>1.3.2</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>
+                            -Amapstruct.defaultComponentModel=solon
+                        </arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <!-- 配置打包插件（并打包成胖包） -->
+            <plugin>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,70 @@
+server.port: 8080
+
+solon.app:
+  name: 'demo-app'
+  group: 'demo'
+
+# 记录器级别的配置示例
+solon.logging.logger:
+  "root": #默认记录器配置
+    level: debug
+  "com.zaxxer.hikari":
+    level: info
+
+postgres.db:
+  jdbcUrl: jdbc:postgresql://localhost:5432/dev
+  driverClassName: org.postgresql.Driver
+  username: postgres
+  password: 123
+  connection-timeout: 10000
+  validation-timeout: 3000
+  idle-timeout: 60000
+  max-lifetime: 60000
+  maximum-pool-size: 10
+  minimum-idle: 5
+  read-only: false
+
+# 配置数据源对应的 我给你找出那个文档mybatis 信息（要与 DataSource bean 的名字对上）这个是solon的官网提供的而应该是没错上面的pgsql
+mybatis.db:
+  auditEnable: true
+  typeAliases:    #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
+    - "cn.poem.solon.admin.**.domain.entity"
+  typeHandlers: #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
+    - "cn.poem.solon.admin.**.domain.entity"
+  mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
+    - "cn.poem.solon.admin.**.mapper"
+    - "classpath:mapper/**"
+  configuration:  #扩展配置（要与 FlexConfiguration 类的属性一一对应）
+    cacheEnabled: false
+    mapperVerifyEnabled: false #如果为 true，则要求所有 mapper 有 @Mapper 主解
+    mapUnderscoreToCamelCase: true
+  globalConfig:   #全局配置（要与 FlexGlobalConfig 类的属性一一对应）//只是示例，别照抄
+    printBanner: false
+    keyConfig:
+      keyType: "Generator"
+      value: "snowFlakeId"
+
+solon.serialization.json:
+  dateAsFormat: 'yyyy-MM-dd HH:mm:ss' #配置日期格式（默认输出为时间戳）
+  dateAsTimeZone: 'GMT+8' #配置时区
+  dateAsTicks: false #将date转为毫秒数（和 dateAsFormat 二选一）
+  longAsString: true #将long型转为字符串输出 （默认为false）
+  boolAsInt: false   #将bool型转为字符串输出 （默认为false）
+  nullStringAsEmpty: false
+  nullBoolAsFalse: false
+  nullNumberAsZero: false
+  nullArrayAsEmpty: false
+  nullAsWriteable: false
+  enumAsName: false #枚举使用名字（v2.2.1 后支持）
+
+
+knife4j:
+  enable: true
+  basic:
+    enable: true
+    username: admin
+    password: 123456
+  setting:
+    enableOpenApi: false
+    enableSwaggerModels: false
+    enableFooter: false
