@@ -1,24 +1,19 @@
 package cn.poem.solon.admin.system.domain.dto;
 
 
-import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
+import cn.poem.core.validat.Update;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.enums.MenuType;
 import cn.poem.solon.admin.system.enums.OpenType;
-import cn.poem.solon.core.validat.Update;
 import io.github.linpeilie.Converter;
-import io.github.linpeilie.annotations.AutoMapMapper;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.noear.solon.Solon;
-import org.noear.solon.annotation.Inject;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
-
-import java.io.Serializable;
 
 @Data
 @Accessors(chain = true)

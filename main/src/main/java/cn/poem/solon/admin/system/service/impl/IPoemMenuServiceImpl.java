@@ -2,17 +2,13 @@ package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
-//import cn.poem.solon.core.extension.PoemMapper;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.service.IPoemMenuService;
 import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
-import cn.poem.solon.core.utils.CollectionUtils;
-import com.mybatisflex.solon.service.impl.ServiceImpl;
-import io.github.linpeilie.Converter;
-import org.noear.solon.Solon;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
-
+import com.baomidou.mybatisplus.solon.service.impl.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +22,9 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     @Inject
     PoemMenuConvert converter;
 
-
-
     @Override
     public List<PoemMenuTreeVO> treePoemMenu() {
-        List<PoemMenu> allPoemMenuList = mapper.selectAll();
+        List<PoemMenu> allPoemMenuList = baseMapper.selectList(new LambdaQueryWrapper<>());
         List<PoemMenuTreeVO> poemMenuTreeVOS = converter.poemMenuToPoemMenuTreeVO(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list,poemMenuTreeVOS);

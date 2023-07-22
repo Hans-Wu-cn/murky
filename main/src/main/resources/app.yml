@@ -26,24 +26,21 @@ postgres.db:
 
 # 配置数据源对应的 我给你找出那个文档mybatis 信息（要与 DataSource bean 的名字对上）这个是solon的官网提供的而应该是没错上面的pgsql
 mybatis.db:
-  auditEnable: true
   typeAliases:    #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
-    - "cn.poem.solon.admin.**.domain.entity"
-  typeHandlers: #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
     - "cn.poem.solon.admin.**.domain.entity"
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
     - "cn.poem.solon.admin.**.mapper"
     - "classpath:mapper/**"
   configuration:  #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
-    mapperVerifyEnabled: false #如果为 true，则要求所有 mapper 有 @Mapper 主解
+    mapperVerifyEnabled: false
     mapUnderscoreToCamelCase: true
+    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
   globalConfig:   #全局配置（要与 FlexGlobalConfig 类的属性一一对应）//只是示例，别照抄
-    printBanner: false
-    keyConfig:
-      keyType: "Generator"
-      value: "snowFlakeId"
-
+    banner: false
+    metaObjectHandler: "demo4031.dso.MetaObjectHandlerImpl"
+    dbConfig:
+      idType: ASSIGN_ID
 solon.serialization.json:
   dateAsFormat: 'yyyy-MM-dd HH:mm:ss' #配置日期格式（默认输出为时间戳）
   dateAsTimeZone: 'GMT+8' #配置时区

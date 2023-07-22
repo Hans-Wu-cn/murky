@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.controller;
 
-import cn.poem.solon.core.utils.ApiResult;
+import cn.poem.core.utils.ApiResult;
 import cn.poem.solon.admin.system.domain.dto.LoginDto;
 import lombok.Data;
 import lombok.experimental.Accessors;

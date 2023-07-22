@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.poem.solon</groupId>
+        <artifactId>poem-framework-plugins</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>poem-core-plugin</artifactId>
+    <packaging>jar</packaging>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--jackson序列化-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.serialization.jackson</artifactId>
+        </dependency>
+        <!--接口文档依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-swagger2-knife4j</artifactId>
+        </dependency>
+        <!--实体转换依赖-->
+        <dependency>
+            <groupId>org.dromara.solon-plugins</groupId>
+            <artifactId>mapstruct-plus-solon-plugin</artifactId>
+        </dependency>
+        <!--日志依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.logging.simple</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

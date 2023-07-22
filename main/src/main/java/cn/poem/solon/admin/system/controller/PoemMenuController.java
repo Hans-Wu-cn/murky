@@ -1,16 +1,10 @@
 package cn.poem.solon.admin.system.controller;
 
+import cn.poem.core.extension.BaseController;
+import cn.poem.core.utils.ApiResult;
+import cn.poem.core.validat.Insert;
+import cn.poem.core.validat.Update;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
-import cn.poem.solon.admin.system.enums.OpenType;
-import cn.poem.solon.core.extension.BaseController;
-import cn.poem.solon.core.utils.ApiResult;
-import cn.poem.solon.core.validat.Insert;
-import cn.poem.solon.core.validat.Update;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.table.TableInfo;
-import com.mybatisflex.core.table.TableInfoFactory;
-import com.mybatisflex.core.util.ClassUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
@@ -20,7 +14,6 @@ import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -81,7 +74,6 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemMenuFromDTO poemMenuFromDTO){
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
         boolean result = baseService.updateById(poemMenu);
-        TableInfo tableInfo = TableInfoFactory.ofEntityClass(PoemMenu.class);
         return toResult(result);
     }
 
