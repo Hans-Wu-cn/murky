@@ -7,6 +7,10 @@ import cn.poem.solon.core.utils.ApiResult;
 import cn.poem.solon.core.validat.Insert;
 import cn.poem.solon.core.validat.Update;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.table.TableInfo;
+import com.mybatisflex.core.table.TableInfoFactory;
+import com.mybatisflex.core.util.ClassUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
@@ -77,6 +81,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemMenuFromDTO poemMenuFromDTO){
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
         boolean result = baseService.updateById(poemMenu);
+        TableInfo tableInfo = TableInfoFactory.ofEntityClass(PoemMenu.class);
         return toResult(result);
     }
 
