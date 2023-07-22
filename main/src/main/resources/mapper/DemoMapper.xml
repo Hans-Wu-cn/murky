@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.poem.solon.admin.mapper.DemoMapper">
-    <select id="findById" resultType="cn.poem.solon.admin.entity.Demo">
-        select * from demo
-    </select>
-    <select id="selectById" resultType="cn.poem.solon.admin.entity.Demo"></select>
-</mapper>

@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 public class MybatisPlusConfig {
         //此下的 db1 与 mybatis.db1 将对应在起来 //可以用 @Db("db1") 注入mapper
         //typed=true，表示默认数据源。@Db 可不带名字注入
-        @Bean(value = "db1", typed = true)
+        @Bean(value = "db", typed = true)
         public DataSource db1(@Inject("${postgres.db}") HikariDataSource ds) {
             return ds;
         }

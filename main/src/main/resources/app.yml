@@ -29,8 +29,8 @@ mybatis.db:
   typeAliases:    #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
     - "cn.poem.solon.admin.**.domain.entity"
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
-    - "cn.poem.solon.admin.**.mapper"
-    - "classpath:mapper/**"
+    - "cn.poem.solon.admin.system.mapper.*"
+    - "classpath:mapper/*.xml"
   configuration:  #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
     mapperVerifyEnabled: false
