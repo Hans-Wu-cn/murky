@@ -39,7 +39,7 @@
             <!--mybatis-flex orm依赖-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-mybatisplus-plugins</artifactId>
+                <artifactId>poem-mybatisplus-plugin</artifactId>
                 <version>${version}</version>
             </dependency>
             <dependency>

@@ -38,7 +38,7 @@ mybatis.db:
     logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
   globalConfig:   #全局配置（要与 FlexGlobalConfig 类的属性一一对应）//只是示例，别照抄
     banner: false
-    metaObjectHandler: "demo4031.dso.MetaObjectHandlerImpl"
+    metaObjectHandler: "cn.poem.mybatisplus.handler.PoemMetaBaseEntityHandler"
     dbConfig:
       idType: ASSIGN_ID
 solon.serialization.json:

@@ -19,6 +19,6 @@
 
     <modules>
         <module>poem-core-plugin</module>
-        <module>poem-mybatisplus-plugins</module>
+        <module>poem-mybatisplus-plugin</module>
     </modules>
 </project>

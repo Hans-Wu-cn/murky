@@ -43,7 +43,7 @@
         <!--poem mybatis-plus 依赖-->
         <dependency>
             <groupId>cn.poem.solon</groupId>
-            <artifactId>poem-mybatisplus-plugins</artifactId>
+            <artifactId>poem-mybatisplus-plugin</artifactId>
         </dependency>
         <!--配置读取yml-->
         <dependency>
