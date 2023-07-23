@@ -4,6 +4,7 @@ import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import com.baomidou.mybatisplus.solon.service.IService;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,4 +20,8 @@ public interface IPoemMenuService extends IService<PoemMenu> {
      * @return
      */
     List<PoemMenuTreeVO> treePoemMenu();
+
+
+//    @Override
+    boolean removeById(Serializable id);
 }

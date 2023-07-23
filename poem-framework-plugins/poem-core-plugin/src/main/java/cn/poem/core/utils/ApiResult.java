@@ -28,6 +28,10 @@ public class ApiResult<T> implements Serializable {
         return restResult(ApiResultEnum.SUCCESS, null);
     }
 
+    public static <T> ApiResult<T> fail(int code,String msg) {
+        return restResult(code,msg,null);
+    }
+
     public static <T> ApiResult<T> fail() {
         return restResult(ApiResultEnum.FAil, null);
     }
