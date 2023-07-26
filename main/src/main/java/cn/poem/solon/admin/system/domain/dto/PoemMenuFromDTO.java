@@ -2,11 +2,10 @@ package cn.poem.solon.admin.system.domain.dto;
 
 
 import cn.poem.core.validat.Update;
+import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.enums.MenuType;
 import cn.poem.solon.admin.system.enums.OpenType;
-import io.github.linpeilie.Converter;
-import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -18,7 +17,6 @@ import org.noear.solon.validation.annotation.NotNull;
 @Data
 @Accessors(chain = true)
 @ApiModel("菜单实体对象")
-@AutoMapper(target = PoemMenu.class)
 public class PoemMenuFromDTO{
     @ApiModelProperty("菜单id")
     @NotNull(groups = Update.class)
@@ -35,7 +33,6 @@ public class PoemMenuFromDTO{
     private String path;
 
     @ApiModelProperty("打开方式 1:当前窗口  2:新窗口")
-//    @NotNull
     private OpenType openType;
 
     @ApiModelProperty("权限码")
@@ -58,7 +55,11 @@ public class PoemMenuFromDTO{
     private String icon;
 
     public PoemMenu toEntity(){
-        Converter bean = Solon.context().getBean(Converter.class);
-        return bean.convert(this,PoemMenu.class);
+//        this.setMenuId(null);
+        return PoemMenuConvert.INSTANCES.toPoemMenu(this);
+    }
+
+    public void setOpenType(OpenType openType){
+        this.openType=openType;
     }
 }

@@ -26,9 +26,6 @@ import java.util.List;
 @Api("菜单管理")
 public class PoemMenuController extends BaseController<IPoemMenuService> {
 
-//    @Inject
-//    IPoemMenuService baseService;
-
     @ApiOperation("列表查询")
     @Get
     @Mapping("list")

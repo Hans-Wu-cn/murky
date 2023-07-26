@@ -19,6 +19,9 @@
         <n-form-item label="路径" path="path">
           <n-input placeholder="请输入路径" v-model:value="formParams.path" />
         </n-form-item>
+        <n-form-item label="组件" path="component">
+          <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
+        </n-form-item>
         <n-form-item label="打开方式" path="openType">
           <n-radio-group v-model:value="formParams.openType" name="openType">
             <n-space>
@@ -31,9 +34,9 @@
         <n-form-item label="菜单权限" path="auth">
           <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
         </n-form-item>
-        <n-form-item label="隐藏侧边栏" path="hidden">
+        <!-- <n-form-item label="隐藏侧边栏" path="hidden">
           <n-switch v-model:value="formParams.hidden" />
-        </n-form-item>
+        </n-form-item> -->
       </n-form>
 
       <template #footer>
@@ -50,6 +53,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue';
 import { useMessage } from 'naive-ui';
+import { addMenu, PoemMenu } from '@/api/system/menu';
 
 const rules = {
   label: {
@@ -71,33 +75,39 @@ export default defineComponent({
       type: String,
       default: '添加顶级菜单',
     },
+    parentMenuId: {
+      type: Number,
+      default: 0,
+    },
     width: {
       type: Number,
       default: 450,
     },
   },
-  setup() {
+  setup(props) {
     gridCollapsed: ref(false);
     gridCollapsedRows: ref(1);
     gridItemCount: ref(4);
     showSuffix: ref(true);
     const message = useMessage();
     const formRef: any = ref(null);
-    const defaultValueRef = () => ({
+    const defaultValueRef: PoemMenu = {
       label: '',
       type: 1,
       subtitle: '',
       openType: 1,
       auth: '',
       path: '',
-      hidden: false,
-      icon: ''
-    });
+      icon: '',
+      component: '',
+      // parentMenuId: 0,
+      sort: 0
+    };
 
     const state = reactive({
       isDrawer: false,
       subLoading: false,
-      formParams: defaultValueRef(),
+      formParams: defaultValueRef,
       placement: 'right' as const,
       alertText:
         '该功能主要实时预览各种布局效果，更多完整配置在 projectSetting.ts 中设置，建议在生产环境关闭该布局预览功能。',
@@ -105,6 +115,7 @@ export default defineComponent({
 
     function openDrawer() {
       state.isDrawer = true;
+      console.log(props.parentMenuId);
     }
 
     function closeDrawer() {
@@ -114,7 +125,9 @@ export default defineComponent({
     function formSubmit() {
       formRef.value.validate((errors) => {
         if (!errors) {
-          message.success('添加成功');
+          state.formParams.parentMenuId = props.parentMenuId
+          console.log(state.formParams);
+          save();
           handleReset();
           closeDrawer();
         } else {
@@ -125,7 +138,26 @@ export default defineComponent({
 
     function handleReset() {
       formRef.value.restoreValidation();
-      state.formParams = Object.assign(state.formParams, defaultValueRef());
+      let defaultValueRef: PoemMenu = {
+        label: '',
+        type: 1,
+        subtitle: '',
+        openType: 1,
+        auth: '',
+        path: '',
+        icon: '',
+        component: '',
+        // parentMenuId: 0,
+        sort: 0
+      }
+      state.formParams = Object.assign(state.formParams, defaultValueRef);
+    }
+
+    async function save() {
+      const { code } = await addMenu(state.formParams);
+      if (code === 200) {
+        message.success('添加成功');
+      }
     }
 
     return {

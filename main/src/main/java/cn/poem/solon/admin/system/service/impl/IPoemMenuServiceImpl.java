@@ -2,15 +2,17 @@ package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.core.exception.ServiceException;
 import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
+import cn.poem.solon.admin.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.service.IPoemMenuService;
 import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.solon.toolkit.SqlHelper;
+import com.mybatisflex.core.query.QueryOrderBy;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.util.LambdaGetter;
+import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
-import com.baomidou.mybatisplus.solon.service.impl.ServiceImpl;
 import org.noear.solon.data.annotation.Tran;
 
 import java.io.Serializable;
@@ -29,41 +31,48 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
 
     @Override
     public List<PoemMenuTreeVO> treePoemMenu() {
-        List<PoemMenu> allPoemMenuList = baseMapper.selectList(new LambdaQueryWrapper<PoemMenu>()
-                .orderByAsc(PoemMenu::getOrder));
+        List<PoemMenu> allPoemMenuList = mapper.selectListByQuery(
+                QueryWrapper.create()
+                        .select().from(PoemMenuTableDef.POEM_MENU)
+                        .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc())
+        );
+//        List<PoemMenu> allPoemMenuList = map.selectList(new LambdaQueryWrapper<PoemMenu>()
+//                .orderByAsc(PoemMenu::getSort));
         List<PoemMenuTreeVO> poemMenuTreeVOS = converter.poemMenuToPoemMenuTreeVO(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
-        buildTreePoemMenu(list,poemMenuTreeVOS);
+        buildTreePoemMenu(list, poemMenuTreeVOS);
         return list;
     }
 
     /**
      * 重写菜单删除方法
+     *
      * @param id
      * @return
      */
     @Override
     @Tran
     public boolean removeById(Serializable id) {
-        Long count = baseMapper.selectCount(new LambdaQueryWrapper<PoemMenu>()
-                .eq(PoemMenu::getParentMenuId, id)
+        Long count = mapper.selectCountByQuery(
+                QueryWrapper.create().from(PoemMenuTableDef.POEM_MENU).where(PoemMenuTableDef.POEM_MENU.PARENT_MENU_ID.eq(id))
         );
-        if(count !=0){
+        if (count != 0) {
             throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
         }
-        return super.removeById(id);
+        return true;
     }
 
     /**
      * 构建菜单树
+     *
      * @param parentMenuList 父级菜单
-     * @param poemMenuList 资源菜单
+     * @param poemMenuList   资源菜单
      */
-    private void buildTreePoemMenu(List<PoemMenuTreeVO> parentMenuList,List<PoemMenuTreeVO> poemMenuList){
+    private void buildTreePoemMenu(List<PoemMenuTreeVO> parentMenuList, List<PoemMenuTreeVO> poemMenuList) {
         for (PoemMenuTreeVO poemMenuTreeVO : parentMenuList) {
-            List<PoemMenuTreeVO> treePoemMenu=new ArrayList<>();
+            List<PoemMenuTreeVO> treePoemMenu = new ArrayList<>();
             for (PoemMenuTreeVO poemMenu : poemMenuList) {
-                if(poemMenu.getParentMenuId().equals(poemMenuTreeVO.getMenuId())){
+                if (poemMenu.getParentMenuId().equals(poemMenuTreeVO.getMenuId())) {
                     treePoemMenu.add(poemMenu);
                 }
             }

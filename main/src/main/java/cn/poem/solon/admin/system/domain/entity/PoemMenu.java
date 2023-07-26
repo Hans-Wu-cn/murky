@@ -1,9 +1,10 @@
 package cn.poem.solon.admin.system.domain.entity;
 
-import cn.poem.mybatisplus.extension.BaseEntity;
+import cn.poem.mybatisflex.extension.BaseEntity;
 import cn.poem.solon.admin.system.enums.MenuType;
 import cn.poem.solon.admin.system.enums.OpenType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,11 +14,11 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel("菜单实体对象")
+@Table("poem_menu")
 public class PoemMenu extends BaseEntity implements Serializable {
-    @TableId
+    @Id
     @ApiModelProperty("菜单id")
     private Long menuId;
 
@@ -43,7 +44,7 @@ public class PoemMenu extends BaseEntity implements Serializable {
     private MenuType type;
 
     @ApiModelProperty("排序")
-    private Short order;
+    private Short sort;
 
     @ApiModelProperty("组件路径")
     private String component;

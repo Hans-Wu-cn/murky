@@ -36,7 +36,7 @@ public class PoemMenuTreeVO implements Serializable {
     private String path;
 
     @ApiModelProperty("排序")
-    private Short order;
+    private Short sort;
 
     @ApiModelProperty("上级菜单id")
     private Long parentMenuId;

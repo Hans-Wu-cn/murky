@@ -12,7 +12,7 @@ solon.logging.logger:
     level: info
 
 postgres.db:
-  jdbcUrl: jdbc:postgresql://localhost:5432/dev
+  jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon
   driverClassName: org.postgresql.Driver
   username: postgres
   password: 123
@@ -31,16 +31,17 @@ mybatis.db:
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
     - "cn.poem.solon.admin.system.mapper.*"
     - "classpath:mapper/*.xml"
-  configuration:  #扩展配置（要与 FlexConfiguration 类的属性一一对应）
+  configuration: #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
-    mapperVerifyEnabled: false
+    mapperVerifyEnabled: false #如果为 true，则要求所有 mapper 有 @Mapper 主解
     mapUnderscoreToCamelCase: true
-    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
-  globalConfig:   #全局配置（要与 FlexGlobalConfig 类的属性一一对应）//只是示例，别照抄
-    banner: false
-    metaObjectHandler: "cn.poem.mybatisplus.handler.PoemMetaBaseEntityHandler"
-    dbConfig:
-      idType: ASSIGN_ID
+  globalConfig: #全局配置（要与 FlexGlobalConfig 类的属性一一对应）//只是示例，别照抄
+    printBanner: true
+    keyConfig:
+      keyType: "Generator"
+      value: "snowFlakeId"
+
+
 solon.serialization.json:
   dateAsFormat: 'yyyy-MM-dd HH:mm:ss' #配置日期格式（默认输出为时间戳）
   dateAsTimeZone: 'GMT+8' #配置时区

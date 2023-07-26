@@ -129,14 +129,14 @@
         </n-card>
       </n-gi>
     </n-grid>
-    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" />
+    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" :parentMenuId="drawerParentMenuId"/>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref, unref, reactive, onMounted, computed } from 'vue';
   import { useDialog, useMessage } from 'naive-ui';
   import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
-  import { getMenuList } from '@/api/system/menu';
+  import { getMenuList,removeMenu,PoemMenu } from '@/api/system/menu';
   import { getTreeItem } from '@/utils';
   import CreateDrawer from './CreateDrawer.vue';
 
@@ -170,7 +170,7 @@
   const treeItemTitle = ref('');
   const pattern = ref('');
   const drawerTitle = ref('');
-
+  let drawerParentMenuId = ref(Number);
   const isAddSon = computed(() => {
     return !treeItemKey.value.length;
   });
@@ -188,31 +188,35 @@
     },
   ]);
 
-  const formParams = reactive({
+  const formParams:PoemMenu = reactive({
+    menuId:0,
     type: 1,
     label: '',
     subtitle: '',
     path: '',
     auth: '',
     openType: 1,
+    sort:0,
+    component:'',
+    icon:''
   });
 
   function selectAddMenu(key: string) {
+    drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
     drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
     openCreateDrawer();
   }
 
   function openCreateDrawer() {
     const { openDrawer } = createDrawerRef.value;
+    console.log('drawerParentMenuId',drawerParentMenuId)
     openDrawer();
   }
 
   function selectedTree(keys) {
     if (keys.length) {
       const treeItem = getTreeItem(unref(treeData), keys[0]);
-      console.log(unref(treeData));
-      console.log(treeItem);
-      console.log(keys);
+      drawerParentMenuId.value=keys[0];
       treeItemKey.value = keys;
       treeItemTitle.value = treeItem.label;
       Object.assign(formParams, treeItem);
@@ -230,8 +234,11 @@
       content: `您确定想删除此权限吗?`,
       positiveText: '确定',
       negativeText: '取消',
-      onPositiveClick: () => {
-        message.success('删除成功');
+      onPositiveClick: async () => {
+       const {code} = await removeMenu(formParams.menuId);
+        if(code ===200){
+          message.success('删除成功');
+        }
       },
       onNegativeClick: () => {
         message.error('已取消');
@@ -263,13 +270,13 @@
   }
 
   onMounted(async () => {
-    const treeMenuList = await getMenuList();
-    console.log(treeMenuList);
-    const keys = treeMenuList.map((item) => item.menuId);
+    const {result} = await getMenuList();
+    console.log('treeMenuList',result);
+    const keys = result.map((item) => item.menuId);
     console.log("keys",keys);
     Object.assign(formParams, keys);
     console.log("formParams",formParams);
-    treeData.value = treeMenuList;
+    treeData.value = result;
     loading.value = false;
   });
 

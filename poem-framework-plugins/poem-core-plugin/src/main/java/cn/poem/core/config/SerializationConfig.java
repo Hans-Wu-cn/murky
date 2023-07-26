@@ -7,8 +7,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.serialization.jackson.JacksonActionExecutor;
-import org.noear.solon.serialization.jackson.JacksonRenderFactory;
+
+import org.noear.solon.serialization.snack3.SnackActionExecutor;
+import org.noear.solon.serialization.snack3.SnackRenderFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -21,7 +22,7 @@ import java.lang.reflect.Field;
 @Configuration
 public class SerializationConfig {
     @Bean
-    public void jsonInit(@Inject JacksonRenderFactory factory, @Inject JacksonActionExecutor executor) {
+    public void jsonInit(@Inject SnackRenderFactory factory, @Inject SnackActionExecutor executor) {
 //        //方式1：通过转换器，做简单类型的定制
 //        factory.addConvertor(Date.class, s -> s.getTime());
 //
@@ -30,28 +31,27 @@ public class SerializationConfig {
 //        factory.addConvertor(Long.class, s -> String.valueOf(s));
 
         //方式2：通过编码器，做复杂类型的原生定制（基于框架原生接口）
-        factory.addEncoder(Enum.class, new JsonSerializer<Enum>() {
-            @Override
-            public void serialize(Enum anEnum, JsonGenerator out, SerializerProvider serializerProvider) throws IOException {
-                try {
-                    for (Field field : anEnum.getClass().getDeclaredFields()) {
-                        if (!field.isAnnotationPresent(JsonValue.class)) {
-                            continue;
-                        }
-                        field.setAccessible(true);
-                        if (field.getGenericType() == Integer.class) {
-                            out.writeNumber((Integer) field.get(anEnum));
-                        }
-                        if (field.getGenericType() == String.class) {
-                            out.writeString((String) field.get(anEnum));
-                        }
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        //factory.config()...
+//        factory.addEncoder(Enum.class, new JsonSerializer<Enum>() {
+//            @Override
+//            public void serialize(Enum anEnum, JsonGenerator out, SerializerProvider serializerProvider) throws IOException {
+//                try {
+//                    for (Field field : anEnum.getClass().getDeclaredFields()) {
+//                        if (!field.isAnnotationPresent(JsonValue.class)) {
+//                            continue;
+//                        }
+//                        field.setAccessible(true);
+//                        if (field.getGenericType() == Integer.class) {
+//                            out.writeNumber((Integer) field.get(anEnum));
+//                        }
+//                        if (field.getGenericType() == String.class) {
+//                            out.writeString((String) field.get(anEnum));
+//                        }
+//                    }
+//                } catch (IllegalAccessException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });87
 
         //executor.config()...
     }

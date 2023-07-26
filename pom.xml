@@ -30,16 +30,10 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--poem核心依赖-->
-<!--            <dependency>-->
-<!--                <groupId>cn.poem.solon</groupId>-->
-<!--                <artifactId>poem-core</artifactId>-->
-<!--                <version>${version}</version>-->
-<!--            </dependency>-->
-            <!--mybatis-flex orm依赖-->
+            <!--mybatis-plus 模块-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-mybatisplus-plugin</artifactId>
+                <artifactId>poem-mybatisflex-plugin</artifactId>
                 <version>${version}</version>
             </dependency>
             <dependency>
