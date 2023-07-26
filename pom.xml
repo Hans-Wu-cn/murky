@@ -30,12 +30,13 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--mybatis-plus 模块-->
+            <!--poem mybatis-flex 模块-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
                 <artifactId>poem-mybatisflex-plugin</artifactId>
                 <version>${version}</version>
             </dependency>
+            <!--poem-core 模块-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
                 <artifactId>poem-core-plugin</artifactId>

@@ -33,6 +33,7 @@
             <artifactId>HikariCP</artifactId>
             <version>${HikariCP.verion}</version>
         </dependency>
+        <!--pgsql驱动-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

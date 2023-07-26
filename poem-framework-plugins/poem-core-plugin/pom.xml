@@ -23,11 +23,7 @@
             <artifactId>solon</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        &lt;!&ndash;jackson序列化&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.noear</groupId>-->
-<!--            <artifactId>solon.serialization.jackson</artifactId>-->
-<!--        </dependency>-->
+        <!--jackson序列化-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.serialization.snack3</artifactId>
@@ -37,29 +33,19 @@
             <groupId>org.noear</groupId>
             <artifactId>solon-swagger2-knife4j</artifactId>
         </dependency>
-        <!--实体转换依赖-->
+        <!-- start 实体转换依赖-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-
-
-        <!--        <dependency>-->
-<!--            <groupId>org.dromara.solon-plugins</groupId>-->
-<!--            <artifactId>mapstruct-plus-solon-plugin</artifactId>-->
-<!--        </dependency>-->
+        <!--end 实体转换依赖-->
         <!--日志依赖-->
-<!--        <dependency>-->
-<!--            <groupId>org.noear</groupId>-->
-<!--            <artifactId>solon.logging</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.logging.simple</artifactId>
