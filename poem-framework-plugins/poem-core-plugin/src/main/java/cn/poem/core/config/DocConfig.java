@@ -17,7 +17,7 @@ import org.noear.solon.docs.models.ApiInfo;
  * @author hans
  */
 @Configuration
-public class DocConfig {
+public class DocConfig{
     // knife4j 的配置，由它承载
     @Inject
     OpenApiExtensionResolver openApiExtensionResolver;

@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.noear.snack.annotation.ONodeAttr;
 
 
-@ToString
 @AllArgsConstructor
 @Getter
 @JsonFormat
@@ -22,4 +21,8 @@ public enum OpenType {
     private final Integer code;
     private final String des;
 
+    @Override
+    public String toString() {
+        return this.code+":"+this.des;
+    }
 }
