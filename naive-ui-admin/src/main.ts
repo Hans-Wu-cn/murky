@@ -4,6 +4,7 @@ import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
+import svgIcon from '@/components/SvgIcon/index.vue'; //全局svg注册组件
 
 async function bootstrap() {
   const app = createApp(App);
@@ -38,6 +39,8 @@ async function bootstrap() {
   meta.name = 'naive-ui-style';
   document.head.appendChild(meta);
 
+  app.component('svg-icon', svgIcon); //全局注册svg组件
+   
   app.mount('#app', true);
 }
 
