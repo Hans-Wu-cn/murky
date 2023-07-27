@@ -36,10 +36,22 @@ export function addMenu(poemMenu:PoemMenu) {
 }
 
 /**
+ * 添加菜单
+ * @param params
+ */
+export function editMenu(poemMenu:PoemMenu) {
+  return http.request({
+    url: '/poemMenu',
+    method: 'PUT',
+    params:poemMenu,
+  });
+}
+
+/**
  * 删除菜单
  * @param menuId
  */
-export function removeMenu(menuId:any) {
+export function removeMenu(menuId:number) {
   return http.request({
     url: `/poemMenu/${menuId}`,
     method: 'DELETE',

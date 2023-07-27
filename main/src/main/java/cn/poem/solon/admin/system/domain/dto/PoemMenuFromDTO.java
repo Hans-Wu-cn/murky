@@ -46,7 +46,7 @@ public class PoemMenuFromDTO{
     private MenuType type;
 
     @ApiModelProperty("排序")
-    private Short order;
+    private Short sort;
 
     @ApiModelProperty("组件路径")
     private String compoment;
@@ -57,9 +57,5 @@ public class PoemMenuFromDTO{
     public PoemMenu toEntity(){
 //        this.setMenuId(null);
         return PoemMenuConvert.INSTANCES.toPoemMenu(this);
-    }
-
-    public void setOpenType(OpenType openType){
-        this.openType=openType;
     }
 }

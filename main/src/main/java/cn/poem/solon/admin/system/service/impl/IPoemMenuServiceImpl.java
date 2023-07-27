@@ -26,8 +26,6 @@ import java.util.List;
  */
 @ProxyComponent
 public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> implements IPoemMenuService {
-    @Inject
-    PoemMenuConvert converter;
 
     @Override
     public List<PoemMenuTreeVO> treePoemMenu() {
@@ -38,7 +36,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         );
 //        List<PoemMenu> allPoemMenuList = map.selectList(new LambdaQueryWrapper<PoemMenu>()
 //                .orderByAsc(PoemMenu::getSort));
-        List<PoemMenuTreeVO> poemMenuTreeVOS = converter.poemMenuToPoemMenuTreeVO(allPoemMenuList);
+        List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.poemMenuToPoemMenuTreeVO(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);
         return list;
@@ -56,10 +54,10 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         Long count = mapper.selectCountByQuery(
                 QueryWrapper.create().from(PoemMenuTableDef.POEM_MENU).where(PoemMenuTableDef.POEM_MENU.PARENT_MENU_ID.eq(id))
         );
-        if (count != 0) {
+        if (count > 0) {
             throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
         }
-        return true;
+        return super.removeById(id);
     }
 
     /**

@@ -23,7 +23,7 @@
             <artifactId>solon</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--jackson序列化-->
+        <!--snack序列化-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.serialization.snack3</artifactId>

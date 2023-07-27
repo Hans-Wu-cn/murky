@@ -118,6 +118,9 @@ const transform: AxiosTransform = {
           onNegativeClick: () => {},
         });
         break;
+      default:
+        $message.error(message);
+        break;
     }
     throw new Error(errorMsg);
   },
@@ -199,8 +202,13 @@ const transform: AxiosTransform = {
       response && response.data && response.data.message ? response.data.message : '';
     const err: string = error.toString();
     try {
+      console.log('responseInterceptorsCatch',code);
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         $message.error('接口请求超时，请刷新页面重试!');
+        return;
+      }
+      if (code !== 200) {
+        $message.error(message);
         return;
       }
       if (err && err.includes('Network Error')) {
