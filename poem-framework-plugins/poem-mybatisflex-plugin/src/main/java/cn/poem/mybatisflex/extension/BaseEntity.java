@@ -3,6 +3,7 @@ package cn.poem.mybatisflex.extension;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -15,12 +16,12 @@ public class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
-    protected Date createTime;
+    protected LocalDateTime createTime;
 
     /**
      * 修改时间
      */
-    protected Date updateTime;
+    protected LocalDateTime updateTime;
 
     /**
      * 创建人

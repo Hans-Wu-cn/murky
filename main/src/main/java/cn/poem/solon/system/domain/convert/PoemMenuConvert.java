@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * PoemMenu实体转化接口
  *
- * @author 吴志豪
+ * @author hans
  */
 @Mapper
 public interface PoemMenuConvert {
@@ -22,12 +22,12 @@ public interface PoemMenuConvert {
      * @param poemMenuSaveDTO
      * @return
      */
-    PoemMenu toPoemMenu(PoemMenuFromDTO poemMenuSaveDTO);
+    PoemMenu toEntity(PoemMenuFromDTO poemMenuSaveDTO);
 
     /**
      * poemMenuToPoemMenuTreeVO 菜单实体转树形菜单vo
      * @param poemMenu
      * @return
      */
-    List<PoemMenuTreeVO> poemMenuToPoemMenuTreeVO(List<PoemMenu> poemMenu);
+    List<PoemMenuTreeVO> toEntity(List<PoemMenu> poemMenu);
 }

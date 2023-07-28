@@ -4,33 +4,37 @@ import { NTag } from 'naive-ui';
 export const columns = [
   {
     title: 'id',
-    key: 'id',
+    key: 'roleId',
   },
   {
     title: '角色名称',
-    key: 'name',
+    key: 'roleName',
+  },
+  {
+    title: '角色码',
+    key: 'roleCode',
   },
   {
     title: '说明',
-    key: 'explain',
+    key: 'describe',
   },
-  {
-    title: '是否默认角色',
-    key: 'isDefault',
-    render(row) {
-      return h(
-        NTag,
-        {
-          type: row.isDefault ? 'success' : 'error',
-        },
-        {
-          default: () => (row.isDefault ? '是' : '否'),
-        }
-      );
-    },
-  },
+  // {
+  //   title: '是否默认角色',
+  //   key: 'isDefault',
+  //   render(row) {
+  //     return h(
+  //       NTag,
+  //       {
+  //         type: row.isDefault ? 'success' : 'error',
+  //       },
+  //       {
+  //         default: () => (row.isDefault ? '是' : '否'),
+  //       }
+  //     );
+  //   },
+  // },
   {
     title: '创建时间',
-    key: 'create_date',
+    key: 'createTime',
   },
 ];

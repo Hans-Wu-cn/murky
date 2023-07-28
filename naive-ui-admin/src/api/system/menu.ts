@@ -31,7 +31,7 @@ export function addMenu(poemMenu:PoemMenu) {
   return http.request({
     url: '/poemMenu',
     method: 'POST',
-    params:poemMenu,
+    data:poemMenu,
   });
 }
 

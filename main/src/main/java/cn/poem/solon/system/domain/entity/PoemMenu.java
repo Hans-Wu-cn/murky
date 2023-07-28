@@ -12,6 +12,11 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * 菜单实体类
+ *
+ * @author hans
+ */
 @Data
 @Accessors(chain = true)
 @ApiModel("菜单实体对象")

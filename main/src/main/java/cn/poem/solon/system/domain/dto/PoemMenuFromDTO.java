@@ -13,9 +13,15 @@ import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
+
+/**
+ * 菜单表单类
+ *
+ * @author hans
+ */
 @Data
 @Accessors(chain = true)
-@ApiModel("菜单实体对象")
+@ApiModel("菜单表单类")
 public class PoemMenuFromDTO{
     @ApiModelProperty("菜单id")
     @NotNull(groups = Update.class)
@@ -54,7 +60,6 @@ public class PoemMenuFromDTO{
     private String icon;
 
     public PoemMenu toEntity(){
-//        this.setMenuId(null);
-        return PoemMenuConvert.INSTANCES.toPoemMenu(this);
+        return PoemMenuConvert.INSTANCES.toEntity(this);
     }
 }

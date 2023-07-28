@@ -12,7 +12,7 @@ public class BaseController<T> {
 
     @Inject
     protected T baseService;
-    protected ApiResult<?> toResult(boolean b) {
+    protected ApiResult<?> toResult(Boolean b) {
         return b ? ApiResult.ok() : ApiResult.fail();
     }
 }

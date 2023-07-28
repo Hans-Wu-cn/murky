@@ -33,7 +33,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         );
 //        List<PoemMenu> allPoemMenuList = map.selectList(new LambdaQueryWrapper<PoemMenu>()
 //                .orderByAsc(PoemMenu::getSort));
-        List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.poemMenuToPoemMenuTreeVO(allPoemMenuList);
+        List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);
         return list;

@@ -27,9 +27,9 @@ postgres.db:
 # 配置数据源对应的 我给你找出那个文档mybatis 信息（要与 DataSource bean 的名字对上）这个是solon的官网提供的而应该是没错上面的pgsql
 mybatis.db:
   typeAliases:    #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
-    - "cn.poem.solon.admin.**.domain.entity"
+    - "cn.poem.solon.**.domain.entity"
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
-    - "cn.poem.solon.admin.system.mapper.*"
+    - "cn.poem.solon.system.mapper.*"
     - "classpath:mapper/*.xml"
   configuration: #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
