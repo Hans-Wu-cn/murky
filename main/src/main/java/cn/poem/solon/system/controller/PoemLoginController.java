@@ -1,7 +1,7 @@
-package cn.poem.solon.admin.system.controller;
+package cn.poem.solon.system.controller;
 
 import cn.poem.core.utils.ApiResult;
-import cn.poem.solon.admin.system.domain.dto.LoginDto;
+import cn.poem.solon.system.domain.dto.LoginDto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.noear.solon.annotation.*;

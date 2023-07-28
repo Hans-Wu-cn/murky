@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.system.enums;
+package cn.poem.solon.system.enums;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;

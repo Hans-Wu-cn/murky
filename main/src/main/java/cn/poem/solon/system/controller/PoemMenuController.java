@@ -1,16 +1,15 @@
-package cn.poem.solon.admin.system.controller;
+package cn.poem.solon.system.controller;
 
-import cn.poem.core.exception.ServiceException;
 import cn.poem.core.extension.BaseController;
 import cn.poem.core.utils.ApiResult;
 import cn.poem.core.validat.Insert;
 import cn.poem.core.validat.Update;
-import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
+import cn.poem.solon.system.domain.dto.PoemMenuFromDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.admin.system.domain.entity.PoemMenu;
-import cn.poem.solon.admin.system.service.IPoemMenuService;
+import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.service.IPoemMenuService;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;

@@ -1,7 +1,7 @@
-package cn.poem.solon.admin.system.domain.vo;
+package cn.poem.solon.system.domain.vo;
 
-import cn.poem.solon.admin.system.enums.MenuType;
-import cn.poem.solon.admin.system.enums.OpenType;
+import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.enums.OpenType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

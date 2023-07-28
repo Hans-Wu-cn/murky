@@ -1,17 +1,14 @@
-package cn.poem.solon.admin.system.service.impl;
+package cn.poem.solon.system.service.impl;
 
 import cn.poem.core.exception.ServiceException;
-import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
-import cn.poem.solon.admin.system.domain.entity.table.PoemMenuTableDef;
-import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.admin.system.domain.entity.PoemMenu;
-import cn.poem.solon.admin.system.service.IPoemMenuService;
-import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
-import com.mybatisflex.core.query.QueryOrderBy;
+import cn.poem.solon.system.domain.convert.PoemMenuConvert;
+import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
+import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.service.IPoemMenuService;
+import cn.poem.solon.system.mapper.PoemMenuMapper;
 import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.util.LambdaGetter;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
-import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
 

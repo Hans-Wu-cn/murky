@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.entity;
+package cn.poem.solon.entity;
 
 
 import lombok.Data;

@@ -1,16 +1,15 @@
-package cn.poem.solon.admin.system.domain.dto;
+package cn.poem.solon.system.domain.dto;
 
 
 import cn.poem.core.validat.Update;
-import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
-import cn.poem.solon.admin.system.domain.entity.PoemMenu;
-import cn.poem.solon.admin.system.enums.MenuType;
-import cn.poem.solon.admin.system.enums.OpenType;
+import cn.poem.solon.system.domain.convert.PoemMenuConvert;
+import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.enums.OpenType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.noear.solon.Solon;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 

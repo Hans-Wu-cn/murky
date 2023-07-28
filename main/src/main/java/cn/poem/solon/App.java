@@ -1,4 +1,4 @@
-package cn.poem.solon.admin;
+package cn.poem.solon;
 
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Import;

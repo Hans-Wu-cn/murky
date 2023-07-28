@@ -1,7 +1,7 @@
-package cn.poem.solon.admin.system.service;
+package cn.poem.solon.system.service;
 
-import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.admin.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.system.domain.entity.PoemMenu;
 import com.mybatisflex.core.service.IService;
 
 import java.io.Serializable;

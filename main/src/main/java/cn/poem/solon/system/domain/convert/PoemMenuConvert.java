@@ -1,8 +1,8 @@
-package cn.poem.solon.admin.system.domain.convert;
+package cn.poem.solon.system.domain.convert;
 
-import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
-import cn.poem.solon.admin.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.system.domain.dto.PoemMenuFromDTO;
+import cn.poem.solon.system.domain.entity.PoemMenu;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

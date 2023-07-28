@@ -1,6 +1,6 @@
-package cn.poem.solon.admin.service;
+package cn.poem.solon.service;
 
-import cn.poem.solon.admin.entity.Demo;
+import cn.poem.solon.entity.Demo;
 
 public interface DemoService  {
     Demo findById(Long id);

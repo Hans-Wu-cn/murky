@@ -1,14 +1,13 @@
-package cn.poem.solon.admin.system.domain.entity;
+package cn.poem.solon.system.domain.entity;
 
 import cn.poem.mybatisflex.extension.BaseEntity;
-import cn.poem.solon.admin.system.enums.MenuType;
-import cn.poem.solon.admin.system.enums.OpenType;
+import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.enums.OpenType;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;

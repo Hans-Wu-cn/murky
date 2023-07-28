@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.system.domain.dto;
+package cn.poem.solon.system.domain.dto;
 
 import lombok.Data;
 
