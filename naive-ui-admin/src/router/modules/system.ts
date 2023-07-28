@@ -42,6 +42,14 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/system/role/role.vue'),
       },
+      {
+        path: 'test',
+        name: 'system_test',
+        meta: {
+          title: '测试页面',
+        },
+        component: () => import('@/views/system/test/test.vue'),
+      },
     ],
   },
 ];
