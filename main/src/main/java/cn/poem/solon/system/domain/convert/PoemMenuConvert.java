@@ -25,7 +25,7 @@ public interface PoemMenuConvert {
     PoemMenu toEntity(PoemMenuFromDTO poemMenuSaveDTO);
 
     /**
-     * poemMenuToPoemMenuTreeVO 菜单实体转树形菜单vo
+     * PoemMenu 菜单实体转树形菜单vo
      * @param poemMenu
      * @return
      */

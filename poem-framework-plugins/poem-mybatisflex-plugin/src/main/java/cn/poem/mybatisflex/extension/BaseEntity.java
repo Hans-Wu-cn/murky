@@ -1,6 +1,8 @@
 package cn.poem.mybatisflex.extension;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,7 +13,8 @@ import java.util.Date;
  * 方便字段填充
  * @author hans
  */
-@Data
+@Getter
+@Setter
 public class BaseEntity implements Serializable {
     /**
      * 创建时间

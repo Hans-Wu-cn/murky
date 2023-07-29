@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotNull;
 
+import java.util.List;
+
 /**
  * 角色表单类
  *
@@ -32,6 +34,9 @@ public class PoemRoleFromDTO {
 
     @ApiModelProperty("描述")
     private String describe;
+
+    @ApiModelProperty("描述")
+    private List<Long> menuIds;
 
     public PoemRole toEntity(){
         return PoemRoleConvert.INSTANCES.toEntity(this);

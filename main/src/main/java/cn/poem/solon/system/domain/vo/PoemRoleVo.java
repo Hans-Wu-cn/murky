@@ -1,24 +1,22 @@
-package cn.poem.solon.system.domain.entity;
+package cn.poem.solon.system.domain.vo;
 
-import cn.poem.mybatisflex.extension.BaseEntity;
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
- * 角色实体类
+ * 角色视图类,包含对应的菜单关系
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("角色实体类")
-@Table("poem_role")
-public class PoemRole extends BaseEntity {
-    @Id
+@ApiModel("角色视图类")
+public class PoemRoleVo implements Serializable {
     @ApiModelProperty("主键")
     private Long roleId;
 
@@ -30,4 +28,7 @@ public class PoemRole extends BaseEntity {
 
     @ApiModelProperty("描述")
     private String describe;
+
+    @ApiModelProperty("菜单id集合")
+    private List<Long> menuIds;
 }

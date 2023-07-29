@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("菜单实体对象")
+@ApiModel("菜单实体类")
 @Table("poem_menu")
 public class PoemMenu extends BaseEntity implements Serializable {
     @Id

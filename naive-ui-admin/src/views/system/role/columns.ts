@@ -37,4 +37,8 @@ export const columns = [
     title: '创建时间',
     key: 'createTime',
   },
+  {
+    title: '修改时间',
+    key: 'updateTime',
+  },
 ];

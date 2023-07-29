@@ -4,6 +4,8 @@ import cn.poem.mybatisflex.extension.BaseEntity;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PoemInsertListener implements InsertListener, UpdateListener {
@@ -12,7 +14,7 @@ public class PoemInsertListener implements InsertListener, UpdateListener {
         if(o instanceof BaseEntity){
             //todo 填充字段
             BaseEntity baseEntity=(BaseEntity) o;
-            baseEntity.setCreateTime(new Date());
+            baseEntity.setCreateTime(LocalDateTime.now());
         }
     }
 
@@ -21,7 +23,7 @@ public class PoemInsertListener implements InsertListener, UpdateListener {
         if(o instanceof BaseEntity){
             //todo 填充字段
             BaseEntity baseEntity=(BaseEntity) o;
-            baseEntity.setUpdateTime(new Date());
+            baseEntity.setUpdateTime(LocalDateTime.now());
         }
     }
 }

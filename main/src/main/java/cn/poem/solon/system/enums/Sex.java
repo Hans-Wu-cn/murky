@@ -3,22 +3,18 @@ package cn.poem.solon.system.enums;
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.noear.snack.annotation.ONodeAttr;
 
-
 /**
- * 菜单类型
- *
- * @author hans
+ * 性别枚举
  */
 @AllArgsConstructor
 @Getter
-public enum MenuType {
-    DIRECTORY(0,"目录"),
-    MENU(1,"菜单"),
-    BUTTON(2,"按钮"),
-    ;
+public enum Sex {
+    MAN(0,"男性"),
+    WOMAN(1,"女性"),
+    OTHER(2,"其他"),;
+
     @EnumValue
     @ONodeAttr
     private final Integer code;
