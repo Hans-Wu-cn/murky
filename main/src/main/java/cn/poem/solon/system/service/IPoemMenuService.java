@@ -17,11 +17,15 @@ public interface IPoemMenuService extends IService<PoemMenu> {
     /**
      * 获取树形菜单
      *
-     * @return
+     * @return 菜单树视图对象
      */
     List<PoemMenuTreeVO> treePoemMenu();
 
 
-//    @Override
+    /**
+     * 删除菜单业务
+     * @param id 数据主键
+     * @return 删除成功状态
+     */
     boolean removeById(Serializable id);
 }

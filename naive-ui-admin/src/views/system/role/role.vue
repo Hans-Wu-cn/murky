@@ -55,10 +55,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, unref, h, onMounted } from 'vue';
+import { reactive, ref, h, onMounted } from 'vue';
+import { PageRequest } from '@/api/types'
 import { useMessage } from 'naive-ui';
 import { BasicTable, TableAction } from '@/components/Table';
-import { getRoleList, addRole, editRole, removeRole, getRoleInfo, PoemRoleFrom } from '@/api/system/role';
+import { getRolePage, addRole, editRole, removeRole, getRoleInfo } from '@/api/system/role';
+import { PoemRoleFrom } from '@/api/system/role/types';
 import { getMenuList } from '@/api/system/menu';
 import { columns } from './columns';
 import { PlusOutlined } from '@vicons/antd';
@@ -71,11 +73,6 @@ const formBtnLoading = ref(false);
 const treeData = ref([]);
 const showSaveModal = ref(false);
 const saveModalTitle = ref('');
-
-const params = reactive({
-  pageSize: 5,
-});
-
 const actionColumn = reactive({
   width: 250,
   title: '操作',
@@ -136,14 +133,11 @@ const rules = {
 
 /**
  * 加载表格数据
- * @param res 返回列表数据，包含分页信息
+ * @param res 返回分页信息
  */
-const loadDataTable = async (res: any) => {
-  let _params = {
-    ...unref(params),
-    ...res,
-  };
-  const { result } = await getRoleList();
+const loadDataTable = async (res: PageRequest) => {
+  const { result } = await getRolePage(res);
+  console.log(result)
   return result;
 };
 
@@ -258,3 +252,4 @@ onMounted(async () => {
 </script>
 
 <style lang="less" scoped></style>
+@/api/system/role/role@/api/system/menu/menu

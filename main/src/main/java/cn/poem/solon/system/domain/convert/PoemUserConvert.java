@@ -2,6 +2,7 @@ package cn.poem.solon.system.domain.convert;
 
 import cn.poem.solon.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.system.domain.entity.PoemUser;
+import cn.poem.solon.system.domain.vo.PoemUserVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -20,4 +21,11 @@ public interface PoemUserConvert {
      * @return
      */
     PoemUser toEntity(PoemUserFromDTO PoemUserFromDTO);
+
+    /**
+     * 将PoemUser转为PoemUserVo
+     * @param poemUser
+     * @return PoemUserVo
+     */
+    PoemUserVo toVo(PoemUser poemUser);
 }

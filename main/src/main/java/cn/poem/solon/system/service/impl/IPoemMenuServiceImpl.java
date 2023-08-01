@@ -3,12 +3,15 @@ package cn.poem.solon.system.service.impl;
 import cn.poem.core.exception.ServiceException;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
+import cn.poem.solon.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.mapper.PoemMenuMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
 
@@ -24,6 +27,14 @@ import java.util.List;
 @ProxyComponent
 public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> implements IPoemMenuService {
 
+    @Inject
+    PoemRoleMenuMapper poemRoleMenuMapper;
+
+    /**
+     * 获取树形菜单
+     *
+     * @return 菜单树视图对象
+     */
     @Override
     public List<PoemMenuTreeVO> treePoemMenu() {
         List<PoemMenu> allPoemMenuList = mapper.selectListByQuery(
@@ -40,10 +51,9 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     }
 
     /**
-     * 重写菜单删除方法
-     *
-     * @param id
-     * @return
+     * 删除菜单业务
+     * @param id 数据主键
+     * @return 删除成功状态
      */
     @Override
     @Tran
@@ -53,6 +63,12 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         );
         if (count > 0) {
             throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
+        }
+        long l = poemRoleMenuMapper.selectCountByQuery(QueryWrapper.create().where(
+                PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID.eq(id)
+        ));
+        if(l>0){
+            throw new ServiceException("删除失败,请保证该菜单没有被角色引用");
         }
         return super.removeById(id);
     }

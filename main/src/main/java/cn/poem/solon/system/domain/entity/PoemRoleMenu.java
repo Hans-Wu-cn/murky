@@ -18,12 +18,10 @@ import lombok.experimental.Accessors;
 @ApiModel("角色菜单关系实体类")
 @Table("poem_role_menu")
 public class PoemRoleMenu {
-//    @Id(keyType = KeyType.None)
-    @ApiModelProperty("角色Id")
+    @ApiModelProperty("角色id")
     private Long roleId;
 
-//    @Id(keyType = KeyType.None)
-    @ApiModelProperty("菜单Id")
+    @ApiModelProperty("菜单id")
     private Long menuId;
 
 }

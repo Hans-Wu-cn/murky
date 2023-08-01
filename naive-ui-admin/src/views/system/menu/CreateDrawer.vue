@@ -53,7 +53,8 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue';
 import { useMessage } from 'naive-ui';
-import { addMenu, PoemMenu } from '@/api/system/menu';
+import { addMenu} from '@/api/system/menu';
+import { PoemMenu} from '@/api/system/menu/types';
 
 const rules = {
   label: {
@@ -76,8 +77,8 @@ export default defineComponent({
       default: '添加顶级菜单',
     },
     parentMenuId: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '0',
     },
     width: {
       type: Number,
@@ -199,4 +200,4 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
 }
-</style>
+</style>@/api/system/menu/menu

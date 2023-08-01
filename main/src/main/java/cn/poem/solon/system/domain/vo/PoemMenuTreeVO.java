@@ -10,9 +10,14 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 菜单树视图类
+ *
+ * @author hans
+ */
 @Data
 @Accessors(chain = true)
-@ApiModel("菜单树")
+@ApiModel("菜单树视图类")
 public class PoemMenuTreeVO implements Serializable {
     @ApiModelProperty("菜单标题")
     private String label;
@@ -42,7 +47,7 @@ public class PoemMenuTreeVO implements Serializable {
     private Long parentMenuId;
 
     @ApiModelProperty("组件路径")
-    private String compoment;
+    private String component;
 
     @ApiModelProperty("图标")
     private String icon;

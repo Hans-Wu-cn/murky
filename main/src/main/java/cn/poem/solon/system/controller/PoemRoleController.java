@@ -19,6 +19,8 @@ import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
+import java.util.List;
+
 /***
  * 角色Controller
  *
@@ -29,35 +31,43 @@ import org.noear.solon.validation.annotation.Validated;
 @Mapping("poemRole")
 @Api("角色管理")
 public class PoemRoleController extends BaseController<IPoemRoleService> {
-    @ApiOperation("列表查询")
+    @ApiOperation("角色列表分页查询")
     @Get
     @Mapping("page")
     public ApiResult<Page<PoemRole>> page(PoemRolePageDTO poemRolePageDTO) {
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create().
-                orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
+                        orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
     }
 
-    @ApiOperation("菜单详情")
+    @ApiOperation("角色列表查询")
+    @Get
+    @Mapping("list")
+    public ApiResult<List<PoemRole>> list(PoemRolePageDTO poemRolePageDTO) {
+        List<PoemRole> result = baseService.list(
+                QueryWrapper.create().
+                        orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
+        );
+        return ApiResult.ok(result);
+    }
+
+    @ApiOperation("角色详情")
     @Get
     @Mapping("{roleId}")
     public ApiResult<PoemRoleVo> info(Long roleId) {
         return ApiResult.ok(baseService.info(roleId));
     }
 
-    @ApiOperation("新增菜单")
+    @ApiOperation("新增角色")
     @Post
     @Mapping
-    public ApiResult<PoemRole> add(@Body @Validated(Insert.class) PoemRoleFromDTO poemRoleFromDTO) {
-        if (baseService.save(poemRoleFromDTO)) {
-            return ApiResult.ok();
-        }
-        return ApiResult.fail();
+    public ApiResult<?> add(@Body @Validated(Insert.class) PoemRoleFromDTO poemRoleFromDTO) {
+        return toResult(baseService.save(poemRoleFromDTO));
     }
 
-    @ApiOperation("修改菜单")
+    @ApiOperation("修改角色")
     @Put
     @Mapping
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemRoleFromDTO poemRoleFromDTO) {
@@ -65,7 +75,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
         return toResult(result);
     }
 
-    @ApiOperation("删除菜单")
+    @ApiOperation("删除角色")
     @Delete
     @Mapping("/{roleId}")
     public ApiResult<?> remove(Long roleId) {

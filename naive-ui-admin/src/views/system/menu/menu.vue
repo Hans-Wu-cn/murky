@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="n-layout-page-header">
-      <n-card :bordered="false" title="菜单权限管理">
-        页面数据为 Mock 示例数据，非真实数据。
-      </n-card>
-    </div>
     <n-grid class="mt-4" cols="1 s:1 m:1 l:3 xl:3 2xl:3" responsive="screen" :x-gap="12">
       <n-gi span="1">
         <n-card :segmented="{ content: true }" :bordered="false" size="small">
@@ -34,7 +29,9 @@
               </n-button>
               <n-button @click="refresh" strong secondary circle :dashed="true" type="default">
                 <template #icon>
-                  <n-icon><Refresh /></n-icon>
+                  <n-icon>
+                    <Refresh />
+                  </n-icon>
                 </template>
               </n-button>
             </n-space>
@@ -93,6 +90,9 @@
             <n-form-item label="路径" path="path">
               <n-input placeholder="请输入路径" v-model:value="formParams.path" />
             </n-form-item>
+            <n-form-item label="组件" path="component">
+              <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
+            </n-form-item>
             <n-form-item label="打开方式" path="openType">
               <n-radio-group v-model:value="formParams.openType" name="openType">
                 <n-space>
@@ -126,10 +126,12 @@
 import { ref, unref, reactive, onMounted, computed } from 'vue';
 import { useDialog, useMessage } from 'naive-ui';
 import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
-import { getMenuList, removeMenu, editMenu, PoemMenu } from '@/api/system/menu';
+import { getMenuList, removeMenu, editMenu, } from '@/api/system/menu';
+import { PoemMenu } from '@/api/system/menu/types';
 import { getTreeItem } from '@/utils';
 import CreateDrawer from './CreateDrawer.vue';
 import { Refresh } from '@vicons/ionicons5'
+
 const rules = {
   label: {
     required: true,
@@ -141,6 +143,11 @@ const rules = {
     message: '请输入路径',
     trigger: 'blur',
   },
+  component:{
+    required: true,
+    message: '请输入组件地址',
+    trigger: 'blur',
+  }
 };
 
 
@@ -161,7 +168,7 @@ const isEditMenu = ref(false);
 const treeItemTitle = ref('');
 const pattern = ref('');
 const drawerTitle = ref('');
-let drawerParentMenuId = ref(Number);
+let drawerParentMenuId = ref('0');
 const isAddSon = computed(() => {
   return !treeItemKey.value.length;
 });
@@ -180,7 +187,6 @@ const addMenuOptions = ref([
 ]);
 
 const formParams: PoemMenu = reactive({
-  menuId: 0,
   type: 1,
   label: '',
   subtitle: '',
@@ -193,8 +199,13 @@ const formParams: PoemMenu = reactive({
 });
 
 function selectAddMenu(key: string) {
-  drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
-  drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
+  if(key === 'home'){
+    drawerTitle.value = '添加顶栏菜单';
+    drawerParentMenuId.value='0';
+  }else{
+    drawerTitle.value = `添加子菜单：${treeItemTitle.value}`;
+
+  }
   openCreateDrawer();
 }
 
@@ -211,6 +222,9 @@ function selectedTree(keys) {
     treeItemKey.value = keys;
     treeItemTitle.value = treeItem.label;
     Object.assign(formParams, treeItem);
+    if(!treeItem.component){
+      formParams.component='';
+    }
     isEditMenu.value = true;
   } else {
     isEditMenu.value = false;
@@ -227,7 +241,7 @@ function handleDel() {
     negativeText: '取消',
     onPositiveClick: async () => {
       loading.value = true;
-      const { code } = await removeMenu(formParams.menuId as number);
+      const { code } = await removeMenu(formParams.menuId as string);
       if (code === 200) {
         message.success('删除成功');
         getMenu();
@@ -274,7 +288,7 @@ onMounted(async () => {
   loading.value = false;
 });
 
-function refresh(){
+function refresh() {
   loading.value = true;
   getMenu();
   loading.value = false;
@@ -282,6 +296,7 @@ function refresh(){
 
 async function getMenu() {
   const { result } = await getMenuList();
+  console.log(result)
   const keys = result.map((item) => item.menuId);
   Object.assign(formParams, keys);
   treeData.value = result;

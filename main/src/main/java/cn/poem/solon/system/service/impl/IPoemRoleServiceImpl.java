@@ -59,12 +59,17 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     @Tran
     public boolean save(PoemRoleFromDTO poemRoleFromDTO) {
         PoemRole entity = poemRoleFromDTO.toEntity();
+        //防止角色code重复
         Long exist = mapper.selectCountByRoleCode(entity.getRoleCode());
         if (exist > 0) {
-            throw new ServiceException("角色id已存在");
+            throw new ServiceException("角色码已存在");
         }
         int insert = mapper.insert(entity);
-        if (insert > 0) {
+        if (insert <= 0) {
+            return false;
+        }
+        //如果有配置菜单则添加菜单信息
+        if (!poemRoleFromDTO.getMenuIds().isEmpty()) {
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
             for (Long menuId : poemRoleFromDTO.getMenuIds()) {
                 poemRoleMenuList.add(new PoemRoleMenu()
@@ -73,9 +78,12 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            return i == poemRoleFromDTO.getMenuIds().size();
+            if (i != poemRoleFromDTO.getMenuIds().size()) {
+                throw new ServiceException("添加失败");
+            }
+
         }
-        return false;
+        return true;
     }
 
 
@@ -91,13 +99,17 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         PoemRole entity = poemRoleFromDTO.toEntity();
         poemRoleFromDTO.setRoleCode(null);
         int insert = mapper.update(entity);
-        if (insert > 0) {
-            //先删除在新增，覆盖原本的权限
-            poemRoleMenuMapper.deleteByQuery(
-                    QueryWrapper.create().where(
-                            PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(poemRoleFromDTO.getRoleId())
-                    )
-            );
+        if (insert <= 0) {
+            return false;
+        }
+
+        //先删除在新增，覆盖原本的权限
+        poemRoleMenuMapper.deleteByQuery(
+                QueryWrapper.create().where(
+                        PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(poemRoleFromDTO.getRoleId())
+                )
+        );
+        if (!poemRoleFromDTO.getMenuIds().isEmpty()) {
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
             for (Long menuId : poemRoleFromDTO.getMenuIds()) {
                 poemRoleMenuList.add(new PoemRoleMenu()
@@ -106,8 +118,10 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            return i == poemRoleFromDTO.getMenuIds().size();
+            if (i != poemRoleFromDTO.getMenuIds().size()) {
+                throw new ServiceException("修改失败");
+            }
         }
-        return false;
+        return true;
     }
 }

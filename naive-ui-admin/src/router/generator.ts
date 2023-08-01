@@ -17,20 +17,24 @@ LayoutMap.set('IFRAME', Iframe);
  * @returns {*}
  */
 export const generateRoutes = (routerMap, parent?): any[] => {
+  console.log(routerMap)
+  console.log(parent)
   return routerMap.map((item) => {
+    debugger
+  console.log(item)
     const currentRoute: any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
-      name: item.name ?? '',
+      name: item.label ?? '',
       // 该路由对应页面的 组件
       component: item.component,
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         ...item.meta,
-        label: item.meta.title,
-        icon: constantRouterIcon[item.meta.icon] || null,
-        permissions: item.meta.permissions || null,
+        label: item.subtitle,
+        icon: constantRouterIcon[item.icon] || null,
+        permissions: item.permissions || null,
       },
     };
 
@@ -54,10 +58,14 @@ export const generateRoutes = (routerMap, parent?): any[] => {
  * @returns {Promise<Router>}
  */
 export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
-  const result = await adminMenus();
-  const router = generateRoutes(result);
-  asyncImportRoute(router);
-  return router;
+  debugger
+  const {code,result} = await adminMenus();
+  if(code === 200){
+    const router = generateRoutes(result);
+    asyncImportRoute(router);
+    return router;
+  }
+  
 };
 
 /**

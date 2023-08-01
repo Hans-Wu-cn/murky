@@ -73,7 +73,13 @@ export function useDataSource(
       }
       const res = await request(params);
 
-      const resultTotal = res[totalField] || 0;
+      const totalNaN = () => {
+        if (typeof res[totalField] === 'string' && !isNaN(res[totalField])) {
+          return Number(res[totalField]);
+        };
+        return res[totalField];
+      }
+      const resultTotal = totalNaN(); 
       const currentPage = res[pageField];
 
       // 如果数据异常，需获取正确的页码再次执行

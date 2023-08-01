@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotNull;
 
+import java.util.List;
+
 /**
  * 用户表单类
  *
@@ -25,7 +27,7 @@ public class PoemUserFromDTO {
 
     @ApiModelProperty("用户名")
     @NotNull
-    private String username;
+    private String userName;
 
     @ApiModelProperty("账号")
     @NotNull
@@ -41,6 +43,9 @@ public class PoemUserFromDTO {
 
     @ApiModelProperty("邮箱")
     private String email;
+
+    @ApiModelProperty("邮箱")
+    private List<Long> roleIds;
 
     public PoemUser toEntity(){
         return PoemUserConvert.INSTANCES.toEntity(this);

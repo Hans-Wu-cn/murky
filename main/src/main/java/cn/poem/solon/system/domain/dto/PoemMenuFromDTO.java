@@ -54,7 +54,7 @@ public class PoemMenuFromDTO{
     private Short sort;
 
     @ApiModelProperty("组件路径")
-    private String compoment;
+    private String component;
 
     @ApiModelProperty("图标")
     private String icon;

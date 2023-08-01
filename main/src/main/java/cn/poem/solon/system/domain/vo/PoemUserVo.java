@@ -1,27 +1,26 @@
-package cn.poem.solon.system.domain.entity;
+package cn.poem.solon.system.domain.vo;
 
-import cn.poem.mybatisflex.extension.BaseEntity;
+import cn.poem.core.validat.Update;
 import cn.poem.solon.system.enums.Sex;
-import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.NotNull;
+
+import java.util.List;
 
 /**
- * 用户实体类
+ * 用户视图类，包含角色信息
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("用户实体类")
-@Table("poem_user")
-public class PoemUser extends BaseEntity {
-
+@ApiModel("角色视图类")
+public class PoemUserVo {
     @ApiModelProperty("用户id")
-    @Id
     private Long userId;
 
     @ApiModelProperty("用户名")
@@ -38,4 +37,8 @@ public class PoemUser extends BaseEntity {
 
     @ApiModelProperty("邮箱")
     private String email;
+
+    @ApiModelProperty("邮箱")
+    private List<Long> roleIds;
+
 }
