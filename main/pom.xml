@@ -54,6 +54,10 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.boot.smarthttp</artifactId>
+        </dependency>
 
     </dependencies>
     <build>

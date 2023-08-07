@@ -40,11 +40,11 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     @Override
     public PoemRoleVo info(Long roleId) {
         PoemRole poemRole = mapper.selectOneById(roleId);
+        if(poemRole == null) {
+            return null;
+        }
         PoemRoleVo vo = PoemRoleConvert.INSTANCES.toVo(poemRole);
-        List<Long> menuIds = poemRoleMenuMapper.selectListByQuery(QueryWrapper.create().select(
-                PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID).where(
-                PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(roleId)
-        )).stream().map(PoemRoleMenu::getMenuId).toList();
+        List<Long> menuIds = poemRoleMenuMapper.selectByRoleId(roleId).stream().map(PoemRoleMenu::getMenuId).toList();
         vo.setMenuIds(menuIds);
         return vo;
     }
@@ -102,13 +102,8 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         if (insert <= 0) {
             return false;
         }
-
         //先删除在新增，覆盖原本的权限
-        poemRoleMenuMapper.deleteByQuery(
-                QueryWrapper.create().where(
-                        PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(poemRoleFromDTO.getRoleId())
-                )
-        );
+        poemRoleMenuMapper.deleteByRoleId(poemRoleFromDTO.getRoleId());
         if (!poemRoleFromDTO.getMenuIds().isEmpty()) {
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
             for (Long menuId : poemRoleFromDTO.getMenuIds()) {

@@ -60,11 +60,17 @@ export function generatorMenu(routerMap: Array<any>) {
     const info = isRoot ? item.children[0] : item;
     const currentMenu = {
       ...info,
-      ...info.meta,
-      label: info.meta?.title,
+      label: info.meta.label,
       key: info.name,
-      icon: isRoot ? item.meta?.icon : info.meta?.icon,
+      icon: isRoot ? item?.meta.icon : info?.meta.icon,
     };
+    // const currentMenu = {
+    //   ...info,
+    //   ...info.meta,
+    //   label: info.meta?.title,
+    //   key: info.name,
+    //   icon: isRoot ? item.meta?.icon : info.meta?.icon,
+    // };
     // 是否有子菜单，并递归处理
     if (info.children && info.children.length > 0) {
       // Recursion

@@ -1,14 +1,14 @@
 <template>
-    <n-popover placement="bottom-start" :show="showPopover" width="trigger">
+    <!-- <n-popover placement="bottom-start" :show="showPopover" width="trigger">
         <template #trigger>
             <n-input readonly v-model:value="iconName" @focus="showPopover = true" style="width: 500px;">
                 <template #prefix>
                     <svg-icon :name="iconName" style="height: 30px;width: 16px;" />
                 </template>
             </n-input>
-        </template>
+        </template> -->
         <IconSelect @inputIn="inputIn"  @selected="selected"></IconSelect>
-    </n-popover>
+    <!-- </n-popover> -->
 </template>
   
 <script lang="ts" setup>

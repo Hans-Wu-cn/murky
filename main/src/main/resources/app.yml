@@ -65,6 +65,6 @@ knife4j:
     username: admin
     password: 123456
   setting:
-    enableOpenApi: false
-    enableSwaggerModels: false
-    enableFooter: false
+    enableOpenApi: true
+    enableSwaggerModels: true
+    enableFooter: true

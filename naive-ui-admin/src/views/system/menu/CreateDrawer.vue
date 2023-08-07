@@ -85,7 +85,7 @@ export default defineComponent({
       default: 450,
     },
   },
-  setup(props) {
+  setup(props,{emit}) {
     gridCollapsed: ref(false);
     gridCollapsedRows: ref(1);
     gridItemCount: ref(4);
@@ -121,6 +121,7 @@ export default defineComponent({
 
     function closeDrawer() {
       state.isDrawer = false;
+      emit('refresh');
     }
 
     function formSubmit() {

@@ -84,13 +84,16 @@
             <n-form-item label="标题" path="label">
               <n-input placeholder="请输入标题" v-model:value="formParams.label" />
             </n-form-item>
+            <n-form-item label="菜单图标" path="label">
+              <IconSelect v-model:iconName="formParams.icon"  @selected="selected"></IconSelect>
+            </n-form-item>
             <n-form-item label="副标题" path="subtitle">
               <n-input placeholder="请输入副标题" v-model:value="formParams.subtitle" />
             </n-form-item>
-            <n-form-item label="路径" path="path">
+            <n-form-item label="路由地址" path="path">
               <n-input placeholder="请输入路径" v-model:value="formParams.path" />
             </n-form-item>
-            <n-form-item label="组件" path="component">
+            <n-form-item v-if="formParams.type!=0" label="组件" path="component">
               <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
             </n-form-item>
             <n-form-item label="打开方式" path="openType">
@@ -101,7 +104,7 @@
                 </n-space>
               </n-radio-group>
             </n-form-item>
-            <n-form-item label="菜单权限" path="auth">
+            <n-form-item v-if="formParams.type!=0" label="菜单权限" path="auth">
               <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
             </n-form-item>
             <n-form-item label="排序" path="sort">
@@ -119,12 +122,14 @@
         </n-card>
       </n-gi>
     </n-grid>
-    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" :parentMenuId="drawerParentMenuId" />
+    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" :parentMenuId="drawerParentMenuId" @refresh="refresh" />
   </div>
 </template>
+
 <script lang="ts" setup>
 import { ref, unref, reactive, onMounted, computed } from 'vue';
 import { useDialog, useMessage } from 'naive-ui';
+import { IconSelect } from '@/components/IconSelect'
 import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
 import { getMenuList, removeMenu, editMenu, } from '@/api/system/menu';
 import { PoemMenu } from '@/api/system/menu/types';
@@ -260,6 +265,10 @@ function handleReset() {
 }
 
 function formSubmit() {
+  if(0===formParams.type){
+    formParams.component='LAYOUT';
+  }
+  console.log(formParams)
   formRef.value.validate(async (errors: boolean) => {
     if (!errors) {
       loading.value = true;
@@ -305,4 +314,11 @@ async function getMenu() {
 function onExpandedKeys(keys) {
   expandedKeys.value = keys;
 }
+
+//选择图标 
+function selected(data) {
+    console.log(data);
+    formParams.icon = data
+}
+
 </script>

@@ -4,6 +4,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
 
+//通过glob动态引入组件
+const modules = import.meta.glob(['@/**/*.vue'])
 const Iframe = () => import('@/views/iframe/index.vue');
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 
@@ -17,27 +19,23 @@ LayoutMap.set('IFRAME', Iframe);
  * @returns {*}
  */
 export const generateRoutes = (routerMap, parent?): any[] => {
-  console.log(routerMap)
-  console.log(parent)
   return routerMap.map((item) => {
     debugger
-  console.log(item)
     const currentRoute: any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
-      name: item.label ?? '',
+      name: item.path ?? '',
       // 该路由对应页面的 组件
-      component: item.component,
+      component: LayoutMap.get(item.component) ?? modules[`/src/${item.component}`],
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         ...item.meta,
-        label: item.subtitle,
+        label: item.label,
         icon: constantRouterIcon[item.icon] || null,
         permissions: item.permissions || null,
       },
     };
-
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     currentRoute.path = currentRoute.path.replace('//', '/');
     // 重定向
@@ -58,14 +56,13 @@ export const generateRoutes = (routerMap, parent?): any[] => {
  * @returns {Promise<Router>}
  */
 export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
-  debugger
-  const {code,result} = await adminMenus();
-  if(code === 200){
+  const { code, result } = await adminMenus();
+  if (code === 200) {
     const router = generateRoutes(result);
-    asyncImportRoute(router);
+    // asyncImportRoute(router);
     return router;
   }
-  
+
 };
 
 /**
@@ -74,6 +71,7 @@ export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
 let viewsModules: Record<string, () => Promise<Recordable>>;
 export const asyncImportRoute = (routes: AppRouteRecordRaw[] | undefined): void => {
   viewsModules = viewsModules || import.meta.glob('../views/**/*.{vue,tsx}');
+  
   if (!routes) return;
   routes.forEach((item) => {
     if (!item.component && item.meta?.frameSrc) {

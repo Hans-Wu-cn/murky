@@ -34,7 +34,7 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("菜单副标题")
     private String subtitle;
 
-    @ApiModelProperty("路径")
+    @ApiModelProperty("路由地址")
     private String path;
 
     @ApiModelProperty("打开方式 1:当前窗口  2:新窗口")

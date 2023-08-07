@@ -35,9 +35,8 @@ public class IPoemUserServiceImpl extends ServiceImpl<PoemUserMapper, PoemUser> 
     public PoemUserVo info(Long userId) {
         PoemUser poemUser = mapper.selectOneById(userId);
         PoemUserVo vo = PoemUserConvert.INSTANCES.toVo(poemUser);
-        List<Long> roleIds = poemUserRoleMapper.selectListByQuery(QueryWrapper.create().where(
-                PoemUserRoleTableDef.POEM_USER_ROLE.USER_ID.eq(userId)
-        )).stream().map(PoemUserRole::getRoleId).toList();
+        List<Long> roleIds = poemUserRoleMapper.selectByUserId(userId)
+                .stream().map(PoemUserRole::getRoleId).toList();
         vo.setRoleIds(roleIds);
         return vo;
     }
@@ -88,10 +87,7 @@ public class IPoemUserServiceImpl extends ServiceImpl<PoemUserMapper, PoemUser> 
             throw new ServiceException("添加失败");
         }
         if (!poemUserFromDTO.getRoleIds().isEmpty()) {
-            poemUserRoleMapper.deleteByQuery(QueryWrapper.create().where(
-                            PoemUserRoleTableDef.POEM_USER_ROLE.USER_ID.eq(poemUserFromDTO.getUserId())
-                    )
-            );
+            poemUserRoleMapper.deleteByUserId(poemUserFromDTO.getUserId());
             List<PoemUserRole> poemUserRoles = new ArrayList<>();
             for (Long roleId : poemUserFromDTO.getRoleIds()) {
                 poemUserRoles.add(new PoemUserRole()

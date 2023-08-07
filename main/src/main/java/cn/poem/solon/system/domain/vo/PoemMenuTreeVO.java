@@ -37,7 +37,7 @@ public class PoemMenuTreeVO implements Serializable {
     @ApiModelProperty("权限字符")
     private String auth;
 
-    @ApiModelProperty("路径")
+    @ApiModelProperty("路由地址")
     private String path;
 
     @ApiModelProperty("排序")

@@ -17,10 +17,6 @@ public class ExceptionFilter implements Filter {
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         try {
             chain.doFilter(ctx);
-
-            if(!ctx.getHandled()){
-                ctx.status(404);
-            }
         }catch (ServiceException ex){
             log.error("业务异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
@@ -28,8 +24,8 @@ public class ExceptionFilter implements Filter {
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
         }catch (RuntimeException ex){
-            ex.printStackTrace();
             ctx.render(ApiResult.fail(500,ex.getMessage()));
+            ex.printStackTrace();
         }
 
     }

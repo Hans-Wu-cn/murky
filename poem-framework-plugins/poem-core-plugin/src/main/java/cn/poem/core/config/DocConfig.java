@@ -9,6 +9,7 @@ import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.docs.DocDocket;
+import org.noear.solon.docs.models.ApiContact;
 import org.noear.solon.docs.models.ApiInfo;
 
 /***
@@ -32,11 +33,8 @@ public class DocConfig{
                 .basicAuth(openApiExtensionResolver.getSetting().getBasic())
                 .vendorExtensions(openApiExtensionResolver.buildExtensions())
                 .groupName("app端接口")
-                .schemes("Scheme.HTTP")
-                .globalResult(ApiResult.class)
-                .globalResponseInData(true)
-                .apis("com.swagger.demo.controller.app")
-                .securityDefinitionInHeader("token");
+                .schemes(Scheme.HTTP.toValue())
+                .apis("com.swagger.demo.controller.app");
 
     }
 
@@ -50,14 +48,14 @@ public class DocConfig{
                 .info(new ApiInfo().title("在线文档")
                         .description("在线API文档")
                         .termsOfService("https://gitee.com/noear/solon")
-                        .contact(new Contact().name("demo")
+                        .contact(new ApiContact().name("demo")
                                 .url("https://gitee.com/noear/solon")
                                 .email("837713748@qq.com"))
                         .version("1.0"))
                 .schemes(Scheme.HTTP.toValue(), Scheme.HTTPS.toValue())
                 .globalResponseInData(true)
                 .globalResult(ApiResult.class)
-                .apis("cn.poem.solon.admin.system.controller") //可以加多条，以包名为单位
+                .apis("cn.poem.solon.system.controller") //可以加多条，以包名为单位
                 ;//.securityDefinitionInHeader("token");
 
     }
