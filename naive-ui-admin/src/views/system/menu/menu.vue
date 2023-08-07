@@ -51,8 +51,9 @@
                 </div>
               </template>
               <template v-else>
-                <n-tree block-line cascade checkable key-field="menuId" :virtual-scroll="true" :pattern="pattern"
-                  :data="treeData" :expandedKeys="expandedKeys" style="max-height: 650px; overflow: hidden"
+                <n-tree draggable block-line cascade checkable key-field="menuId" :virtual-scroll="true"
+                  :pattern="pattern" :data="treeData" :expandedKeys="expandedKeys"
+                  style="max-height: 650px; overflow: hidden" :render-prefix="renderPrefix" @drop="handleDrop"
                   @update:selected-keys="selectedTree" @update:expanded-keys="onExpandedKeys" />
               </template>
             </div>
@@ -84,33 +85,62 @@
             <n-form-item label="标题" path="label">
               <n-input placeholder="请输入标题" v-model:value="formParams.label" />
             </n-form-item>
-            <n-form-item label="菜单图标" path="label">
-              <IconSelect v-model:iconName="formParams.icon"  @selected="selected"></IconSelect>
+            <n-form-item v-if="formParams.type !== 2" label="菜单图标" path="icon">
+              <IconSelect v-model:iconName="formParams.icon"></IconSelect>
             </n-form-item>
-            <n-form-item label="副标题" path="subtitle">
+            <n-form-item v-if="formParams.type !== 2" label="副标题" path="subtitle">
               <n-input placeholder="请输入副标题" v-model:value="formParams.subtitle" />
             </n-form-item>
-            <n-form-item label="路由地址" path="path">
+            <n-form-item v-if="formParams.type !== 2" label="路由地址" path="path">
               <n-input placeholder="请输入路径" v-model:value="formParams.path" />
             </n-form-item>
-            <n-form-item v-if="formParams.type!=0" label="组件" path="component">
+            <n-form-item v-if="formParams.type === 1" label="组件路径" path="component">
               <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
             </n-form-item>
-            <n-form-item label="打开方式" path="openType">
-              <n-radio-group v-model:value="formParams.openType" name="openType">
-                <n-space>
-                  <n-radio :value="1">当前窗口</n-radio>
-                  <n-radio :value="2">新窗口</n-radio>
-                </n-space>
-              </n-radio-group>
-            </n-form-item>
-            <n-form-item v-if="formParams.type!=0" label="菜单权限" path="auth">
+            <n-form-item v-if="formParams.type != 0" label="菜单权限" path="auth">
               <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
             </n-form-item>
-            <n-form-item label="排序" path="sort">
-              <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
-                v-model:value="formParams.sort" />
-            </n-form-item>
+            <n-grid v-if="formParams.type === 1" class="mt-4" cols="4">
+              <n-gi span="2">
+                <n-form-item label="打开方式" path="openType">
+                  <n-radio-group v-model:value="formParams.openType" name="openType">
+                    <n-space>
+                      <n-radio :value="1">当前窗口</n-radio>
+                      <n-radio :value="2">新窗口</n-radio>
+                    </n-space>
+                  </n-radio-group>
+                </n-form-item>
+              </n-gi>
+              <n-gi span="2">
+                <n-form-item label="是否显示" path="isDisplay">
+                  <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
+                    <n-space>
+                      <n-radio :value="0">显示</n-radio>
+                      <n-radio :value="1">隐藏</n-radio>
+                    </n-space>
+                  </n-radio-group>
+                </n-form-item>
+              </n-gi>
+            </n-grid>
+
+            <n-grid v-if="formParams.type != 2" class="mt-4" cols="4">
+              <n-gi span="2">
+                <n-form-item label="排序" path="sort">
+                  <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
+                    v-model:value="formParams.sort" />
+                </n-form-item>
+              </n-gi>
+              <n-gi span="2">
+                <n-form-item label="是否缓存" path="isCache">
+                  <n-radio-group v-model:value="formParams.isCache" name="isCache">
+                    <n-space>
+                      <n-radio :value="0">关闭</n-radio>
+                      <n-radio :value="1">开启</n-radio>
+                    </n-space>
+                  </n-radio-group>
+                </n-form-item>
+              </n-gi>
+            </n-grid>
             <n-form-item path="auth" style="margin-left: 100px">
               <n-space>
                 <n-button type="primary" :loading="subLoading" @click="formSubmit">保存修改</n-button>
@@ -122,20 +152,22 @@
         </n-card>
       </n-gi>
     </n-grid>
-    <CreateDrawer ref="createDrawerRef" :title="drawerTitle" :parentMenuId="drawerParentMenuId" @refresh="refresh" />
+    <CreateDrawer ref="createDrawerRef" :type="drawerType" :title="drawerTitle" :parentMenuId="drawerParentMenuId"
+      @refresh="refresh" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, unref, reactive, onMounted, computed } from 'vue';
-import { useDialog, useMessage } from 'naive-ui';
+import { TreeOption, useDialog, useMessage } from 'naive-ui';
 import { IconSelect } from '@/components/IconSelect'
 import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
-import { getMenuList, removeMenu, editMenu, } from '@/api/system/menu';
-import { PoemMenu } from '@/api/system/menu/types';
+import { getMenuList, removeMenu, editMenu, dropMenu } from '@/api/system/menu';
+import { PoemMenu, PoemMenuDrop } from '@/api/system/menu/types';
 import { getTreeItem } from '@/utils';
 import CreateDrawer from './CreateDrawer.vue';
 import { Refresh } from '@vicons/ionicons5'
+import { constantRouterIcon } from '@/router/icons'
 
 const rules = {
   label: {
@@ -148,7 +180,7 @@ const rules = {
     message: '请输入路径',
     trigger: 'blur',
   },
-  component:{
+  component: {
     required: true,
     message: '请输入组件地址',
     trigger: 'blur',
@@ -174,6 +206,7 @@ const treeItemTitle = ref('');
 const pattern = ref('');
 const drawerTitle = ref('');
 let drawerParentMenuId = ref('0');
+let drawerType = ref(0);
 const isAddSon = computed(() => {
   return !treeItemKey.value.length;
 });
@@ -201,14 +234,89 @@ const formParams: PoemMenu = reactive({
   sort: 0,
   component: '',
   icon: '',
+  isCache: 0,
+  isDisplay: 0
 });
 
+function renderPrefix({ option }: { option: TreeOption }) {
+  const prefix = constantRouterIcon[option.icon as string];
+  if (prefix) {
+    return prefix()
+  }
+  return null;
+}
+
+
+function handleDrop({ node, dragNode, dropPosition }) {
+  const [dragNodeSiblings, dragNodeIndex] = findSiblingsAndIndex(
+    dragNode,
+    treeData.value
+  )
+  if (dragNodeSiblings === null || dragNodeIndex === null) return
+  let data: PoemMenuDrop = {
+    menuIds: []
+  };
+  dragNodeSiblings.splice(dragNodeIndex, 1)
+  //拖动到树节点内部
+  if (dropPosition === 'inside') {
+    let menus = node.children;
+    menus.push(dragNode);
+    data.menuIds = menus.map((item) => item.menuId);
+    data.parentMenuId = node.menuId;
+  } else if (dropPosition === 'before') {
+    //拖动到树节点前面
+    const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
+      node,
+      treeData.value
+    )
+    if (nodeSiblings === null || nodeIndex === null) return
+    nodeSiblings.splice(nodeIndex, 0, dragNode)
+    data.menuIds = nodeSiblings.map((item) => item.menuId as string);
+    data.parentMenuId = node.parentMenuId;
+  } else if (dropPosition === 'after') {
+    //拖动到树节点前面
+    const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
+      node,
+      treeData.value
+    )
+    if (nodeSiblings === null || nodeIndex === null) return
+    nodeSiblings.splice(nodeIndex + 1, 0, dragNode)
+    data.menuIds = nodeSiblings.map((item) => item.menuId as string);
+    data.parentMenuId = node.parentMenuId;
+  }
+  drop(data);
+}
+
+function findSiblingsAndIndex(
+  node: TreeOption,
+  nodes?: TreeOption[]
+): [TreeOption[], number] | [null, null] {
+  if (!nodes) return [null, null]
+  for (let i = 0; i < nodes.length; ++i) {
+    const siblingNode = nodes[i]
+    if (siblingNode.menuId === node.menuId) return [nodes, i]
+    const [siblings, index] = findSiblingsAndIndex(node, siblingNode.children)
+    if (siblings && index !== null) return [siblings, index]
+  }
+  return [null, null]
+}
+
+async function drop(data: PoemMenuDrop) {
+  const { code } = await dropMenu(data);
+  if (code !== 200) {
+    message.error("修改失败")
+  }
+  refresh()
+}
+
 function selectAddMenu(key: string) {
-  if(key === 'home'){
+  if (key === 'home') {
     drawerTitle.value = '添加顶栏菜单';
-    drawerParentMenuId.value='0';
-  }else{
+    drawerParentMenuId.value = '0';
+    drawerType.value = 0;
+  } else {
     drawerTitle.value = `添加子菜单：${treeItemTitle.value}`;
+    drawerType.value = 1;
 
   }
   openCreateDrawer();
@@ -216,7 +324,6 @@ function selectAddMenu(key: string) {
 
 function openCreateDrawer() {
   const { openDrawer } = createDrawerRef.value;
-  console.log('drawerParentMenuId', drawerParentMenuId)
   openDrawer();
 }
 
@@ -227,14 +334,15 @@ function selectedTree(keys) {
     treeItemKey.value = keys;
     treeItemTitle.value = treeItem.label;
     Object.assign(formParams, treeItem);
-    if(!treeItem.component){
-      formParams.component='';
+    if (!treeItem.component) {
+      formParams.component = '';
     }
     isEditMenu.value = true;
   } else {
     isEditMenu.value = false;
     treeItemKey.value = [];
     treeItemTitle.value = '';
+    Object.assign(formParams, null);
   }
 }
 
@@ -247,9 +355,11 @@ function handleDel() {
     onPositiveClick: async () => {
       loading.value = true;
       const { code } = await removeMenu(formParams.menuId as string);
+      console.log(code)
       if (code === 200) {
         message.success('删除成功');
         getMenu();
+        Object.assign(formParams, null);
       }
       loading.value = false;
     },
@@ -265,10 +375,9 @@ function handleReset() {
 }
 
 function formSubmit() {
-  if(0===formParams.type){
-    formParams.component='LAYOUT';
+  if (0 === formParams.type) {
+    formParams.component = 'LAYOUT';
   }
-  console.log(formParams)
   formRef.value.validate(async (errors: boolean) => {
     if (!errors) {
       loading.value = true;
@@ -293,32 +402,31 @@ function packHandle() {
 }
 
 onMounted(async () => {
-  getMenu();
-  loading.value = false;
+  refresh()
 });
 
 function refresh() {
   loading.value = true;
-  getMenu();
-  loading.value = false;
+  getMenu().then(()=>{
+    loading.value = false
+  });
 }
 
 async function getMenu() {
-  const { result } = await getMenuList();
-  console.log(result)
-  const keys = result.map((item) => item.menuId);
-  Object.assign(formParams, keys);
-  treeData.value = result;
+  const { code, result } = await getMenuList();
+  if (code === 200) {
+    treeData.value = result;
+  }
+
 }
 
 function onExpandedKeys(keys) {
   expandedKeys.value = keys;
 }
 
-//选择图标 
-function selected(data) {
-    console.log(data);
-    formParams.icon = data
-}
+//选择图标
+// function selected(data) {
+//   formParams.icon = data
+// }
 
 </script>

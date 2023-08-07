@@ -4,8 +4,10 @@ package cn.poem.solon.system.domain.dto;
 import cn.poem.core.validat.Update;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.enums.MenuCacheType;
+import cn.poem.solon.system.enums.MenuDisplayType;
 import cn.poem.solon.system.enums.MenuType;
-import cn.poem.solon.system.enums.OpenType;
+import cn.poem.solon.system.enums.MenuOpenType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -38,7 +40,7 @@ public class PoemMenuFromDTO{
     private String path;
 
     @ApiModelProperty("打开方式 1:当前窗口  2:新窗口")
-    private OpenType openType;
+    private MenuOpenType openType;
 
     @ApiModelProperty("权限码")
     private String auth;
@@ -49,6 +51,12 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("菜单类型 1:侧边菜单 2:按钮")
     @NotNull
     private MenuType type;
+
+    @ApiModelProperty("是否开启缓存 0:关闭  1:开启 ")
+    private MenuCacheType isCache;
+
+    @ApiModelProperty("是否显示在菜单  0:显示  1:隐藏")
+    private MenuDisplayType isDisplay;
 
     @ApiModelProperty("排序")
     private Short sort;

@@ -2,15 +2,18 @@ package cn.poem.solon.system.service.impl;
 
 import cn.poem.core.exception.ServiceException;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
+import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.enums.MenuType;
 import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.mapper.PoemMenuMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.solon.Solon;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
@@ -31,6 +34,25 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     PoemRoleMenuMapper poemRoleMenuMapper;
 
     /**
+     * 菜单排序接口,设置菜单排序并统一设定父级菜单
+     * @param poemMenuDropDTO 菜单拖动接口参数实体对象
+     * @return 是否修改成功
+     */
+    @Tran
+    @Override
+    public Boolean drop(PoemMenuDropDTO poemMenuDropDTO) {
+        IPoemMenuServiceImpl bean = Solon.context().getBean(this.getClass());
+        List<PoemMenu> poemMenuList=new ArrayList<>();
+        List<Long> menuIds = poemMenuDropDTO.getMenuIds();
+        for (int i = 0; i < menuIds.size(); i++) {
+            poemMenuList.add(new PoemMenu().setMenuId(menuIds.get(i))
+                            .setSort(Short.parseShort(String.valueOf(i)))
+                    .setParentMenuId(poemMenuDropDTO.getParentMenuId()));
+        }
+        return bean.updateBatch(poemMenuList);
+    }
+
+    /**
      * 获取树形菜单
      *
      * @return 菜单树视图对象
@@ -40,10 +62,10 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         List<PoemMenu> allPoemMenuList = mapper.selectListByQuery(
                 QueryWrapper.create()
                         .select().from(PoemMenuTableDef.POEM_MENU)
-                        .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc())
+//                        .where(PoemMenuTableDef.POEM_MENU.TYPE.ne(MenuType.BUTTON))
+                        .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc(),PoemMenuTableDef.POEM_MENU.LABEL.asc())
         );
-//        List<PoemMenu> allPoemMenuList = map.selectList(new LambdaQueryWrapper<PoemMenu>()
-//                .orderByAsc(PoemMenu::getSort));
+
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);

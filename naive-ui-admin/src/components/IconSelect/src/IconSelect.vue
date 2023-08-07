@@ -2,8 +2,8 @@
   <div class="icon-body">
     <n-popover trigger="click" placement="bottom-start" width="trigger" style="max-height: 300px" scrollable>
       <template #trigger>
-        <n-input readonly v-model:iconName="iconName" style="position: relative;" clearable :placeholder="placeholder"
-          @input="filterIcons" @clear="filterIcons">
+        <n-input readonly v-model:value="iconName" style="position: relative;" clearable :placeholder="placeholder"
+          @clear="clear()">
           <template #prefix>
             <component v-if="selectIcon" :is="selectIcon()"></component>
           </template>
@@ -20,17 +20,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 // import { getIconNames } from './getIconName'
 import { constantRouterIcon } from '@/router/icons'
 export default defineComponent({
   name: 'IconSelect',
-  emits: ['selected', 'inputIn','update:iconName'],
+  emits: ['selected', 'inputIn', 'update:iconName'],
   props: {
     iconName: String,
-    placeholder:{
+    placeholder: {
       type: String,
-      default:'请选择图标'
+      default: '请选择图标'
     }
   },
   setup(props, { emit }) {
@@ -38,31 +38,27 @@ export default defineComponent({
     const iconList = ref()
     const showPopover = ref(false)
     iconList.value = constantRouterIcon
+    
 
-    // for(let key in constantRouterIcon ) {
-    //   console.log(key);
-    //   console.log(constantRouterIcon[key]());
-    //   iconList.value[key] = constantRouterIcon[key]()
-    // }
-
+    selectIcon.value = iconList.value[props.iconName as string]
     const inputIcon = ref('')
 
-    //过过滤查询iconNames方法
-    function filterIcons() {
-      emit('inputIn')
-      iconList.value = constantRouterIcon
-      if (inputIcon.value) {
-        iconList.value = iconList.value.filter(item => item.includes(inputIcon.value))
-      }
-    }
+    watch(props, (newProps) => {
+      selectIcon.value = iconList.value[newProps.iconName as string]
+    })
 
     function selectedIcon(k, v) {
       emit('update:iconName', k)
       selectIcon.value = v
       console.log(v);
       console.log(props.iconName);
-      
+
       emit('selected', k)
+    }
+
+    function clear() {
+      // selectIcon.value = null
+      emit('update:iconName', '')
     }
 
     return {
@@ -70,19 +66,19 @@ export default defineComponent({
       props,
       selectedIcon,
       inputIcon,
-      filterIcons,
       showPopover,
       selectIcon,
+      clear
       // selectIconName
     };
   },
+
 });
 </script>
 
 <style lang="less">
 .icon-body {
   width: 100%;
-  padding: 10px;
 
   .icon-list {
     display: flex;

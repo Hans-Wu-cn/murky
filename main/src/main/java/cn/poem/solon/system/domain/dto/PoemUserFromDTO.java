@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
 import java.util.List;
@@ -26,15 +27,15 @@ public class PoemUserFromDTO {
     private Long userId;
 
     @ApiModelProperty("用户名")
-    @NotNull
+    @NotBlank
     private String userName;
 
     @ApiModelProperty("账号")
-    @NotNull
+    @NotBlank
     private String account;
 
     @ApiModelProperty("密码")
-    @NotNull
+    @NotBlank
     private String password;
 
     @ApiModelProperty("性别 0:男性 1:女性 2:其他")

@@ -7,22 +7,26 @@
             <n-space>
               <n-radio :value="0">目录</n-radio>
               <n-radio :value="1">菜单</n-radio>
+              <n-radio v-if="type !== 0" :value="2">按钮</n-radio>
             </n-space>
           </n-radio-group>
         </n-form-item>
         <n-form-item label="标题" path="label">
           <n-input placeholder="请输入标题" v-model:value="formParams.label" />
         </n-form-item>
-        <n-form-item label="副标题" path="subtitle">
+        <n-form-item v-if="formParams.type != 2" label="菜单图标" path="icon">
+          <IconSelect v-model:iconName="formParams.icon"></IconSelect>
+        </n-form-item>
+        <n-form-item v-if="formParams.type != 2" label="副标题" path="subtitle">
           <n-input placeholder="请输入副标题" v-model:value="formParams.subtitle" />
         </n-form-item>
-        <n-form-item label="路径" path="path">
-          <n-input placeholder="请输入路径" v-model:value="formParams.path" />
+        <n-form-item v-if="formParams.type != 2" label="路由地址" path="path">
+          <n-input placeholder="请输入路由地址" v-model:value="formParams.path" />
         </n-form-item>
-        <n-form-item label="组件" path="component">
+        <n-form-item v-if="formParams.type === 1" label="组件路径" path="component">
           <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
         </n-form-item>
-        <n-form-item label="打开方式" path="openType">
+        <n-form-item v-if="formParams.type === 1" label="打开方式" path="openType">
           <n-radio-group v-model:value="formParams.openType" name="openType">
             <n-space>
               <n-radio :value="1">当前窗口</n-radio>
@@ -34,9 +38,27 @@
         <n-form-item label="菜单权限" path="auth">
           <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
         </n-form-item>
-        <!-- <n-form-item label="隐藏侧边栏" path="hidden">
-          <n-switch v-model:value="formParams.hidden" />
-        </n-form-item> -->
+        <n-form-item v-if="formParams.type !== 2"  label="是否显示" path="isDisplay">
+                  <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
+                    <n-space>
+                      <n-radio :value="0">显示</n-radio>
+                      <n-radio :value="1">隐藏</n-radio>
+                    </n-space>
+                  </n-radio-group>
+                </n-form-item>
+        <n-form-item v-if="formParams.type !== 2" label="是否缓存" path="isCache">
+          <n-radio-group v-model:value="formParams.isCache" name="isCache">
+            <n-space>
+              <n-radio :value="0">关闭</n-radio>
+              <n-radio :value="1">开启</n-radio>
+            </n-space>
+          </n-radio-group>
+        </n-form-item>
+
+        <n-form-item v-if="formParams.type !== 2" label="排序" path="sort">
+          <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
+            v-model:value="formParams.sort" />
+        </n-form-item>
       </n-form>
 
       <template #footer>
@@ -53,8 +75,8 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue';
 import { useMessage } from 'naive-ui';
-import { addMenu} from '@/api/system/menu';
-import { PoemMenu} from '@/api/system/menu/types';
+import { addMenu } from '@/api/system/menu';
+import { PoemMenu } from '@/api/system/menu/types';
 
 const rules = {
   label: {
@@ -71,6 +93,7 @@ const rules = {
 export default defineComponent({
   name: 'CreateDrawer',
   components: {},
+  emits: ['refresh'],
   props: {
     title: {
       type: String,
@@ -80,12 +103,15 @@ export default defineComponent({
       type: String,
       default: '0',
     },
+    type: {
+      type: Number
+    },
     width: {
       type: Number,
       default: 450,
     },
   },
-  setup(props,{emit}) {
+  setup(props, { emit }) {
     gridCollapsed: ref(false);
     gridCollapsedRows: ref(1);
     gridItemCount: ref(4);
@@ -102,7 +128,9 @@ export default defineComponent({
       icon: '',
       component: '',
       // parentMenuId: 0,
-      sort: 0
+      sort: 0,
+      isCache: 0,
+      isDisplay: 0
     };
 
     const state = reactive({
@@ -129,9 +157,10 @@ export default defineComponent({
         if (!errors) {
           state.formParams.parentMenuId = props.parentMenuId
           console.log(state.formParams);
-          save();
-          handleReset();
-          closeDrawer();
+          save().then(()=>{
+            handleReset();
+            closeDrawer();
+          })
         } else {
           message.error('请填写完整信息');
         }
@@ -150,7 +179,9 @@ export default defineComponent({
         icon: '',
         component: '',
         // parentMenuId: 0,
-        sort: 0
+        sort: 0,
+        isCache: 0,
+        isDisplay: 0
       }
       state.formParams = Object.assign(state.formParams, defaultValueRef);
     }

@@ -5,7 +5,7 @@ import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
 
 //通过glob动态引入组件
-const modules = import.meta.glob(['@/**/*.vue'])
+const modules = import.meta.glob(['../views/**/*.{vue,tsx}'])
 const Iframe = () => import('@/views/iframe/index.vue');
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 
@@ -20,17 +20,18 @@ LayoutMap.set('IFRAME', Iframe);
  */
 export const generateRoutes = (routerMap, parent?): any[] => {
   return routerMap.map((item) => {
-    debugger
     const currentRoute: any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
       name: item.path ?? '',
       // 该路由对应页面的 组件
-      component: LayoutMap.get(item.component) ?? modules[`/src/${item.component}`],
+      component: LayoutMap.get(item.component) ?? modules[`../views/${item.component}`],
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         ...item.meta,
+        keepAlive: item.isCache,
+        isDisplay: item.isDisplay === 0,
         label: item.label,
         icon: constantRouterIcon[item.icon] || null,
         permissions: item.permissions || null,

@@ -4,6 +4,7 @@ import cn.poem.core.extension.BaseController;
 import cn.poem.core.utils.ApiResult;
 import cn.poem.core.validat.Insert;
 import cn.poem.core.validat.Update;
+import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.system.domain.dto.PoemMenuFromDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,10 +62,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @Mapping
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemMenuFromDTO poemMenuFromDTO){
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
-        if(baseService.save(poemMenu)){
-            return ApiResult.ok();
-        }
-        return ApiResult.ok(poemMenu);
+        return toResult(baseService.save(poemMenu));
     }
 
     @ApiOperation("修改菜单")
@@ -74,6 +72,13 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
         boolean result = baseService.updateById(poemMenu);
         return toResult(result);
+    }
+
+    @ApiOperation("菜单拖动")
+    @Put
+    @Mapping("drop")
+    public ApiResult<?> drop(@Body @Validated PoemMenuDropDTO poemMenuDropDTO){
+        return toResult(baseService.drop(poemMenuDropDTO));
     }
 
     @ApiOperation("删除菜单")

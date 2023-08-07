@@ -92,10 +92,12 @@ const transform: AxiosTransform = {
     }
     // 接口请求错误，统一提示错误信息 这里逻辑可以根据项目进行修改
     let errorMsg = message;
+    console.log(code)
     switch (code) {
       // 请求失败
       case ResultEnum.ERROR:
         $message.error(errorMsg);
+        return data;
         break;
       // 登录超时
       case ResultEnum.TIMEOUT:
