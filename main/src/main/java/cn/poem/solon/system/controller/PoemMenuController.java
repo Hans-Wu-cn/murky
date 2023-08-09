@@ -6,15 +6,19 @@ import cn.poem.core.validat.Insert;
 import cn.poem.core.validat.Update;
 import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.system.domain.dto.PoemMenuFromDTO;
+import cn.poem.solon.system.enums.MenuType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
 import cn.poem.solon.system.service.IPoemMenuService;
+import org.noear.snack.ONode;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -45,7 +49,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
 //        children2.add(new PoemMenuTreeVO().setLabel("分步表单").setKey("step-form").setType(1).setOpenType(OpenType.CURRENT).setSubtitle("step-form").setAuth("step-form").setPath("/form/step-form"));
 //        result.add(new PoemMenuTreeVO().setLabel("表单管理").setSubtitle("form").setKey("form").setAuth("form").setPath("/form").setType(1).setOpenType(OpenType.CURRENT).setChildren(children2));
 
-        List<PoemMenuTreeVO> result = baseService.treePoemMenu();
+        List<PoemMenuTreeVO> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
 
         return ApiResult.ok(result);
     }
@@ -61,6 +65,9 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @Post
     @Mapping
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemMenuFromDTO poemMenuFromDTO){
+        if(!ONode.loadStr(poemMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemMenuFromDTO.getQuery()).isObject()){
+            return ApiResult.fail("query参数格式不正确");
+        }
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
         return toResult(baseService.save(poemMenu));
     }
@@ -69,6 +76,9 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @Put
     @Mapping
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemMenuFromDTO poemMenuFromDTO){
+        if(!ONode.loadStr(poemMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemMenuFromDTO.getQuery()).isObject()){
+            return ApiResult.fail("query参数格式不正确");
+        }
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
         boolean result = baseService.updateById(poemMenu);
         return toResult(result);

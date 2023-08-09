@@ -27,7 +27,9 @@ export interface PoemMenu extends BaseApiType {
   component: string
   icon: string
   isCache: number
-  isDisplay: number
+  isDisplay: number,
+  isOutside: number,
+  query?: string
 }
 
 export interface PoemMenuDrop {

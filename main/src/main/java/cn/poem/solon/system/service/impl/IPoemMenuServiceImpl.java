@@ -58,14 +58,8 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      * @return 菜单树视图对象
      */
     @Override
-    public List<PoemMenuTreeVO> treePoemMenu() {
-        List<PoemMenu> allPoemMenuList = mapper.selectListByQuery(
-                QueryWrapper.create()
-                        .select().from(PoemMenuTableDef.POEM_MENU)
-//                        .where(PoemMenuTableDef.POEM_MENU.TYPE.ne(MenuType.BUTTON))
-                        .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc(),PoemMenuTableDef.POEM_MENU.LABEL.asc())
-        );
-
+    public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
+        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes);
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);

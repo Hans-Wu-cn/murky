@@ -4,14 +4,13 @@ package cn.poem.solon.system.domain.dto;
 import cn.poem.core.validat.Update;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.system.domain.entity.PoemMenu;
-import cn.poem.solon.system.enums.MenuCacheType;
-import cn.poem.solon.system.enums.MenuDisplayType;
-import cn.poem.solon.system.enums.MenuType;
-import cn.poem.solon.system.enums.MenuOpenType;
+import cn.poem.solon.system.enums.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.noear.snack.ONode;
+import org.noear.snack.ONodeData;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
@@ -58,6 +57,9 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("是否显示在菜单  0:显示  1:隐藏")
     private MenuDisplayType isDisplay;
 
+    @ApiModelProperty("是否使用外链  0:否  1:是")
+    private MenuOutside isOutside;
+
     @ApiModelProperty("排序")
     private Short sort;
 
@@ -66,6 +68,9 @@ public class PoemMenuFromDTO{
 
     @ApiModelProperty("图标")
     private String icon;
+
+    @ApiModelProperty("路由参数")
+    private String query;
 
     public PoemMenu toEntity(){
         return PoemMenuConvert.INSTANCES.toEntity(this);

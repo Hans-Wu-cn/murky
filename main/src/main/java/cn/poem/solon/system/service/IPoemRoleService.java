@@ -5,6 +5,11 @@ import cn.poem.solon.system.domain.entity.PoemRole;
 import cn.poem.solon.system.domain.vo.PoemRoleVo;
 import com.mybatisflex.core.service.IService;
 
+/**
+ * 角色service
+ *
+ * @author hans
+ */
 public interface IPoemRoleService extends IService<PoemRole> {
 
 

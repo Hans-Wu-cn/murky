@@ -62,7 +62,7 @@ export function removeUser(userId:number) {
  */
 export function getUserInfo() {
   return http.request({
-    url: '/admin_info',
+    url: '/auth/info',
     method: 'get',
   });
 }
@@ -73,7 +73,7 @@ export function getUserInfo() {
 export function login(params) {
   return http.request<BasicResponseModel>(
     {
-      url: '/login',
+      url: '/auth/login',
       method: 'POST',
       params,
     },

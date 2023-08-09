@@ -11,6 +11,7 @@ import lombok.Getter;
 public enum ApiResultEnum {
     SUCCESS(200,"成功"),
     FAil(500,"失败"),
+    NOT_LOGIN(401,"登录状态过期，请重新登录"),
 
     ;
     /*响应码*/

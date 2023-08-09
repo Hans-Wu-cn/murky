@@ -6,7 +6,7 @@ import cn.poem.solon.system.domain.vo.PoemUserVo;
 import com.mybatisflex.core.service.IService;
 
 /**
- * PoemUserService
+ * 用户 Service
  *
  * @author hans
  */

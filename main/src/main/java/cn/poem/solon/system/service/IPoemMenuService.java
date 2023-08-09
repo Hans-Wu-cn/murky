@@ -3,6 +3,7 @@ package cn.poem.solon.system.service;
 import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
+import cn.poem.solon.system.enums.MenuType;
 import com.mybatisflex.core.service.IService;
 
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public interface IPoemMenuService extends IService<PoemMenu> {
      *
      * @return 菜单树视图对象
      */
-    List<PoemMenuTreeVO> treePoemMenu();
+    List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes);
 
 
     /**

@@ -38,19 +38,30 @@
         <n-form-item label="菜单权限" path="auth">
           <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
         </n-form-item>
-        <n-form-item v-if="formParams.type !== 2"  label="是否显示" path="isDisplay">
-                  <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
-                    <n-space>
-                      <n-radio :value="0">显示</n-radio>
-                      <n-radio :value="1">隐藏</n-radio>
-                    </n-space>
-                  </n-radio-group>
-                </n-form-item>
+        <n-form-item v-if="formParams.type == 1" label="路由参数" path="query">
+          <n-input placeholder="请输入路由参数" v-model:value="formParams.query" />
+        </n-form-item>
+        <n-form-item v-if="formParams.type !== 2" label="是否显示" path="isDisplay">
+          <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
+            <n-space>
+              <n-radio :value="0">是</n-radio>
+              <n-radio :value="1">否</n-radio>
+            </n-space>
+          </n-radio-group>
+        </n-form-item>
+        <n-form-item v-if="formParams.type !== 2" label="是否外链" path="isOutside">
+          <n-radio-group v-model:value="formParams.isOutside" name="isOutside">
+            <n-space>
+              <n-radio :value="0">否</n-radio>
+              <n-radio :value="1">是</n-radio>
+            </n-space>
+          </n-radio-group>
+        </n-form-item>
         <n-form-item v-if="formParams.type !== 2" label="是否缓存" path="isCache">
           <n-radio-group v-model:value="formParams.isCache" name="isCache">
             <n-space>
-              <n-radio :value="0">关闭</n-radio>
-              <n-radio :value="1">开启</n-radio>
+              <n-radio :value="0">否</n-radio>
+              <n-radio :value="1">是</n-radio>
             </n-space>
           </n-radio-group>
         </n-form-item>
@@ -130,7 +141,8 @@ export default defineComponent({
       // parentMenuId: 0,
       sort: 0,
       isCache: 0,
-      isDisplay: 0
+      isDisplay: 0,
+      isOutside: 0
     };
 
     const state = reactive({
@@ -153,11 +165,20 @@ export default defineComponent({
     }
 
     function formSubmit() {
+      if (0 === state.formParams.type && state.formParams.parentMenuId === '0') {
+        state.formParams.component = 'LAYOUT';
+      }
+      if (0 === state.formParams.type && state.formParams.parentMenuId !== '0') {
+        state.formParams.component = 'PARENTLAYOUT';
+      }
+      if (state.formParams.isOutside === 1) {
+        state.formParams.component = 'IFRAME';
+      }
       formRef.value.validate((errors) => {
         if (!errors) {
           state.formParams.parentMenuId = props.parentMenuId
           console.log(state.formParams);
-          save().then(()=>{
+          save().then(() => {
             handleReset();
             closeDrawer();
           })
@@ -181,7 +202,8 @@ export default defineComponent({
         // parentMenuId: 0,
         sort: 0,
         isCache: 0,
-        isDisplay: 0
+        isDisplay: 0,
+        isOutside: 0
       }
       state.formParams = Object.assign(state.formParams, defaultValueRef);
     }

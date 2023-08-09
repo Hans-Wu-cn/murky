@@ -1,4 +1,4 @@
-import { adminMenus } from '@/api/system/menu';
+import { userInfoMenu } from '@/api/system/menu';
 import { constantRouterIcon } from './icons';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
@@ -11,6 +11,7 @@ const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 
 LayoutMap.set('LAYOUT', Layout);
 LayoutMap.set('IFRAME', Iframe);
+LayoutMap.set('PARENTLAYOUT', ParentLayout);
 
 /**
  * 格式化 后端 结构信息并递归生成层级路由表
@@ -24,12 +25,14 @@ export const generateRoutes = (routerMap, parent?): any[] => {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
-      name: item.path ?? '',
+      name: item.isOutside == 1?item.subtitle:item.path ?? '',
       // 该路由对应页面的 组件
       component: LayoutMap.get(item.component) ?? modules[`../views/${item.component}`],
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         ...item.meta,
+        query: item.query,
+        frameSrc: item.isOutside == 1 ? item.path:null,
         keepAlive: item.isCache,
         isDisplay: item.isDisplay === 0,
         label: item.label,
@@ -57,7 +60,7 @@ export const generateRoutes = (routerMap, parent?): any[] => {
  * @returns {Promise<Router>}
  */
 export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
-  const { code, result } = await adminMenus();
+  const { code, result } = await userInfoMenu();
   if (code === 200) {
     const router = generateRoutes(result);
     // asyncImportRoute(router);

@@ -18,7 +18,7 @@
   import { defineComponent, ref, onMounted, reactive, computed, watch, toRefs, unref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
-  import { generatorMenu, generatorMenuMix } from '@/utils';
+  import { generatorMenu, generatorMenuMix,getQuery } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
@@ -108,7 +108,6 @@
       }
 
       function updateMenu() {
-        debugger
         if (!settingStore.menuSetting.mixMenu) {
           menus.value = generatorMenu(asyncRouteStore.getMenus);
         } else {
@@ -123,18 +122,17 @@
 
       // 点击菜单
       function clickMenuItem(key: string) {
-        debugger
         if (/http(s)?:/.test(key)) {
           window.open(key);
         } else {
-          router.push({ name: key });
+          const query=getQuery(key);
+          router.push({ name: key ,query:query?JSON.parse(getQuery(key)):null});
         }
         emit('clickMenuItem' as any, key);
       }
 
       //展开菜单
       function menuExpanded(openKeys: string[]) {
-        console.log(openKeys)
         if (!openKeys) return;
         const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
         const isExistChildren = findChildrenLen(latestOpenKey as string);

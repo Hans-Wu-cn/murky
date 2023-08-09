@@ -40,11 +40,7 @@
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-core-plugin</artifactId>
         </dependency>
-        <!--poem mybatis-plus 依赖-->
-<!--        <dependency>-->
-<!--            <groupId>cn.poem.solon</groupId>-->
-<!--            <artifactId>poem-mybatisplus-plugin</artifactId>-->
-<!--        </dependency>-->
+        <!--poem mybatis-flex 依赖-->
         <dependency>
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-mybatisflex-plugin</artifactId>
@@ -54,11 +50,11 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
+        <!--国产 http容器-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.boot.smarthttp</artifactId>
         </dependency>
-
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

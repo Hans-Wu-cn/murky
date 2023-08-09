@@ -5,9 +5,9 @@ import { Result } from '@/utils/http/axios/types';
 /**
  * @description: 根据用户id获取用户菜单
  */
-export function adminMenus() {
+export function userInfoMenu() {
   return http.request({
-    url: '/poemMenu/list',
+    url: '/auth/menu',
     method: 'GET',
   });
 }

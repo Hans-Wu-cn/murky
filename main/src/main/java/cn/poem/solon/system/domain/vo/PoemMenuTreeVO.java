@@ -1,9 +1,6 @@
 package cn.poem.solon.system.domain.vo;
 
-import cn.poem.solon.system.enums.MenuCacheType;
-import cn.poem.solon.system.enums.MenuDisplayType;
-import cn.poem.solon.system.enums.MenuType;
-import cn.poem.solon.system.enums.MenuOpenType;
+import cn.poem.solon.system.enums.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -42,6 +39,9 @@ public class PoemMenuTreeVO implements Serializable {
     @ApiModelProperty("是否显示在菜单  0:显示  1:隐藏")
     private MenuDisplayType isDisplay;
 
+    @ApiModelProperty("是否使用外链  0:否  1:是")
+    private MenuOutside isOutside;
+
     @ApiModelProperty("权限字符")
     private String auth;
 
@@ -59,6 +59,9 @@ public class PoemMenuTreeVO implements Serializable {
 
     @ApiModelProperty("图标")
     private String icon;
+
+    @ApiModelProperty("路由参数")
+    private String query;
 
     @ApiModelProperty("下级菜单")
     private List<PoemMenuTreeVO> children;

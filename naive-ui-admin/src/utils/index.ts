@@ -4,6 +4,9 @@ import { NIcon, NTag } from 'naive-ui';
 import { PageEnum } from '@/enums/pageEnum';
 import { isObject } from './is/index';
 import { cloneDeep } from 'lodash-es';
+
+const queryMap:Map<string, any>=new Map();
+
 /**
  * render 图标
  * */
@@ -51,6 +54,10 @@ export function renderNew(type = 'warning', text = 'New', color: object = newTag
     );
 }
 
+export const getQuery=(key:string)=>{
+  return queryMap.get(key);
+}
+
 /**
  * 递归组装菜单格式
  */
@@ -67,6 +74,7 @@ export function generatorMenu(routerMap: Array<any>) {
       key: item.name,
       icon: item?.meta.icon,
     };
+    queryMap.set(item.name,item.meta.query);
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion

@@ -98,7 +98,10 @@
               <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
             </n-form-item>
             <n-form-item v-if="formParams.type != 0" label="菜单权限" path="auth">
-              <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
+              <n-input placeholder="请输入权限" v-model:value="formParams.auth" />
+            </n-form-item>
+            <n-form-item v-if="formParams.type == 1" label="路由参数" path="query">
+              <n-input placeholder="请输入路由参数" v-model:value="formParams.query" />
             </n-form-item>
             <n-grid v-if="formParams.type === 1" class="mt-4" cols="4">
               <n-gi span="2">
@@ -115,8 +118,8 @@
                 <n-form-item label="是否显示" path="isDisplay">
                   <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
                     <n-space>
-                      <n-radio :value="0">显示</n-radio>
-                      <n-radio :value="1">隐藏</n-radio>
+                      <n-radio :value="0">是</n-radio>
+                      <n-radio :value="1">否</n-radio>
                     </n-space>
                   </n-radio-group>
                 </n-form-item>
@@ -125,22 +128,30 @@
 
             <n-grid v-if="formParams.type != 2" class="mt-4" cols="4">
               <n-gi span="2">
-                <n-form-item label="排序" path="sort">
-                  <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
-                    v-model:value="formParams.sort" />
+                <n-form-item label="是否外链" path="isOutside">
+                  <n-radio-group v-model:value="formParams.isOutside" name="isOutside">
+                    <n-space>
+                      <n-radio :value="0">否</n-radio>
+                      <n-radio :value="1">是</n-radio>
+                    </n-space>
+                  </n-radio-group>
                 </n-form-item>
               </n-gi>
               <n-gi span="2">
                 <n-form-item label="是否缓存" path="isCache">
                   <n-radio-group v-model:value="formParams.isCache" name="isCache">
                     <n-space>
-                      <n-radio :value="0">关闭</n-radio>
-                      <n-radio :value="1">开启</n-radio>
+                      <n-radio :value="0">否</n-radio>
+                      <n-radio :value="1">是</n-radio>
                     </n-space>
                   </n-radio-group>
                 </n-form-item>
               </n-gi>
             </n-grid>
+            <n-form-item label="排序" path="sort">
+                  <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
+                    v-model:value="formParams.sort" />
+                </n-form-item>
             <n-form-item path="auth" style="margin-left: 100px">
               <n-space>
                 <n-button type="primary" :loading="subLoading" @click="formSubmit">保存修改</n-button>
@@ -235,7 +246,9 @@ const formParams: PoemMenu = reactive({
   component: '',
   icon: '',
   isCache: 0,
-  isDisplay: 0
+  isDisplay: 0,
+  isOutside: 0,
+  query:''
 });
 
 function renderPrefix({ option }: { option: TreeOption }) {
@@ -328,6 +341,7 @@ function openCreateDrawer() {
 }
 
 function selectedTree(keys) {
+  debugger
   if (keys.length) {
     const treeItem = getTreeItem(unref(treeData), keys[0]);
     drawerParentMenuId.value = keys[0];
@@ -336,6 +350,10 @@ function selectedTree(keys) {
     Object.assign(formParams, treeItem);
     if (!treeItem.component) {
       formParams.component = '';
+    }
+    if (!treeItem.query) {
+      formParams.query = '';
+
     }
     isEditMenu.value = true;
   } else {
@@ -375,18 +393,24 @@ function handleReset() {
 }
 
 function formSubmit() {
-  if (0 === formParams.type) {
+  if (0 === formParams.type && formParams.parentMenuId === '0') {
     formParams.component = 'LAYOUT';
+  }
+  if (0 === formParams.type && formParams.parentMenuId !== '0') {
+    formParams.component = 'PARENTLAYOUT';
+  }
+  if (formParams.isOutside === 1) {
+    formParams.component = 'IFRAME';
   }
   formRef.value.validate(async (errors: boolean) => {
     if (!errors) {
-      loading.value = true;
+      subLoading.value = true;
       const { code } = await editMenu(formParams);
       if (code === 200) {
         message.success('修改成功');
-        getMenu();
+        refresh()
       }
-      loading.value = false;
+      subLoading.value = false;
     } else {
       message.error('请填写完整信息');
     }

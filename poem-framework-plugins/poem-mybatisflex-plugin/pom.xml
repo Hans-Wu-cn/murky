@@ -39,6 +39,11 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.verion}</version>
         </dependency>
+        <!--poem拓展插件-->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-satoken-plugin</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

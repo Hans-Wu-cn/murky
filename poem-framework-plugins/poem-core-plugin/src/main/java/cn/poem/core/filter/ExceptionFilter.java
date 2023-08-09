@@ -1,5 +1,7 @@
 package cn.poem.core.filter;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.poem.core.enums.ApiResultEnum;
 import cn.poem.core.exception.ServiceException;
 import cn.poem.core.utils.ApiResult;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,9 @@ public class ExceptionFilter implements Filter {
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         try {
             chain.doFilter(ctx);
+        }catch (NotLoginException ex){
+            log.debug("登录状态过期:{},{}",ex.getCode(),ex.getMessage());
+            ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN,ex.getMessage()));
         }catch (ServiceException ex){
             log.error("业务异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
@@ -24,6 +29,7 @@ public class ExceptionFilter implements Filter {
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
         }catch (RuntimeException ex){
+            //其他异常
             ctx.render(ApiResult.fail(500,ex.getMessage()));
             ex.printStackTrace();
         }

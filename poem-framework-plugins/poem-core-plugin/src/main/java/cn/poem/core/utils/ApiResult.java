@@ -31,9 +31,16 @@ public class ApiResult<T> implements Serializable {
     public static <T> ApiResult<T> fail(int code,String msg) {
         return restResult(code,msg,null);
     }
+    public static <T> ApiResult<T> fail(ApiResultEnum apiResult,String msg) {
+        return restResult(apiResult,msg);
+    }
 
     public static <T> ApiResult<T> fail() {
         return restResult(ApiResultEnum.FAil, null);
+    }
+
+    public static <T> ApiResult<T> fail(String msg) {
+        return restResult(ApiResultEnum.FAil, msg);
     }
 
     public static <T> ApiResult<T> ok(T data) {
@@ -53,6 +60,13 @@ public class ApiResult<T> implements Serializable {
         apiResult.setCode(apiResultEnum.getCode());
         apiResult.setResult(data);
         apiResult.setMessage(apiResultEnum.getMessage());
+        return apiResult;
+    }
+
+    private static <T> ApiResult<T> restResult(ApiResultEnum apiResultEnum, String msg) {
+        ApiResult<T> apiResult = new ApiResult<>();
+        apiResult.setCode(apiResultEnum.getCode());
+        apiResult.setMessage(msg);
         return apiResult;
     }
 }
