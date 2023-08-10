@@ -53,6 +53,13 @@
                 <artifactId>poem-satoken-plugin</artifactId>
                 <version>${version}</version>
             </dependency>
+
+            <!--poem-event 事件 模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-eventbus-plugin</artifactId>
+                <version>${version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -61,6 +68,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <!--日志依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.logging.simple</artifactId>
         </dependency>
     </dependencies>
 

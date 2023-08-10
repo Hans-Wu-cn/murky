@@ -1,9 +1,9 @@
 package cn.poem.solon.system.domain.dto;
 
-import cn.poem.core.validat.Update;
-import cn.poem.solon.system.domain.convert.PoemUserConvert;
+import cn.poem.solon.core.validat.Update;
 import cn.poem.solon.system.domain.entity.PoemUser;
 import cn.poem.solon.system.enums.Sex;
+import cn.poem.solon.system.domain.convert.PoemUserConvert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

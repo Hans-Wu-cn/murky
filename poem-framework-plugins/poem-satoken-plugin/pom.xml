@@ -27,6 +27,11 @@
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-expand-interface-plugin</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-eventbus-plugin</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

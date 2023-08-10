@@ -1,13 +1,10 @@
 package cn.poem.solon.system.domain.vo;
 
-import cn.poem.core.validat.Update;
 import cn.poem.solon.system.enums.Sex;
-import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.noear.solon.validation.annotation.NotNull;
 
 import java.util.List;
 

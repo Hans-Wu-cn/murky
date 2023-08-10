@@ -22,6 +22,7 @@
         <module>poem-mybatisflex-plugin</module>
         <module>poem-satoken-plugin</module>
         <module>poem-expand-interface-plugin</module>
+        <module>poem-eventbus-plugin</module>
 
     </modules>
 </project>

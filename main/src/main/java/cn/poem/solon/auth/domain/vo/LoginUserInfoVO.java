@@ -20,6 +20,9 @@ public class LoginUserInfoVO {
     @ApiModelProperty("登录token")
     private String token;
 
+    @ApiModelProperty("角色ID")
+    private Set<Long> roleId;
+
     @ApiModelProperty("权限码")
     private Set<String> permissions;
 

@@ -1,6 +1,6 @@
 package cn.poem.solon.system.domain.entity;
 
-import cn.poem.mybatisflex.extension.BaseEntity;
+import cn.poem.solon.mybatisflex.extension.BaseEntity;
 import cn.poem.solon.system.enums.Sex;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

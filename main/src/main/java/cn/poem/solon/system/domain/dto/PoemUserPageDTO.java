@@ -1,6 +1,5 @@
 package cn.poem.solon.system.domain.dto;
 
-import cn.poem.solon.system.domain.entity.PoemRole;
 import cn.poem.solon.system.domain.entity.PoemUser;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.ApiModel;

@@ -2,22 +2,24 @@ package cn.poem.solon.auth.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
-import cn.poem.core.exception.ServiceException;
-import cn.poem.core.utils.ApiResult;
-import cn.poem.solon.auth.domain.vo.LoginUserInfoVO;
+import cn.poem.solon.core.exception.ServiceException;
+import cn.poem.solon.entity.UserInfo;
+import cn.poem.solon.expand.SecurityCache;
 import cn.poem.solon.auth.service.IPoemLoginService;
 import cn.poem.solon.system.domain.dto.LoginDto;
 import cn.poem.solon.system.domain.entity.PoemUser;
-import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
-import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.domain.entity.PoemUserRole;
+import cn.poem.solon.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.service.IPoemUserService;
+import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
+import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @ProxyComponent
 public class IPoemLoginServiceImpl implements IPoemLoginService {
@@ -27,6 +29,9 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     @Inject
     IPoemMenuService iPoemMenuService;
+
+    @Inject
+    PoemUserRoleMapper poemUserRoleMapper;
 
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
@@ -49,13 +54,17 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
     }
 
     @Override
-    public LoginUserInfoVO userInfo() {
+    public UserInfo userInfo() {
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         Long loginId = StpUtil.getLoginIdAsLong();
         PoemUser poemUser = iPoemUserService.getById(loginId);
-        return new LoginUserInfoVO().setUserId(loginId)
+        UserInfo userInfo = new UserInfo().setUserId(loginId)
                 .setUserName(poemUser.getUserName())
                 .setToken(tokenInfo.getTokenValue());
+        Set<Long> roleIds = poemUserRoleMapper.selectByUserId(poemUser.getUserId()).stream().map(PoemUserRole::getRoleId).collect(Collectors.toSet());
+        userInfo.setRoleIds(roleIds);
+        SecurityUtil.setUserInfo(userInfo);
+        return userInfo;
     }
 
 }

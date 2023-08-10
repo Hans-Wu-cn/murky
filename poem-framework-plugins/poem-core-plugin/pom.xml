@@ -45,11 +45,7 @@
             <version>${mapstruct.version}</version>
         </dependency>
         <!--end 实体转换依赖-->
-        <!--日志依赖-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon.logging.simple</artifactId>
-        </dependency>
+
         <!--参数校验-->
         <dependency>
             <groupId>org.noear</groupId>
@@ -59,6 +55,11 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>sa-token-solon-plugin</artifactId>
+        </dependency>
+        <!-- poem 扩展库 -->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-expand-interface-plugin</artifactId>
         </dependency>
     </dependencies>
 

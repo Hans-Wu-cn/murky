@@ -1,7 +1,7 @@
 package cn.poem.solon.system.domain.dto;
 
 
-import cn.poem.core.validat.Update;
+import cn.poem.solon.core.validat.Update;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.system.domain.entity.PoemMenu;
 import cn.poem.solon.system.enums.*;
@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.noear.snack.ONode;
-import org.noear.snack.ONodeData;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 

@@ -1,9 +1,10 @@
 package cn.poem.solon.system.controller;
 
-import cn.poem.core.extension.BaseController;
-import cn.poem.core.utils.ApiResult;
-import cn.poem.core.validat.Insert;
-import cn.poem.core.validat.Update;
+import cn.poem.solon.core.extension.BaseController;
+import cn.poem.solon.core.utils.ApiResult;
+import cn.poem.solon.core.validat.Insert;
+import cn.poem.solon.core.validat.Update;
+import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.system.domain.dto.PoemMenuFromDTO;
 import cn.poem.solon.system.enums.MenuType;
@@ -11,13 +12,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
-import cn.poem.solon.system.service.IPoemMenuService;
 import org.noear.snack.ONode;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +49,6 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
 //        result.add(new PoemMenuTreeVO().setLabel("表单管理").setSubtitle("form").setKey("form").setAuth("form").setPath("/form").setType(1).setOpenType(OpenType.CURRENT).setChildren(children2));
 
         List<PoemMenuTreeVO> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
-
         return ApiResult.ok(result);
     }
 

@@ -1,16 +1,15 @@
 package cn.poem.solon.auth.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.poem.core.utils.ApiResult;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.poem.solon.core.utils.ApiResult;
 import cn.poem.solon.auth.service.IPoemLoginService;
+import cn.poem.solon.entity.UserInfo;
 import cn.poem.solon.system.domain.dto.LoginDto;
-import cn.poem.solon.system.domain.entity.PoemUser;
-import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
-import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.enums.MenuType;
 import cn.poem.solon.system.service.IPoemMenuService;
-import cn.poem.solon.system.service.IPoemUserService;
-import com.mybatisflex.core.query.QueryWrapper;
+import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.utils.SecurityUtil;
 import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -44,6 +43,14 @@ public class PoemLoginController {
         return ApiResult.ok(map);
     }
 
+    @Post
+    @Mapping("logout")
+    public ApiResult<?> logout() {
+        StpUtil.logout();
+        SecurityUtil.publishAsyncEvent();
+        return ApiResult.ok();
+    }
+
     @Get
     @Mapping("menu")
     public ApiResult<List<PoemMenuTreeVO>> menu() {
@@ -52,23 +59,7 @@ public class PoemLoginController {
 
     @Get
     @Mapping("info")
-    public ApiResult userInfo() {
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("userId", "1");
-//        result.put("username", "admin");
-//        result.put("realName", "Admin");
-////        result.put("avatar","1");
-//        result.put("desc", "manager");
-//        result.put("password", "password");
-//        result.put("token", "MSHXEYEYDQMXBJUVGPIEYDYSKYCOEMCG");
-//        List<Vo> vos = new ArrayList<>();
-//        vos.add(new Vo().setLable("主控台").setValue("dashboard_console"));
-//        vos.add(new Vo().setLable("监控页").setValue("dashboard_monitor"));
-//        vos.add(new Vo().setLable("工作台").setValue("dashboard_workplace"));
-//        vos.add(new Vo().setLable("基础列表").setValue("basic_list"));
-//        vos.add(new Vo().setLable("基础列表删除").setValue("basic_list_delete"));
-//        result.put("permissions", vos);
-
+    public ApiResult<UserInfo> userInfo() {
         return ApiResult.ok(iPoemLoginService.userInfo());
     }
 }

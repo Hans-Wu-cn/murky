@@ -1,16 +1,17 @@
 package cn.poem.solon.system.service.impl;
 
-import cn.poem.core.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.system.domain.dto.PoemMenuDropDTO;
+import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.mapper.PoemMenuMapper;
+import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
+import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
-import cn.poem.solon.system.enums.MenuType;
-import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
-import cn.poem.solon.system.service.IPoemMenuService;
-import cn.poem.solon.system.mapper.PoemMenuMapper;
+import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
@@ -59,7 +60,8 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      */
     @Override
     public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
-        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes);
+
+        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.getUserInfo().getRoleIds());
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);

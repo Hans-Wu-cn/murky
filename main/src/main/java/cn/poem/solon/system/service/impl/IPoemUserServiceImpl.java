@@ -1,17 +1,14 @@
 package cn.poem.solon.system.service.impl;
 
-import cn.poem.core.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.system.domain.convert.PoemUserConvert;
 import cn.poem.solon.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.system.domain.entity.PoemUser;
 import cn.poem.solon.system.domain.entity.PoemUserRole;
-import cn.poem.solon.system.domain.entity.table.PoemUserRoleTableDef;
-import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
 import cn.poem.solon.system.domain.vo.PoemUserVo;
 import cn.poem.solon.system.mapper.PoemUserMapper;
 import cn.poem.solon.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.system.service.IPoemUserService;
-import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
