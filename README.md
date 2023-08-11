@@ -1,5 +1,5 @@
 
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Poem-Solon v1.0.0-demo</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Poem-Solon v0.1.0</h1>
 <h4 align="center">以solon+mybatis-flex为基础的脚手架，用于快速开发项目,基于satoken实现了RBAC权限模型,可根据需要采用单体/分布式架构</h4>
 <p align="center">
 
