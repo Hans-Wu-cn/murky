@@ -63,10 +63,3 @@ public class PoemLoginController {
         return ApiResult.ok(iPoemLoginService.userInfo());
     }
 }
-
-@Data
-@Accessors(chain = true)
-class Vo {
-    private String lable;
-    private String value;
-}

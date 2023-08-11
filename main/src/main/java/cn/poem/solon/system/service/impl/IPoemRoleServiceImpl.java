@@ -57,7 +57,7 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     public boolean save(PoemRoleFromDTO poemRoleFromDTO) {
         PoemRole entity = poemRoleFromDTO.toEntity();
         //防止角色code重复
-        Long exist = mapper.selectCountByRoleCode(entity.getRoleCode());
+        Long exist = mapper.selectCountByRoleCode(entity.getRoleName(),entity.getRoleCode());
         if (exist > 0) {
             throw new ServiceException("角色码已存在");
         }
@@ -95,6 +95,13 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     public boolean update(PoemRoleFromDTO poemRoleFromDTO) {
         PoemRole entity = poemRoleFromDTO.toEntity();
         poemRoleFromDTO.setRoleCode(null);
+        //判断角色名称与角色码是否重复
+        for (PoemRole poemRole : mapper.selectByNameOrCode(entity.getRoleName(), entity.getRoleCode())) {
+            if(!poemRole.getRoleId().equals(entity.getRoleId())){
+                throw new ServiceException("角色码或者角色名称重复");
+            }
+        }
+        //修改角色对象
         int insert = mapper.update(entity);
         if (insert <= 0) {
             return false;

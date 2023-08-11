@@ -6,7 +6,6 @@ import cn.poem.solon.entity.UserInfo;
 import cn.poem.solon.expand.SecurityCache;
 import cn.poem.solon.satoken.event.LocalSecuritNotLoginEvent;
 import cn.poem.solon.event.EventBus;
-import cn.poem.solon.event.PoemEventListener;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.bean.InitializingBean;
@@ -41,8 +40,13 @@ public class SatokenSecurityCache implements InitializingBean, SecurityCache<Loc
      * @return 用户信息对象
      */
     @Override
-    public UserInfo getuserInfo() {
+    public UserInfo getUserInfo() {
         return userInfoCachePool.get(PREFIX_KEY + StpUtil.getLoginIdAsString());
+    }
+
+    @Override
+    public Long getUserId() {
+        return StpUtil.getLoginIdAsLong();
     }
 
     /**
@@ -52,7 +56,7 @@ public class SatokenSecurityCache implements InitializingBean, SecurityCache<Loc
     public void publishAsyncEvent() {
         UserInfo userInfo=null;
         try {
-            userInfo = this.getuserInfo();
+            userInfo = this.getUserInfo();
         }catch (NotLoginException exception){
             String userId = userIdCachePool.get(PREFIX_KEY + StpUtil.getTokenValue());
             userInfo = userInfoCachePool.get(PREFIX_KEY + userId);
