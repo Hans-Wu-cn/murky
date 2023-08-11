@@ -18,7 +18,7 @@
 
  **为什么使用[mybaitis-flex](https://mybatis-flex.com/)**: 采用APT技术而不是反射而拥有了更强大的性能,使用QueryWrap无sql模式更加得心应手,不需要在为系统固定某个数据库x.com/)
 
- **为什么使用pgsql]**: 开源免费,社区强大,性能卓越
+ **为什么使用pgsql**: 开源免费,社区强大,性能卓越
 
 > 1.因为内部采用mybatis-flex的queryWrap而不是直接手写sql,所以理论上mybatis-flex支持的库都是支持的,目前开发环境采用的是pgsql:12.15
 > 
