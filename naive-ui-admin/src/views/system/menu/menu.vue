@@ -83,25 +83,25 @@
               </n-radio-group>
             </n-form-item>
             <n-form-item label="标题" path="label">
-              <n-input placeholder="请输入标题" v-model:value="formParams.label" />
+              <n-input placeholder="请输入标题,菜单的标题用于在侧边菜单栏与页面title显示" v-model:value="formParams.label" />
             </n-form-item>
             <n-form-item v-if="formParams.type !== 2" label="菜单图标" path="icon">
               <IconSelect v-model:iconName="formParams.icon"></IconSelect>
             </n-form-item>
             <n-form-item v-if="formParams.type !== 2" label="副标题" path="subtitle">
-              <n-input placeholder="请输入副标题" v-model:value="formParams.subtitle" />
+              <n-input placeholder="请输入副标题,在外链的情况下会有作用" v-model:value="formParams.subtitle" />
             </n-form-item>
             <n-form-item v-if="formParams.type !== 2" label="路由地址" path="path">
-              <n-input placeholder="请输入路径" v-model:value="formParams.path" />
+              <n-input placeholder="请输入路径,url路径，继承拼接父菜单路径" v-model:value="formParams.path" />
             </n-form-item>
             <n-form-item v-if="formParams.type === 1" label="组件路径" path="component">
-              <n-input placeholder="请输入组件路径" v-model:value="formParams.component" />
+              <n-input placeholder="请输入view下组件相对路径例如: system/menu/menu.vue" v-model:value="formParams.component" />
             </n-form-item>
             <n-form-item v-if="formParams.type != 0" label="菜单权限" path="auth">
-              <n-input placeholder="请输入权限" v-model:value="formParams.auth" />
+              <n-input placeholder="权限码要求唯一,如果是按钮权限码建议使用父级菜单:权限 例如 menu:add" v-model:value="formParams.auth" />
             </n-form-item>
             <n-form-item v-if="formParams.type == 1" label="路由参数" path="query">
-              <n-input placeholder="请输入路由参数" v-model:value="formParams.query" />
+              <n-input placeholder="请输入路由参数,固定的参数 例如: {'name':'hans'}" v-model:value="formParams.query" />
             </n-form-item>
             <n-grid v-if="formParams.type === 1" class="mt-4" cols="4">
               <n-gi span="2">
@@ -116,6 +116,14 @@
               </n-gi>
               <n-gi span="2">
                 <n-form-item label="是否显示" path="isDisplay">
+                  <n-tooltip trigger="hover">
+                    <template #trigger>
+                      <n-icon size="18" class="cursor-pointer">
+                        <AlertTwotone />
+                      </n-icon>
+                    </template>
+                    即使不显示,也可以通过url直接访问
+                  </n-tooltip>
                   <n-radio-group v-model:value="formParams.isDisplay" name="isDisplay">
                     <n-space>
                       <n-radio :value="0">是</n-radio>
@@ -129,6 +137,14 @@
             <n-grid v-if="formParams.type != 2" class="mt-4" cols="4">
               <n-gi span="2">
                 <n-form-item label="是否外链" path="isOutside">
+                  <n-tooltip trigger="hover">
+                    <template #trigger>
+                      <n-icon size="18" class="cursor-pointer">
+                        <AlertTwotone />
+                      </n-icon>
+                    </template>
+                    外链后需要将路由地址改为需要外链的地址 例如 https://www.baidu.com
+                  </n-tooltip>
                   <n-radio-group v-model:value="formParams.isOutside" name="isOutside">
                     <n-space>
                       <n-radio :value="0">否</n-radio>
@@ -139,6 +155,14 @@
               </n-gi>
               <n-gi span="2">
                 <n-form-item label="是否缓存" path="isCache">
+                  <n-tooltip trigger="hover">
+                    <template #trigger>
+                      <n-icon size="18" class="cursor-pointer">
+                        <AlertTwotone />
+                      </n-icon>
+                    </template>
+                    开启后该页面将使用keepAlive
+                  </n-tooltip>
                   <n-radio-group v-model:value="formParams.isCache" name="isCache">
                     <n-space>
                       <n-radio :value="0">否</n-radio>
@@ -149,9 +173,17 @@
               </n-gi>
             </n-grid>
             <n-form-item label="排序" path="sort">
-                  <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
-                    v-model:value="formParams.sort" />
-                </n-form-item>
+              <n-tooltip trigger="hover">
+                    <template #trigger>
+                      <n-icon size="18" class="cursor-pointer">
+                        <AlertTwotone />
+                      </n-icon>
+                    </template>
+                    序号小的排前面
+                  </n-tooltip>
+              <n-input-number placeholder="请输入排序" :min="-10000" :max="10000" :default-value="0"
+                v-model:value="formParams.sort" />
+            </n-form-item>
             <n-form-item path="auth" style="margin-left: 100px">
               <n-space>
                 <n-button type="primary" :loading="subLoading" @click="formSubmit">保存修改</n-button>
@@ -172,7 +204,7 @@
 import { ref, unref, reactive, onMounted, computed } from 'vue';
 import { TreeOption, useDialog, useMessage } from 'naive-ui';
 import { IconSelect } from '@/components/IconSelect'
-import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
+import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined, AlertTwotone } from '@vicons/antd';
 import { getMenuList, removeMenu, editMenu, dropMenu } from '@/api/system/menu';
 import { PoemMenu, PoemMenuDrop } from '@/api/system/menu/types';
 import { getTreeItem } from '@/utils';
@@ -248,7 +280,7 @@ const formParams: PoemMenu = reactive({
   isCache: 0,
   isDisplay: 0,
   isOutside: 0,
-  query:''
+  query: ''
 });
 
 function renderPrefix({ option }: { option: TreeOption }) {
@@ -431,7 +463,7 @@ onMounted(async () => {
 
 function refresh() {
   loading.value = true;
-  getMenu().then(()=>{
+  getMenu().then(() => {
     loading.value = false
   });
 }

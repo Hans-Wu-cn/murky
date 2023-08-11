@@ -16,18 +16,24 @@ public interface SecurityCache<T extends SecurityNotLoginEvent> extends PoemEven
      * 缓存用户信息
      * @param userInfo 用户信息对象
      */
-    public abstract void setUserInfo(UserInfo userInfo);
+    void setUserInfo(UserInfo userInfo);
 
     /**
      * 获取缓存中的用户信息
      * @return 用户信息对象
      */
-    public abstract UserInfo getuserInfo();
+    UserInfo getUserInfo();
+
+    /**
+     * 获取用户id
+     * @return 返回用户id
+     */
+    Long getUserId();
 
     /**
      * 推送事件
      */
-    public abstract void publishAsyncEvent();
+    void publishAsyncEvent();
 
 
 }
