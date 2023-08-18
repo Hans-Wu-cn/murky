@@ -7,10 +7,10 @@ export function usePermission() {
    * 检查权限
    * @param accesses
    */
-  function _somePermissions(accesses: string[]) {
+  function _somePermissions(accesses: string[] | string) {
     return userStore.getPermissions.some((item) => {
-      const { value }: any = item;
-      return accesses.includes(value);
+      if(accesses instanceof Array) return accesses.includes(item);
+      return accesses==item
     });
   }
 
@@ -18,7 +18,7 @@ export function usePermission() {
    * 判断是否存在权限
    * 可用于 v-if 显示逻辑
    * */
-  function hasPermission(accesses: string[]): boolean {
+  function hasPermission(accesses: string[] | string): boolean {
     if (!accesses || !accesses.length) return true;
     return _somePermissions(accesses);
   }

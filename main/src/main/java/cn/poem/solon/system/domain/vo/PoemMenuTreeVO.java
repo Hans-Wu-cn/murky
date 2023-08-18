@@ -18,17 +18,18 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel("菜单树视图类")
 public class PoemMenuTreeVO implements Serializable {
-    @ApiModelProperty("菜单标题")
-    private String label;
 
     @ApiModelProperty("菜单id")
     private Long menuId;
 
+    @ApiModelProperty("菜单标题")
+    private String label;
+
     @ApiModelProperty("菜单类型 0:目录 1:侧边菜单 2:按钮")
     private MenuType type;
 
-    @ApiModelProperty("副标题")
-    private String subtitle;
+    @ApiModelProperty("菜单名称")
+    private String name;
 
     @ApiModelProperty("打开方式 1:当前窗口  2:新窗口")
     private MenuOpenType openType;

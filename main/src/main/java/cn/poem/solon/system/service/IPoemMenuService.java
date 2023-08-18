@@ -8,6 +8,7 @@ import com.mybatisflex.core.service.IService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 菜单service
@@ -30,11 +31,12 @@ public interface IPoemMenuService extends IService<PoemMenu> {
      */
     List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes);
 
-
     /**
      * 删除菜单业务
      * @param id 数据主键
      * @return 删除成功状态
      */
     boolean removeById(Serializable id);
+
+
 }

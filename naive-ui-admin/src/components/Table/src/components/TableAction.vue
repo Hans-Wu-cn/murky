@@ -62,8 +62,8 @@
       },
     },
     setup(props) {
-      // const { hasPermission } = usePermission();
-
+      const { hasPermission } = usePermission();
+      debugger
       const actionType =
         props.style === 'button' ? 'default' : props.style === 'text' ? 'primary' : 'default';
       const actionText =
@@ -79,9 +79,9 @@
 
       const getDropdownList = computed(() => {
         return (toRaw(props.dropDownActions) || [])
-          // .filter((action) => {
-          //   return hasPermission(action.auth as string[]) && isIfShow(action);
-          // })
+          .filter((action) => {
+            return hasPermission(action.auth as string[]) && isIfShow(action);
+          })
           .map((action) => {
             const { popConfirm } = action;
             return {
@@ -111,10 +111,12 @@
       }
 
       const getActions = computed(() => {
+        debugger
         return (toRaw(props.actions) || [])
-          // .filter((action) => {
-          //   return hasPermission(action.auth as string[]) && isIfShow(action);
-          // })
+          .filter((action) => {
+            debugger
+            return hasPermission(action.auth as string[]) && isIfShow(action);
+          })
           .map((action) => {
             const { popConfirm } = action;
             //需要展示什么风格，自己修改一下参数

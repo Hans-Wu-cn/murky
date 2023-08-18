@@ -36,8 +36,8 @@ public class ExceptionFilter implements Filter {
             ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
         }catch (RuntimeException ex){
             //其他异常
-            ctx.render(ApiResult.fail(500,ex.getMessage()));
             ex.printStackTrace();
+            ctx.render(ApiResult.fail(500,ex.getMessage()));
         }
 
     }

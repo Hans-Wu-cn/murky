@@ -64,10 +64,6 @@ export const getQuery=(key:string)=>{
 export function generatorMenu(routerMap: Array<any>) {
   debugger
   return filterRouter(routerMap).filter(item => !item.isDisplay).map((item) => {
-    debugger
-    // const isRoot = isRootRouter(item);
-    // const info =  item;
-
     const currentMenu = {
       ...item,
       label: item.meta.label,

@@ -2,8 +2,7 @@ import { defineStore } from 'pinia';
 import { store } from '@/store';
 import { ACCESS_TOKEN, CURRENT_USER, IS_SCREENLOCKED } from '@/store/mutation-types';
 import { ResultEnum } from '@/enums/httpEnum';
-
-import { getUserInfo as getUserInfoApi, login } from '@/api/system/user';
+import { getUserInfo as getUserInfoApi, login,logout as logoutApi } from '@/api/auth';
 import { storage } from '@/utils/Storage';
 
 export type UserInfoType = {
@@ -17,7 +16,7 @@ export interface IUserState {
   username: string;
   welcome: string;
   avatar: string;
-  permissions: any[];
+  permissions: string[];
   info: UserInfoType;
 }
 
@@ -41,7 +40,7 @@ export const useUserStore = defineStore({
     getNickname(): string {
       return this.username;
     },
-    getPermissions(): [any][] {
+    getPermissions(): string[] {
       return this.permissions;
     },
     getUserInfo(): UserInfoType {
@@ -78,6 +77,7 @@ export const useUserStore = defineStore({
 
     // 获取用户信息
     async getInfo() {
+      debugger
       const {result} = await getUserInfoApi();
       // if (result.permissions && result.permissions.length) {
         const permissionsList = result.permissions;
@@ -92,6 +92,7 @@ export const useUserStore = defineStore({
 
     // 登出
     async logout() {
+      await logoutApi();
       this.setPermissions([]);
       this.setUserInfo({ name: '', email: '' });
       storage.remove(ACCESS_TOKEN);

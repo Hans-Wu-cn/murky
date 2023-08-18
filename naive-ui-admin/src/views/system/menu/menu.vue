@@ -211,6 +211,7 @@ import { getTreeItem } from '@/utils';
 import CreateDrawer from './CreateDrawer.vue';
 import { Refresh } from '@vicons/ionicons5'
 import { constantRouterIcon } from '@/router/icons'
+import { ResultEnum } from '@/enums/httpEnum';
 
 const rules = {
   label: {
@@ -348,7 +349,7 @@ function findSiblingsAndIndex(
 
 async function drop(data: PoemMenuDrop) {
   const { code } = await dropMenu(data);
-  if (code !== 200) {
+  if (code !== ResultEnum.SUCCESS) {
     message.error("修改失败")
   }
   refresh()
@@ -406,7 +407,7 @@ function handleDel() {
       loading.value = true;
       const { code } = await removeMenu(formParams.menuId as string);
       console.log(code)
-      if (code === 200) {
+      if (code === ResultEnum.SUCCESS) {
         message.success('删除成功');
         getMenu();
         Object.assign(formParams, null);
@@ -438,7 +439,7 @@ function formSubmit() {
     if (!errors) {
       subLoading.value = true;
       const { code } = await editMenu(formParams);
-      if (code === 200) {
+      if (code === ResultEnum.SUCCESS) {
         message.success('修改成功');
         refresh()
       }
@@ -470,7 +471,7 @@ function refresh() {
 
 async function getMenu() {
   const { code, result } = await getMenuList();
-  if (code === 200) {
+  if (code === ResultEnum.SUCCESS) {
     treeData.value = result;
   }
 

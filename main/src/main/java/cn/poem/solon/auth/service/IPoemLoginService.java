@@ -13,6 +13,10 @@ public interface IPoemLoginService {
 
     SaTokenInfo login(LoginDto loginDto);
 
+    /**
+     * 获取用户登录信息
+     * @return 用户信息对象
+     */
     UserInfo userInfo();
 
 }

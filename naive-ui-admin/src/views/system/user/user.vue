@@ -3,7 +3,7 @@
         <n-card :bordered="false" class="mt-4 proCard">
             <BasicTable :columns="columns" :request="loadDataTable" :row-key="(row) => row.userId" ref="actionRef"
                 :actionColumn="actionColumn" @update:checked-row-keys="onCheckedRow">
-                <template #tableTitle>
+                <template v-if="hasPermission('user:add')" #tableTitle>
                     <n-button type="primary" @click="handleAdd">
                         <template #icon>
                             <n-icon>
@@ -79,7 +79,8 @@ import { columns } from './columns';
 import { PlusOutlined } from '@vicons/antd';
 import { SelectMixedOption } from 'naive-ui/es/select/src/interface';
 import { PageRequest } from '@/api/types'
-
+import { ResultEnum } from '@/enums/httpEnum';
+import { usePermission } from '@/hooks/web/usePermission';
 
 // const router = useRouter();
 const message = useMessage();
@@ -88,7 +89,7 @@ const formBtnLoading = ref(false);
 const showSaveModal = ref(false);
 const saveModalTitle = ref('');
 const roleOption: Array<SelectMixedOption> = [];
-
+const { hasPermission } = usePermission();
 
 const actionColumn = reactive({
     width: 250,
@@ -105,7 +106,7 @@ const actionColumn = reactive({
                     ifShow: () => {
                         return true;
                     },
-                    auth: ['basic_list'],
+                    auth: ['user:edit'],
                 },
                 {
                     label: '删除',
@@ -115,7 +116,7 @@ const actionColumn = reactive({
                         return true;
                     },
                     // 根据权限控制是否显示: 有权限，会显示，支持多个
-                    auth: ['basic_list'],
+                    auth: ['user:remove'],
                 },
             ],
         });
@@ -175,7 +176,7 @@ const loadDataTable = async (res: PageRequest) => {
 const getInfo = async (roleId: number) => {
     let { code, result } = await userInfo(roleId);
     console.log(result)
-    if (code !== 200) {
+    if (code !== ResultEnum.SUCCESS) {
         message.error("查询失败");
     }
     Object.assign(formValue, result);
@@ -238,7 +239,7 @@ const handleEdit = (record: Recordable) => {
 const handleDelete = async (record: Recordable) => {
     console.log('点击了删除', record);
     const { code } = await removeUser(record.userId);
-    if (code === 200) {
+    if (code === ResultEnum.SUCCESS) {
         message.success('删除成功');
         reloadTable();
     }
@@ -250,15 +251,14 @@ const confirmForm = async () => {
     formBtnLoading.value = true;
     if (formValue.userId) {
         const { code } = await editUser(formValue);
-        if (code === 200) {
+        if (code === ResultEnum.SUCCESS) {
             message.success('修改成功');
             showSaveModal.value = false;
             reloadTable();
         }
     } else {
         const { code } = await addUser(formValue);
-        console.log(code)
-        if (code === 200) {
+        if (code === ResultEnum.SUCCESS) {
             message.success('添加成功');
             showSaveModal.value = false;
             reloadTable();
@@ -271,8 +271,7 @@ const confirmForm = async () => {
 onMounted(async () => {
     console.log(111111111111111);
     const { code, result } = await getRoleList();
-    console.log(code, result);
-    if (code !== 200) {
+    if (code !== ResultEnum.SUCCESS) {
         message.error("页面信息加载异常");
         return;
     }

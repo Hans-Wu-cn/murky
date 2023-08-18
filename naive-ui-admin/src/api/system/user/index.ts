@@ -1,5 +1,5 @@
 import { http } from '@/utils/http/axios';
-import { PoemUserFrom,PoemUserResponse,BasicResponseModel } from './types';
+import { PoemUserFrom,PoemUserResponse} from './types';
 import { Result } from '@/utils/http/axios/types';
 import { PageRequest } from '@/api/types';
 
@@ -57,31 +57,9 @@ export function removeUser(userId:number) {
   });
 }
 
-/**
- * @description: 获取用户信息
- */
-export function getUserInfo() {
-  return http.request({
-    url: '/auth/info',
-    method: 'get',
-  });
-}
 
-/**
- * @description: 用户登录
- */
-export function login(params) {
-  return http.request<BasicResponseModel>(
-    {
-      url: '/auth/login',
-      method: 'POST',
-      params,
-    },
-    {
-      isTransformResponse: false,
-    }
-  );
-}
+
+
 
 /**
  * @description: 用户修改密码

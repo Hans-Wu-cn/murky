@@ -118,7 +118,7 @@
 
       const { battery, batteryStatus, calcDischargingTime, calcChargingTime } = useBattery();
       const userInfo: UserInfoType = userStore.getUserInfo || {};
-      const username = userInfo['username'] || '';
+      const username = userInfo['userName'] || '';
       const state = reactive({
         showLogin: false,
         loginLoading: false, // 正在登录

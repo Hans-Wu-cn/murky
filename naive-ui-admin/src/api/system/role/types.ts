@@ -8,7 +8,7 @@ export type PoemRoleFrom = {
   roleName: string  //角色名
   roleCode: string  //角色码
   describe: string  //描述
-  menuIds: number[] //菜单id集合
+  menuIds: Array<string> //菜单id集合
 }
 
 /**

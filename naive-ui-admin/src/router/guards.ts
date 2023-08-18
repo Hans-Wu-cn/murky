@@ -12,6 +12,7 @@ const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 
 export function createRouterGuards(router: Router) {
+
   const userStore = useUser();
   const asyncRouteStore = useAsyncRoute();
   router.beforeEach(async (to, from, next) => {
@@ -55,7 +56,7 @@ export function createRouterGuards(router: Router) {
       next();
       return;
     }
-
+    debugger
     const userInfo = await userStore.getInfo();
 
     const routes = await asyncRouteStore.generateRoutes(userInfo);

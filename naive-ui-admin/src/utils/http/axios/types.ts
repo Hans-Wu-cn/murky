@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { AxiosTransform } from './axiosTransform';
+import { ResultEnum } from '@/enums/httpEnum';
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   transform?: AxiosTransform;
@@ -58,8 +59,8 @@ export interface RequestOptions {
 }
 
 export interface Result<T = any> {
-  code: number;
+  code: ResultEnum;
   type?: 'success' | 'error' | 'warning';
   message: string;
-  result?: T;
+  result: T;
 }

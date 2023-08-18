@@ -19,6 +19,11 @@ public class UserInfo {
     private Long userId;
 
     /**
+     * 是否是超级管理员
+     */
+    private Boolean isAdmin = false;
+
+    /**
      * 用户名
      */
     private String userName;
@@ -29,9 +34,14 @@ public class UserInfo {
     private String token;
 
     /**
-     * 角色ID
+     * 角色ID集合
      */
     private Set<Long> roleIds;
+
+    /**
+     * 角色code集合
+     */
+    private Set<String> roleCodes;
 
     /**
      * 权限码

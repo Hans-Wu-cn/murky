@@ -3,8 +3,8 @@
     <n-card :bordered="false" class="mt-4 proCard">
       <BasicTable :columns="columns" :request="loadDataTable" :row-key="(row) => row.roleId" ref="actionRef"
         :actionColumn="actionColumn" @update:checked-row-keys="onCheckedRow">
-        <template #tableTitle>
-          <n-button type="primary" @click="handleAdd">
+        <template v-if="hasPermission('role:add')"  #tableTitle>
+          <n-button  type="primary" @click="handleAdd">
             <template #icon>
               <n-icon>
                 <PlusOutlined />
@@ -39,7 +39,7 @@
               </n-form-item>
               <n-form-item>
                 <n-tree block-line cascade checkable :virtual-scroll="true" key-field="menuId" :data="treeData"
-                  :checked-keys="formValue.menuIds" @update:checked-keys="checkedTree"
+                check-strategy='parent' :checked-keys="formValue.menuIds" @update:checked-keys="checkedTree"
                   style="max-height: 300px; overflow: hidden" />
               </n-form-item>
             </n-form>
@@ -60,10 +60,13 @@ import { PageRequest } from '@/api/types'
 import { useMessage } from 'naive-ui';
 import { BasicTable, TableAction } from '@/components/Table';
 import { getRolePage, addRole, editRole, removeRole, getRoleInfo } from '@/api/system/role';
+import { usePermission } from '@/hooks/web/usePermission';
 import { PoemRoleFrom } from '@/api/system/role/types';
 import { getMenuList } from '@/api/system/menu';
 import { columns } from './columns';
 import { PlusOutlined } from '@vicons/antd';
+import { ResultEnum } from '@/enums/httpEnum';
+import { TreeOption } from 'naive-ui/lib/tree';
 // import { useRouter } from 'vue-router';
 
 // const router = useRouter();
@@ -73,6 +76,9 @@ const formBtnLoading = ref(false);
 const treeData = ref([]);
 const showSaveModal = ref(false);
 const saveModalTitle = ref('');
+const {hasPermission} = usePermission();
+//naive ui中树因为树功能的缺陷需要自己补充节点
+const nodeSupplement=ref(new Set<string>());
 const actionColumn = reactive({
   width: 250,
   title: '操作',
@@ -88,7 +94,7 @@ const actionColumn = reactive({
           ifShow: () => {
             return true;
           },
-          auth: ['basic_list'],
+          auth: ['role:edit'],
         },
         {
           label: '删除',
@@ -98,7 +104,7 @@ const actionColumn = reactive({
             return true;
           },
           // 根据权限控制是否显示: 有权限，会显示，支持多个
-          auth: ['basic_list'],
+          auth: ['role:remove'],
         },
       ],
     });
@@ -147,7 +153,7 @@ const loadDataTable = async (res: PageRequest) => {
  */
 const getInfo = async (roleId: number) => {
   let { code, result } = await getRoleInfo(roleId);
-  if (code !== 200) {
+  if (code !== ResultEnum.SUCCESS) {
     message.error("查询失败");
   }
   Object.assign(formValue, result);
@@ -177,6 +183,7 @@ const onCheckedRow = (rowKeys: any[]) => {
  */
 function reloadTable() {
   actionRef.value.reload();
+  // parentNodeSupplement.value=[];
 }
 
 /**
@@ -207,7 +214,7 @@ const handleEdit = (record: Recordable) => {
 const handleDelete = async (record: Recordable) => {
   console.log('点击了删除', record);
   const { code } = await removeRole(record.roleId);
-  if (code === 200) {
+  if (code === ResultEnum.SUCCESS) {
     message.success('删除成功');
     reloadTable();
   }
@@ -217,16 +224,20 @@ const handleDelete = async (record: Recordable) => {
  */
 const confirmForm = async () => {
   formBtnLoading.value = true;
+  let form=formValue;
+  // nodeSupplement.value.forEach(item =>{
+  //   form.menuIds.push(item);
+  // })
   if (formValue.roleId) {
     const { code } = await editRole(formValue);
-    if (code === 200) {
+    if (code === ResultEnum.SUCCESS) {
       message.success('修改成功');
       showSaveModal.value = false;
       reloadTable();
     }
   } else {
     const { code } = await addRole(formValue);
-    if (code === 200) {
+    if (code === ResultEnum.SUCCESS) {
       message.success('添加成功');
       showSaveModal.value = false;
       reloadTable();
@@ -240,9 +251,23 @@ const confirmForm = async () => {
  * 菜单树勾选事件
  * @param keys 菜单树选中menuId
  */
-const checkedTree = (keys) => {
-  formValue.menuIds = keys;
+const checkedTree = (keys: Array<string | number>, option: Array<TreeOption | null>, meta: { node: TreeOption | null, action: 'check' | 'uncheck' }) => {
+  // if(meta.action==='check'){
+  //   option.forEach(item => nodeSupplement.value.add(item.))
+  //   nodeSupplement.value.push(meta.node?.parentMenuId as string);
+  // }else if(meta.action==='uncheck'){
+  //   parentNodeSupplement.value=parentNodeSupplement.value.filter(item =>{
+  //     if(item != meta.node?.parentMenuId){
+  //       return true;
+  //     }
+  //   })
+  // }
+  formValue.menuIds = keys as Array<string>;
+  console.log(option)
+  console.log(nodeSupplement)
 }
+
+
 
 
 onMounted(async () => {
@@ -252,4 +277,3 @@ onMounted(async () => {
 </script>
 
 <style lang="less" scoped></style>
-@/api/system/role/role@/api/system/menu/menu

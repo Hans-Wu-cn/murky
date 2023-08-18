@@ -37,6 +37,15 @@ public class SecurityUtil implements InitializingBean {
         return securityCache.getUserId();
     }
 
+
+    /**
+     * 用户是否是超级管理员
+     * @return 用户id
+     */
+    public static Boolean isAdmin(){
+        return securityCache.getUserInfo().getIsAdmin();
+    }
+
     /**
      * 修改缓存中用户的信息
      * @param userInfo

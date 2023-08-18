@@ -36,6 +36,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
 
     /**
      * 菜单排序接口,设置菜单排序并统一设定父级菜单
+     *
      * @param poemMenuDropDTO 菜单拖动接口参数实体对象
      * @return 是否修改成功
      */
@@ -43,11 +44,11 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     @Override
     public Boolean drop(PoemMenuDropDTO poemMenuDropDTO) {
         IPoemMenuServiceImpl bean = Solon.context().getBean(this.getClass());
-        List<PoemMenu> poemMenuList=new ArrayList<>();
+        List<PoemMenu> poemMenuList = new ArrayList<>();
         List<Long> menuIds = poemMenuDropDTO.getMenuIds();
         for (int i = 0; i < menuIds.size(); i++) {
             poemMenuList.add(new PoemMenu().setMenuId(menuIds.get(i))
-                            .setSort(Short.parseShort(String.valueOf(i)))
+                    .setSort(Short.parseShort(String.valueOf(i)))
                     .setParentMenuId(poemMenuDropDTO.getParentMenuId()));
         }
         return bean.updateBatch(poemMenuList);
@@ -60,8 +61,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      */
     @Override
     public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
-
-        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.getUserInfo().getRoleIds());
+        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.isAdmin() ? null : SecurityUtil.getUserInfo().getRoleIds());
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);
@@ -70,6 +70,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
 
     /**
      * 删除菜单业务
+     *
      * @param id 数据主键
      * @return 删除成功状态
      */
@@ -85,7 +86,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
         long l = poemRoleMenuMapper.selectCountByQuery(QueryWrapper.create().where(
                 PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID.eq(id)
         ));
-        if(l>0){
+        if (l > 0) {
             throw new ServiceException("删除失败,请保证该菜单没有被角色引用");
         }
         return super.removeById(id);

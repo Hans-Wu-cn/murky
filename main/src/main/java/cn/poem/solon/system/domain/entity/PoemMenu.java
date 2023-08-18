@@ -28,8 +28,8 @@ public class PoemMenu extends BaseEntity implements Serializable {
     @ApiModelProperty("菜单标题")
     private String label;
 
-    @ApiModelProperty("菜单副标题")
-    private String subtitle;
+    @ApiModelProperty("菜单名称")
+    private String name;
 
     @ApiModelProperty("路由地址")
     private String path;

@@ -40,7 +40,7 @@ public class PoemLoginController {
         SaTokenInfo tokenInfo = iPoemLoginService.login(loginDto);
         Map<String, String> map = new HashMap<>();
         map.put("token", tokenInfo.getTokenValue());
-        return ApiResult.ok(map);
+        return ApiResult.ok(tokenInfo.getTokenValue());
     }
 
     @Post

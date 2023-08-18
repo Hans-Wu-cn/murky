@@ -88,6 +88,7 @@ import { defineComponent, reactive, ref, toRefs } from 'vue';
 import { useMessage } from 'naive-ui';
 import { addMenu } from '@/api/system/menu';
 import { PoemMenu } from '@/api/system/menu/types';
+import { ResultEnum } from '@/enums/httpEnum';
 
 const rules = {
   label: {
@@ -210,7 +211,7 @@ export default defineComponent({
 
     async function save() {
       const { code } = await addMenu(state.formParams);
-      if (code === 200) {
+      if (code === ResultEnum.SUCCESS) {
         message.success('添加成功');
       }
     }
