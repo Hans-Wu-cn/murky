@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div class="menuManage">
+  <t-card :bordered="false">
     <div>
       <t-button @click="handleAdd">添加根目录</t-button>
       <t-button theme="default" style="margin-left: 16px" @click="resetData">重置/更新数据</t-button>
@@ -38,11 +39,11 @@
       :header="dialogHeader"
       :confirm-btn="dialogButton"
       :close-btn="true"
-      :on-close="close"
     >
       <template #body>slot body</template>
     </t-dialog>
-  </div>
+  </t-card>
+</div>
 </template>
 <script setup lang="tsx">
 import {
@@ -52,14 +53,14 @@ import {
   MinusRectangleIcon,
   MoveIcon,
 } from 'tdesign-icons-vue-next';
-import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin } from 'tdesign-vue-next';
+import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { addMenu, getMenuList } from '@/api/menu';
-import { ResultEnum } from '@/enums/httpEnum.ts';
+import { ResultEnum } from '@/enums/httpEnum';
 
 async function getData() {
-  const data = [];
+  const data:any[] = [];
   const { code, result } = await getMenuList();
   if (ResultEnum.SUCCESS === code)
     result.forEach((item) => {
@@ -83,7 +84,7 @@ const resetData = () => {
   });
 };
 
-const onEditClick = (row) => {
+const onEditClick = (row:any) => {
   const newData = {
     ...row,
     platform: 'New',
@@ -94,19 +95,19 @@ const onEditClick = (row) => {
   MessagePlugin.success('数据已更新');
 };
 
-const onDeleteConfirm = (row) => {
+const onDeleteConfirm = (row:any) => {
   table.value.remove(row.key);
   MessagePlugin.success('删除成功');
 };
 
-const onLookUp = (row) => {
+const onLookUp = (row:any) => {
   const allRowData = table.value.getData(row.key);
   const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
   MessagePlugin.success(`打开控制台查看${message}`);
   console.log(`${message}：`, allRowData);
 };
 
-const appendTo = (row) => {
+const appendTo = (row:any) => {
   const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
   table.value.appendTo(row.key, {
     id: randomKey1,
@@ -174,7 +175,7 @@ const insertAfter = (row) => {
   MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
 };
 
-const columns = [
+const columns:Array<PrimaryTableCol<any>> = [
   {
     // 列拖拽排序必要参数
     colKey: 'drag',
@@ -212,26 +213,28 @@ const columns = [
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
-        <t-link variant="text" hover="color" onClick={() => appendTo(row)}>
-          插入
-        </t-link>
-        <t-link variant="text" hover="color" onClick={() => insertBefore(row)}>
-          前插
-        </t-link>
-        <t-link variant="text" hover="color" onClick={() => insertAfter(row)}>
-          后插
-        </t-link>
-        <t-link variant="text" hover="color" onClick={() => onEditClick(row)}>
-          更新
-        </t-link>
-        <t-link variant="text" hover="color" onClick={() => onLookUp(row)}>
-          查看
-        </t-link>
-        <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
-          <t-link variant="text" hover="color" theme="danger">
-            删除
+        <t-space>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => appendTo(row)}>
+            插入
           </t-link>
-        </t-popconfirm>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => insertBefore(row)}>
+            前插
+          </t-link>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => insertAfter(row)}>
+            后插
+          </t-link>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+            更新
+          </t-link>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
+            查看
+          </t-link>
+          <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              删除
+            </t-link>
+          </t-popconfirm>
+        </t-space>
       </div>
     ),
   },
@@ -347,8 +350,11 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .tdesign-table-demo__table-operations .t-link {
   padding: 0 8px;
+}
+.menuManage{
+  background: #fff;
 }
 </style>
