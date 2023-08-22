@@ -24,7 +24,7 @@ router.beforeEach(async (to, from, next) => {
       return;
     }
     try {
-      debugger;
+      // debugger;
       await userStore.getUserInfo();
 
       const { asyncRoutes } = permissionStore;
