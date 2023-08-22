@@ -3,6 +3,7 @@ package cn.poem.solon.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,10 +42,10 @@ public class UserInfo {
     /**
      * 角色code集合
      */
-    private Set<String> roleCodes;
+    private List<String> roleCodes;
 
     /**
      * 权限码
      */
-    private Set<String> permissions;
+    private List<String> permissions;
 }
