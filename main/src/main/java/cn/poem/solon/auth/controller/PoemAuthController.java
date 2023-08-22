@@ -11,8 +11,7 @@ import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.utils.SecurityUtil;
 import io.swagger.annotations.Api;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 
@@ -25,15 +24,16 @@ import java.util.*;
  */
 @Controller
 @Valid
-@Api("登录控制器")
+@Api("安全控制器")
 @Mapping("auth")
-public class PoemLoginController {
+public class PoemAuthController {
 
     @Inject
     IPoemLoginService iPoemLoginService;
     @Inject
     IPoemMenuService iPoemMenuService;
     @Post
+    @ApiOperation("登录")
     @Mapping("login")
     public ApiResult login(@Body LoginDto loginDto) {
         System.out.println(loginDto);
@@ -44,6 +44,7 @@ public class PoemLoginController {
     }
 
     @Post
+    @ApiOperation("登出")
     @Mapping("logout")
     public ApiResult<?> logout() {
         StpUtil.logout();
@@ -52,12 +53,14 @@ public class PoemLoginController {
     }
 
     @Get
+    @ApiOperation("获取菜单")
     @Mapping("menu")
     public ApiResult<List<PoemMenuTreeVO>> menu() {
         return ApiResult.ok(iPoemMenuService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY)));
     }
 
     @Get
+    @ApiOperation("获取用户信息")
     @Mapping("info")
     public ApiResult<UserInfo> userInfo() {
         return ApiResult.ok(iPoemLoginService.userInfo());

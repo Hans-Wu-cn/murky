@@ -67,7 +67,7 @@ public class SatokenSecurityCache implements InitializingBean, SecurityCache<Loc
 
     /**
      * 订阅本地缓存登录异常事件
-     * @param localSecurityCacheEvent
+     * @param localSecurityCacheEvent 本地安全缓存事件
      * @throws Throwable
      */
     @Override

@@ -3,14 +3,13 @@ package cn.poem.solon.utils;
 import cn.poem.solon.entity.UserInfo;
 import cn.poem.solon.expand.SecurityCache;
 import org.noear.solon.Solon;
-import org.noear.solon.core.bean.InitializingBean;
 
 /**
  *  SecurityCache的工具类，方便静态调用
  *
  * @author hans
  */
-public class SecurityUtil implements InitializingBean {
+public class SecurityUtil {
 
     static SecurityCache<?> securityCache;
 

@@ -84,18 +84,18 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
             //查询角色code列表
-            Set<String> roleCodes = poemRoleMapper.selectListByIds(roleIds).stream().map(item -> {
+            List<String> roleCodes = poemRoleMapper.selectListByIds(roleIds).stream().map(item -> {
                 if(AdminContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())){
                     userInfo.setIsAdmin(true);
                 }
                 return item.getRoleCode();
-            }).collect(Collectors.toSet());
+            }).collect(Collectors.toList());
             userInfo.setRoleCodes(roleCodes);
             SecurityUtil.setUserInfo(userInfo);
             //查询权限列表
-            Set<String> permissions = poemMenuMapper.selectByMenuType(
+            List<String> permissions = poemMenuMapper.selectByMenuType(
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
-                    , SecurityUtil.isAdmin()?null:roleIds).stream().map(PoemMenu::getAuth).collect(Collectors.toSet());
+                    , SecurityUtil.isAdmin()?null:roleIds).stream().map(PoemMenu::getAuth).collect(Collectors.toList());
             userInfo.setPermissions(permissions);
             SecurityUtil.setUserInfo(userInfo);
             return userInfo;

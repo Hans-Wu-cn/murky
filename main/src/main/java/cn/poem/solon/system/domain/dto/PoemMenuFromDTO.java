@@ -45,7 +45,7 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("上级菜单id")
     private Long parentMenuId;
 
-    @ApiModelProperty("菜单类型 1:侧边菜单 2:按钮")
+    @ApiModelProperty("菜单类型 0:目录 1:侧边菜单 2:按钮")
     @NotNull
     private MenuType type;
 

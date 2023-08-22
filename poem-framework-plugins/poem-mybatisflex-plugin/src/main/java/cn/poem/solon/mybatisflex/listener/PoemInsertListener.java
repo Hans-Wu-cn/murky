@@ -1,7 +1,7 @@
 package cn.poem.solon.mybatisflex.listener;
 
-import cn.poem.solon.expand.Security;
 import cn.poem.solon.mybatisflex.extension.BaseEntity;
+import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
 import org.noear.solon.Solon;
@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
  */
 public class PoemInsertListener implements InsertListener, UpdateListener {
 
-    private Security security;
-
     /**
      * 新增sql 字段填充
      * @param o sql对象
@@ -25,7 +23,7 @@ public class PoemInsertListener implements InsertListener, UpdateListener {
     public void onInsert(Object o) {
         if(o instanceof BaseEntity baseEntity){
             baseEntity.setCreateTime(LocalDateTime.now());
-            baseEntity.setCreateUser(security.getUserId());
+            baseEntity.setCreateUser(SecurityUtil.getUserId());
         }
     }
 
@@ -37,17 +35,8 @@ public class PoemInsertListener implements InsertListener, UpdateListener {
     public void onUpdate(Object o) {
         if(o instanceof BaseEntity baseEntity){
             baseEntity.setUpdateTime(LocalDateTime.now());
-            baseEntity.setUpdateUser(security.getUserId());
+            baseEntity.setUpdateUser(SecurityUtil.getUserId());
 
         }
-    }
-
-    /**
-     * 初始化secrity Bean
-     */
-    public PoemInsertListener(){
-        Solon.context().getBeanAsync(Security.class,s->{
-            security = s;
-        });
     }
 }
