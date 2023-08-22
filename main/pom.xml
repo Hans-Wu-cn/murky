@@ -50,11 +50,6 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
-        <!--国产 http容器-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon.boot.smarthttp</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

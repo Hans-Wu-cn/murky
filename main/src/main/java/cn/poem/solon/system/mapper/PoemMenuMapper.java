@@ -25,15 +25,15 @@ public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
                         .select().from(PoemMenuTableDef.POEM_MENU)
                         .where(PoemMenuTableDef.POEM_MENU.TYPE.in(menuTypes))
                         //超级管理员查询全部数据
-                        .and(CollectionUtils.isNotEmpty(roleids) ?
+                        .and(
                                 exists
                                         (
                                                 QueryWrapper.create().select(PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID)
                                                         .from(PoemRoleMenuTableDef.POEM_ROLE_MENU)
                                                         .where(PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.in(roleids))
                                                         .and(PoemMenuTableDef.POEM_MENU.MENU_ID.eq(PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID))
-                                        )
-                                : noCondition())
+                                        ).when(CollectionUtils.isNotEmpty(roleids))
+                        )
                         .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc(), PoemMenuTableDef.POEM_MENU.LABEL.asc())
         );
     }

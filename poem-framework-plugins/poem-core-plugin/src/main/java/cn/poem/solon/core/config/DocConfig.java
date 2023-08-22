@@ -1,6 +1,7 @@
 package cn.poem.solon.core.config;
 
 
+import cn.poem.solon.core.enums.ApiResultEnum;
 import cn.poem.solon.core.utils.ApiResult;
 import com.github.xiaoymin.knife4j.solon.extension.OpenApiExtensionResolver;
 import io.swagger.models.Scheme;
@@ -10,6 +11,10 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.docs.DocDocket;
 import org.noear.solon.docs.models.ApiContact;
 import org.noear.solon.docs.models.ApiInfo;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  * 接口文档配置类
@@ -42,20 +47,27 @@ public class DocConfig{
      */
     @Bean("adminApi")
     public DocDocket adminApi() {
+        Map<Integer, String> responseCodes = new HashMap<>();
+        Arrays.stream(ApiResultEnum.values()).forEach(enums -> {
+            responseCodes.put(enums.getCode(),enums.getMessage()+"->"+enums.getDescribe());
+        });
+
         return new DocDocket()
                 .groupName("admin端接口")
                 .info(new ApiInfo().title("在线文档")
                         .description("在线API文档")
-                        .termsOfService("https://gitee.com/noear/solon")
-                        .contact(new ApiContact().name("demo")
-                                .url("https://gitee.com/noear/solon")
+                        .termsOfService("https://gitee.com/wu-zhihao/poem-solon")
+                        .contact(new ApiContact().name("poem-solon")
+                                .url("https://gitee.com/wu-zhihao/poem-solon")
                                 .email("837713748@qq.com"))
                         .version("1.0"))
                 .schemes(Scheme.HTTP.toValue(), Scheme.HTTPS.toValue())
                 .globalResponseInData(true)
                 .globalResult(ApiResult.class)
+                .globalResponseCodes(responseCodes)
+                .apis("cn.poem.solon.auth.controller") //可以加多条，以包名为单位
                 .apis("cn.poem.solon.system.controller") //可以加多条，以包名为单位
-                ;//.securityDefinitionInHeader("token");
+                ;//.securityDefinitionInHeader("tok en");
 
     }
 }
