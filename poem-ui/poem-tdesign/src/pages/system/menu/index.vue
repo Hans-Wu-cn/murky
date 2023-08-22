@@ -2,13 +2,13 @@
 <div class="menuManage">
   <t-card :bordered="false">
     <div>
-      <t-button @click="handleAdd">添加根目录</t-button>
-      <t-button theme="default" style="margin-left: 16px" @click="resetData">重置/更新数据</t-button>
+      <t-button @click="handleAdd">添加菜单</t-button>
+      <!-- <t-button theme="default" style="margin-left: 16px" @click="resetData">重置/更新数据</t-button>
       <t-button theme="default" style="margin-left: 16px" @click="onRowToggle">任意节点展开/收起</t-button>
       <t-button theme="default" style="margin-left: 16px" @click="onExpandAllToggle">
         {{ expandAll ? '收起全部' : '展开全部' }}
       </t-button>
-      <t-button theme="default" style="margin-left: 16px" @click="getTreeNode">获取全部树形结构</t-button>
+      <t-button theme="default" style="margin-left: 16px" @click="getTreeNode">获取全部树形结构</t-button> -->
     </div>
     <br />
     <div>
@@ -355,6 +355,8 @@ onMounted(async () => {
   padding: 0 8px;
 }
 .menuManage{
-  background: #fff;
+  // background: #fff;
+  min-height: 100%;
+  display: flex;
 }
 </style>
