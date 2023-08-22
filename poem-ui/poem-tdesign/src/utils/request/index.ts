@@ -127,6 +127,12 @@ const transform: AxiosTransform = {
 
   // 响应拦截器处理
   responseInterceptors: (res) => {
+    const {code} = res.data
+    if(code === ResultEnum.NOT_LOGIN){
+      // token过期清空store中的存储的token和user信息
+      const userStore = useUserStore();
+      userStore.logout();
+    }
     return res;
   },
 
@@ -163,7 +169,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 携带Cookie
         withCredentials: true,
         // 头信息
-        headers: { 'Content-Type': ContentTypeEnum.Json },
+        headers: { 'Content-Type': ContentTypeEnum.Json,'ngrok-skip-browser-warning':ContentTypeEnum.ngrok },
         // 数据处理方式
         transform,
         // 接口前缀

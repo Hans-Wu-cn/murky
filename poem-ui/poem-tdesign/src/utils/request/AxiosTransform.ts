@@ -35,7 +35,7 @@ export abstract class AxiosTransform {
   /**
    * 数据处理前钩子
    */
-  transformRequestHook?: <T = any>(res: AxiosResponse<Result>, options: RequestOptions) => T;
+  transformRequestHook?: <T = any>(res: AxiosResponse<Result>, options: RequestOptions) => Result<T> | AxiosResponse<Result<T>, T>;
 
   /**
    * 请求失败钩子
