@@ -46,7 +46,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       host: '0.0.0.0',
       proxy: {
         [VITE_API_URL_PREFIX]: {
-          target: 'http://127.0.0.1:8080/', // 实际请求地址
+          target: 'https://e002-120-235-181-186.ngrok-free.app', // 实际请求地址
           changeOrigin: true,
           rewrite: (path) => path.replace(new RegExp(`^${VITE_API_URL_PREFIX}`), ''),
         },

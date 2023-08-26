@@ -1,0 +1,233 @@
+<template>
+    <div class="menuTable">
+        <div>
+            <t-checkbox v-model="customTreeExpandAndFoldIcon" style="vertical-align: middle">
+                自定义折叠/展开图标
+            </t-checkbox>
+        </div>
+        <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
+        <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
+        <t-enhanced-table ref="tableRef" row-key="menuId" drag-sort="row-handler" :data="menuList" :columns="columns"
+            :tree="treeConfig" :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
+            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
+    </div>
+</template>
+<script setup lang="tsx">
+import {
+    AddRectangleIcon,
+    ChevronDownIcon,
+    ChevronRightIcon,
+    MinusRectangleIcon,
+    MoveIcon,
+} from 'tdesign-icons-vue-next';
+import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
+import { computed, onMounted, reactive, ref } from 'vue';
+import { addMenu, delMenu, getMenuList, updateMenu } from '@/api/menu';
+import { ResultEnum } from '@/enums/httpEnum';
+import { PoemMenu } from '@/api/menu/types';
+import { menuConfig } from './config';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const getData = async () => {
+    const data: any[] = [];
+    const { code, result } = await getMenuList();
+    if (ResultEnum.SUCCESS === code)
+        result.forEach((item) => {
+            data.push(item);
+        });
+    return data;
+}
+
+const tableRef = ref();
+const menuList = ref([]);//菜单列表数据
+const lazyLoadingData = ref(null);
+const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 2, indent: 50 });
+const columns: Array<PrimaryTableCol<any>> = [
+    {
+        // 列拖拽排序必要参数
+        colKey: 'drag',
+        title: '排序',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        cell: (_h) => <MoveIcon />,
+        width: 46,
+    },
+    {
+        colKey: 'menuId',
+        title: '编号',
+        ellipsis: true,
+        width: 80,
+    },
+    {
+        colKey: 'label',
+        title: '菜单名',
+        minWidth: 100,
+    },
+    {
+        colKey: 'path',
+        title: '菜单路径',
+        minWidth: 100,
+    },
+    {
+        colKey: 'icon',
+        title: '菜单图标',
+        width: 100,
+    },
+    {
+        colKey: 'auth',
+        title: '菜单权限',
+        width: 100,
+    },
+    {
+        colKey: 'operate',
+        minWidth: 340,
+        title: '操作',
+        // 增、删、改、查 等操作
+        cell: (h, { row, rowIndex }) => (
+            <div class="tdesign-table-demo__table-operations">
+                <t-space>
+                    <t-link theme="primary" variant="text" hover="color" onClick={() => insertChildren(row,rowIndex)}>
+                        新增子菜单
+                    </t-link>
+                    <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                        编辑
+                    </t-link>
+                    <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
+                        查看
+                    </t-link>
+                    {
+                        row.children?.length||row.name==='addMenu'?'':<t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
+                            <t-link variant="text" hover="color" theme="danger">
+                                删除
+                            </t-link>
+                        </t-popconfirm>
+                    }
+                    
+                </t-space>
+            </div>
+        ),
+    },
+];
+// 添加菜单接口调用
+const appendNewMenu = async (menuData: PoemMenu) => {
+    return await addMenu(menuData)
+}
+// 插入子节点
+const insertChildren = async (row: PoemMenu,rowIndex:number) => {
+    const newMenuItem: PoemMenu = {
+        label: '新增菜单名',
+        name: '',
+        path: '',
+        openType: 0,
+        auth: '',
+        type: 0,
+        sort: 0,
+        component: '',
+        icon: '',
+        isCache: 0,
+        isDisplay: 1,
+        isOutside: 0,
+        children: [],
+        parentMenuId: row.menuId
+    }
+    const res = await appendNewMenu(newMenuItem)
+    await resetData();
+    MessagePlugin.success('菜单已添加');
+}
+
+const resetData = async() => {
+    // 需要更新数据地址空间
+    const res = await getData()
+    tableRef.value.resetData(res)
+    tableRef.value.expandAll();
+};
+
+const onEditClick = async (row: PoemMenu) => {
+    router.push(menuConfig.addMenuUrl+'?poemId='+row.menuId);
+    return
+    row.isDisplay = 1
+    // const res = await updateMenuFun(row);
+    resetData();
+    MessagePlugin.success('数据已更新');
+};
+
+const onDeleteConfirm = async(row: PoemMenu) => {
+    const res = await delMenu(row.menuId)
+    tableRef.value.remove(row.menuId);
+    MessagePlugin.success('删除成功');
+};
+
+const onLookUp = (row: any) => {
+    const allRowData = tableRef.value.getData(row.key);
+    const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
+    MessagePlugin.success(`打开控制台查看${message}`);
+    console.log(`${message}：`, allRowData);
+};
+
+const customTreeExpandAndFoldIcon = ref(false);
+
+const treeExpandAndFoldIconRender = (h: any, { type, row }: any) => {
+    if (lazyLoadingData.value && lazyLoadingData.value.id === row?.id) {
+        return <Loading size="14px" />;
+    }
+    return type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />;
+};
+
+// 懒加载图标渲染
+const lazyLoadingTreeIconRender = (h: any, params: { type: any; row: any; }) => {
+    const { type, row } = params;
+    if (lazyLoadingData.value && lazyLoadingData.value.id === row?.id) {
+        return <Loading size="14px" />;
+    }
+    return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
+};
+
+const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
+    console.log(params);
+    // MessagePlugin.warning(params.reason);
+    if (params.code === 1001) {
+        MessagePlugin.warning('不同层级的元素，不允许调整顺序');
+    }
+};
+
+const onTreeExpandChange = (context: TableTreeExpandChangeContext<T>) => {
+    console.log(context.rowState.expanded ? '展开' : '收起', context);
+    /**
+     * 如果是懒加载，请确认自己完成了以下几个步骤
+     * 1. 提前设置 children 值为 true；
+     * 2. 在 onTreeExpandChange 事件中处理异步数据；
+     * 3. 自定义展开图标渲染 lazyLoadingTreeIconRender
+     */
+};
+type T = /*unresolved*/ any
+const onDragSort = (params: DragSortContext<T>) => {
+    console.log('onDragSort:', params);
+};
+
+// 应用于需要阻止拖拽排序的场景。如：当子节点存在时，则不允许调整顺序。
+// 返回值为 true，允许拖拽排序；返回值 为 false，则阻止拖拽排序
+const beforeDragSort = (params: DragSortContext<T>) => {
+    console.log('beforeDragSort:', params);
+    return true;
+};
+
+const treeExpandIcon = computed(() => {
+    // 自定义展开图标
+    if (customTreeExpandAndFoldIcon.value) {
+        return treeExpandAndFoldIconRender;
+    }
+    return lazyLoadingTreeIconRender;
+});
+
+onMounted(async() => {
+    resetData();
+});
+</script>
+<style scoped lang="less">
+.tdesign-table-demo__table-operations .t-link {
+    padding: 0 8px;
+}
+
+.menuTable {
+    margin-top: 20px;
+}
+</style>

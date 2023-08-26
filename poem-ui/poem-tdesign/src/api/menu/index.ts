@@ -20,8 +20,37 @@ export function getMenuList() {
  * 添加菜单
  * @returns Route
  */
-export function addMenu() {
+export function addMenu(data:PoemMenu) {
   return request.post({
     url: Api.addMenu,
+    data
+  });
+}
+/**
+ * 修改菜单
+ * @returns Route
+ */
+export function updateMenu(data:PoemMenu) {
+  return request.put({
+    url: Api.addMenu,
+    data
+  });
+}
+/**
+ * 删除菜单
+ * @returns Route
+ */
+export function delMenu(menuId:string) {
+  return request.delete({
+    url: `/poemMenu/${menuId}`,
+  });
+}
+/**
+ * 菜单详情
+ * @returns Route
+ */
+export function getMenu(menuId:string) {
+  return request.get({
+    url: `/poemMenu/${menuId}`,
   });
 }

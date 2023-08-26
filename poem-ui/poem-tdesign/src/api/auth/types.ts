@@ -43,9 +43,9 @@ export interface Route {
   children?: Array<Route>;
   label: string;
   icon?: string;
-  is_display: number;
+  isDisplay: number;
   single?: boolean;
-  is_cache: number;
-  is_outside: number;
+  isCache: number;
+  isOutside: number;
   frameBlank?: boolean;
 }

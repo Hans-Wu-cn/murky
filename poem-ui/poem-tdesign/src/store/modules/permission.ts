@@ -54,6 +54,7 @@ export const usePermissionStore = defineStore('permission', {
 });
 
 const buildRoutes = (routes: Array<Route>, parent?: RouteItem) => {
+  // debugger;
   return routes.map((item) => {
     const routeItem: RouteItem = {
       path: `${(parent && parent.path) ?? ''}/${item.path}`,
@@ -62,9 +63,9 @@ const buildRoutes = (routes: Array<Route>, parent?: RouteItem) => {
       meta: {
         title: item.label,
         icon: item.icon,
-        hidden: item.is_display === 1,
-        keepAlive: item.is_cache === 1,
-        frameSrc: item.is_outside === 1 ? item.path : undefined,
+        hidden: item.isDisplay === 1,
+        keepAlive: item.isCache === 1,
+        frameSrc: item.isOutside === 1 ? item.path : undefined,
       },
     };
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
