@@ -54,3 +54,17 @@ export function getMenu(menuId:string) {
     url: `/poemMenu/${menuId}`,
   });
 }
+/**
+ * 菜单拖动排序
+ * @returns Route
+ */
+export function dragMenu(data:{
+  parentMenuId?: string;
+  /*菜单id集合,按顺序排列 */
+  menuIds?: string[];
+}) {
+  return request.put({
+    url: `/poemMenu/drop`,
+    data
+  });
+}

@@ -22,7 +22,7 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { addMenu, delMenu, getMenuList, updateMenu } from '@/api/menu';
+import { addMenu, delMenu, dragMenu, getMenuList, updateMenu } from '@/api/menu';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemMenu } from '@/api/menu/types';
 import { menuConfig } from './config';
@@ -140,28 +140,69 @@ const resetData = async() => {
     tableRef.value.resetData(res)
     tableRef.value.expandAll();
 };
-
+// 编辑菜单去编辑页面
 const onEditClick = async (row: PoemMenu) => {
     router.push(menuConfig.addMenuUrl+'?poemId='+row.menuId);
-    return
-    row.isDisplay = 1
-    // const res = await updateMenuFun(row);
-    resetData();
-    MessagePlugin.success('数据已更新');
 };
-
+// 删除菜单
 const onDeleteConfirm = async(row: PoemMenu) => {
     const res = await delMenu(row.menuId)
     tableRef.value.remove(row.menuId);
     MessagePlugin.success('删除成功');
 };
-
+// 查看页面
 const onLookUp = (row: any) => {
     router.push(menuConfig.detailUrl+'?poemId='+row.menuId)
 };
 
-const customTreeExpandAndFoldIcon = ref(false);
+const onTreeExpandChange = (context: TableTreeExpandChangeContext<T>) => {
+    console.log(context.rowState.expanded ? '展开' : '收起', context);
+    /**
+     * 如果是懒加载，请确认自己完成了以下几个步骤
+     * 1. 提前设置 children 值为 true；
+     * 2. 在 onTreeExpandChange 事件中处理异步数据；
+     * 3. 自定义展开图标渲染 lazyLoadingTreeIconRender
+     */
+};
+type T = /*unresolved*/ any
+// 应用于需要阻止拖拽排序的场景。如：当子节点存在时，则不允许调整顺序。
+// 返回值为 true，允许拖拽排序；返回值 为 false，则阻止拖拽排序
+const beforeDragSort = (params: DragSortContext<T>) => {
+    console.log('beforeDragSort:', params);
+    return true;
+};
 
+//异常拖拽排序时触发
+const errDragCode = ref()
+const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
+    console.log(params);
+    errDragCode.value = params.code
+    // MessagePlugin.warning(params.reason);
+    if (params.code === 1001) {
+        MessagePlugin.warning('不同层级的元素，不允许调整顺序');
+    }
+};
+const onDragSort = async(params: DragSortContext<T>) => {
+    if(errDragCode.value){
+        errDragCode.value = ''
+        return false
+    }
+    const currentRowParentId = params.target.parentMenuId
+    const menuIds:string[] = params.newData.filter(val=>{
+        return val.parentMenuId === currentRowParentId
+    }).map(val=>val.menuId)
+    const {code} = await dragMenu({
+        parentMenuId:currentRowParentId,
+        menuIds
+    })
+    if(code === 200){
+        MessagePlugin.success('调整顺序成功！');
+    }
+    console.log('onDragSort:', params);
+};
+
+// 自定义展开图标
+const customTreeExpandAndFoldIcon = ref(false);
 const treeExpandAndFoldIconRender = (h: any, { type, row }: any) => {
     if (lazyLoadingData.value && lazyLoadingData.value.id === row?.id) {
         return <Loading size="14px" />;
@@ -177,36 +218,6 @@ const lazyLoadingTreeIconRender = (h: any, params: { type: any; row: any; }) => 
     }
     return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
 };
-
-const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
-    console.log(params);
-    // MessagePlugin.warning(params.reason);
-    if (params.code === 1001) {
-        MessagePlugin.warning('不同层级的元素，不允许调整顺序');
-    }
-};
-
-const onTreeExpandChange = (context: TableTreeExpandChangeContext<T>) => {
-    console.log(context.rowState.expanded ? '展开' : '收起', context);
-    /**
-     * 如果是懒加载，请确认自己完成了以下几个步骤
-     * 1. 提前设置 children 值为 true；
-     * 2. 在 onTreeExpandChange 事件中处理异步数据；
-     * 3. 自定义展开图标渲染 lazyLoadingTreeIconRender
-     */
-};
-type T = /*unresolved*/ any
-const onDragSort = (params: DragSortContext<T>) => {
-    console.log('onDragSort:', params);
-};
-
-// 应用于需要阻止拖拽排序的场景。如：当子节点存在时，则不允许调整顺序。
-// 返回值为 true，允许拖拽排序；返回值 为 false，则阻止拖拽排序
-const beforeDragSort = (params: DragSortContext<T>) => {
-    console.log('beforeDragSort:', params);
-    return true;
-};
-
 const treeExpandIcon = computed(() => {
     // 自定义展开图标
     if (customTreeExpandAndFoldIcon.value) {
