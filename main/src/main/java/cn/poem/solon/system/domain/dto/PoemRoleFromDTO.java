@@ -25,21 +25,21 @@ public class PoemRoleFromDTO {
     @NotNull(groups = Update.class)
     private Long roleId;
 
-    @ApiModelProperty("角色名")
+    @ApiModelProperty(value = "角色名", required = true)
     @NotBlank
     private String roleName;
 
-    @ApiModelProperty("角色码")
+    @ApiModelProperty(value = "角色码", required = true)
     @NotBlank
     private String roleCode;
 
     @ApiModelProperty("描述")
     private String describe;
 
-    @ApiModelProperty("描述")
+    @ApiModelProperty("所属菜单id")
     private List<Long> menuIds;
 
-    public PoemRole toEntity(){
+    public PoemRole toEntity() {
         return PoemRoleConvert.INSTANCES.toEntity(this);
     }
 }

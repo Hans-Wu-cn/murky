@@ -21,12 +21,12 @@ import org.noear.solon.validation.annotation.NotNull;
 @Data
 @Accessors(chain = true)
 @ApiModel("菜单表单类")
-public class PoemMenuFromDTO{
+public class PoemMenuFromDTO {
     @ApiModelProperty("菜单id")
     @NotNull(groups = Update.class)
     private Long menuId;
 
-    @ApiModelProperty("菜单标题")
+    @ApiModelProperty(value = "菜单标题", required = true)
     @NotBlank
     private String label;
 
@@ -36,7 +36,7 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("路由地址")
     private String path;
 
-    @ApiModelProperty("打开方式 1:当前窗口  2:新窗口")
+    @ApiModelProperty(value = "打开方式 1:当前窗口  2:新窗口")
     private MenuOpenType openType;
 
     @ApiModelProperty("权限码")
@@ -45,7 +45,7 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("上级菜单id")
     private Long parentMenuId;
 
-    @ApiModelProperty("菜单类型 0:目录 1:侧边菜单 2:按钮")
+    @ApiModelProperty(value = "菜单类型 0:目录 1:侧边菜单 2:按钮", required = true)
     @NotNull
     private MenuType type;
 
@@ -70,7 +70,7 @@ public class PoemMenuFromDTO{
     @ApiModelProperty("路由参数")
     private String query;
 
-    public PoemMenu toEntity(){
+    public PoemMenu toEntity() {
         return PoemMenuConvert.INSTANCES.toEntity(this);
     }
 }

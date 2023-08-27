@@ -9,7 +9,7 @@
 ### 系统简介
 
 1. 基于MIT协议完整开源
-2. 前端采用naive admin开源版本,ui库采用naive ui
+2. 前端采用tdesign模板适配
 3. 后端采用solon + mybaits-flex + satoken 
 
 
