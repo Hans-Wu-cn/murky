@@ -35,18 +35,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @Get
     @Mapping("list")
     public ApiResult<List<PoemMenuTreeVO>> list(){
-//        List<PoemMenuTreeVO> result=new ArrayList<>();
-//        //表单管理
-//        List<PoemMenuTreeVO> children1 = new ArrayList();
-//        children1.add(new PoemMenuTreeVO().setLabel("主控台").setKey("console").setType(1).setOpenType(OpenType.CURRENT).setSubtitle("console").setAuth("console").setPath("/dashboard/console"));
-//        children1.add(new PoemMenuTreeVO().setLabel("工作台").setKey("workplace").setType(1).setOpenType(OpenType.CURRENT).setSubtitle("workplace").setAuth("workplace").setPath("/dashboard/workplace"));
-//        result.add(new PoemMenuTreeVO().setLabel("Dashboard").setSubtitle("dashboard").setKey("dashboard").setAuth("dashboard").setPath("/dashboard").setType(1).setOpenType(OpenType.CURRENT).setChildren(children1));
-//
-//        //dashboard
-//        List<PoemMenuTreeVO> children2 = new ArrayList();
-//        children2.add(new PoemMenuTreeVO().setLabel("基础表单").setKey("basic-form").setType(1).setOpenType(OpenType.CURRENT).setSubtitle("basic-form").setAuth("basic-form").setPath("/form/basic-form"));
-//        children2.add(new PoemMenuTreeVO().setLabel("分步表单").setKey("step-form").setType(1).setOpenType(OpenType.CURRENT).setSubtitle("step-form").setAuth("step-form").setPath("/form/step-form"));
-//        result.add(new PoemMenuTreeVO().setLabel("表单管理").setSubtitle("form").setKey("form").setAuth("form").setPath("/form").setType(1).setOpenType(OpenType.CURRENT).setChildren(children2));
+
 
         List<PoemMenuTreeVO> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
         return ApiResult.ok(result);

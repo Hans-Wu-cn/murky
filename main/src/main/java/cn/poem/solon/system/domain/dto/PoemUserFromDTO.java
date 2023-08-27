@@ -26,19 +26,19 @@ public class PoemUserFromDTO {
     @NotNull(groups = Update.class)
     private Long userId;
 
-    @ApiModelProperty("用户名")
+    @ApiModelProperty(value = "用户名",required = true)
     @NotBlank
     private String userName;
 
-    @ApiModelProperty("账号")
+    @ApiModelProperty(value = "账号",required = true)
     @NotBlank
     private String account;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty(value = "密码",required = true)
     @NotBlank
     private String password;
 
-    @ApiModelProperty("性别 0:男性 1:女性 2:其他")
+    @ApiModelProperty(value = "性别 0:男性 1:女性 2:其他",required = true)
     @NotNull
     private Sex sex;
 

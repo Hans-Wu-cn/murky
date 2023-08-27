@@ -35,7 +35,7 @@ public class PoemAuthController {
     @Post
     @ApiOperation("登录")
     @Mapping("login")
-    public ApiResult login(@Body LoginDto loginDto) {
+    public ApiResult<String> login(@Body LoginDto loginDto) {
         System.out.println(loginDto);
         SaTokenInfo tokenInfo = iPoemLoginService.login(loginDto);
         Map<String, String> map = new HashMap<>();

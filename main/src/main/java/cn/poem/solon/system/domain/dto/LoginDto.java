@@ -8,11 +8,11 @@ import org.noear.solon.validation.annotation.NotBlank;
 @Data
 @ApiModel
 public class LoginDto {
-    @ApiModelProperty("账号")
+    @ApiModelProperty(value = "账号", required = true)
     @NotBlank
     private String account;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty(value = "密码", required = true)
     @NotBlank
     private String password;
 }

@@ -22,7 +22,7 @@ public class PoemMenuDropDTO {
     @ApiModelProperty("父级菜单id")
     private Long parentMenuId;
 
-    @ApiModelProperty("菜单id集合,按顺序排列")
+    @ApiModelProperty(value = "菜单id集合,按顺序排列", required = true)
     @NotEmpty
     private List<Long> menuIds;
 }

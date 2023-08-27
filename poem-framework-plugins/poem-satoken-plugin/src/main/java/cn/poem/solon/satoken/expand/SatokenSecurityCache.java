@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.bean.InitializingBean;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -72,11 +73,13 @@ public class SatokenSecurityCache implements InitializingBean, SecurityCache<Loc
      */
     @Override
     public void onEvent(LocalSecuritNotLoginEvent localSecurityCacheEvent) throws Throwable {
-        UserInfo data = localSecurityCacheEvent.getData();
-        userInfoCachePool.remove(PREFIX_KEY + data.getUserId());
-        userIdCachePool.remove(PREFIX_KEY + StpUtil.getTokenValue());
-        StpUtil.logout(data.getUserId());
         log.debug("触发退出登录事件");
+        UserInfo data = localSecurityCacheEvent.getData();
+        if(data != null){
+            userInfoCachePool.remove(PREFIX_KEY + data.getUserId());
+            userIdCachePool.remove(PREFIX_KEY + StpUtil.getTokenValue());
+            StpUtil.logout(data.getUserId());
+        }
     }
 
     @Override
