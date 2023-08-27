@@ -2,8 +2,11 @@
     <div class="menuFormBox">
         <t-card :bordered="false">
             <t-form ref="form" :rules="FORM_RULES" :data="menuFormData" :colon="true" @reset="onReset" @submit="onSubmit">
-                <t-form-item label="菜单名" name="label">
+                <t-form-item label="菜单标题" name="label">
                     <t-input placeholder="请输入内容" v-model="menuFormData.label"/>
+                </t-form-item>
+                <t-form-item label="菜单名(唯一)" name="name">
+                    <t-input placeholder="请输入内容" v-model="menuFormData.name"/>
                 </t-form-item>
                 <t-form-item label="菜单类型" name="type">
                     <t-select v-model="menuFormData.type">
@@ -64,17 +67,18 @@
 <script setup lang="tsx">
 import { addMenu, getMenu, updateMenu } from '@/api/menu';
 import { PoemMenu } from '@/api/menu/types';
-import { MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { computed, ref } from 'vue';
+import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
+import { ComputedRef, computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter()
 const menuFormData = ref<PoemMenu>({isDisplay:1,component:''})
 const typeValidate = computed(()=>menuFormData.value.type !== 2)
-const FORM_RULES = ref({ 
-    label: [{ required: true, message: '姓名必填' }],
+const FORM_RULES = ref<FormRules>({
+    name: [{ required: true, message: '菜单名必填' },{ pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
+    label: [{ required: true, message: '菜单标题必填' }],
     type: [{ required: true, message: '菜单类型必填' }],
-    path: [{ required: typeValidate, message: '路由地址必填' }],
+    path: [{ required: !!typeValidate, message: '路由地址必填' }],
 });
 const onReset = () => {
   MessagePlugin.success('重置成功');
@@ -107,7 +111,6 @@ const queryMenuDetail = async()=>{
     const poemId = route.query.poemId as string
     if(!poemId)return
     const res = await getMenu(poemId)
-    console.log(res)
     menuFormData.value = res.result
 }
 queryMenuDetail()

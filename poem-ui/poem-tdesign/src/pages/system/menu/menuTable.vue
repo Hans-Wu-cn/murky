@@ -157,10 +157,7 @@ const onDeleteConfirm = async(row: PoemMenu) => {
 };
 
 const onLookUp = (row: any) => {
-    const allRowData = tableRef.value.getData(row.key);
-    const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
-    MessagePlugin.success(`打开控制台查看${message}`);
-    console.log(`${message}：`, allRowData);
+    router.push(menuConfig.detailUrl+'?poemId='+row.menuId)
 };
 
 const customTreeExpandAndFoldIcon = ref(false);
