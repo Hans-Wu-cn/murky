@@ -10,14 +10,14 @@
                     </t-select>
                 </t-form-item>
                 <t-form-item label="菜单标题" name="label">
-                    <t-input placeholder="请输入内容" v-model="menuFormData.label" />
+                    <t-input placeholder="请输入菜单标题" v-model="menuFormData.label" />
                 </t-form-item>
                 <t-form-item v-if="menuFormData.type !== 2" label="菜单名" name="name">
-                    <t-input placeholder="请输入内容" v-model="menuFormData.name" />
+                    <t-input placeholder="请输入菜单名" v-model="menuFormData.name" />
                 </t-form-item>
 
                 <t-form-item v-if="menuFormData.type !== 2" label="菜单图标" name="icon">
-                    <t-input placeholder="请输入内容" v-model="menuFormData.icon" />
+                    <t-input placeholder="请选择菜单图标" v-model="menuFormData.icon" />
                 </t-form-item>
                 <t-form-item v-if="menuFormData.type !== 2" label="路由地址" name="path">
                     <t-input placeholder="请输入路由地址" v-model="menuFormData.path" />

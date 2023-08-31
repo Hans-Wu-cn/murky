@@ -1,10 +1,5 @@
 <template>
     <div class="menuTable">
-        <div>
-            <t-checkbox v-model="customTreeExpandAndFoldIcon" style="vertical-align: middle">
-                自定义折叠/展开图标
-            </t-checkbox>
-        </div>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
         <t-enhanced-table ref="tableRef" row-key="menuId" drag-sort="row-handler" :data="menuList" :columns="columns"
@@ -22,24 +17,16 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { addMenu, delMenu, dragMenu, getMenuList, updateMenu } from '@/api/menu';
+import { delMenu, dragMenu, getMenuList } from '@/api/menu';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemMenu } from '@/api/menu/types';
 import { menuConfig } from './config';
 import { useRouter } from 'vue-router';
-const router = useRouter();
-const getData = async () => {
-    const data: any[] = [];
-    const { code, result } = await getMenuList();
-    if (ResultEnum.SUCCESS === code)
-        result.forEach((item) => {
-            data.push(item);
-        });
-    return data;
-}
 
+const router = useRouter();
 const tableRef = ref();
-const menuList = ref([]);//菜单列表数据
+//菜单列表数据
+const menuList = ref([]);
 const lazyLoadingData = ref(null);
 const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 2, indent: 50 });
 const columns: Array<PrimaryTableCol<any>> = [
@@ -59,22 +46,27 @@ const columns: Array<PrimaryTableCol<any>> = [
     },
     {
         colKey: 'label',
-        title: '菜单名',
+        title: '标题',
         minWidth: 100,
     },
     {
         colKey: 'path',
-        title: '菜单路径',
+        title: '路径',
+        minWidth: 100,
+    },
+    {
+        colKey: 'component',
+        title: '组件',
         minWidth: 100,
     },
     {
         colKey: 'icon',
-        title: '菜单图标',
-        width: 100,
+        title: '图标',
+        width: 80,
     },
     {
         colKey: 'auth',
-        title: '菜单权限',
+        title: '权限码',
         width: 100,
     },
     {
@@ -95,7 +87,7 @@ const columns: Array<PrimaryTableCol<any>> = [
                         查看
                     </t-link>
                     {
-                        row.children?.length || row.name === 'addMenu' ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
+                        row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
                             <t-link variant="text" hover="color" theme="danger">
                                 删除
                             </t-link>
@@ -107,6 +99,21 @@ const columns: Array<PrimaryTableCol<any>> = [
         ),
     },
 ];
+
+/**
+ * 加载列表数据
+ */
+const getData = async () => {
+    const data: PoemMenu[] = [];
+    const { code, result } = await getMenuList();
+
+    if (ResultEnum.SUCCESS === code) {
+        result.forEach((item) => {
+            data.push(item);
+        });
+    }
+    return data;
+}
 
 /**
  * load tree data
@@ -133,8 +140,11 @@ const onEditClick = async (row: PoemMenu) => {
     router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
 };
 
-// 删除菜单
-const onDeleteConfirm = async (row: PoemMenu) => {
+/**
+ * 删除菜单
+ * @param row 当前行的菜单对象
+ */
+const onDeleteClick = async (row: PoemMenu) => {
     const { code } = await delMenu(row.menuId);
     if (ResultEnum.SUCCESS === code) {
         tableRef.value.remove(row.menuId);
@@ -197,15 +207,6 @@ const onDragSort = async (params: DragSortContext<T>) => {
     console.log('onDragSort:', params);
 };
 
-// 自定义展开图标
-const customTreeExpandAndFoldIcon = ref(false);
-const treeExpandAndFoldIconRender = (h: any, { type, row }: any) => {
-    if (lazyLoadingData.value && lazyLoadingData.value.id === row?.id) {
-        return <Loading size="14px" />;
-    }
-    return type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />;
-};
-
 // 懒加载图标渲染
 const lazyLoadingTreeIconRender = (h: any, params: { type: any; row: any; }) => {
     const { type, row } = params;
@@ -214,11 +215,8 @@ const lazyLoadingTreeIconRender = (h: any, params: { type: any; row: any; }) => 
     }
     return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
 };
+
 const treeExpandIcon = computed(() => {
-    // 自定义展开图标
-    if (customTreeExpandAndFoldIcon.value) {
-        return treeExpandAndFoldIconRender;
-    }
     return lazyLoadingTreeIconRender;
 });
 
