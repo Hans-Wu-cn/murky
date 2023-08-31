@@ -12,6 +12,7 @@ import cn.poem.solon.system.domain.vo.PoemUserVo;
 import cn.poem.solon.system.service.IPoemUserService;
 import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.StringUtil;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
         Page<PoemUser> result = baseService.page(poemUserPageDTO,
                 QueryWrapper.create()
                         .where(PoemUserTableDef.POEM_USER.CREATE_USER.eq(SecurityUtil.getUserId()))
-                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName()).when(StringUtil::isNotBlank))
+                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::hasText))
                         .orderBy(PoemUserTableDef.POEM_USER.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);

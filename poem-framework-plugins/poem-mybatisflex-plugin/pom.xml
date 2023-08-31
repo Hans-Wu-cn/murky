@@ -15,7 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mybatis-flex.version>1.5.5</mybatis-flex.version>
+        <mybatis-flex.version>1.6.1</mybatis-flex.version>
         <HikariCP.verion>5.0.1</HikariCP.verion>
         <postgresql.verion>42.6.0</postgresql.verion>
 

@@ -14,6 +14,7 @@ import cn.poem.solon.system.domain.dto.PoemRolePageDTO;
 import cn.poem.solon.system.domain.vo.PoemRoleVo;
 import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.StringUtil;
 import io.swagger.annotations.Api;
@@ -43,8 +44,8 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create()
                         .where(PoemRoleTableDef.POEM_ROLE.CREATE_USER.eq(SecurityUtil.getUserId()))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode()).when(StringUtil::isNotBlank))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleName()).when(StringUtil::isNotBlank))
+                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
+                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
                         .orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
