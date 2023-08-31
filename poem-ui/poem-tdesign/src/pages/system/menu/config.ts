@@ -1,4 +1,4 @@
 export const menuConfig = {
-    addMenuUrl:'/system/menu/addMenu',
+    menuFromUrl:'/system/menu/menuFrom',
     detailUrl:'/system/menu/detailPage'
 }

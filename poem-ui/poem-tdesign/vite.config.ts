@@ -10,7 +10,7 @@ const CWD = process.cwd();
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
-  const { VITE_BASE_URL, VITE_API_URL_PREFIX } = loadEnv(mode, CWD);
+  const { VITE_BASE_URL, VITE_API_URL_PREFIX,VITE_API_URL } = loadEnv(mode, CWD);
   return {
     base: VITE_BASE_URL,
     resolve: {
@@ -46,7 +46,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       host: '0.0.0.0',
       proxy: {
         [VITE_API_URL_PREFIX]: {
-          target: 'https://e002-120-235-181-186.ngrok-free.app', // 实际请求地址
+          target: VITE_API_URL, // 实际请求地址
           changeOrigin: true,
           rewrite: (path) => path.replace(new RegExp(`^${VITE_API_URL_PREFIX}`), ''),
         },

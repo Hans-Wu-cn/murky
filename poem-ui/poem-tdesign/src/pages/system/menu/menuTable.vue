@@ -85,7 +85,7 @@ const columns: Array<PrimaryTableCol<any>> = [
         cell: (h, { row, rowIndex }) => (
             <div class="tdesign-table-demo__table-operations">
                 <t-space>
-                    <t-link theme="primary" variant="text" hover="color" onClick={() => insertChildren(row,rowIndex)}>
+                    <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
                         新增子菜单
                     </t-link>
                     <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
@@ -95,64 +95,59 @@ const columns: Array<PrimaryTableCol<any>> = [
                         查看
                     </t-link>
                     {
-                        row.children?.length||row.name==='addMenu'?'':<t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
+                        row.children?.length || row.name === 'addMenu' ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
                             <t-link variant="text" hover="color" theme="danger">
                                 删除
                             </t-link>
                         </t-popconfirm>
                     }
-                    
+
                 </t-space>
             </div>
         ),
     },
 ];
-// 添加菜单接口调用
-const appendNewMenu = async (menuData: PoemMenu) => {
-    return await addMenu(menuData)
-}
-// 插入子节点
-const insertChildren = async (row: PoemMenu,rowIndex:number) => {
-    const newMenuItem: PoemMenu = {
-        label: '新增菜单名',
-        name: '',
-        path: '',
-        openType: 0,
-        auth: '',
-        type: 0,
-        sort: 0,
-        component: '',
-        icon: '',
-        isCache: 0,
-        isDisplay: 1,
-        isOutside: 0,
-        children: [],
-        parentMenuId: row.menuId
-    }
-    const res = await appendNewMenu(newMenuItem)
-    await resetData();
-    MessagePlugin.success('菜单已添加');
-}
 
-const resetData = async() => {
+/**
+ * load tree data
+ */
+const resetData = async () => {
     // 需要更新数据地址空间
     const res = await getData()
     tableRef.value.resetData(res)
     tableRef.value.expandAll();
 };
-// 编辑菜单去编辑页面
+/**
+ * 跳转至表单页面
+ * @param row 当前行的菜单对象
+ */
+const onAddClick = async (row: PoemMenu) => {
+    router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
+};
+
+/**
+ * 跳转至表单页面
+ * @param row 当前行的菜单对象
+ */
 const onEditClick = async (row: PoemMenu) => {
-    router.push(menuConfig.addMenuUrl+'?poemId='+row.menuId);
+    router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
 };
+
 // 删除菜单
-const onDeleteConfirm = async(row: PoemMenu) => {
-    const res = await delMenu(row.menuId)
-    tableRef.value.remove(row.menuId);
-    MessagePlugin.success('删除成功');
+const onDeleteConfirm = async (row: PoemMenu) => {
+    const { code } = await delMenu(row.menuId);
+    if (ResultEnum.SUCCESS === code) {
+        tableRef.value.remove(row.menuId);
+        MessagePlugin.success('删除成功');
+    }
 };
-// 查看页面
-const onLookUp = (row: any) => {
-    router.push(menuConfig.detailUrl+'?poemId='+row.menuId)
+
+/**
+ * 菜单详情
+ * @param row 当前行的菜单对象
+ */
+const onLookUp = (row: PoemMenu) => {
+    router.push(menuConfig.detailUrl + '?poemId=' + row.menuId)
 };
 
 const onTreeExpandChange = (context: TableTreeExpandChangeContext<T>) => {
@@ -182,20 +177,21 @@ const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
         MessagePlugin.warning('不同层级的元素，不允许调整顺序');
     }
 };
-const onDragSort = async(params: DragSortContext<T>) => {
-    if(errDragCode.value){
+
+const onDragSort = async (params: DragSortContext<T>) => {
+    if (errDragCode.value) {
         errDragCode.value = ''
         return false
     }
     const currentRowParentId = params.target.parentMenuId
-    const menuIds:string[] = params.newData.filter(val=>{
+    const menuIds: string[] = params.newData.filter(val => {
         return val.parentMenuId === currentRowParentId
-    }).map(val=>val.menuId)
-    const {code} = await dragMenu({
-        parentMenuId:currentRowParentId,
+    }).map(val => val.menuId)
+    const { code } = await dragMenu({
+        parentMenuId: currentRowParentId,
         menuIds
     })
-    if(code === 200){
+    if (code === 200) {
         MessagePlugin.success('调整顺序成功！');
     }
     console.log('onDragSort:', params);
@@ -226,7 +222,7 @@ const treeExpandIcon = computed(() => {
     return lazyLoadingTreeIconRender;
 });
 
-onMounted(async() => {
+onMounted(async () => {
     resetData();
 });
 </script>
