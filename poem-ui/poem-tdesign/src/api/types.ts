@@ -31,5 +31,6 @@ export interface PageRequest {
 export interface PageResponse<T> {
   pageNumber: number;
   pageSize: number;
+  totalRow: number;
   records:T;
 }

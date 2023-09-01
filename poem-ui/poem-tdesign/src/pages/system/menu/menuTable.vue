@@ -32,6 +32,7 @@ const tableLoading = ref(false);
 const menuList = ref([]);
 const lazyLoadingData = ref(null);
 const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 2, indent: 50 });
+//表格字段
 const columns: Array<PrimaryTableCol<any>> = [
     {
         // 列拖拽排序必要参数
@@ -42,10 +43,9 @@ const columns: Array<PrimaryTableCol<any>> = [
         width: 46,
     },
     {
-        colKey: 'menuId',
-        title: '编号',
-        ellipsis: true,
-        width: 80,
+        colKey: 'serial-number',
+        title: '序号',
+        minWidth: 50,
     },
     {
         colKey: 'label',

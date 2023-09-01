@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <t-form ref="form" :data="PageRoleParams" :reset-type="resetType" colon @reset="onReset">
+    <t-form ref="form" :data="PageRoleParams" reset-type="initial" colon @reset="onReset" @submit="loadData">
       <t-space>
         <t-form-item label=" 角色名" name="roleName" initial-data="TDesign">
           <t-input v-model="PageRoleParams.roleName" placeholder="请输入内容" />
@@ -16,8 +16,9 @@
 
     </t-form>
     <t-table :data="data" :columns="columns" :row-key="rowKey" :loading="tableLoading" :pagination="pagination"
-      :selected-row-keys="selectedRowKeys" bordered stripe @change="rehandleChange" @page-change="onPageChange"
+      :selected-row-keys="selectedRowKeys" stripe @change="rehandleChange" @page-change="onPageChange"
       @select-change="onSelectChange" />
+    <roleFrom ref="roleFromRef" title="aa" />
   </div>
 </template>
 <script setup lang="tsx">
@@ -26,71 +27,70 @@ import { ref, reactive, onMounted } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
 import { rolePage } from '@/api/role';
 import { PageRole, PoemRole } from '@/api/role/types';
-const statusNameListMap = {
-  0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
-  1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
-  2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
-};
-
-const resetType = ref('initial');
+import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
+import { PaginationProps } from 'tdesign-vue-next/es/pagination';
+import roleFrom from './compoments/roleFrom.vue'
 
 const PageRoleParams: PageRole = reactive({
   roleName: '',
   roleCode: '',
+  pageNumber: 1,
+  pageSize: 10,
 })
-const columns = [
+const pagination: PaginationProps = reactive({
+  current: PageRoleParams.pageNumber,
+  pageSize: PageRoleParams.pageSize,
+  total: 0
+})
+//表格字段
+const columns: Array<PrimaryTableCol<PoemRole>> = [
   {
     colKey: 'serial-number',
+    title: '序号',
+    minWidth: 50,
   },
   {
-    colKey: 'row-select',
-    type: 'multiple',
-    width: 46,
+    colKey: 'roleName',
+    title: '角色名',
+    minWidth: 100,
   },
   {
-    colKey: 'name',
-    title: '姓名',
-    render(h: any, { type, row: { name } }: any) {
-      if (type === 'title') return '申请人';
-      return name ? `${name.first} ${name.last}` : 'UNKNOWN_USER';
-    },
+    colKey: 'roleCode',
+    title: '角色码',
+    minWidth: 100,
   },
   {
-    colKey: 'status',
-    title: '申请状态',
-    cell: (h: any, { _row, rowIndex }: any) => {
-      const status = rowIndex % 3;
-      return (
-        <t-tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-          {statusNameListMap[status].icon}
-          {statusNameListMap[status].label}
-        </t-tag>
-      );
-    },
+    colKey: 'describe',
+    title: '描述',
+    minWidth: 100,
   },
   {
-    colKey: 'phone',
-    title: '联系方式',
-    render(h: any, { row: { phone } }: any) {
-      return phone;
-    },
-  },
-  {
-    colKey: 'email',
-    title: '邮箱',
-    ellipsis: true,
+    colKey: 'operate',
+    minWidth: 340,
+    title: '操作',
+    // 增、删、改、查 等操作
+    cell: (h, { row, rowIndex }) => (
+      <div class="tdesign-table-demo__table-operations">
+        <t-space>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            编辑
+          </t-link>
+        </t-space>
+      </div>
+    ),
   },
 ];
 
-const data = ref(Array<PoemRole>);
+const data = ref<PoemRole[]>([]);
+//表格loading标记
 const tableLoading = ref(false);
 const selectedRowKeys = ref([]);
+const roleFromRef = ref()
 
-const pagination = ref({
-  defaultPageSize: 20,
-  total: 100,
-  defaultCurrent: 1,
-});
+const onEditHander = (row: PoemRole) => {
+  roleFromRef.value.showDialog()
+}
+
 
 /**
  * 重置搜索框
@@ -105,19 +105,22 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
-const onPageChange = async (pageInfo: any) => {
-  console.log('page-change', pageInfo);
-  // pagination.current = pageInfo.current;
-  // pagination.pageSize = pageInfo.pageSize;
+const onPageChange = async (pageInfo: PaginationProps) => {
+  pagination.current = pageInfo.current;
+  pagination.pageSize = pageInfo.pageSize;
 };
 
+/**
+ * 加载表格数据
+ */
 const loadData = () => {
   tableLoading.value = true;
   rolePage(PageRoleParams).then(({ code, result }) => {
     if (code === ResultEnum.SUCCESS) {
       result.records.forEach(item => {
-        data.push(item);
+        data.value.push(item);
       })
+      pagination.total = result.totalRow
     }
     tableLoading.value = false;
   });
@@ -125,12 +128,7 @@ const loadData = () => {
 }
 
 onMounted(async () => {
-  // await fetchData({
-  //   current: pagination.value.current || pagination.value.defaultCurrent,
-  //   pageSize: pagination.value.pageSize || pagination.value.defaultPageSize,
-  // });
-  const res = await rolePage(PageRoleParams);
-  console.log(res);
+  loadData();
 });
 
 const onSelectChange = (value: never[], params: any) => {

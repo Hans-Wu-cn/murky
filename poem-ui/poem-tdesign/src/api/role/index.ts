@@ -11,7 +11,7 @@ const Api = {
  * @returns Route
  */
 export function rolePage(params:PageRole) {
-  return request.get<PageResponse<PoemRole>>({
+  return request.get<PageResponse<Array<PoemRole>>>({
     url: Api.rolePage,
     params
   });
