@@ -4,6 +4,7 @@ import cn.poem.solon.mybatisflex.extension.BaseEntity;
 import cn.poem.solon.system.enums.*;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
+import com.mybatisflex.core.table.DynamicSchemaProcessor;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @ApiModel("菜单实体类")
-@Table("poem_menu")
+@Table(schema = "poem",value = "poem_menu")
 public class PoemMenu extends BaseEntity implements Serializable {
     @Id
     @ApiModelProperty("菜单id")
@@ -66,4 +67,5 @@ public class PoemMenu extends BaseEntity implements Serializable {
 
     @ApiModelProperty("路由参数")
     private String query;
+
 }

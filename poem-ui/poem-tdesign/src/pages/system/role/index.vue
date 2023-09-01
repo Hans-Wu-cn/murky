@@ -18,12 +18,12 @@
     <t-table :data="data" :columns="columns" :row-key="rowKey" :loading="tableLoading" :pagination="pagination"
       :selected-row-keys="selectedRowKeys" stripe @change="rehandleChange" @page-change="onPageChange"
       @select-change="onSelectChange" />
-    <roleFrom ref="roleFromRef" title="aa" />
+    <roleFrom ref="roleFromRef" :title="roleFromTitle"></roleFrom>
   </div>
 </template>
 <script setup lang="tsx">
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-vue-next';
-import { ref, reactive, onMounted } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
 import { rolePage } from '@/api/role';
 import { PageRole, PoemRole } from '@/api/role/types';
@@ -84,11 +84,14 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
 const data = ref<PoemRole[]>([]);
 //表格loading标记
 const tableLoading = ref(false);
+const roleFromTitle = ref('');
 const selectedRowKeys = ref([]);
-const roleFromRef = ref()
+const roleFromRef = ref();
 
 const onEditHander = (row: PoemRole) => {
-  roleFromRef.value.showDialog()
+  const { showDialog } = roleFromRef.value;
+  console.log(showDialog)
+  showDialog()
 }
 
 
@@ -120,7 +123,7 @@ const loadData = () => {
       result.records.forEach(item => {
         data.value.push(item);
       })
-      pagination.total = result.totalRow
+      pagination.total = Number(result.totalRow)
     }
     tableLoading.value = false;
   });
@@ -138,3 +141,8 @@ const onSelectChange = (value: never[], params: any) => {
 
 const rowKey = 'phone';
 </script>
+<style lang="less">
+.tdesign-table-demo__table-operations .t-link {
+  padding: 0 8px;
+}
+</style>
