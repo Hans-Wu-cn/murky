@@ -10,3 +10,26 @@ export interface BaseApiType {
   createUser?: number;
   updateUser?: number;
 }
+
+/**
+ * @param pageNumber 页数
+ * @param pageSize 每页数据量
+ * @param totalPage 总页数
+ * @param records 数据
+ */
+export interface PageRequest {
+  pageNumber: number;
+  pageSize: number;
+}
+
+/**
+ * @param pageNumber 页数
+ * @param pageSize 每页数据量
+ * @param totalPage 总页数
+ * @param records 数据
+ */
+export interface PageResponse<T> {
+  pageNumber: number;
+  pageSize: number;
+  records:T;
+}

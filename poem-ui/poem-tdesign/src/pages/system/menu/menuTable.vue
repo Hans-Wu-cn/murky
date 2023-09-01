@@ -2,9 +2,10 @@
     <div class="menuTable">
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-        <t-enhanced-table ref="tableRef" row-key="menuId" drag-sort="row-handler" :data="menuList" :columns="columns"
-            :tree="treeConfig" :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
-            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
+        <t-enhanced-table stripe :loading="tableLoading" bordered ref="tableRef" row-key="menuId" drag-sort="row-handler"
+            :data="menuList" :columns="columns" :tree="treeConfig" :tree-expand-and-fold-icon="treeExpandIcon"
+            :before-drag-sort="beforeDragSort" @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort"
+            @tree-expand-change="onTreeExpandChange" />
     </div>
 </template>
 <script setup lang="tsx">
@@ -25,6 +26,8 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const tableRef = ref();
+//菜单loading标记
+const tableLoading = ref(false);
 //菜单列表数据
 const menuList = ref([]);
 const lazyLoadingData = ref(null);
@@ -120,9 +123,11 @@ const getData = async () => {
  */
 const resetData = async () => {
     // 需要更新数据地址空间
+    tableLoading.value = true;
     const res = await getData()
     tableRef.value.resetData(res)
     tableRef.value.expandAll();
+    tableLoading.value = false;
 };
 /**
  * 跳转至表单页面

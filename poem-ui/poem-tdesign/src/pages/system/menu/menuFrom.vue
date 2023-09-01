@@ -74,7 +74,7 @@ import { ComputedRef, computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter()
-const menuFormData = ref<PoemMenu>({ isDisplay: 1, component: '', isOutside: 0, isCache: 0, sort: 0 })
+const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 })
 const FORM_RULES = ref<FormRules>({
     name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
     label: [{ required: true, message: '请输入菜单标题' }],
@@ -92,7 +92,7 @@ const onReset = () => {
  * 表单提交方法
  */
 const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>) => {
-    if (!validateResult) {
+    if (validateResult) {
         const api = menuFormData.value.menuId ? updateMenu : addMenu
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
@@ -110,7 +110,7 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>)
 const onInitFrom = async () => {
     const poemId = route.query.poemId as string
     const parentMenuId = route.query.parentMenuId as string
-    if (!parentMenuId) {
+    if (parentMenuId) {
         menuFormData.value.parentMenuId = parentMenuId;
     }
     if (!poemId) return

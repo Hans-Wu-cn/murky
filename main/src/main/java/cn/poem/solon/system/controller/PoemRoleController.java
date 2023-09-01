@@ -1,7 +1,6 @@
 package cn.poem.solon.system.controller;
 
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.core.extension.BaseController;
 import cn.poem.solon.core.utils.ApiResult;
 import cn.poem.solon.core.validat.Insert;
@@ -16,16 +15,12 @@ import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
-
 import java.util.List;
-
-import static com.mybatisflex.core.query.QueryMethods.noCondition;
 
 /***
  * 角色Controller
