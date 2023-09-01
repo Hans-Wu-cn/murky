@@ -2,8 +2,8 @@ import { BaseApiType, PageRequest } from "../types";
 
 
 export interface PageRole extends PageRequest{
-  roleName?:String,
-  roleCode?:String,
+  roleName?:string,
+  roleCode?:string,
 }
 
 /**
@@ -13,8 +13,8 @@ export interface PageRole extends PageRequest{
  * @param describe 描述
  */
 export interface PoemRole extends BaseApiType{
-  roleId:String,
-  roleName:String,
-  roleCode:String,
-  describe?:String,
+  roleId:string,
+  roleName:string,
+  roleCode:string,
+  describe?:string,
 }
