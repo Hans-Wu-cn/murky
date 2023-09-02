@@ -17,24 +17,26 @@ import static com.mybatisflex.core.query.QueryMethods.exists;
 import static com.mybatisflex.core.query.QueryMethods.noCondition;
 
 public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
-
+    PoemMenuTableDef POEM_MENU = PoemMenuTableDef.POEM_MENU;
+    PoemRoleMenuTableDef POEM_ROLE_MENU = PoemRoleMenuTableDef.POEM_ROLE_MENU;
 
     default List<PoemMenu> selectByMenuType(List<MenuType> menuTypes, Collection<Long> roleids) {
+
         return this.selectListByQuery(
                 QueryWrapper.create()
-                        .select().from(PoemMenuTableDef.POEM_MENU)
-                        .where(PoemMenuTableDef.POEM_MENU.TYPE.in(menuTypes))
+                        .select().from(POEM_MENU)
+                        .where(POEM_MENU.TYPE.in(menuTypes))
                         //超级管理员查询全部数据
                         .and(
                                 exists
                                         (
-                                                QueryWrapper.create().select(PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID)
-                                                        .from(PoemRoleMenuTableDef.POEM_ROLE_MENU)
-                                                        .where(PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.in(roleids))
-                                                        .and(PoemMenuTableDef.POEM_MENU.MENU_ID.eq(PoemRoleMenuTableDef.POEM_ROLE_MENU.MENU_ID))
+                                                QueryWrapper.create().select(POEM_ROLE_MENU.MENU_ID)
+                                                        .from(POEM_ROLE_MENU)
+                                                        .where(POEM_ROLE_MENU.ROLE_ID.in(roleids))
+                                                        .and(POEM_MENU.MENU_ID.eq(POEM_ROLE_MENU.MENU_ID))
                                         ).when(CollectionUtils.isNotEmpty(roleids))
                         )
-                        .orderBy(PoemMenuTableDef.POEM_MENU.SORT.asc(), PoemMenuTableDef.POEM_MENU.LABEL.asc())
+                        .orderBy(POEM_MENU.SORT.asc(), POEM_MENU.LABEL.asc())
         );
     }
 }

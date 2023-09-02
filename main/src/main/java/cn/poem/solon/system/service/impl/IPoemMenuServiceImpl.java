@@ -15,6 +15,7 @@ import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
+import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
@@ -28,7 +29,7 @@ import java.util.List;
  *
  * @author hans
  */
-@ProxyComponent
+@Component
 public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> implements IPoemMenuService {
 
     @Inject
@@ -96,7 +97,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      * 构建菜单树
      *
      * @param parentMenuList 父级菜单
-     * @param poemMenuList   资源菜单
+     * @param poemMenuList   菜单资源池
      */
     private void buildTreePoemMenu(List<PoemMenuTreeVO> parentMenuList, List<PoemMenuTreeVO> poemMenuList) {
         for (PoemMenuTreeVO poemMenuTreeVO : parentMenuList) {

@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @ApiModel("菜单实体类")
-@Table(schema = "poem",value = "poem_menu")
+@Table(value = "poem_menu")
 public class PoemMenu extends BaseEntity implements Serializable {
     @Id
     @ApiModelProperty("菜单id")
