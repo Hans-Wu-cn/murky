@@ -17,7 +17,9 @@
                 </t-form-item>
 
                 <t-form-item v-if="menuFormData.type !== 2" label="菜单图标" name="icon">
-                    <t-input placeholder="请选择菜单图标" v-model="menuFormData.icon" />
+                    <!-- <t-input placeholder="请选择菜单图标" v-model="menuFormData.icon" /> -->
+                    <!-- 图标选择组件 -->
+                    <IconSelect v-model:value="menuFormData.icon"></IconSelect>
                 </t-form-item>
                 <t-form-item v-if="menuFormData.type !== 2" label="路由地址" name="path">
                     <t-input placeholder="请输入路由地址" v-model="menuFormData.path" />
@@ -72,6 +74,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { ComputedRef, computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import IconSelect from '@/components/iconSelect/index.vue'
 const route = useRoute();
 const router = useRouter()
 const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 })
@@ -118,5 +121,11 @@ const onInitFrom = async () => {
     menuFormData.value = res.result
 }
 onInitFrom()
+
+
 </script>
-<style></style>
+<style>
+.overlay-options{
+    display: inline-block;
+}
+</style>

@@ -41,5 +41,8 @@ const handleAdd = () => {
   // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;
+  .t-card{
+    width: 100%;
+  }
 }
 </style>

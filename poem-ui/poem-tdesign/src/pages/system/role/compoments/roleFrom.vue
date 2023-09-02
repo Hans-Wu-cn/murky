@@ -2,24 +2,22 @@
   <div>
     <t-dialog :visible="visible" :confirm-btn="getConfirmBtn()" cancel-btn="取消" :on-close="onClose">
       <template #header>{{ title }}</template>
-      <template #body>
-        <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" @reset="onReset">
-          <t-form-item label="角色名" name="roleName">
-            <t-input v-model="formData.name" placeholder="请输入角色名"></t-input>
-          </t-form-item>
-          <t-form-item label="权限码" name="roleCode">
-            <t-input v-model="formData.name" placeholder="请输入角色权限码"></t-input>
-          </t-form-item>
-          <t-form-item label="描述" name="describe">
-            <t-textarea v-model="formData.name" placeholder="请输入描述内容"></t-textarea>
-          </t-form-item>
-        </t-form>
-      </template>
+      <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" @reset="onReset">
+        <t-form-item label="角色名" name="roleName">
+          <t-input v-model="formData.name" placeholder="请输入角色名"></t-input>
+        </t-form-item>
+        <t-form-item label="权限码" name="roleCode">
+          <t-input v-model="formData.name" placeholder="请输入角色权限码"></t-input>
+        </t-form-item>
+        <t-form-item label="描述" name="describe">
+          <t-textarea v-model="formData.name" placeholder="请输入描述内容"></t-textarea>
+        </t-form-item>
+      </t-form>
     </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { PoemRole } from '@/api/role/types'
 import { ButtonProps, FormRules, MessagePlugin, TNode, TdButtonProps } from 'tdesign-vue-next';
 const emit = defineEmits(['refresh'])
@@ -47,7 +45,7 @@ const showDialog = () => {
   visible.value = !visible.value;
 }
 
-const getConfirmBtn: TdButtonProps = () => {
+const getConfirmBtn = () => {
   return (
     <t-button theme="primary" onClick={() => submit}>
       提交
