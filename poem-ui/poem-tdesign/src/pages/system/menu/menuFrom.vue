@@ -77,7 +77,7 @@ import { useRoute, useRouter } from 'vue-router';
 import IconSelect from '@/components/iconSelect/index.vue'
 const route = useRoute();
 const router = useRouter()
-const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 })
+const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''})
 const FORM_RULES = ref<FormRules>({
     name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
     label: [{ required: true, message: '请输入菜单标题' }],
@@ -95,7 +95,7 @@ const onReset = () => {
  * 表单提交方法
  */
 const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>) => {
-    if (validateResult) {
+    if (validateResult === true) {
         const api = menuFormData.value.menuId ? updateMenu : addMenu
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {

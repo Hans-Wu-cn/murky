@@ -7,11 +7,6 @@
       </div>
       <!-- 菜单表格组件 -->
       <MenuTable></MenuTable>
-
-      <!-- 弹出框 -->
-      <t-dialog v-model:visible="dialogVisible" :header="dialogHeader">
-        <menuFrom></menuFrom>
-      </t-dialog>
     </t-card>
   </div>
 </template>
@@ -24,13 +19,10 @@ import { useRoute } from 'vue-router';
 import router from '@/router';
 import { menuConfig } from './config';
 const route = useRoute();
-console.log(route)
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
 })
-const dialogHeader = ref('');
-const dialogVisible = ref(false);
 const handleAdd = () => {
   router.push(menuConfig.menuFromUrl)
 };

@@ -1,35 +1,29 @@
 <template>
-  <div>
-
-    <t-form ref="form" :data="PageRoleParams" reset-type="initial" colon @reset="onReset" @submit="loadData">
-      <t-space>
-        <t-form-item label=" 角色名" name="roleName" initial-data="TDesign">
-          <t-input v-model="PageRoleParams.roleName" placeholder="请输入内容" />
-        </t-form-item>
-        <t-form-item label="角色code" name="roleCode" initial-data="TDesign">
-          <t-input v-model="PageRoleParams.roleCode" placeholder="请输入内容" />
-        </t-form-item>
-        <t-button theme="primary" type="submit">搜索</t-button>
-        <t-button theme="default" variant="base" type="reset">重置</t-button>
-
-      </t-space>
-
-    </t-form>
-    <t-table :data="data" :columns="columns" :row-key="rowKey" :loading="tableLoading" :pagination="pagination"
-      :selected-row-keys="selectedRowKeys" stripe @change="rehandleChange" @page-change="onPageChange"
-      @select-change="onSelectChange" />
-    <roleFrom ref="roleFromRef" :title="roleFromTitle"></roleFrom>
+  <div class="roleManage">
+    <t-card :bordered="false">
+      <div>
+        <t-button @click="handleAdd">添加角色</t-button>
+      </div>
+      <t-table :data="roleData" :columns="columns" :row-key="rowKey" :loading="tableLoading" :pagination="pagination"
+        :selected-row-keys="selectedRowKeys" stripe @change="rehandleChange" @page-change="onPageChange"
+        @select-change="onSelectChange" />
+    </t-card>
+    <t-dialog v-model:visible="visible" :footer="false" width="500px">
+      <template #header>角色</template>
+        <roleFrom ref="roleFromRef" :title="roleFromTitle" @refresh="refresh"></roleFrom>
+    </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-vue-next';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { rolePage } from '@/api/role';
+import { delPoemRole, rolePage } from '@/api/role';
 import { PageRole, PoemRole } from '@/api/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import roleFrom from './compoments/roleFrom.vue'
+import { useSettingStore } from '@/store';
+import { MessagePlugin } from 'tdesign-vue-next';
 
 const PageRoleParams: PageRole = reactive({
   roleName: '',
@@ -69,11 +63,14 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
     minWidth: 340,
     title: '操作',
     // 增、删、改、查 等操作
-    cell: (h, { row, rowIndex }) => (
+    cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
           <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             编辑
+          </t-link>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onDelHander(row)}>
+            删除
           </t-link>
         </t-space>
       </div>
@@ -81,26 +78,20 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
   },
 ];
 
-const data = ref<PoemRole[]>([]);
+const roleData = ref<PoemRole[]>([]);
 //表格loading标记
 const tableLoading = ref(false);
 const roleFromTitle = ref('');
 const selectedRowKeys = ref([]);
 const roleFromRef = ref();
 
-const onEditHander = (row: PoemRole) => {
-  const { showDialog } = roleFromRef.value;
-  console.log(showDialog)
-  showDialog()
+const currentRow = ref({})
+const onEditHander = (row:PoemRole) => {
+  visible.value = true
+  nextTick(()=>{
+    roleFromRef.value.formData = row
+  })
 }
-
-
-/**
- * 重置搜索框
- */
-const onReset = () => {
-};
-
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
@@ -116,18 +107,16 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = () => {
+const loadData = async() => {
   tableLoading.value = true;
-  rolePage(PageRoleParams).then(({ code, result }) => {
-    if (code === ResultEnum.SUCCESS) {
-      result.records.forEach(item => {
-        data.value.push(item);
-      })
-      pagination.total = Number(result.totalRow)
-    }
-    tableLoading.value = false;
-  });
-
+  const { code, result,message } = await rolePage(PageRoleParams)
+  if (code === ResultEnum.SUCCESS) {
+    roleData.value = result.records
+    pagination.total = Number(result.totalRow)
+  } else {
+    MessagePlugin.error(message);
+  }
+  tableLoading.value = false;
 }
 
 onMounted(async () => {
@@ -140,9 +129,37 @@ const onSelectChange = (value: never[], params: any) => {
 };
 
 const rowKey = 'phone';
+const settingStore = useSettingStore();
+const showBreadcrumbHeight = computed(() => {
+  return settingStore.showBreadcrumb ? '46px' : '0px'
+})
+
+// 添加角色
+const visible = ref(false)
+const handleAdd = ()=>{
+  visible.value = true
+}
+
+// 删除
+const onDelHander = async(row:PoemRole)=>{
+  const {code,result} = await delPoemRole(row)
+  if(code === ResultEnum.SUCCESS){
+    MessagePlugin.success('删除成功');
+  }
+}
+
+// 刷新
+const refresh = ()=>{
+  loadData()
+}
 </script>
-<style lang="less">
-.tdesign-table-demo__table-operations .t-link {
-  padding: 0 8px;
+<style scoped lang="less">
+.roleManage {
+  // background: #fff;
+  min-height: calc(100% - v-bind(showBreadcrumbHeight));
+  display: flex;
+  .t-card{
+    width: 100%;
+  }
 }
 </style>

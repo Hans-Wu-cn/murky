@@ -13,8 +13,9 @@ export interface PageRole extends PageRequest{
  * @param describe 描述
  */
 export interface PoemRole extends BaseApiType{
-  roleId:string,
+  roleId?:string,
   roleName:string,
   roleCode:string,
+  dataScope:number,
   describe?:string,
 }

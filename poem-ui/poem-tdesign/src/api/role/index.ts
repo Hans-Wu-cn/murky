@@ -16,3 +16,33 @@ export function rolePage(params:PageRole) {
     params
   });
 }
+/**
+ * 修改
+ * @returns Route
+ */
+export function updatePoemRole(data:PoemRole) {
+  return request.put({
+    url: '/poemRole',
+    data
+  });
+}
+/**
+ * 新增
+ * @returns Route
+ */
+export function addPoemRole(data:PoemRole) {
+  return request.post({
+    url: '/poemRole',
+    data
+  });
+}
+/**
+ * 删除
+ * @returns Route
+ */
+export function delPoemRole(data:PoemRole) {
+  return request.delete({
+    url: `/poemRole/${data.roleId}`,
+    data
+  });
+}
