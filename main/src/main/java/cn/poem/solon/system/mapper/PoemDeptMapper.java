@@ -12,7 +12,7 @@ public interface PoemDeptMapper extends BaseMapper<PoemDept> {
 
     default List<PoemDept> getSelectByCreate(Long userId){
         return this.selectListByQuery(QueryWrapper.create().select().from(POEM_DEPT)
-                .where(POEM_DEPT.CREATE_USER.eq(userId)).limit(1)
+                .where(POEM_DEPT.CREATE_USER.eq(userId)).orderBy(POEM_DEPT.SORT.asc(),POEM_DEPT.DEPT_NAME.asc())
         );
     }
 }

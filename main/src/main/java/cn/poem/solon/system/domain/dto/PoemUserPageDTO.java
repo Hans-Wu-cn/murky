@@ -19,4 +19,7 @@ public class PoemUserPageDTO extends Page<PoemUser> {
 
     @ApiModelProperty("用户名")
     private String userName;
+
+    @ApiModelProperty("部门id")
+    private Long deptId;
 }

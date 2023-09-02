@@ -38,3 +38,4 @@ target/
 
 ### Mac OS ###
 .DS_Store
+**/rebel.xml

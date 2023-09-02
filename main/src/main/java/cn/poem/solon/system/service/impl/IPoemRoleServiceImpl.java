@@ -1,6 +1,7 @@
 package cn.poem.solon.system.service.impl;
 
 import cn.poem.solon.core.exception.ServiceException;
+import cn.poem.solon.core.utils.CollectionUtils;
 import cn.poem.solon.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.system.domain.entity.PoemRole;
 import cn.poem.solon.system.domain.dto.PoemRoleFromDTO;
@@ -17,6 +18,7 @@ import org.noear.solon.data.annotation.Tran;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 角色service
@@ -38,7 +40,7 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     @Override
     public PoemRoleVo info(Long roleId) {
         PoemRole poemRole = mapper.selectOneById(roleId);
-        if(poemRole == null) {
+        if (poemRole == null) {
             return null;
         }
         PoemRoleVo vo = PoemRoleConvert.INSTANCES.toVo(poemRole);
@@ -58,16 +60,23 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
     public boolean save(PoemRoleFromDTO poemRoleFromDTO) {
         PoemRole entity = poemRoleFromDTO.toEntity();
         //防止角色code重复
-        Long exist = mapper.selectCountByRoleCode(entity.getRoleName(),entity.getRoleCode());
-        if (exist > 0) {
-            throw new ServiceException("角色码已存在");
-        }
+        PoemRole poemRole = mapper.selectByRoleNameAndRoleCode(entity.getRoleName(), entity.getRoleCode());
+        Optional.ofNullable(poemRole).map(item -> {
+            if (item.getRoleCode().equals(entity.getRoleCode())) {
+                throw new ServiceException("角色码已存在");
+            }
+            if (item.getRoleName().equals(entity.getRoleName())) {
+                throw new ServiceException("角色名已存在");
+            }
+            return null;
+        });
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             return false;
         }
         //如果有配置菜单则添加菜单信息
-        if (!poemRoleFromDTO.getMenuIds().isEmpty()) {
+
+        if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
             for (Long menuId : poemRoleFromDTO.getMenuIds()) {
                 poemRoleMenuList.add(new PoemRoleMenu()
@@ -97,11 +106,17 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         PoemRole entity = poemRoleFromDTO.toEntity();
         poemRoleFromDTO.setRoleCode(null);
         //判断角色名称与角色码是否重复
-        for (PoemRole poemRole : mapper.selectByNameOrCode(entity.getRoleName(), entity.getRoleCode())) {
-            if(!poemRole.getRoleId().equals(entity.getRoleId())){
-                throw new ServiceException("角色码或者角色名称重复");
+        PoemRole poemRole = mapper.selectByNameOrCode(entity.getRoleId(), entity.getRoleName(), entity.getRoleCode());
+        Optional.ofNullable(poemRole).map(item -> {
+            if (poemRole.getRoleCode().equals(entity.getRoleCode())) {
+                throw new ServiceException("角色码已存在");
             }
-        }
+            if (poemRole.getRoleName().equals(entity.getRoleName())) {
+                throw new ServiceException("角色名已存在");
+            }
+            return null;
+        });
+
         //修改角色对象
         int insert = mapper.update(entity);
         if (insert <= 0) {
@@ -109,7 +124,7 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         }
         //先删除在新增，覆盖原本的权限
         poemRoleMenuMapper.deleteByRoleId(poemRoleFromDTO.getRoleId());
-        if (!poemRoleFromDTO.getMenuIds().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
             for (Long menuId : poemRoleFromDTO.getMenuIds()) {
                 poemRoleMenuList.add(new PoemRoleMenu()

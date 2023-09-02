@@ -2,15 +2,14 @@
   <div class="roleManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="handleAdd">添加角色</t-button>
+        <t-button @click="onAddHander">添加角色</t-button>
       </div>
-      <t-table :data="roleData" :columns="columns" :row-key="rowKey" :loading="tableLoading" :pagination="pagination"
-        :selected-row-keys="selectedRowKeys" stripe @change="rehandleChange" @page-change="onPageChange"
-        @select-change="onSelectChange" />
+      <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+        :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
     <t-dialog v-model:visible="visible" :footer="false" width="500px">
-      <template #header>角色</template>
-        <roleFrom ref="roleFromRef" :title="roleFromTitle" @refresh="refresh"></roleFrom>
+      <template #header>{{ roleFromTitle }}</template>
+      <roleFrom ref="roleFromRef" @submit-hook="onSubmitHook"></roleFrom>
     </t-dialog>
   </div>
 </template>
@@ -36,7 +35,7 @@ const pagination: PaginationProps = reactive({
   pageSize: PageRoleParams.pageSize,
   total: 0
 })
-//表格字段
+// 表格字段
 const columns: Array<PrimaryTableCol<PoemRole>> = [
   {
     colKey: 'serial-number',
@@ -69,9 +68,13 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
           <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             编辑
           </t-link>
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onDelHander(row)}>
-            删除
-          </t-link>
+          {
+            <t-popconfirm content="确认删除吗" onConfirm={() => onDelHander(row)}>
+              <t-link variant="text" hover="color" theme="danger">
+                删除
+              </t-link>
+            </t-popconfirm>
+          }
         </t-space>
       </div>
     ),
@@ -79,18 +82,50 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
 ];
 
 const roleData = ref<PoemRole[]>([]);
-//表格loading标记
+// 表格loading标记
 const tableLoading = ref(false);
 const roleFromTitle = ref('');
-const selectedRowKeys = ref([]);
 const roleFromRef = ref();
 
 const currentRow = ref({})
-const onEditHander = (row:PoemRole) => {
-  visible.value = true
-  nextTick(()=>{
-    roleFromRef.value.formData = row
+//控制dialog是否显示
+const visible = ref(false)
+const settingStore = useSettingStore();
+
+/**
+ * 添加角色表单适配器
+ */
+const onAddHander = () => {
+  roleFromTitle.value = '添加角色'
+  Object.assign(roleFromRef.value.formData, {
+    roleCode: '',
+    roleName: '',
+    describe: '',
+    dataScope: 0
   })
+  visible.value = true
+}
+
+/**
+ * 修改角色表单适配器
+ * @param row 当前行数据
+ */
+const onEditHander = (row: PoemRole) => {
+  roleFromTitle.value = '编辑角色'
+  Object.assign(roleFromRef.value.formData, row)
+  visible.value = true
+}
+
+/**
+ * 删除角色
+ * @param row 
+ */
+const onDelHander = async (row: PoemRole) => {
+  const { code } = await delPoemRole(row)
+  if (code === ResultEnum.SUCCESS) {
+    MessagePlugin.success('删除成功');
+    loadData();
+  }
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
@@ -107,58 +142,42 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = async() => {
+const loadData = async () => {
   tableLoading.value = true;
-  const { code, result,message } = await rolePage(PageRoleParams)
+  const { code, result, message } = await rolePage(PageRoleParams)
   if (code === ResultEnum.SUCCESS) {
     roleData.value = result.records
-    pagination.total = Number(result.totalRow)
+    console.log(roleData)
   } else {
     MessagePlugin.error(message);
   }
   tableLoading.value = false;
 }
 
-onMounted(async () => {
+/**
+ * 新增/修改成功后的回调事件
+ */
+const onSubmitHook = () => {
+  visible.value = false
   loadData();
-});
+}
 
-const onSelectChange = (value: never[], params: any) => {
-  selectedRowKeys.value = value;
-  console.log(value, params);
-};
-
-const rowKey = 'phone';
-const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
 })
 
-// 添加角色
-const visible = ref(false)
-const handleAdd = ()=>{
-  visible.value = true
-}
+onMounted(async () => {
+  loadData();
+});
 
-// 删除
-const onDelHander = async(row:PoemRole)=>{
-  const {code,result} = await delPoemRole(row)
-  if(code === ResultEnum.SUCCESS){
-    MessagePlugin.success('删除成功');
-  }
-}
-
-// 刷新
-const refresh = ()=>{
-  loadData()
-}
 </script>
 <style scoped lang="less">
 .roleManage {
   // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;
-  .t-card{
+
+  .t-card {
     width: 100%;
   }
 }

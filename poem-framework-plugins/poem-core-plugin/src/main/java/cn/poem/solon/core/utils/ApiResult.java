@@ -25,7 +25,7 @@ public class ApiResult<T> implements Serializable {
     private T result;
 
     public static <T> ApiResult<T> ok() {
-        return restResult(ApiResultEnum.SUCCESS, null);
+        return restResult(ApiResultEnum.SUCCESS, "成功");
     }
 
     public static <T> ApiResult<T> fail(int code,String msg) {

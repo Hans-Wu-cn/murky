@@ -3,6 +3,7 @@ package cn.poem.solon.mybatisflex.config;
 import cn.poem.solon.mybatisflex.extension.BaseEntity;
 import cn.poem.solon.mybatisflex.listener.PoemInsertListener;
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.dialect.DialectFactory;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.solon.annotation.Db;
@@ -34,6 +35,7 @@ public class FlexConfig{
 
         //1.初始化数据填充器
         initListener(globalConfig);
+//        DialectFactory.registerDialect(globalConfig.getDbType(),);
     }
 
     /**

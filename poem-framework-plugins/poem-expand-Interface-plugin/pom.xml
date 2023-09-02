@@ -24,6 +24,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!--snack序列化-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.serialization.snack3</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-eventbus-plugin</artifactId>

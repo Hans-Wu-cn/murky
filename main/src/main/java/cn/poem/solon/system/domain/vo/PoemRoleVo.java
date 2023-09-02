@@ -1,5 +1,6 @@
 package cn.poem.solon.system.domain.vo;
 
+import cn.poem.solon.mybatisflex.enums.DataScope;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,6 +29,9 @@ public class PoemRoleVo implements Serializable {
 
     @ApiModelProperty("描述")
     private String describe;
+
+    @ApiModelProperty("数据权限")
+    private DataScope dataScope;
 
     @ApiModelProperty("菜单id集合")
     private List<Long> menuIds;

@@ -1,5 +1,6 @@
 package cn.poem.solon.mybatisflex.extension;
 
+import com.mybatisflex.annotation.Column;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,5 +36,11 @@ public class BaseEntity implements Serializable {
      * 修改人
      */
     protected Long updateUser;
+
+    /**
+     * 是否使用数据权限
+     */
+    @Column(ignore = true)
+    protected Boolean useDataScope;
 }
 

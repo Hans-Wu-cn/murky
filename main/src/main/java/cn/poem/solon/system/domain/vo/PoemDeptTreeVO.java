@@ -19,13 +19,16 @@ public class PoemDeptTreeVO {
     private Long deptId;
 
     @ApiModelProperty("部门名称")
-    private Long deptName;
+    private String deptName;
 
     @ApiModelProperty("上级部门id")
     private Long parentDept;
 
     @ApiModelProperty("祖级部门id")
     private String ancestors;
+
+    @ApiModelProperty("排序")
+    private Integer sort;
 
     @ApiModelProperty("子部门")
     private List<PoemDeptTreeVO> children;

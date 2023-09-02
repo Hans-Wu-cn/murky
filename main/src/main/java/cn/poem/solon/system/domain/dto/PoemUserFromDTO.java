@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.Email;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
@@ -43,7 +44,11 @@ public class PoemUserFromDTO {
     private Sex sex;
 
     @ApiModelProperty("邮箱")
+    @Email
     private String email;
+
+    @ApiModelProperty(value = "部门id",required = true)
+    private Long deptId;
 
     @ApiModelProperty("邮箱")
     private List<Long> roleIds;

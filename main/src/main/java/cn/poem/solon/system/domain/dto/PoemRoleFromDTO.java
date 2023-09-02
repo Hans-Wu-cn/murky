@@ -1,6 +1,7 @@
 package cn.poem.solon.system.domain.dto;
 
 import cn.poem.solon.core.validat.Update;
+import cn.poem.solon.mybatisflex.enums.DataScope;
 import cn.poem.solon.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.system.domain.entity.PoemRole;
 import io.swagger.annotations.ApiModel;
@@ -35,6 +36,10 @@ public class PoemRoleFromDTO {
 
     @ApiModelProperty("描述")
     private String describe;
+
+    @ApiModelProperty(value = "数据权限",required = true)
+    @NotNull
+    private DataScope dataScope;
 
     @ApiModelProperty("所属菜单id")
     private List<Long> menuIds;

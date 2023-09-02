@@ -38,4 +38,7 @@ public class PoemUser extends BaseEntity {
 
     @ApiModelProperty("邮箱")
     private String email;
+
+    @ApiModelProperty("部门id")
+    private Long deptId;
 }

@@ -35,6 +35,8 @@ public class PoemDeptFromDTO {
     @ApiModelProperty("祖级部门")
     private String ancestors;
 
+    @ApiModelProperty("排序")
+    private Integer sort;
     public PoemDept toEntity() {
         return PoemDeptConvert.INSTANCES.toEntity(this);
     }
