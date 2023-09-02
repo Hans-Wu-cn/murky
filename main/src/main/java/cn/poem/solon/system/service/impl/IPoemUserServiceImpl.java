@@ -10,6 +10,7 @@ import cn.poem.solon.system.mapper.PoemUserMapper;
 import cn.poem.solon.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.system.service.IPoemUserService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
@@ -17,7 +18,7 @@ import org.noear.solon.data.annotation.Tran;
 import java.util.ArrayList;
 import java.util.List;
 
-@ProxyComponent
+@Component
 public class IPoemUserServiceImpl extends ServiceImpl<PoemUserMapper, PoemUser> implements IPoemUserService {
     @Inject
     PoemUserRoleMapper poemUserRoleMapper;

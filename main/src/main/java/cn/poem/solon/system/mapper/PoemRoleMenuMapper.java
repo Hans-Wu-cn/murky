@@ -8,6 +8,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import java.util.List;
 
 public interface PoemRoleMenuMapper extends BaseMapper<PoemRoleMenu> {
+    PoemRoleMenuTableDef POEM_ROLE_MENU = PoemRoleMenuTableDef.POEM_ROLE_MENU;
 
 
     /**
@@ -18,7 +19,7 @@ public interface PoemRoleMenuMapper extends BaseMapper<PoemRoleMenu> {
      */
     default int deleteByRoleId(Long roleId) {
         return this.deleteByQuery(QueryWrapper.create().where(
-                        PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(roleId)
+                        POEM_ROLE_MENU.ROLE_ID.eq(roleId)
                 )
         );
     }
@@ -31,7 +32,7 @@ public interface PoemRoleMenuMapper extends BaseMapper<PoemRoleMenu> {
      */
     default List<PoemRoleMenu> selectByRoleId(Long roleId) {
         return this.selectListByQuery(QueryWrapper.create().where(
-                        PoemRoleMenuTableDef.POEM_ROLE_MENU.ROLE_ID.eq(roleId)
+                        POEM_ROLE_MENU.ROLE_ID.eq(roleId)
                 )
         );
     }

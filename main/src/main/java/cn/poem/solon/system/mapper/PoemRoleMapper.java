@@ -8,7 +8,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import java.util.List;
 
 public interface PoemRoleMapper extends BaseMapper<PoemRole> {
-
+    PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
     /**
      * 根据角色码查询数量
      *
@@ -16,10 +16,10 @@ public interface PoemRoleMapper extends BaseMapper<PoemRole> {
      */
     default Long selectCountByRoleCode(String name,String code) {
         return this.selectCountByQuery(QueryWrapper.create()
-                .from(PoemRoleTableDef.POEM_ROLE)
+                .from(POEM_ROLE)
                 .where(
-                        PoemRoleTableDef.POEM_ROLE.ROLE_CODE.eq(code)
-                ).or(PoemRoleTableDef.POEM_ROLE.ROLE_NAME.eq(name))
+                        POEM_ROLE.ROLE_CODE.eq(code)
+                ).or(POEM_ROLE.ROLE_NAME.eq(name))
         );
     }
 
@@ -31,7 +31,7 @@ public interface PoemRoleMapper extends BaseMapper<PoemRole> {
      */
     default List<PoemRole> selectByNameOrCode(String name, String code) {
         return this.selectListByQuery(QueryWrapper.create().where(
-                PoemRoleTableDef.POEM_ROLE.ROLE_NAME.eq(name)
-        ).or(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.eq(code)));
+                POEM_ROLE.ROLE_NAME.eq(name)
+        ).or(POEM_ROLE.ROLE_CODE.eq(code)));
     }
 }

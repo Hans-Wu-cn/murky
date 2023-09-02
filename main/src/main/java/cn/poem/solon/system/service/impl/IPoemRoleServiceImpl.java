@@ -10,6 +10,7 @@ import cn.poem.solon.system.mapper.PoemRoleMapper;
 import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.service.IPoemRoleService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author hans
  */
-@ProxyComponent
+@Component
 public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> implements IPoemRoleService {
 
     @Inject
