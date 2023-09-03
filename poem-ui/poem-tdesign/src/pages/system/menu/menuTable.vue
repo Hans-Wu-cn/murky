@@ -2,12 +2,10 @@
     <div class="menuTable">
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" 
-            row-key="menuId" drag-sort="row-handler"
-            :table-layout="'auto'"
-            :data="menuList" :columns="columns" :tree="treeConfig" :tree-expand-and-fold-icon="treeExpandIcon"
-            :before-drag-sort="beforeDragSort" @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort"
-            @tree-expand-change="onTreeExpandChange" />
+        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
+            :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
+            :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
+            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
     </div>
 </template>
 <script setup lang="tsx">
@@ -31,27 +29,27 @@ const tableLoading = ref(false);
 //菜单列表数据
 const menuList = ref([]);
 const lazyLoadingData = ref(null);
-const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 2, indent: 50 });
+const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 1, indent: 50 });
 //表格字段
 const columns: Array<PrimaryTableCol<any>> = [
     {
         // 列拖拽排序必要参数
         colKey: 'drag',
         title: '排序',
-        fixed:'left',
+        fixed: 'left',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         cell: (_h) => <MoveIcon />,
-        minWidth: 60,
-    },
-    {
-        colKey: 'serial-number',
-        title: '序号',
         minWidth: 60,
     },
     {
         colKey: 'label',
         title: '标题',
         minWidth: 200,
+    },
+    {
+        colKey: 'icon',
+        title: '图标',
+        minWidth: 80,
     },
     {
         colKey: 'path',
@@ -64,11 +62,6 @@ const columns: Array<PrimaryTableCol<any>> = [
         minWidth: 100,
     },
     {
-        colKey: 'icon',
-        title: '图标',
-        minWidth: 80,
-    },
-    {
         colKey: 'auth',
         title: '权限码',
         minWidth: 100,
@@ -76,8 +69,8 @@ const columns: Array<PrimaryTableCol<any>> = [
     {
         colKey: 'operate',
         title: '操作',
-        fixed:'right',
-        minWidth:250,
+        fixed: 'right',
+        minWidth: 250,
         // 增、删、改、查 等操作
         cell: (h, { row, rowIndex }) => (
             <div class="tdesign-table-demo__table-operations">

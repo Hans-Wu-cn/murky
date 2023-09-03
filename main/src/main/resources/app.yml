@@ -14,7 +14,7 @@ solon.logging.logger:
     level: info
 
 postgres.db:
-  jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon
+  jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon?currentSchema=demo
   driverClassName: org.postgresql.Driver
   username: postgres
   password: 123
