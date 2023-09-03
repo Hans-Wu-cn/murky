@@ -41,8 +41,8 @@ public class SecurityUtil {
      * 用户是否是超级管理员
      * @return 用户id
      */
-    public static Boolean isAdmin(){
-        return securityCache.getUserInfo().getIsAdmin();
+    public static Boolean admin(){
+        return securityCache.getUserInfo().getAdmin();
     }
 
     /**

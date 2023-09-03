@@ -17,7 +17,6 @@ import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.data.annotation.Tran;
 
 import java.io.Serializable;
@@ -62,7 +61,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      */
     @Override
     public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
-        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.isAdmin() ? null : SecurityUtil.getUserInfo().getRoleIds());
+        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.admin() ? null : SecurityUtil.getUserInfo().getRoleIds());
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);

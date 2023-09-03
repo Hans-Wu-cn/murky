@@ -4,21 +4,16 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.entity.UserInfo;
-import cn.poem.solon.expand.SecurityCache;
 import cn.poem.solon.auth.service.IPoemLoginService;
+import cn.poem.solon.mybatisflex.enums.DataScope;
 import cn.poem.solon.system.contant.AdminContant;
 import cn.poem.solon.system.domain.dto.LoginDto;
-import cn.poem.solon.system.domain.entity.PoemMenu;
-import cn.poem.solon.system.domain.entity.PoemRole;
-import cn.poem.solon.system.domain.entity.PoemUser;
-import cn.poem.solon.system.domain.entity.PoemUserRole;
+import cn.poem.solon.system.domain.entity.*;
 import cn.poem.solon.system.enums.MenuType;
+import cn.poem.solon.system.mapper.PoemDeptMapper;
 import cn.poem.solon.system.mapper.PoemMenuMapper;
 import cn.poem.solon.system.mapper.PoemRoleMapper;
-import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.mapper.PoemUserRoleMapper;
-import cn.poem.solon.system.service.IPoemMenuService;
-import cn.poem.solon.system.service.IPoemRoleService;
 import cn.poem.solon.system.service.IPoemUserService;
 import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
 import cn.poem.solon.utils.SecurityUtil;
@@ -43,6 +38,9 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     @Inject
     PoemRoleMapper poemRoleMapper;
+
+    @Inject
+    PoemDeptMapper poemDeptMapper;
 
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
@@ -76,30 +74,60 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
             PoemUser poemUser = iPoemUserService.getById(loginId);
             UserInfo userInfo = new UserInfo().setUserId(loginId)
                     .setUserName(poemUser.getUserName())
-
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
             Set<Long> roleIds = poemUserRoleMapper.selectByUserId(poemUser.getUserId())
                     .stream().map(PoemUserRole::getRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
+            //设置部门信息
+            userInfo.setDeptId(poemUser.getDeptId());
             //查询角色code列表
-            List<String> roleCodes = poemRoleMapper.selectListByIds(roleIds).stream().map(item -> {
+            List<PoemRole> poemRoles = poemRoleMapper.selectListByIds(roleIds);
+            List<String> roleCodes = poemRoles.stream().map(item -> {
                 if(AdminContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())){
-                    userInfo.setIsAdmin(true);
+                    userInfo.setAdmin(true);
                 }
                 return item.getRoleCode();
             }).collect(Collectors.toList());
             userInfo.setRoleCodes(roleCodes);
-            SecurityUtil.setUserInfo(userInfo);
+            //查询数据权限信息
+            Set<DataScope> dataScopes = poemRoles.stream().map(PoemRole::getDataScope).collect(Collectors.toSet());
+            dataScopes.forEach(item->userInfo.addDataScope(item.getCode()));
+            userInfo.setDeptIds(getDeptIdByDataScope(dataScopes,userInfo.getDeptId()));
             //查询权限列表
             List<String> permissions = poemMenuMapper.selectByMenuType(
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
-                    , SecurityUtil.isAdmin()?null:roleIds).stream().map(PoemMenu::getAuth).collect(Collectors.toList());
+                    , userInfo.getAdmin()?null:roleIds).stream().map(PoemMenu::getAuth).collect(Collectors.toList());
             userInfo.setPermissions(permissions);
             SecurityUtil.setUserInfo(userInfo);
             return userInfo;
         });
+    }
+
+    /**
+     * 根据数据权限查询所有所属部门
+     * @param dataScopes 数据权限
+     * @param deptId 当前用户所属部门id
+     * @return
+     */
+    private Set<Long> getDeptIdByDataScope(Collection<DataScope> dataScopes,Long deptId){
+        Set<Long> deptIds=new HashSet<>();
+        for (DataScope dataScope : dataScopes) {
+            switch (dataScope){
+                case CUSTOMIZE ->{
+                    //todo 需要查询角色配置的部门权限
+                }
+                case DEPARTMENT_BELOW ->{
+                    //todo 需要查询部门以及下级部门
+
+                }
+                case DEPARTMENT ->{
+                    deptIds.add(deptId);
+                }
+            }
+        }
+        return deptIds;
     }
 
 }

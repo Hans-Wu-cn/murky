@@ -26,6 +26,8 @@ public enum DataScope {
 
     private final String des;
 
+
+
     @Override
     public String toString() {
         return this.code+":"+this.des;
