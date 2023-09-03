@@ -3,6 +3,7 @@ package cn.poem.solon.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class UserInfo {
     /**
      * 是否是超级管理员
      */
-    private Boolean isAdmin = false;
+    private Boolean admin = false;
 
     /**
      * 用户名
@@ -33,6 +34,21 @@ public class UserInfo {
      * 登录token
      */
     private String token;
+
+    /**
+     * 所属部门id
+     */
+    private Long deptId;
+
+    /**
+     * 权限关联部门
+     */
+    private Set<Long> deptIds;
+
+    /**
+     * 所属部门的数据权限
+     */
+    private Set<Integer> dataScope;
 
     /**
      * 角色ID集合
@@ -48,4 +64,12 @@ public class UserInfo {
      * 权限码
      */
     private List<String> permissions;
+
+    public void addDataScope(Integer dataScope) {
+        if(this.dataScope == null){
+            this.dataScope=new HashSet<>();
+            this.dataScope.add(dataScope);
+        }
+        this.dataScope.add(dataScope);
+    }
 }
