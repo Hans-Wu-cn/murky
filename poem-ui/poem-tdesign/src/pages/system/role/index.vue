@@ -24,15 +24,13 @@ import roleFrom from './compoments/roleFrom.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 
-const PageRoleParams: PageRole = reactive({
+const PageRoleParams = ref<PageRole>({
   roleName: '',
   roleCode: '',
   pageNumber: 1,
   pageSize: 10,
 })
 const pagination: PaginationProps = reactive({
-  current: PageRoleParams.pageNumber,
-  pageSize: PageRoleParams.pageSize,
   total: 0
 })
 // 表格字段
@@ -68,13 +66,11 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
           <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             编辑
           </t-link>
-          {
-            <t-popconfirm content="确认删除吗" onConfirm={() => onDelHander(row)}>
-              <t-link variant="text" hover="color" theme="danger">
-                删除
-              </t-link>
-            </t-popconfirm>
-          }
+          <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              删除
+            </t-link>
+          </t-popconfirm>
         </t-space>
       </div>
     ),
@@ -135,8 +131,9 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const onPageChange = async (pageInfo: PaginationProps) => {
-  pagination.current = pageInfo.current;
-  pagination.pageSize = pageInfo.pageSize;
+  PageRoleParams.value.pageNumber = pageInfo.current;
+  PageRoleParams.value.pageSize = pageInfo.pageSize;
+  loadData()
 };
 
 /**
@@ -144,10 +141,10 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await rolePage(PageRoleParams)
+  const { code, result, message } = await rolePage(PageRoleParams.value)
   if (code === ResultEnum.SUCCESS) {
     roleData.value = result.records
-    console.log(roleData)
+    pagination.total = +result.totalRow
   } else {
     MessagePlugin.error(message);
   }

@@ -97,6 +97,7 @@ const onReset = () => {
 const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>) => {
     if (validateResult === true) {
         const api = menuFormData.value.menuId ? updateMenu : addMenu
+        menuFormData.value.icon = menuFormData.value.icon || ''
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success('提交成功');

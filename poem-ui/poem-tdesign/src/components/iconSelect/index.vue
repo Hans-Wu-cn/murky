@@ -37,9 +37,11 @@ import { getIconNames } from './getIconName';
 import { iconConfig } from './config';
 import { Icon } from './type';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     value:string
-}>()
+}>(),{
+    value:''
+})
 const emit = defineEmits<{
     (e:'update:value',value:string):void
 }>()

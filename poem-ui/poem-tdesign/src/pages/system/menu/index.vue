@@ -12,7 +12,6 @@
 </template>
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
-import menuFrom from './menuFrom.vue';
 import MenuTable from './menuTable.vue';
 import { useSettingStore } from '@/store';
 import { useRoute } from 'vue-router';

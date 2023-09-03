@@ -30,6 +30,7 @@ import { computed } from 'vue';
 
 import { getActive } from '@/router';
 import type { MenuRoute } from '@/types/interface';
+import { iconConfig } from '@/components/iconSelect/config';
 
 type ListItemType = MenuRoute & { icon?: string };
 
@@ -47,7 +48,9 @@ const list = computed(() => {
 });
 
 const menuIcon = (item: ListItemType) => {
-  if (typeof item.icon === 'string') return <t-icon name={item.icon} />;
+  if (typeof item.icon === 'string'){
+    return item.icon.indexOf(iconConfig.svgPath)===-1?<t-icon name={item.icon} />:<img src={item.icon}/>;
+  }
   const RenderIcon = item.icon;
   return RenderIcon;
 };

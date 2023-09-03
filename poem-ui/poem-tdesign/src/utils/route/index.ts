@@ -23,18 +23,17 @@ LayoutMap.set('IFRAME', IFRAME);
 let dynamicViewsModules: Record<string, () => Promise<Recordable>>;
 
 // 动态从包内引入单个Icon
-async function getMenuIcon(iconName: string) {
-  const RenderIcon = iconsPath[`../../../node_modules/tdesign-icons-vue-next/esm/components/${iconName}.js`];
+// async function getMenuIcon(iconName: string) {
+//   const RenderIcon = iconsPath[`../../../node_modules/tdesign-icons-vue-next/esm/components/${iconName}.js`];
 
-  const Icon = await RenderIcon();
-  // @ts-ignore
-  return shallowRef(Icon.default);
-}
+//   const Icon = await RenderIcon();
+//   // @ts-ignore
+//   return shallowRef(Icon.default);
+// }
 
 // 动态引入路由组件
 function asyncImportRoute(routes: RouteItem[] | undefined) {
   dynamicViewsModules = dynamicViewsModules || import.meta.glob('@/pages/**/*.vue');
-  // dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../pages/**/*.vue');
   if (!routes) return;
   routes.forEach(async (item) => {
     const { component, name } = item;
@@ -50,7 +49,7 @@ function asyncImportRoute(routes: RouteItem[] | undefined) {
     } else if (name) {
       item.component = PARENT_LAYOUT();
     }
-    if (item.meta.icon) item.meta.icon = await getMenuIcon(item.meta.icon);
+    // if (item.meta.icon) item.meta.icon = await getMenuIcon(item.meta.icon);
 
     // eslint-disable-next-line no-unused-expressions
     children && asyncImportRoute(children);
@@ -85,7 +84,7 @@ export function transformObjectToRoute<T = RouteItem>(routeList: RouteItem[]): T
     }
     // eslint-disable-next-line no-unused-expressions
     route.children && asyncImportRoute(route.children);
-    if (route.meta.icon) route.meta.icon = await getMenuIcon(route.meta.icon);
+    // if (route.meta.icon) route.meta.icon = await getMenuIcon(route.meta.icon);
   });
 
   return [PAGE_NOT_FOUND_ROUTE, ...routeList] as unknown as T[];

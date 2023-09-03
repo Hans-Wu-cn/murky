@@ -32,6 +32,7 @@ router.beforeEach(async (to, from, next) => {
 
       if (asyncRoutes && asyncRoutes.length === 0) {
         const routeList = await permissionStore.buildAsyncRoutes();
+        console.log(routeList)
         routeList.forEach((item: RouteRecordRaw) => {
           router.addRoute(item);
         });
