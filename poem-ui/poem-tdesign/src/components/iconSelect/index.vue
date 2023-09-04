@@ -124,7 +124,7 @@ const onInputChange = (value: string) => {
         vertical-align: middle;
     }
 }
-:deep(.t-select img){
+:deep(.t-input__prefix img){
     width: 14px;
     height: 14px;
     vertical-align: middle;
