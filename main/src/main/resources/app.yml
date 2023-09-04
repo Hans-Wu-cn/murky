@@ -13,6 +13,10 @@ solon.logging.logger:
   "com.zaxxer.hikari":
     level: info
 
+redis:
+  server: localhost:6379
+  db: 1
+
 postgres.db:
   jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon?currentSchema=demo
   driverClassName: org.postgresql.Driver

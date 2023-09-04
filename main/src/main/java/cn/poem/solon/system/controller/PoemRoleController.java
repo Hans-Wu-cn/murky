@@ -11,7 +11,8 @@ import cn.poem.solon.system.domain.entity.table.PoemRoleTableDef;
 import cn.poem.solon.system.service.IPoemRoleService;
 import cn.poem.solon.system.domain.dto.PoemRolePageDTO;
 import cn.poem.solon.system.domain.vo.PoemRoleVo;
-import cn.poem.solon.utils.SecurityUtil;
+import cn.poem.solon.expand.SystemSecurityCache;
+import cn.poem.solon.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -38,7 +39,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     public ApiResult<Page<PoemRole>> page(PoemRolePageDTO poemRolePageDTO) {
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create()
-                        .where(PoemRoleTableDef.POEM_ROLE.CREATE_USER.eq(SecurityUtil.getUserId()))
+                        .where(PoemRoleTableDef.POEM_ROLE.CREATE_USER.eq(SecurityUtils.getUserId()))
                         .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
                         .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
                         .orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())

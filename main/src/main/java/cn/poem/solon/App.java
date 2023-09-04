@@ -1,10 +1,8 @@
 package cn.poem.solon;
 
-import cn.poem.solon.utils.SecurityUtil;
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Import;
 import org.noear.solon.annotation.SolonMain;
-import org.noear.solon.core.event.AppLoadEndEvent;
 
 @SolonMain
 @Import(scanPackages = "cn.poem")

@@ -1,7 +1,7 @@
 package cn.poem.solon.system.domain.entity;
 
-import cn.poem.solon.mybatisflex.enums.DataScope;
-import cn.poem.solon.mybatisflex.extension.BaseEntity;
+import cn.poem.solon.core.enums.DataScope;
+import cn.poem.solon.core.extension.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

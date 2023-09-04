@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>solon-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.5.3</version>
     </parent>
     <groupId>cn.poem.solon</groupId>
     <artifactId>poem-solon</artifactId>
@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>main</module>
-        <module>poem-framework-plugins</module>
+        <module>poem-framework</module>
     </modules>
 
     <properties>
@@ -29,35 +29,22 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--poem mybatis-flex 模块-->
+            <!--poem-common 模块-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-mybatisflex-plugin</artifactId>
+                <artifactId>poem-common</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-core 模块-->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-core-plugin</artifactId>
+                <artifactId>poem-core</artifactId>
                 <version>${version}</version>
             </dependency>
-            <!--poem-expand-interface-plugin 拓展模块 模块-->
+            <!--poem-security 模块 -->
             <dependency>
                 <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-expand-interface-plugin</artifactId>
-                <version>${version}</version>
-            </dependency>
-            <!--poem-sa-token 模块-->
-            <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-satoken-plugin</artifactId>
-                <version>${version}</version>
-            </dependency>
-
-            <!--poem-event 事件 模块-->
-            <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-eventbus-plugin</artifactId>
+                <artifactId>poem-security</artifactId>
                 <version>${version}</version>
             </dependency>
         </dependencies>

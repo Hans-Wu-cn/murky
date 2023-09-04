@@ -1,12 +1,10 @@
 package cn.poem.solon.system.mapper;
 
 import cn.poem.solon.core.utils.CollectionUtils;
-import cn.poem.solon.system.contant.AdminContant;
 import cn.poem.solon.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.system.enums.MenuType;
 import cn.poem.solon.system.domain.entity.PoemMenu;
 import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
-import cn.poem.solon.utils.SecurityUtil;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 
@@ -14,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.mybatisflex.core.query.QueryMethods.exists;
-import static com.mybatisflex.core.query.QueryMethods.noCondition;
 
 public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
     PoemMenuTableDef POEM_MENU = PoemMenuTableDef.POEM_MENU;

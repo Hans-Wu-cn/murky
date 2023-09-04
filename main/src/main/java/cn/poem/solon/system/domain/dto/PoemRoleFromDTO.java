@@ -1,7 +1,8 @@
 package cn.poem.solon.system.domain.dto;
 
+import cn.poem.solon.core.enums.DataScope;
 import cn.poem.solon.core.validat.Update;
-import cn.poem.solon.mybatisflex.enums.DataScope;
+
 import cn.poem.solon.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.system.domain.entity.PoemRole;
 import io.swagger.annotations.ApiModel;

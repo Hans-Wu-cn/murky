@@ -1,6 +1,6 @@
 package cn.poem.solon.system.domain.vo;
 
-import cn.poem.solon.mybatisflex.enums.DataScope;
+import cn.poem.solon.core.enums.DataScope;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

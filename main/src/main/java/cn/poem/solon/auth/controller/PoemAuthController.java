@@ -2,14 +2,15 @@ package cn.poem.solon.auth.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.poem.entity.SecurityUser;
 import cn.poem.solon.core.utils.ApiResult;
 import cn.poem.solon.auth.service.IPoemLoginService;
-import cn.poem.solon.entity.UserInfo;
 import cn.poem.solon.system.domain.dto.LoginDto;
 import cn.poem.solon.system.enums.MenuType;
 import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.utils.SecurityUtil;
+import cn.poem.solon.expand.SystemSecurityCache;
+import cn.poem.solon.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
@@ -48,7 +49,7 @@ public class PoemAuthController {
     @Mapping("logout")
     public ApiResult<?> logout() {
         StpUtil.logout();
-        SecurityUtil.publishAsyncEvent();
+        SecurityUtils.delUserInfo();
         return ApiResult.ok();
     }
 
@@ -62,7 +63,7 @@ public class PoemAuthController {
     @Get
     @ApiOperation("获取用户信息")
     @Mapping("info")
-    public ApiResult<UserInfo> userInfo() {
+    public ApiResult<SecurityUser> userInfo() {
         return ApiResult.ok(iPoemLoginService.userInfo());
     }
 }

@@ -11,7 +11,8 @@ import cn.poem.solon.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.domain.entity.PoemMenu;
-import cn.poem.solon.utils.SecurityUtil;
+import cn.poem.solon.expand.SystemSecurityCache;
+import cn.poem.solon.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
@@ -61,7 +62,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      */
     @Override
     public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
-        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtil.admin() ? null : SecurityUtil.getUserInfo().getRoleIds());
+        List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtils.isAdmin() ? null : SecurityUtils.getUserInfo().getRoleIds());
         List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);

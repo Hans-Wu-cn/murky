@@ -3,10 +3,10 @@ package cn.poem.solon.system.service.impl;
 import cn.poem.solon.system.domain.convert.PoemDeptConvert;
 import cn.poem.solon.system.domain.entity.PoemDept;
 import cn.poem.solon.system.domain.vo.PoemDeptTreeVO;
-import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.system.mapper.PoemDeptMapper;
 import cn.poem.solon.system.service.IPoemDeptService;
-import cn.poem.solon.utils.SecurityUtil;
+import cn.poem.solon.expand.SystemSecurityCache;
+import cn.poem.solon.utils.SecurityUtils;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 
@@ -22,7 +22,7 @@ public class IPoemDeptServiceImpl extends ServiceImpl<PoemDeptMapper, PoemDept> 
      */
     @Override
     public List<PoemDeptTreeVO> treeDept() {
-        List<PoemDept> allPoemDept = mapper.getSelectByCreate(SecurityUtil.getUserId());
+        List<PoemDept> allPoemDept = mapper.getSelectByCreate(SecurityUtils.getUserId());
         List<PoemDeptTreeVO> poemDeptTreeVOList = PoemDeptConvert.INSTANCES.toEntity(allPoemDept);
         List<PoemDeptTreeVO> list = poemDeptTreeVOList.stream().filter(item -> item.getParentDept() == 0).toList();
         buildTreePoemMenu(list,poemDeptTreeVOList);

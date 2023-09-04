@@ -2,10 +2,10 @@ package cn.poem.solon.auth.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.poem.solon.core.enums.DataScope;
 import cn.poem.solon.core.exception.ServiceException;
-import cn.poem.solon.entity.UserInfo;
 import cn.poem.solon.auth.service.IPoemLoginService;
-import cn.poem.solon.mybatisflex.enums.DataScope;
+import cn.poem.solon.expand.SecurityUserInfo;
 import cn.poem.solon.system.contant.AdminContant;
 import cn.poem.solon.system.domain.dto.LoginDto;
 import cn.poem.solon.system.domain.entity.*;
@@ -16,15 +16,16 @@ import cn.poem.solon.system.mapper.PoemRoleMapper;
 import cn.poem.solon.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.system.service.IPoemUserService;
 import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
-import cn.poem.solon.utils.SecurityUtil;
+import cn.poem.solon.expand.SystemSecurityCache;
+import cn.poem.solon.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
+import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.ProxyComponent;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@ProxyComponent
+@Component
 public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     @Inject
@@ -61,18 +62,19 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     /**
      * 获取用户登录信息
+     *
      * @return 用户信息对象
      */
     @Override
-    public UserInfo userInfo() {
+    public SecurityUserInfo userInfo() {
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
-        UserInfo userInfoCache = SecurityUtil.getUserInfo();
+        SecurityUserInfo userInfoCache = SecurityUtils.getUserInfo();
 
         return Optional.ofNullable(userInfoCache).orElseGet(() -> {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Long loginId = StpUtil.getLoginIdAsLong();
             PoemUser poemUser = iPoemUserService.getById(loginId);
-            UserInfo userInfo = new UserInfo().setUserId(loginId)
+            SecurityUserInfo userInfo = (SecurityUserInfo) new SecurityUserInfo().setUserId(loginId)
                     .setUserName(poemUser.getUserName())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
@@ -100,7 +102,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
                     , userInfo.getAdmin()?null:roleIds).stream().map(PoemMenu::getAuth).collect(Collectors.toList());
             userInfo.setPermissions(permissions);
-            SecurityUtil.setUserInfo(userInfo);
+            SecurityUtils.setUserInfo(userInfo);
             return userInfo;
         });
     }
