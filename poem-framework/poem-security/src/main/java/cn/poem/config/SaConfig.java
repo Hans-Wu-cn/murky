@@ -15,7 +15,8 @@ import org.noear.solon.annotation.Inject;
 public class SaConfig {
     @Bean(index = -100) //-100，是顺序位（低值优先）
     public SaTokenInterceptor saTokenInterceptor() {
-        return new SaTokenInterceptor(); //用于支持规划处理及注解处理
+        return new SaTokenInterceptor()
+                .addExclude("/swagger-resources").addExclude("/auth/login","/auth/logout");
     }
 
     @Bean

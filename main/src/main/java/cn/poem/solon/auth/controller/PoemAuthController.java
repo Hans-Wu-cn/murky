@@ -9,7 +9,6 @@ import cn.poem.solon.system.domain.dto.LoginDto;
 import cn.poem.solon.system.enums.MenuType;
 import cn.poem.solon.system.service.IPoemMenuService;
 import cn.poem.solon.system.domain.vo.PoemMenuTreeVO;
-import cn.poem.solon.expand.SystemSecurityCache;
 import cn.poem.solon.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

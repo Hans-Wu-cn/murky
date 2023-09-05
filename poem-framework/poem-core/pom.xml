@@ -31,7 +31,7 @@
         <!--接口文档依赖-->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-openapi2-knife4j</artifactId>
+            <artifactId>solon.docs.openapi2</artifactId>
         </dependency>
         <!-- start 实体转换依赖-->
         <dependency>

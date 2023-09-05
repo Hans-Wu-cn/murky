@@ -1,11 +1,13 @@
 package cn.poem.solon.expand;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.SecurityCache;
 import cn.poem.solon.expand.SecurityUserInfo;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
 import org.noear.snack.ONode;
+import org.noear.solon.Solon;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.bean.InitializingBean;
@@ -18,9 +20,11 @@ import java.util.Collections;
  * @author hans
  */
 @Component
-public class SystemSecurityCache implements SecurityCache<SecurityUserInfo>{
+public class SystemSecurityCache implements SecurityCache<SecurityUserInfo>,InitializingBean{
     @Inject
     public RedisClient redisClient;
+
+    private static int expire=0;
 
     private final String key="System:SecurityUser:";
     /**
@@ -35,8 +39,7 @@ public class SystemSecurityCache implements SecurityCache<SecurityUserInfo>{
     public void setUserInfo(SecurityUserInfo securityUser) {
         redisClient.open(session -> {
             String serialize = ONode.serialize(securityUser);
-            session.key(key+getUserId()).expire(7200).set(serialize);
-            session.key("user_link:1").delay(20);
+            session.key(key+getUserId()).expire(expire).set(serialize);
         });
     }
 
@@ -58,4 +61,9 @@ public class SystemSecurityCache implements SecurityCache<SecurityUserInfo>{
         return StpUtil.getLoginIdAsLong();
     }
 
+    @Override
+    public void afterInjection() throws Throwable {
+        String s = Solon.cfg().get("sa-token.timeout");
+        expire=Integer.parseInt(s);
+    }
 }
