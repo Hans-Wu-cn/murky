@@ -1,8 +1,11 @@
 package cn.poem.config;
 
+import cn.dev33.satoken.dao.SaTokenDao;
+import cn.dev33.satoken.solon.dao.SaTokenDaoOfRedis;
 import cn.dev33.satoken.solon.integration.SaTokenInterceptor;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
+import org.noear.solon.annotation.Inject;
 
 /**
  * SaToken配置类
@@ -13,5 +16,10 @@ public class SaConfig {
     @Bean(index = -100) //-100，是顺序位（低值优先）
     public SaTokenInterceptor saTokenInterceptor() {
         return new SaTokenInterceptor(); //用于支持规划处理及注解处理
+    }
+
+    @Bean
+    public SaTokenDao saTokenDaoInit(@Inject("${redis}") SaTokenDaoOfRedis saTokenDao) {
+        return saTokenDao;
     }
 }

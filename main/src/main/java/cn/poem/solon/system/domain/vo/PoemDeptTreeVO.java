@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,6 +31,9 @@ public class PoemDeptTreeVO {
 
     @ApiModelProperty("排序")
     private Integer sort;
+
+    @ApiModelProperty("创建事件")
+    private LocalDateTime createTime;
 
     @ApiModelProperty("子部门")
     private List<PoemDeptTreeVO> children;

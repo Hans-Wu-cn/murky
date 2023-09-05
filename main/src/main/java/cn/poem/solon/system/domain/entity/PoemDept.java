@@ -6,9 +6,11 @@ import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
 @Table("poem_dept")
+@Accessors(chain = true)
 @ApiModel
 public class PoemDept extends BaseEntity {
 
@@ -21,9 +23,6 @@ public class PoemDept extends BaseEntity {
 
     @ApiModelProperty("父级部门id")
     private Long parentDept;
-
-    @ApiModelProperty("祖级部门")
-    private String ancestors;
 
     @ApiModelProperty("排序")
     private Integer sort;

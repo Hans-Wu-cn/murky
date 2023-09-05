@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @Valid
-@Mapping("PoemDept")
+@Mapping("poemDept")
 @Api("部门管理")
 public class PoemDeptController extends BaseController<IPoemDeptService> {
 
@@ -38,13 +38,20 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
         return ApiResult.ok(result);
     }
 
+    @ApiOperation("拖动排序")
+    @Put
+    @Mapping("drop")
+    public ApiResult<?> drop(List<Long> deptIds){
+        Boolean b = baseService.drop(deptIds);
+        return toResult(b);
+    }
+
 
     @ApiOperation("添加部门")
     @Post
     @Mapping
     public ApiResult<?> add(@Body PoemDeptFromDTO poemDeptFromDTO){
-        PoemDept poemDept = poemDeptFromDTO.toEntity();
-        boolean b = baseService.save(poemDept);
+        boolean b = baseService.save(poemDeptFromDTO);
         return toResult(b);
     }
 
@@ -52,8 +59,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @Put
     @Mapping
     public ApiResult<?> edit(@Body  @Validated(Update.class)PoemDeptFromDTO poemDeptFromDTO){
-        PoemDept poemDept = poemDeptFromDTO.toEntity();
-        boolean b = baseService.updateById(poemDept);
+        boolean b = baseService.edit(poemDeptFromDTO);
         return toResult(b);
     }
 
@@ -61,7 +67,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @Delete
     @Mapping("{deptId}")
     public ApiResult<?> remove(Long deptId){
-        boolean b = baseService.removeById(deptId);
+        boolean b = baseService.remove(deptId);
         return toResult(b);
     }
 }

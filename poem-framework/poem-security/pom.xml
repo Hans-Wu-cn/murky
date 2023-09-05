@@ -18,10 +18,12 @@
     </properties>
 
     <dependencies>
+        <!--sa-token-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>sa-token-solon-plugin</artifactId>
         </dependency>
+        <!--poem-common-->
         <dependency>
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-common</artifactId>

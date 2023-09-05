@@ -20,7 +20,7 @@ export function getMenuList() {
  * 添加菜单
  * @returns Route
  */
-export function addMenu(data:PoemMenu) {
+export function addMenu(data: PoemMenu) {
   return request.post({
     url: Api.addMenu,
     data
@@ -30,7 +30,7 @@ export function addMenu(data:PoemMenu) {
  * 修改菜单
  * @returns Route
  */
-export function updateMenu(data:PoemMenu) {
+export function updateMenu(data: PoemMenu) {
   return request.put({
     url: Api.addMenu,
     data
@@ -40,7 +40,7 @@ export function updateMenu(data:PoemMenu) {
  * 删除菜单
  * @returns Route
  */
-export function delMenu(menuId:string) {
+export function delMenu(menuId: string) {
   return request.delete({
     url: `/poemMenu/${menuId}`,
   });
@@ -49,7 +49,7 @@ export function delMenu(menuId:string) {
  * 菜单详情
  * @returns Route
  */
-export function getMenu(menuId:string) {
+export function getMenu(menuId: string) {
   return request.get({
     url: `/poemMenu/${menuId}`,
   });
@@ -58,10 +58,10 @@ export function getMenu(menuId:string) {
  * 菜单拖动排序
  * @returns Route
  */
-export function dragMenu(data:{
+export function dragMenu(data: {
   parentMenuId?: string;
   /*菜单id集合,按顺序排列 */
-  menuIds?: string[];
+  menuIds: string[];
 }) {
   return request.put({
     url: `/poemMenu/drop`,
