@@ -2,7 +2,7 @@ package cn.poem.solon.auth.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.poem.solon.core.enums.DataScope;
+import cn.poem.solon.system.enums.DataScope;
 import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.auth.service.IPoemLoginService;
 import cn.poem.solon.expand.SecurityUserInfo;
@@ -16,7 +16,6 @@ import cn.poem.solon.system.mapper.PoemRoleMapper;
 import cn.poem.solon.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.system.service.IPoemUserService;
 import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
-import cn.poem.solon.expand.SystemSecurityCache;
 import cn.poem.solon.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.annotation.Component;
@@ -95,7 +94,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
             userInfo.setRoleCodes(roleCodes);
             //查询数据权限信息
             Set<DataScope> dataScopes = poemRoles.stream().map(PoemRole::getDataScope).collect(Collectors.toSet());
-            dataScopes.forEach(item->userInfo.addDataScope(item.getCode()));
+            dataScopes.forEach(userInfo::addDataScope);
             userInfo.setDeptIds(getDeptIdByDataScope(dataScopes,userInfo.getDeptId()));
             //查询权限列表
             List<String> permissions = poemMenuMapper.selectByMenuType(

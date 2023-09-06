@@ -1,8 +1,9 @@
 package cn.poem.solon.config;
 
 import cn.poem.solon.core.extension.BaseEntity;
-import cn.poem.solon.expand.PoemInsertListener;
+import cn.poem.solon.expand.PoemFlexImpl;
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.dialect.DialectFactory;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.solon.annotation.Db;
@@ -32,20 +33,20 @@ public class FlexConfig {
                         @Db FlexGlobalConfig globalConfig) {
 
         //1.初始化数据填充器
-        initListener(globalConfig);
-//        DialectFactory.registerDialect(globalConfig.getDbType(),);
+        PoemFlexImpl poemFlex = new PoemFlexImpl();
+        initListener(globalConfig,poemFlex);
+        DialectFactory.registerDialect(globalConfig.getDbType(),poemFlex);
     }
 
     /**
      * 初始化字段填充器
      */
-    private void initListener(FlexGlobalConfig globalConfig){
-        PoemInsertListener poemInsertListener = new PoemInsertListener();
+    private void initListener(FlexGlobalConfig globalConfig,PoemFlexImpl poemFlex){
 
         //为 BaseEntity 注册 insertListner
-        globalConfig.registerInsertListener(poemInsertListener, BaseEntity.class);
+        globalConfig.registerInsertListener(poemFlex, BaseEntity.class);
 
         //为 BaseEntity 注册 updateListener
-        globalConfig.registerUpdateListener(poemInsertListener, BaseEntity.class);
+        globalConfig.registerUpdateListener(poemFlex, BaseEntity.class);
     }
 }

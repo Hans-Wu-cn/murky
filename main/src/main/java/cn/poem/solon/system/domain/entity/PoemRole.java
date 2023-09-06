@@ -1,6 +1,6 @@
 package cn.poem.solon.system.domain.entity;
 
-import cn.poem.solon.core.enums.DataScope;
+import cn.poem.solon.system.enums.DataScope;
 import cn.poem.solon.core.extension.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
