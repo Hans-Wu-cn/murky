@@ -41,14 +41,16 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
 
         if (StpUtil.isLogin()) {
             SecurityUserInfo userInfo = SecurityUtils.getUserInfo();
-            Set<DataScope> dataScope = userInfo.getDataScope();
-            String rolids = Strings.join(userInfo.getRoleIds(), ",");
+            if(userInfo == null){
+                return super.buildSelectSql(queryWrapper);
+            }
+            Set<DataScope> dataScope = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
+            String roleIdStr = Strings.join(userInfo.getRoleIds(), ",");
             for (DataScope scope : dataScope) {
-                dataScopeFilter(queryWrapper, scope, condition, userInfo.getDeptId(), rolids);
+                dataScopeFilter(queryWrapper, scope, condition, userInfo.getDeptId(), roleIdStr);
             }
         }
 
-//        }
         return super.buildSelectSql(queryWrapper);
     }
 
