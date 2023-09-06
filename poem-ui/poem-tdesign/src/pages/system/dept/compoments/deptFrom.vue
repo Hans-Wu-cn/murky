@@ -10,7 +10,7 @@
       </t-form-item>
       <t-form-item>
         <t-space size="small">
-          <t-button theme="primary" type="submit">提交</t-button>
+          <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
           <t-button theme="default" variant="base" type="reset">重置</t-button>
         </t-space>
       </t-form-item>
@@ -48,10 +48,13 @@ const onReset = () => {
  * 表单提交事件
  * @param param0 表单验证
  */
+const loading = ref(false)
 const onSubmit = async ({ validateResult }: SubmitContext<PoemDept>) => {
   if (validateResult) {
+    loading.value = true
     const api = formData.deptId ? editDept : addDept
     const res = await api(formData);
+    loading.value = false
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success('提交成功');
       emit('submit-hook');
