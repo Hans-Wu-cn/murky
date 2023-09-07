@@ -11,25 +11,16 @@
       <t-form-item label="描述" name="describe">
         <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
       </t-form-item>
-      <t-form-item label="数据范围">
+      <!-- <t-form-item label="数据范围">
         <t-select v-model="formData.dataScope">
           <t-option v-for="item in dataScopeDict" :key="item.value" :label="item.label" :value="item.value" />
         </t-select>
-      </t-form-item>
-      <!-- <t-form-item label="所属菜单">
-        <t-tree-select
-          v-model="formData.menuIds"
-          :data="menuOptions"
-          clearable
-          placeholder="请选择"
-        />
       </t-form-item> -->
-      <t-form-item label="描述" name="describe">
-        <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
-      </t-form-item>
-      <t-form-item label="数据权限">
-        <t-tree hover expand-all :data="deptTree" :keys="deptTreeKeys" checkable value-mode="all"
-          @change="treeOnChange" />
+      <t-form-item label="菜单权限" name="menuIds">
+        <div class="treeBox">
+          <t-tree hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="deptTreeKeys" checkable
+            value-mode="all" @change="treeOnChange" />
+        </div>
       </t-form-item>
       <t-form-item>
         <t-space size="small">
@@ -50,10 +41,12 @@ import { dataScopeDict } from '../constants';
 import { Dict } from '@/enums';
 import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
+import { PoemMenu } from '@/api/menu/types';
+import { getMenuList } from '@/api/menu';
 
 const emit = defineEmits(['submit-hook'])
-const deptTree = ref<Array<PoemDeptTree>>();
-const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
+const menuTree = ref<Array<PoemMenu>>();
+const deptTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
   roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
@@ -63,7 +56,8 @@ const formData = reactive<PoemRole>({
   roleCode: '',
   roleName: '',
   describe: '',
-  dataScope: 0
+  dataScope: 0,
+  menuIds: []
 });
 
 /**
@@ -73,9 +67,15 @@ const onReset = () => {
   MessagePlugin.success('重置成功');
 };
 
+/**
+ * 树组件勾选事件
+ * @param value 
+ * @param context 
+ */
 const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemDeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
-  console.log(value)
-  console.log(context)
+  const menuIds = Array<string>();
+  value.forEach(item => menuIds.push(item as string))
+  formData.menuIds = menuIds
 }
 
 /**
@@ -96,9 +96,9 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
 };
 
 onMounted(async () => {
-  const { code, result } = await getDeptList();
+  const { code, result } = await getMenuList();
   if (code === ResultEnum.SUCCESS) {
-    deptTree.value = result
+    menuTree.value = result
   }
 });
 
@@ -109,4 +109,11 @@ defineExpose({
 
 
 </script>
-<style lang="less"></style>
+<style lang="less">
+.treeBox {
+  border: 1px solid #ddd;
+  overflow: auto;
+  height: 300px;
+  width: 100%;
+}
+</style>
