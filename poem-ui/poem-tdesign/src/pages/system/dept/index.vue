@@ -20,9 +20,8 @@ import {
   MinusRectangleIcon,
   MoveIcon,
 } from 'tdesign-icons-vue-next';
-import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
-import { computed, onMounted, reactive, ref } from 'vue';
-import { delMenu, dragMenu, getMenuList } from '@/api/menu';
+import { EnhancedTable as TEnhancedTable, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
+import { onMounted, reactive, ref } from 'vue';
 import { dropDept, getDeptList, removeDept } from '@/api/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useRouter } from 'vue-router';

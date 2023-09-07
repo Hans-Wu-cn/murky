@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { computed, nextTick, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
 import { delPoemRole, rolePage } from '@/api/role';
 import { PageRole, PoemRole } from '@/api/role/types';
