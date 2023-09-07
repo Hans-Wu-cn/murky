@@ -35,10 +35,5 @@ public class BaseEntity implements Serializable {
      */
     protected Long updateUser;
 
-    /**
-     * 是否使用数据权限
-     */
-    @Column(ignore = true)
-    protected Boolean useDataScope;
 }
 

@@ -1,4 +1,4 @@
-package cn.poem.solon.core.enums;
+package cn.poem.solon.system.enums;
 
 
 import com.mybatisflex.annotation.EnumValue;

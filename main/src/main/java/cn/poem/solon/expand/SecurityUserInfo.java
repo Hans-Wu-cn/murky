@@ -1,6 +1,7 @@
 package cn.poem.solon.expand;
 
 import cn.poem.entity.SecurityUser;
+import cn.poem.solon.system.enums.DataScope;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -36,7 +37,7 @@ public class SecurityUserInfo extends SecurityUser implements Serializable {
     /**
      * 所属部门的数据权限
      */
-    private Set<Integer> dataScope;
+    private Set<DataScope> dataScope;
 
     /**
      * 角色ID集合
@@ -53,7 +54,7 @@ public class SecurityUserInfo extends SecurityUser implements Serializable {
      */
     private List<String> permissions;
 
-    public void addDataScope(Integer dataScope) {
+    public void addDataScope(DataScope dataScope) {
         if(this.dataScope == null){
             this.dataScope=new HashSet<>();
             this.dataScope.add(dataScope);

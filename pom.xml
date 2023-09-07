@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>solon-parent</artifactId>
-        <version>2.5.3</version>
+        <version>2.5.4</version>
     </parent>
     <groupId>cn.poem.solon</groupId>
     <artifactId>poem-solon</artifactId>
