@@ -13,6 +13,14 @@
           <t-option v-for="item in dataScopeDict" :key="item.value" :label="item.label" :value="item.value" />
         </t-select>
       </t-form-item>
+      <t-form-item label="所属菜单">
+        <t-tree-select
+          v-model="formData.menuIds"
+          :data="menuOptions"
+          clearable
+          placeholder="请选择"
+        />
+      </t-form-item>
       <t-form-item label="描述" name="describe">
         <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
       </t-form-item>

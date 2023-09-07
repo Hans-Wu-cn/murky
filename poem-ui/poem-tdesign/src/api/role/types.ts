@@ -18,4 +18,5 @@ export interface PoemRole extends BaseApiType{
   roleCode:string,
   dataScope:number,
   describe?:string,
+  menuIds?:string[]
 }
