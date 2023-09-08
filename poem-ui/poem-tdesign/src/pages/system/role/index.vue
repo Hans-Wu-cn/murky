@@ -93,12 +93,7 @@ const settingStore = useSettingStore();
  */
 const onAddHander = () => {
   roleFromTitle.value = '添加角色'
-  Object.assign(roleFromRef.value.formData, {
-    roleCode: '',
-    roleName: '',
-    describe: '',
-    dataScope: 0
-  })
+  roleFromRef.value.initFromData()
   visible.value = true
 }
 
@@ -108,7 +103,7 @@ const onAddHander = () => {
  */
 const onEditHander = (row: PoemRole) => {
   roleFromTitle.value = '编辑角色'
-  Object.assign(roleFromRef.value.formData, row)
+  roleFromRef.value.initFromData(row.roleId)
   visible.value = true
 }
 

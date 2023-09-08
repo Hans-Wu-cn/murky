@@ -3,6 +3,7 @@ import { PageRole, PoemRole } from "./types";
 import { request } from '@/utils/request';
 
 const Api = {
+  role: '/poemRole',
   rolePage: '/poemRole/page',
 };
 
@@ -10,19 +11,30 @@ const Api = {
  * 获取角色分页列表
  * @returns Route
  */
-export function rolePage(params:PageRole) {
+export function rolePage(params: PageRole) {
   return request.get<PageResponse<Array<PoemRole>>>({
     url: Api.rolePage,
     params
   });
 }
+
+/**
+ * 获取角色详情信息
+ * @returns Route
+ */
+export function roleInfo(roleId: string) {
+  return request.get<PoemRole>({
+    url: `${Api.role}/${roleId}`,
+  });
+}
+
 /**
  * 修改
  * @returns Route
  */
-export function updatePoemRole(data:PoemRole) {
+export function updatePoemRole(data: PoemRole) {
   return request.put({
-    url: '/poemRole',
+    url: Api.role,
     data
   });
 }
@@ -30,9 +42,9 @@ export function updatePoemRole(data:PoemRole) {
  * 新增
  * @returns Route
  */
-export function addPoemRole(data:PoemRole) {
+export function addPoemRole(data: PoemRole) {
   return request.post({
-    url: '/poemRole',
+    url: Api.role,
     data
   });
 }
@@ -40,9 +52,9 @@ export function addPoemRole(data:PoemRole) {
  * 删除
  * @returns Route
  */
-export function delPoemRole(data:PoemRole) {
+export function delPoemRole(data: PoemRole) {
   return request.delete({
-    url: `/poemRole/${data.roleId}`,
+    url: `/${Api.role}/${data.roleId}`,
     data
   });
 }

@@ -4,10 +4,8 @@ import { PoemDeptTree, PoemDept } from './types';
 
 const Api = {
   deptList: '/poemDept/list',
-  addDept: '/poemDept',
-  editDept: '/poemDept',
-  removeDept: '/poemDept/',
   dropDept: '/poemDept/drop',
+  dept: '/poemDept'
 };
 /**
  * 获取部门树列表
@@ -20,12 +18,22 @@ export function getDeptList() {
 }
 
 /**
+ * 获取部门详情
+ * @returns Route
+ */
+export function deptInfo(deptId: string) {
+  return request.get<PoemDeptTree>({
+    url: `${Api.dept}/${deptId}`,
+  });
+}
+
+/**
  * 新增部门
  * @returns Route
  */
 export function addDept(data: PoemDept) {
   return request.post({
-    url: Api.addDept,
+    url: Api.dept,
     data
   });
 }
@@ -36,7 +44,7 @@ export function addDept(data: PoemDept) {
  */
 export function editDept(data: PoemDept) {
   return request.put({
-    url: Api.editDept,
+    url: Api.dept,
     data
   });
 }
@@ -47,7 +55,7 @@ export function editDept(data: PoemDept) {
  */
 export function removeDept(deptId: string) {
   return request.delete({
-    url: `${Api.removeDept}/${deptId}`,
+    url: `${Api.dept}/${deptId}`,
   });
 }
 

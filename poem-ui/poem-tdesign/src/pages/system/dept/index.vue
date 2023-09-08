@@ -120,12 +120,7 @@ const resetData = async () => {
 const onAddHander = (parentDept: string) => {
   deptFromTitle.value = '添加部门'
   console.log(parentDept)
-  Object.assign(deptFromRef.value.formData, {
-    deptId: '',
-    deptName: '',
-    parentDept: parentDept ?? '0',
-    sort: 0
-  })
+  deptFromRef.value.initFromData(undefined, parentDept)
   visible.value = true
 }
 
@@ -135,12 +130,7 @@ const onAddHander = (parentDept: string) => {
 */
 const onEditHandler = async (row: PoemDept) => {
   deptFromTitle.value = '编辑部门'
-  Object.assign(deptFromRef.value.formData, {
-    deptId: row.deptId,
-    deptName: row.deptName,
-    parentDept: row.parentDept,
-    sort: row.sort
-  })
+  deptFromRef.value.initFromData(row.deptId)
   visible.value = true
 };
 

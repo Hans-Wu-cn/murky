@@ -35,12 +35,8 @@
 import { onMounted, reactive, ref } from 'vue'
 import { PoemRole } from '@/api/role/types'
 import { FormRules, MessagePlugin, SelectValue, SelectValueChangeTrigger, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addPoemRole, updatePoemRole } from '@/api/role';
+import { addPoemRole, updatePoemRole, roleInfo } from '@/api/role';
 import { ResultEnum } from '@/enums/httpEnum';
-import { dataScopeDict } from '../constants';
-import { Dict } from '@/enums';
-import { getDeptList } from '@/api/dept';
-import { PoemDeptTree } from '@/api/dept/types';
 import { PoemMenu } from '@/api/menu/types';
 import { getMenuList } from '@/api/menu';
 
@@ -52,7 +48,7 @@ const FORM_RULES = ref<FormRules>({
   roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
 })
 // 表单对象
-const formData = reactive<PoemRole>({
+const formData = ref<PoemRole>({
   roleCode: '',
   roleName: '',
   describe: '',
@@ -60,11 +56,15 @@ const formData = reactive<PoemRole>({
   menuIds: []
 });
 
+const roleFromId = ref('');
+
 /**
  * 重置表单
  */
 const onReset = () => {
-  MessagePlugin.success('重置成功');
+  if (roleFromId) {
+    initFromData(roleFromId.value)
+  }
 };
 
 /**
@@ -72,10 +72,33 @@ const onReset = () => {
  * @param value 
  * @param context 
  */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemDeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
-  formData.menuIds = menuIds
+  formData.value.menuIds = menuIds
+}
+
+/**
+ * 初始化表单
+ * @param roleId 角色id
+ */
+const initFromData = async (roleId: string) => {
+  if (!roleId) {
+    formData.value = {
+      roleCode: '',
+      roleName: '',
+      describe: '',
+      dataScope: 0,
+      menuIds: []
+    }
+    roleFromId.value = undefined
+    return
+  }
+  roleFromId.value = roleId;
+  const { code, result } = await roleInfo(roleId)
+  if (ResultEnum.SUCCESS === code) {
+    formData.value = result
+  }
 }
 
 /**
@@ -84,8 +107,8 @@ const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeMode
  */
 const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
   if (validateResult === true) {
-    const api = formData.roleId ? updatePoemRole : addPoemRole
-    const res = await api(formData);
+    const api = formData.value.roleId ? updatePoemRole : addPoemRole
+    const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success('提交成功');
       emit('submit-hook');
@@ -96,6 +119,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
 };
 
 onMounted(async () => {
+  console.log('init')
   const { code, result } = await getMenuList();
   if (code === ResultEnum.SUCCESS) {
     menuTree.value = result
@@ -103,7 +127,7 @@ onMounted(async () => {
 });
 
 defineExpose({
-  formData
+  initFromData
 })
 
 
