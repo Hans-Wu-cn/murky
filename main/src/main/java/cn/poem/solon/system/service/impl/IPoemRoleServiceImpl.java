@@ -9,9 +9,11 @@ import cn.poem.solon.system.domain.entity.PoemRoleDept;
 import cn.poem.solon.system.domain.entity.PoemRoleMenu;
 import cn.poem.solon.system.domain.vo.PoemRoleVo;
 import cn.poem.solon.system.enums.DataScope;
+import cn.poem.solon.system.mapper.PoemRoleDeptMapper;
 import cn.poem.solon.system.mapper.PoemRoleMapper;
 import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.service.IPoemRoleService;
+import com.mybatisflex.core.row.Db;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
@@ -32,6 +34,9 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
 
     @Inject
     PoemRoleMenuMapper poemRoleMenuMapper;
+
+    @Inject
+    PoemRoleDeptMapper poemRoleDeptMapper;
 
     /**
      * 修改角色以及角色菜单关系
@@ -147,13 +152,15 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         }
         //删除角色部门关系数据,准备重载
         PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(poemRoleFromDTO.getRoleId()).remove();
-        //todo 如果是自定义部门权限则需要保存对应部门角色关系数据
+        // 如果是自定义部门权限则需要保存对应部门角色关系数据
         if (DataScope.CUSTOMIZE == poemRoleFromDTO.getDataScope()) {
-//            List<PoemRoleDept> list = poemRoleFromDTO.getDeptIds().stream().map(item -> {
-//                return PoemRoleDept.create().setDeptId(item).setRoleId(poemRoleFromDTO.getRoleId()).save();
-//            }).toList();
-
-
+            List<PoemRoleDept> poemRoleDepts = poemRoleFromDTO.getDeptIds().stream().map(item -> {
+                return PoemRoleDept.create().setDeptId(item).setRoleId(poemRoleFromDTO.getRoleId());
+            }).toList();
+            int i = poemRoleDeptMapper.insertBatch(poemRoleDepts);
+            if (i != poemRoleFromDTO.getDeptIds().size()) {
+                throw new ServiceException("修改失败");
+            }
         }
         return true;
     }

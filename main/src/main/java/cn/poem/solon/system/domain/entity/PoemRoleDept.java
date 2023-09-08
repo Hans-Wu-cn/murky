@@ -1,10 +1,16 @@
 package cn.poem.solon.system.domain.entity;
 
+import com.mybatisflex.core.FlexConsts;
 import com.mybatisflex.core.activerecord.Model;
+import com.mybatisflex.core.provider.EntitySqlProvider;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 角色部门关系实体类
@@ -20,4 +26,5 @@ public class PoemRoleDept extends Model<PoemRoleDept> {
 
     @ApiModelProperty("部门id")
     private Long deptId;
+
 }
