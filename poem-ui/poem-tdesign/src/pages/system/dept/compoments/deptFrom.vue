@@ -2,7 +2,7 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="角色名" name="deptName">
+      <t-form-item label="部门名" name="deptName">
         <t-input v-model="formData.deptName" placeholder="请输入部门名称"></t-input>
       </t-form-item>
       <t-form-item label="排序" name="sort">
@@ -18,9 +18,9 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { PoemDeptTree, PoemDept } from '@/api/dept/types'
-import { FormRules, MessagePlugin, SelectValue, SelectValueChangeTrigger, SubmitContext, } from 'tdesign-vue-next';
+import { FormRules, MessagePlugin, SubmitContext, } from 'tdesign-vue-next';
 import { addDept, deptInfo, editDept } from '@/api/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 const emit = defineEmits(['submit-hook'])

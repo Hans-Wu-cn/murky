@@ -45,6 +45,9 @@ public class PoemRoleFromDTO {
     @ApiModelProperty("所属菜单id")
     private List<Long> menuIds;
 
+    @ApiModelProperty("自定义权限部门Id")
+    private List<Long> deptIds;
+
     public PoemRole toEntity() {
         return PoemRoleConvert.INSTANCES.toEntity(this);
     }

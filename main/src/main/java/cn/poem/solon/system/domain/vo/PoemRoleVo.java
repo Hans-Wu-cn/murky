@@ -35,4 +35,7 @@ public class PoemRoleVo implements Serializable {
 
     @ApiModelProperty("菜单id集合")
     private List<Long> menuIds;
+
+    @ApiModelProperty("部门Id集合")
+    private List<Long> deptIds;
 }

@@ -26,9 +26,6 @@ public class PoemDeptTreeVO {
     @ApiModelProperty("上级部门id")
     private Long parentDept;
 
-    @ApiModelProperty("祖级部门id")
-    private String ancestors;
-
     @ApiModelProperty("排序")
     private Integer sort;
 

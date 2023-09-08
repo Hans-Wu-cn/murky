@@ -7,9 +7,14 @@
       <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="visible" :footer="false" width="500px">
+    <t-dialog v-model:visible="roleFromVisible" :footer="false" width="500px">
       <template #header>{{ roleFromTitle }}</template>
       <roleFrom ref="roleFromRef" @submit-hook="onSubmitHook"></roleFrom>
+    </t-dialog>
+    <t-dialog v-model:visible="datascopeVisible" :footer="false" width="500px">
+      <template #header>数据权限</template>
+      <datascope ref="datascopeRef" @submit-hook="onSubmitHook">
+      </datascope>
     </t-dialog>
   </div>
 </template>
@@ -21,6 +26,7 @@ import { PageRole, PoemRole } from '@/api/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import roleFrom from './compoments/roleFrom.vue'
+import datascope from './compoments/datascope.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 
@@ -66,6 +72,9 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
           <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             编辑
           </t-link>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
+            数据权限
+          </t-link>
           <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               删除
@@ -82,10 +91,12 @@ const roleData = ref<PoemRole[]>([]);
 const tableLoading = ref(false);
 const roleFromTitle = ref('');
 const roleFromRef = ref();
+const datascopeRef = ref()
+//控制角色表单dialog是否显示
+const roleFromVisible = ref(false)
+//控制数据权限dialog是否显示
+const datascopeVisible = ref(false)
 
-const currentRow = ref({})
-//控制dialog是否显示
-const visible = ref(false)
 const settingStore = useSettingStore();
 
 /**
@@ -94,7 +105,7 @@ const settingStore = useSettingStore();
 const onAddHander = () => {
   roleFromTitle.value = '添加角色'
   roleFromRef.value.initFromData()
-  visible.value = true
+  roleFromVisible.value = true
 }
 
 /**
@@ -104,7 +115,16 @@ const onAddHander = () => {
 const onEditHander = (row: PoemRole) => {
   roleFromTitle.value = '编辑角色'
   roleFromRef.value.initFromData(row.roleId)
-  visible.value = true
+  roleFromVisible.value = true
+}
+
+/**
+ * 数据权限表单适配器
+ * @param row 当前行数据
+ */
+const onDatascopeHander = (row: PoemRole) => {
+  datascopeRef.value.initFromData(row.roleId)
+  datascopeVisible.value = true
 }
 
 /**
@@ -150,7 +170,7 @@ const loadData = async () => {
  * 新增/修改成功后的回调事件
  */
 const onSubmitHook = () => {
-  visible.value = false
+  roleFromVisible.value = false
   loadData();
 }
 

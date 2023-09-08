@@ -5,8 +5,10 @@ import cn.poem.solon.core.utils.CollectionUtils;
 import cn.poem.solon.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.system.domain.entity.PoemRole;
 import cn.poem.solon.system.domain.dto.PoemRoleFromDTO;
+import cn.poem.solon.system.domain.entity.PoemRoleDept;
 import cn.poem.solon.system.domain.entity.PoemRoleMenu;
 import cn.poem.solon.system.domain.vo.PoemRoleVo;
+import cn.poem.solon.system.enums.DataScope;
 import cn.poem.solon.system.mapper.PoemRoleMapper;
 import cn.poem.solon.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.system.service.IPoemRoleService;
@@ -46,6 +48,11 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         PoemRoleVo vo = PoemRoleConvert.INSTANCES.toVo(poemRole);
         List<Long> menuIds = poemRoleMenuMapper.selectByRoleId(roleId).stream().map(PoemRoleMenu::getMenuId).toList();
         vo.setMenuIds(menuIds);
+        if (DataScope.CUSTOMIZE == poemRole.getDataScope()) {
+            List<Long> deptIds = PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(roleId).list().stream().map(PoemRoleDept::getDeptId).toList();
+            vo.setDeptIds(deptIds);
+        }
+
         return vo;
     }
 
@@ -70,6 +77,7 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
             }
             return null;
         });
+        entity.setDataScope(DataScope.ONESELF);
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             return false;
@@ -136,6 +144,16 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
             if (i != poemRoleFromDTO.getMenuIds().size()) {
                 throw new ServiceException("修改失败");
             }
+        }
+        //删除角色部门关系数据,准备重载
+        PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(poemRoleFromDTO.getRoleId()).remove();
+        //todo 如果是自定义部门权限则需要保存对应部门角色关系数据
+        if (DataScope.CUSTOMIZE == poemRoleFromDTO.getDataScope()) {
+//            List<PoemRoleDept> list = poemRoleFromDTO.getDeptIds().stream().map(item -> {
+//                return PoemRoleDept.create().setDeptId(item).setRoleId(poemRoleFromDTO.getRoleId()).save();
+//            }).toList();
+
+
         }
         return true;
     }
