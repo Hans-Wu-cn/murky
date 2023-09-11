@@ -102,10 +102,17 @@ const loadUserData = async () => {
   tableLoading.value = false;
 };
 
+/**
+ * 部门树点击事件
+ */
 const deptTreeNodeClick = (context: { node: TreeNodeModel<PoemDeptTree>; e: MouseEvent }) => {
   console.log(context)
 }
 
+/**
+ * 分页事件
+ * @param pageInfo 分页参数
+ */
 const onPageChange = (pageInfo: PaginationProps) => {
   userQuery.value.pageNumber = pageInfo.current;
   userQuery.value.pageSize = pageInfo.pageSize;
