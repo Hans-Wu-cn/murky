@@ -17,7 +17,8 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
-import { userPage } from '@/api/users'
+import { userPage } from '@/api/user'
+import { PageUser } from '@/api/user/types'
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -41,18 +42,23 @@ const columns: Array<PrimaryTableCol> = [
     minWidth: 50,
   },
   {
-    colKey: 'roleName',
-    title: '角色名',
+    colKey: 'userName',
+    title: '用户名',
     minWidth: 100,
   },
   {
-    colKey: 'roleCode',
-    title: '角色码',
+    colKey: 'account',
+    title: '账号',
     minWidth: 100,
   },
   {
-    colKey: 'describe',
-    title: '描述',
+    colKey: 'sex',
+    title: '性别',
+    minWidth: 100,
+  },
+  {
+    colKey: 'email',
+    title: '邮箱',
     minWidth: 100,
   },
   {
@@ -62,19 +68,22 @@ const columns: Array<PrimaryTableCol> = [
   },
 ];
 // 用户列表条件
-const userQuery = ref()
+const userQuery = ref<PageUser>({
+  userName: '',
+  deptId: '',
+  pageNumber: 1,
+  pageSize: 10
+})
 
 /**
 * 加载列表数据
 */
-const getData = async () => {
-  const data: PoemDeptTree[] = [];
+const getdeptTreeData = async () => {
+  let data: PoemDeptTree[] = [];
   const { code, result } = await getDeptList();
 
   if (ResultEnum.SUCCESS === code) {
-    result.forEach((item) => {
-      data.push(item);
-    });
+    data = result
   }
   return data;
 }
@@ -82,10 +91,14 @@ const getData = async () => {
 /**
 * load tree data
 */
-const resetData = async () => {
+const loadUserData = async () => {
   // 需要更新数据地址空间
   tableLoading.value = true;
-  deptData.value = await getData()
+  const { code, result } = await userPage(userQuery.value);
+  if (ResultEnum.SUCCESS === code) {
+    userData.value = result.records
+    pagination.total = +result.totalRow
+  }
   tableLoading.value = false;
 };
 
@@ -94,11 +107,15 @@ const deptTreeNodeClick = (context: { node: TreeNodeModel<PoemDeptTree>; e: Mous
 }
 
 const onPageChange = (pageInfo: PaginationProps) => {
-
+  userQuery.value.pageNumber = pageInfo.current;
+  userQuery.value.pageSize = pageInfo.pageSize;
+  loadUserData()
 }
 
 onMounted(async () => {
-  resetData();
+  // 需要更新数据地址空间
+  deptData.value = await getdeptTreeData()
+  await loadUserData();
 });
 </script>
 <style scoped lang="less">
