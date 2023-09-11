@@ -100,4 +100,10 @@ public class IPoemUserServiceImpl extends ServiceImpl<PoemUserMapper, PoemUser> 
         }
         return true;
     }
+
+    @Override
+    public boolean resetPassword(Long userId, String password) {
+        int count = mapper.resetPassword(userId, password);
+        return count > 0;
+    }
 }

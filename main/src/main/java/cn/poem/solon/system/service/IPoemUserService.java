@@ -32,4 +32,12 @@ public interface IPoemUserService extends IService<PoemUser> {
      * @return 保存成功状态
      */
     boolean update(PoemUserFromDTO poemUserFromDTO);
+
+    /**
+     * 重置用户密码
+     * @param userId 用户id
+     * @param password 密码
+     * @return 重置成功状态
+     */
+    boolean resetPassword(Long userId,String password);
 }

@@ -6,6 +6,7 @@ import cn.poem.solon.core.validat.Insert;
 import cn.poem.solon.core.validat.Update;
 import cn.poem.solon.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.system.domain.dto.PoemUserPageDTO;
+import cn.poem.solon.system.domain.dto.ResetPasswordDto;
 import cn.poem.solon.system.domain.entity.PoemUser;
 import cn.poem.solon.system.domain.entity.table.PoemUserTableDef;
 import cn.poem.solon.system.domain.vo.PoemUserVo;
@@ -59,6 +60,13 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @Mapping
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemUserFromDTO poemUserFromDTO) {
         return toResult(baseService.update(poemUserFromDTO));
+    }
+
+    @ApiOperation("重置密码")
+    @Put
+    @Mapping
+    public ApiResult<?> resetPassword(@Body @Validated ResetPasswordDto resetPasswordDto) {
+        return toResult(baseService.resetPassword(resetPasswordDto.getUserId(),resetPasswordDto.getPassword()));
     }
 
     @ApiOperation("删除用户")

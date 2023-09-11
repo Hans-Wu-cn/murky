@@ -1,5 +1,6 @@
 package cn.poem.solon.system.mapper;
 
+import cn.poem.solon.system.domain.entity.PoemUser;
 import cn.poem.solon.system.domain.entity.PoemUserRole;
 import cn.poem.solon.system.domain.entity.table.PoemUserRoleTableDef;
 import com.mybatisflex.core.BaseMapper;
@@ -35,4 +36,5 @@ public interface PoemUserRoleMapper extends BaseMapper<PoemUserRole> {
                 )
         );
     }
+
 }

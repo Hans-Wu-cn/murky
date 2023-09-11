@@ -1,5 +1,6 @@
 package cn.poem.solon.system.domain.dto;
 
+import cn.poem.solon.core.validat.Insert;
 import cn.poem.solon.core.validat.Update;
 import cn.poem.solon.system.domain.entity.PoemUser;
 import cn.poem.solon.system.enums.Sex;
@@ -36,7 +37,7 @@ public class PoemUserFromDTO {
     private String account;
 
     @ApiModelProperty(value = "密码",required = true)
-    @NotBlank
+    @NotBlank(groups = Insert.class)
     private String password;
 
     @ApiModelProperty(value = "性别 0:男性 1:女性 2:其他",required = true)

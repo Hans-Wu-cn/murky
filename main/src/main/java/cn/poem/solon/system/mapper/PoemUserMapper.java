@@ -19,4 +19,17 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
                 .where(POEM_USER.DEPT_ID.eq(deptId))
         );
     }
+
+    /**
+     * 根据用户id,修改密码
+     * @param userId 用户id
+     * @param password 密码
+     * @return 受影响行数
+     */
+    default int resetPassword(Long userId,String password) {
+        return this.updateByQuery(new PoemUser().setPassword(password)
+                ,true,QueryWrapper.create().where(
+                POEM_USER.USER_ID.eq(userId)
+        ));
+    }
 }
