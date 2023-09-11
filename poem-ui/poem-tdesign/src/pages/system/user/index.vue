@@ -1,7 +1,8 @@
 <template>
   <div class="user">
     <t-card :bordered="false" title="部门树">
-      <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys" />
+      <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys"
+        @click="deptTreeNodeClick" />
     </t-card>
     <t-card :bordered="false" title="用户列表">
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
@@ -11,12 +12,12 @@
 </template>
 <script setup lang="tsx">
 import { useSettingStore } from '@/store';
-import { PaginationProps, PrimaryTableCol } from 'tdesign-vue-next';
+import { PaginationProps, PrimaryTableCol, TreeNodeModel } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
-
+import { userPage } from '@/api/users'
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -30,6 +31,7 @@ const tableLoading = ref(false);
 const pagination: PaginationProps = reactive({
   total: 0
 })
+// 部门树配置
 const deptTreeKeys = ref({ value: 'deptId', label: 'deptName', children: 'children' })
 // 表格字段
 const columns: Array<PrimaryTableCol> = [
@@ -59,7 +61,8 @@ const columns: Array<PrimaryTableCol> = [
     title: '操作',
   },
 ];
-
+// 用户列表条件
+const userQuery = ref()
 
 /**
 * 加载列表数据
@@ -85,6 +88,10 @@ const resetData = async () => {
   deptData.value = await getData()
   tableLoading.value = false;
 };
+
+const deptTreeNodeClick = (context: { node: TreeNodeModel<PoemDeptTree>; e: MouseEvent }) => {
+  console.log(context)
+}
 
 const onPageChange = (pageInfo: PaginationProps) => {
 
