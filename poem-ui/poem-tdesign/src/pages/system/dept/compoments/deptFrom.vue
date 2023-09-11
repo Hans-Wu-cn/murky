@@ -45,10 +45,7 @@ const parentFromDept = ref('');
  */
 const onReset = () => {
   if (deptFormId) {
-    loading.value = true;
-    initFromData(deptFormId.value, parentFromDept.value)
-    loading.value = false;
-
+    formData.value = historyFormValue.value
   }
 };
 
@@ -56,6 +53,7 @@ const onReset = () => {
  * 初始化表单
  * @param roleId 角色id
  */
+const historyFormValue = ref({})
 const initFromData = async (deptId: string, parentDept: string) => {
   console.log(111111111111, formData, parentDept, parentFromDept);
   if (!deptId) {
@@ -73,6 +71,7 @@ const initFromData = async (deptId: string, parentDept: string) => {
   const { code, result } = await deptInfo(deptId)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
+    historyFormValue.value = JSON.parse(JSON.stringify(result))
   }
 }
 

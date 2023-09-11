@@ -1,5 +1,5 @@
 <template>
-  <t-card :bordered="false">
+  <t-card class="dept" :bordered="false">
     <div>
       <t-button @click="onAddHander('0')">添加部门</t-button>
     </div>
@@ -21,12 +21,13 @@ import {
   MoveIcon,
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { dropDept, getDeptList, removeDept } from '@/api/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useRouter } from 'vue-router';
 import deptFrom from './compoments/deptFrom.vue';
 import { PoemDept, PoemDeptTree } from '@/api/dept/types';
+import { useSettingStore } from '@/store';
 
 const router = useRouter();
 const tableRef = ref();
@@ -206,6 +207,10 @@ const onDragSort = async (params: DragSortContext<T>) => {
 onMounted(async () => {
   resetData();
 });
+const settingStore = useSettingStore();
+const showBreadcrumbHeight = computed(() => {
+  return settingStore.showBreadcrumb ? '46px' : '0px'
+})
 </script>
 <style scoped lang="less">
 .tdesign-table-demo__table-operations .t-link {
@@ -214,5 +219,8 @@ onMounted(async () => {
 
 .menuTable {
   margin-top: 20px;
+}
+.dept {
+  min-height: calc(100% - v-bind(showBreadcrumbHeight));
 }
 </style>

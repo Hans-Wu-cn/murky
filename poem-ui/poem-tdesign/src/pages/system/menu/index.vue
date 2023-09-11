@@ -1,14 +1,12 @@
 <template>
   <RouterView v-if="route.meta.hidden"></RouterView>
-  <div class="menuManage" v-else>
-    <t-card :bordered="false">
-      <div>
-        <t-button @click="handleAdd">添加根菜单</t-button>
-      </div>
-      <!-- 菜单表格组件 -->
-      <MenuTable></MenuTable>
-    </t-card>
-  </div>
+  <t-card v-else class="menuManage" :bordered="false">
+    <div>
+      <t-button @click="handleAdd">添加根菜单</t-button>
+    </div>
+    <!-- 菜单表格组件 -->
+    <MenuTable></MenuTable>
+  </t-card>
 </template>
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
@@ -29,11 +27,6 @@ const handleAdd = () => {
 
 <style scoped lang="less">
 .menuManage {
-  // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
-  display: flex;
-  .t-card{
-    width: 100%;
-  }
 }
 </style>

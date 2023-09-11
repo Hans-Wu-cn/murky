@@ -88,6 +88,9 @@ const FORM_RULES = ref<FormRules>({
  * 重置表单
  */
 const onReset = () => {
+    if (poemId.value){
+        menuFormData.value = historyPoemMenu.value
+    }
     MessagePlugin.success('重置成功');
 };
 
@@ -111,15 +114,17 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>)
 /**
  * 表单初始化事件
  */
+const poemId = ref(route.query.poemId as string);
+const historyPoemMenu = ref({})
 const onInitFrom = async () => {
-    const poemId = route.query.poemId as string
     const parentMenuId = route.query.parentMenuId as string
     if (parentMenuId) {
         menuFormData.value.parentMenuId = parentMenuId;
     }
-    if (!poemId) return
-    const res = await getMenu(poemId)
+    if (!poemId.value) return
+    const res = await getMenu(poemId.value)
     menuFormData.value = res.result
+    historyPoemMenu.value = JSON.parse(JSON.stringify(res.result))
 }
 onInitFrom()
 
