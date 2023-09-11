@@ -64,7 +64,7 @@ const loading = ref(false);
 const onReset = () => {
   loading.value = true
   if (roleFromId) {
-    initFromData(roleFromId.value)
+    formData.value = resetValue.value as PoemRole
   }
   loading.value = false
 
@@ -85,6 +85,7 @@ const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeMode
  * 初始化表单
  * @param roleId 角色id
  */
+const resetValue = ref({})// 记录重置表单数据
 const initFromData = async (roleId: string) => {
   if (!roleId) {
     formData.value = {
@@ -101,6 +102,7 @@ const initFromData = async (roleId: string) => {
   const { code, result } = await roleInfo(roleId)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
+    resetValue.value = JSON.parse(JSON.stringify(result))
   }
 }
 
