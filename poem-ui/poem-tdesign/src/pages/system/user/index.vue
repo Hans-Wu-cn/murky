@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <t-card :bordered="false" title="部门树">
-      <t-tree activeMultiple checkStrictly hover label lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys" />
+      <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys" />
     </t-card>
     <t-card :bordered="false" title="用户列表">
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
