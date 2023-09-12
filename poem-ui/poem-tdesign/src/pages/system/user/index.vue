@@ -97,7 +97,7 @@ const loadUserData = async () => {
   const { code, result } = await userPage(userQuery.value);
   if (ResultEnum.SUCCESS === code) {
     userData.value = result.records
-    pagination.total = +result.totalRow
+    pagination.total = result.totalRow
   }
   tableLoading.value = false;
 };
