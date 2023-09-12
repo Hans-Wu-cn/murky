@@ -8,6 +8,10 @@
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
     </t-card>
+    <t-dialog v-model:visible="userVisible" :footer="false" width="500px">
+      <template #header>{{ userDialogTitle }}</template>
+      <userFrom ref="roleFromRef" @submit-hook="onSubmit"></userFrom>
+    </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
@@ -19,6 +23,7 @@ import { PoemDeptTree } from '@/api/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { userPage } from '@/api/user'
 import { PageUser } from '@/api/user/types'
+import userFrom from './components/userFrom.vue'
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -65,8 +70,34 @@ const columns: Array<PrimaryTableCol> = [
     colKey: 'operate',
     minWidth: 340,
     title: '操作',
+    // 增、删、改、查 等操作
+    cell: (h, { row }) => (
+      <div class="tdesign-table-demo__table-operations">
+        <t-space>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            编辑
+          </t-link>
+          <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              删除
+            </t-link>
+          </t-popconfirm>
+        </t-space>
+      </div>
+    ),
   },
 ];
+const userVisible = ref(false);
+const userDialogTitle = ref('用户弹框标题');
+const onEditHander = (row:any)=>{
+  userVisible.value = true
+}
+const onDelHander = (row:any)=>{
+
+}
+const onSubmit = ()=>{
+
+}
 // 用户列表条件
 const userQuery = ref<PageUser>({
   userName: '',

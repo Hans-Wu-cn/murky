@@ -25,8 +25,8 @@ import { delPoemRole, rolePage } from '@/api/role';
 import { PageRole, PoemRole } from '@/api/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
-import roleFrom from './compoments/roleFrom.vue'
-import datascope from './compoments/datascope.vue'
+import roleFrom from './components/roleFrom.vue'
+import datascope from './components/datascope.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 
