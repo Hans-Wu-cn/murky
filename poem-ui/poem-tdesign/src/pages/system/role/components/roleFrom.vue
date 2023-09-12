@@ -11,11 +11,6 @@
       <t-form-item label="描述" name="describe">
         <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
       </t-form-item>
-      <!-- <t-form-item label="数据范围">
-        <t-select v-model="formData.dataScope">
-          <t-option v-for="item in dataScopeDict" :key="item.value" :label="item.label" :value="item.value" />
-        </t-select>
-      </t-form-item> -->
       <t-form-item label="菜单权限" name="menuIds">
         <div class="treeBox">
           <t-tree hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="deptTreeKeys" checkable
