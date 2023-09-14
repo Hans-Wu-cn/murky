@@ -51,7 +51,7 @@ public class PoemUserFromDTO {
     @ApiModelProperty(value = "部门id",required = true)
     private Long deptId;
 
-    @ApiModelProperty("邮箱")
+    @ApiModelProperty("角色id")
     private List<Long> roleIds;
 
     public PoemUser toEntity(){

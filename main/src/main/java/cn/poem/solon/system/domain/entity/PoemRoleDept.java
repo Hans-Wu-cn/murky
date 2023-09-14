@@ -1,5 +1,6 @@
 package cn.poem.solon.system.domain.entity;
 
+import com.mybatisflex.annotation.Table;
 import com.mybatisflex.core.FlexConsts;
 import com.mybatisflex.core.activerecord.Model;
 import io.swagger.annotations.ApiModel;
@@ -15,6 +16,7 @@ import lombok.experimental.Accessors;
 @Data(staticConstructor = "create")
 @Accessors(chain = true)
 @ApiModel("角色部门关系实体类")
+@Table("poem_role_dept")
 public class PoemRoleDept extends Model<PoemRoleDept> {
     @ApiModelProperty("角色id")
     private Long roleId;

@@ -14,6 +14,7 @@ import com.mybatisflex.core.table.TableInfo;
 import com.mybatisflex.core.table.TableInfoFactory;
 import com.mybatisflex.core.util.StringUtil;
 import org.mapstruct.ap.internal.util.Strings;
+import org.noear.solon.Solon;
 import org.noear.solon.validation.util.StringUtils;
 
 import java.text.MessageFormat;
@@ -40,6 +41,7 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
         QueryCondition condition = CPI.getWhereQueryCondition(queryWrapper);
 
         if (StpUtil.isLogin()) {
+            //过滤不需要申请
             SecurityUserInfo userInfo = SecurityUtils.getUserInfo();
             if(userInfo == null){
                 return super.buildSelectSql(queryWrapper);
@@ -79,6 +81,14 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
             baseEntity.setUpdateUser(SecurityUtils.getUserId());
 
         }
+    }
+
+    private boolean white(){
+        if(StpUtil.isLogin()){
+            return true;
+        }
+
+        return false;
     }
 
     private void hasColums(TableInfo tableInfo) {
