@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.poem.solon</groupId>
+        <artifactId>poem-solon</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>poem-admin</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>main</module>
+        <module>poem-core</module>
+        <module>poem-security</module>
+        <module>poem-flex</module>
+        <module>poem-common</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--poem-security 安全模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-security</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-core 核心模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-flex mybatis-flex配置模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-flex</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-common</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

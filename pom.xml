@@ -13,8 +13,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>main</module>
-        <module>poem-framework</module>
+        <module>poem-admin</module>
+        <module>poem-saas</module>
     </modules>
 
     <properties>
@@ -27,27 +27,7 @@
         <mybaits-flex.version>1.5.0</mybaits-flex.version>
     </properties>
     <dependencyManagement>
-        <dependencies>
 
-            <!--poem-common 模块-->
-            <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-common</artifactId>
-                <version>${version}</version>
-            </dependency>
-            <!--poem-core 模块-->
-            <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-core</artifactId>
-                <version>${version}</version>
-            </dependency>
-            <!--poem-security 模块 -->
-            <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-security</artifactId>
-                <version>${version}</version>
-            </dependency>
-        </dependencies>
     </dependencyManagement>
 
     <dependencies>
