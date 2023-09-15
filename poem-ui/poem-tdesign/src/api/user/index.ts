@@ -19,3 +19,22 @@ export function userPage(params: PageUser) {
     params
   });
 }
+/**
+ * 添加和编辑用户
+ * @returns Route
+ */
+export function addUser(data: PoemUser) {
+  return request.post({
+    url: '/poemUser',
+    data
+  });
+}
+/**
+ * 查询用户信息
+ * @returns Route
+ */
+export function queryUserInfo(userId: string) {
+  return request.get({
+    url: `/poemUser/${userId}`,
+  });
+}

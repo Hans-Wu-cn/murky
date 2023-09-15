@@ -5,6 +5,9 @@
         @click="deptTreeNodeClick" />
     </t-card>
     <t-card :bordered="false" title="用户列表">
+      <div>
+        <t-button @click="userVisible=true">添加用户</t-button>
+      </div>
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
     </t-card>
@@ -89,8 +92,10 @@ const columns: Array<PrimaryTableCol> = [
 ];
 const userVisible = ref(false);
 const userDialogTitle = ref('用户弹框标题');
+const roleFromRef = ref();
 const onEditHander = (row:any)=>{
   userVisible.value = true
+  roleFromRef.value.initFromData = row.userId
 }
 const onDelHander = (row:any)=>{
 
@@ -149,7 +154,6 @@ const onPageChange = (pageInfo: PaginationProps) => {
   userQuery.value.pageSize = pageInfo.pageSize;
   loadUserData()
 }
-
 onMounted(async () => {
   // 需要更新数据地址空间
   deptData.value = await getdeptTreeData()

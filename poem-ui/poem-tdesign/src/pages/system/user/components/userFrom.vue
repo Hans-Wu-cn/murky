@@ -3,13 +3,13 @@
         <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
             @submit="onSubmit">
             <t-form-item label="用户名" name="userName">
-                <t-input v-model="formData.userName" placeholder="请输入角色名"></t-input>
+                <t-input v-model="formData.userName" placeholder="请输入用户名"></t-input>
             </t-form-item>
             <t-form-item label="账号" name="account">
-                <t-input v-model="formData.account" placeholder="请输入角色权限码"></t-input>
+                <t-input v-model="formData.account" placeholder="请输入账号"></t-input>
             </t-form-item>
             <t-form-item label="密码" name="password">
-                <t-textarea v-model="formData.password" placeholder="请输入描述内容"></t-textarea>
+                <t-input v-model="formData.password" type="password" placeholder="请输入密码"></t-input>
             </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
@@ -19,7 +19,13 @@
                 </t-radio-group>
             </t-form-item>
             <t-form-item label="邮箱" name="email">
-                <t-input v-model="formData.email" placeholder="请输入角色权限码"></t-input>
+                <t-input v-model="formData.email" placeholder="请输入邮箱"></t-input>
+            </t-form-item>
+            <t-form-item label="部门" name="menuIds">
+                <div class="treeBox">
+                <t-tree ref="deptTreeRef" hover expand-all :data="deptTree" :keys="deptTreeKeys" checkable
+                    value-mode="all" @change="treeOnChange" />
+                </div>
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
@@ -32,28 +38,25 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemRole } from '@/api/role/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addPoemRole, updatePoemRole, roleInfo } from '@/api/role';
+import { addUser, queryUserInfo } from '@/api/user';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemMenu } from '@/api/menu/types';
 import { getMenuList } from '@/api/menu';
+import { PoemUser } from '@/api/user/types';
+import { getDeptList } from '@/api/dept';
+import { PoemDeptTree } from '@/api/dept/types';
 
 const emit = defineEmits(['submit-hook'])
-const menuTree = ref<Array<PoemMenu>>();
-const deptTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
-    roleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
-    roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
+    userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+    account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+    sex: [{ required: true, message: '请输入性别', trigger: 'change' }],
+    email:[{email:{ ignore_max_length: true }, message: '请输入正确的邮箱地址'}]
 })
 // 表单对象
-const formData = ref<PoemRole>({
-    roleCode: '',
-    roleName: '',
-    describe: '',
-    dataScope: 0,
-    menuIds: []
-});
+const formData = ref<PoemUser>({});
 
 const roleFromId = ref('');
 const loading = ref(false);
@@ -63,22 +66,11 @@ const loading = ref(false);
 const onReset = () => {
     loading.value = true
     if (roleFromId) {
-        formData.value = resetValue.value as PoemRole
+        formData.value = resetValue.value as PoemUser
     }
     loading.value = false
 
 };
-
-/**
- * 树组件勾选事件
- * @param value 
- * @param context 
- */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
-    const menuIds = Array<string>();
-    value.forEach(item => menuIds.push(item as string))
-    formData.value.menuIds = menuIds
-}
 
 /**
  * 初始化表单
@@ -87,18 +79,12 @@ const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeMode
 const resetValue = ref({})// 记录重置表单数据
 const initFromData = async (roleId: string) => {
     if (!roleId) {
-        formData.value = {
-            roleCode: '',
-            roleName: '',
-            describe: '',
-            dataScope: 0,
-            menuIds: []
-        }
+        formData.value = {}
         roleFromId.value = undefined
         return
     }
     roleFromId.value = roleId;
-    const { code, result } = await roleInfo(roleId)
+    const { code, result } = await queryUserInfo(roleId)
     if (ResultEnum.SUCCESS === code) {
         formData.value = result
         resetValue.value = JSON.parse(JSON.stringify(result))
@@ -109,11 +95,11 @@ const initFromData = async (roleId: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
     if (validateResult === true) {
         loading.value = true
-        const api = formData.value.roleId ? updatePoemRole : addPoemRole
-        const res = await api(formData.value);
+        console.log(formData.value)
+        const res = await addUser(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success('提交成功');
             emit('submit-hook');
@@ -123,14 +109,31 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
         loading.value = false
     }
 };
-
-onMounted(async () => {
-    const { code, result } = await getMenuList();
-    if (code === ResultEnum.SUCCESS) {
-        menuTree.value = result
-    }
-});
-
+/**
+ * 树组件勾选事件
+ * @param value 
+ * @param context 
+ */
+const deptTreeRef = ref()
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+    console.log(value,context)
+    deptTreeRef.value.setItem()
+//   const menuIds = Array<string>();
+//   value.forEach(item => menuIds.push(item as string))
+//   formData.value.deptId = menuIds
+}
+//部门数据
+const deptTree = ref<Array<PoemDeptTree>>();
+const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
+const getdeptTreeData = async () => {
+  const { code, result } = await getDeptList();
+  if (ResultEnum.SUCCESS === code) {
+    deptTree.value = result
+  }
+}
+onMounted(()=>{
+    getdeptTreeData()
+})
 defineExpose({
     initFromData
 })
