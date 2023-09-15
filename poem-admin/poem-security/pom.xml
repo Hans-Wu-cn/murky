@@ -16,6 +16,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <redisx.verion>1.4.9</redisx.verion>
+        <dami.version>0.26</dami.version>
+
     </properties>
 
     <dependencies>
@@ -35,10 +37,10 @@
             <artifactId>redisx</artifactId>
             <version>${redisx.verion}</version>
         </dependency>
-        <!--flex 依赖-->
         <dependency>
-            <groupId>cn.poem.solon</groupId>
-            <artifactId>poem-flex</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>dami</artifactId>
+            <version>${dami.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -15,6 +15,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HikariCP.verion>5.0.1</HikariCP.verion>
+        <dami.version>0.26</dami.version>
     </properties>
 
     <dependencies>
@@ -42,7 +43,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>dami</artifactId>
-            <version>0.24</version>
+            <version>${dami.version}</version>
         </dependency>
     </dependencies>
 
