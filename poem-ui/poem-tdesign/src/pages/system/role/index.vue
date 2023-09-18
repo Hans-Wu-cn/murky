@@ -7,7 +7,7 @@
       <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="roleFromVisible" :footer="false" width="500px">
+    <t-dialog v-model:visible="roleFromVisible" :footer="false" width="500px" top="20px">
       <template #header>{{ roleFromTitle }}</template>
       <roleFrom ref="roleFromRef" @submit-hook="onSubmitHook"></roleFrom>
     </t-dialog>

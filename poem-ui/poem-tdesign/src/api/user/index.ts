@@ -38,3 +38,12 @@ export function queryUserInfo(userId: string) {
     url: `/poemUser/${userId}`,
   });
 }
+/**
+ * 删除用户信息
+ * @returns Route
+ */
+export function delUserInfo(userId: string) {
+  return request.delete({
+    url: `/poemUser/${userId}`,
+  });
+}

@@ -9,7 +9,7 @@ export interface PoemUser extends BaseApiType {
   sex?: number,
   email?: string,
   deptId?: string,
-
+  roleIds?:string[]
 }
 
 /**

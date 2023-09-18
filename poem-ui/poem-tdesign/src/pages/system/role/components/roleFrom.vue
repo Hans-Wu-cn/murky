@@ -13,7 +13,7 @@
       </t-form-item>
       <t-form-item label="菜单权限" name="menuIds">
         <div class="treeBox">
-          <t-tree hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="deptTreeKeys" checkable
+          <t-tree ref="deptTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys" checkable
             value-mode="all" @change="treeOnChange" />
         </div>
       </t-form-item>
@@ -37,7 +37,7 @@ import { getMenuList } from '@/api/menu';
 
 const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemMenu>>();
-const deptTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
+const menuTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
   roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
@@ -58,8 +58,8 @@ const loading = ref(false);
  */
 const onReset = () => {
   loading.value = true
-  if (roleFromId) {
-    formData.value = resetValue.value as PoemRole
+  if (roleFromId.value) {
+    initFromData(roleFromId.value)
   }
   loading.value = false
 

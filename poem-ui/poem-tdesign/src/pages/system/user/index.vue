@@ -11,7 +11,7 @@
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="userVisible" :footer="false" width="500px">
+    <t-dialog v-model:visible="userVisible" v-if="userVisible" :footer="false" width="500px" top="20px">
       <template #header>{{ userDialogTitle }}</template>
       <userFrom ref="roleFromRef" @submit-hook="onSubmit"></userFrom>
     </t-dialog>
@@ -19,12 +19,12 @@
 </template>
 <script setup lang="tsx">
 import { useSettingStore } from '@/store';
-import { PaginationProps, PrimaryTableCol, TreeNodeModel } from 'tdesign-vue-next';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { MessagePlugin, PaginationProps, PrimaryTableCol, TreeNodeModel } from 'tdesign-vue-next';
+import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
-import { userPage } from '@/api/user'
+import { userPage, delUserInfo } from '@/api/user'
 import { PageUser } from '@/api/user/types'
 import userFrom from './components/userFrom.vue'
 const settingStore = useSettingStore();
@@ -91,17 +91,23 @@ const columns: Array<PrimaryTableCol> = [
   },
 ];
 const userVisible = ref(false);
-const userDialogTitle = ref('用户弹框标题');
+const userDialogTitle = ref('用户信息');
 const roleFromRef = ref();
-const onEditHander = (row:any)=>{
-  userVisible.value = true
-  roleFromRef.value.initFromData = row.userId
+const onEditHander = async(row:any)=>{
+  userVisible.value = true;
+  await nextTick();
+  roleFromRef.value.initFromData(row.userId);
 }
-const onDelHander = (row:any)=>{
-
+const onDelHander = async(row:any)=>{
+  const {code} = await delUserInfo(row.userId);
+  if (ResultEnum.SUCCESS === code) {
+    MessagePlugin.success('删除成功');
+    loadUserData();
+  }
 }
 const onSubmit = ()=>{
-
+  userVisible.value = false;
+  loadUserData();
 }
 // 用户列表条件
 const userQuery = ref<PageUser>({
@@ -133,7 +139,7 @@ const loadUserData = async () => {
   const { code, result } = await userPage(userQuery.value);
   if (ResultEnum.SUCCESS === code) {
     userData.value = result.records
-    pagination.total = result.totalRow
+    pagination.total = +result.totalRow
   }
   tableLoading.value = false;
 };
@@ -143,6 +149,8 @@ const loadUserData = async () => {
  */
 const deptTreeNodeClick = (context: { node: TreeNodeModel<PoemDeptTree>; e: MouseEvent }) => {
   console.log(context)
+  userQuery.value.deptId = context.node.value as string
+  loadUserData()
 }
 
 /**

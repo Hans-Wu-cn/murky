@@ -13,19 +13,29 @@
             </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
-                    <t-radio value="0">男</t-radio>
-                    <t-radio value="1">女</t-radio>
-                    <t-radio value="2">其他</t-radio>
+                    <t-radio :value="0">男</t-radio>
+                    <t-radio :value="1">女</t-radio>
+                    <t-radio :value="2">其他</t-radio>
                 </t-radio-group>
             </t-form-item>
             <t-form-item label="邮箱" name="email">
                 <t-input v-model="formData.email" placeholder="请输入邮箱"></t-input>
             </t-form-item>
-            <t-form-item label="部门" name="menuIds">
-                <div class="treeBox">
-                <t-tree ref="deptTreeRef" hover expand-all :data="deptTree" :keys="deptTreeKeys" checkable
-                    value-mode="all" @change="treeOnChange" />
-                </div>
+            <t-form-item label="部门" name="deptId">
+                <t-tree-select
+                    v-model="formData.deptId"
+                    :data="deptTree"
+                    :tree-props="deptTreeKeys"
+                    clearable
+                    filterable
+                    placeholder="请选择"
+                />
+            </t-form-item>
+            <t-form-item label="角色" name="roleIds">
+                <t-select v-model="formData.roleIds" placeholder="请选择角色" multiple clearable :min-collapsed-num="3">
+                    <t-option label="全选" :check-all="true" />
+                    <t-option v-for="item in roleData" :key="item.roleId" :value="item.roleId" :label="item.roleName"></t-option>
+                </t-select>
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
@@ -41,11 +51,11 @@ import { onMounted, ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addUser, queryUserInfo } from '@/api/user';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/menu/types';
-import { getMenuList } from '@/api/menu';
 import { PoemUser } from '@/api/user/types';
 import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
+import { PoemRole } from '@/api/role/types';
+import { roleList } from '@/api/role';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
@@ -64,11 +74,9 @@ const loading = ref(false);
  * 重置表单
  */
 const onReset = () => {
-    loading.value = true
-    if (roleFromId) {
-        formData.value = resetValue.value as PoemUser
+    if (roleFromId.value) {
+        initFromData(roleFromId.value)
     }
-    loading.value = false
 
 };
 
@@ -84,11 +92,13 @@ const initFromData = async (roleId: string) => {
         return
     }
     roleFromId.value = roleId;
+    loading.value = true
     const { code, result } = await queryUserInfo(roleId)
     if (ResultEnum.SUCCESS === code) {
         formData.value = result
         resetValue.value = JSON.parse(JSON.stringify(result))
     }
+    loading.value = false
 }
 
 /**
@@ -109,30 +119,29 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
         loading.value = false
     }
 };
-/**
- * 树组件勾选事件
- * @param value 
- * @param context 
- */
-const deptTreeRef = ref()
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
-    console.log(value,context)
-    deptTreeRef.value.setItem()
-//   const menuIds = Array<string>();
-//   value.forEach(item => menuIds.push(item as string))
-//   formData.value.deptId = menuIds
-}
 //部门数据
-const deptTree = ref<Array<PoemDeptTree>>();
-const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
+const deptTree = ref<PoemDeptTree[]>();
+const deptTreeKeys = {keys: { value: 'deptId', label: 'deptName', children: 'children' }}
 const getdeptTreeData = async () => {
   const { code, result } = await getDeptList();
   if (ResultEnum.SUCCESS === code) {
     deptTree.value = result
   }
 }
+
+// 角色
+const roleData = ref<PoemRole[]>();
+const getroleTreeData = async () => {
+    const { code, result, message } = await roleList()
+    if (code === ResultEnum.SUCCESS) {
+        roleData.value = result
+    } else {
+        MessagePlugin.error(message);
+    }
+}
 onMounted(()=>{
-    getdeptTreeData()
+    getdeptTreeData();
+    getroleTreeData();
 })
 defineExpose({
     initFromData
@@ -142,10 +151,4 @@ defineExpose({
 
 </script>
 <style lang="less">
-.treeBox {
-    border: 1px solid #ddd;
-    overflow: auto;
-    height: 300px;
-    width: 100%;
-}
 </style>

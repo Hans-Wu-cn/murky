@@ -17,6 +17,16 @@ export function rolePage(params: PageRole) {
     params
   });
 }
+/**
+ * 获取角色列表
+ * @returns Route
+ */
+export function roleList(params?: PageRole) {
+  return request.get<PoemRole[]>({
+    url: '/poemRole/list',
+    params
+  });
+}
 
 /**
  * 获取角色详情信息
