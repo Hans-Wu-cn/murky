@@ -1,6 +1,8 @@
 package cn.poem.solon.admin.system.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaMode;
 import cn.poem.solon.admin.system.domain.vo.PoemDeptTreeVO;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
@@ -25,6 +27,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @ApiOperation("获取部门树形菜单")
     @Get
     @Mapping("list")
+    @SaCheckPermission(value = {"dept","user"},mode = SaMode.OR)
     public ApiResult<List<PoemDeptTreeVO>> list(){
         List<PoemDeptTreeVO> result = baseService.treeDept();
         return ApiResult.ok(result);
@@ -50,6 +53,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @ApiOperation("添加部门")
     @Post
     @Mapping
+    @SaCheckPermission("dept:add")
     public ApiResult<?> add(@Body PoemDeptFromDTO poemDeptFromDTO){
         boolean b = baseService.save(poemDeptFromDTO);
         return toResult(b);
@@ -58,6 +62,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @ApiOperation("修改部门")
     @Put
     @Mapping
+    @SaCheckPermission("dept:edit")
     public ApiResult<?> edit(@Body  @Validated(Update.class)PoemDeptFromDTO poemDeptFromDTO){
         boolean b = baseService.edit(poemDeptFromDTO);
         return toResult(b);
@@ -66,6 +71,7 @@ public class PoemDeptController extends BaseController<IPoemDeptService> {
     @ApiOperation("删除部门")
     @Delete
     @Mapping("{deptId}")
+    @SaCheckPermission("dept:remove")
     public ApiResult<?> remove(Long deptId){
         boolean b = baseService.remove(deptId);
         return toResult(b);

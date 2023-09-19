@@ -129,7 +129,8 @@ const resetData = async () => {
  * @param row 当前行的菜单对象
  */
 const onAddClick = async (row: PoemMenu) => {
-    router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
+    // router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
+    router.push({ name: "addMenu", query: { parentMenuId: row.menuId } });
 };
 
 /**
@@ -137,7 +138,8 @@ const onAddClick = async (row: PoemMenu) => {
  * @param row 当前行的菜单对象
  */
 const onEditClick = async (row: PoemMenu) => {
-    router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
+    router.push({ name: "addMenu", query: { poemId: row.menuId } });
+    // router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
 };
 
 /**

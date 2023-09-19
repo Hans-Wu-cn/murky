@@ -54,7 +54,6 @@ export const usePermissionStore = defineStore('permission', {
 });
 
 const buildRoutes = (routes: Array<Route>, parent?: RouteItem) => {
-  // debugger;
   return routes.map((item) => {
     const routeItem: RouteItem = {
       path: `${(parent && parent.path) ?? ''}/${item.path}`,

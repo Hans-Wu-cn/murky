@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
@@ -30,6 +31,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("用户列表查询")
     @Get
     @Mapping("page")
+    @SaCheckPermission("user")
     public ApiResult<Page<PoemUserPageVo>> page(PoemUserPageDTO poemUserPageDTO) {
         return ApiResult.ok(baseService.page(poemUserPageDTO));
     }
@@ -37,6 +39,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("用户详情")
     @Get
     @Mapping("{userId}")
+    @SaCheckPermission("user")
     public ApiResult<PoemUserVo> info(Long userId) {
         return ApiResult.ok(baseService.info(userId));
     }
@@ -44,6 +47,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("新增用户")
     @Post
     @Mapping
+    @SaCheckPermission("user:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemUserFromDTO poemUserFromDTO) {
         return toResult(baseService.save(poemUserFromDTO));
     }
@@ -51,6 +55,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("修改用户")
     @Put
     @Mapping
+    @SaCheckPermission("user:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemUserFromDTO poemUserFromDTO) {
         return toResult(baseService.update(poemUserFromDTO));
     }
@@ -65,6 +70,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("删除用户")
     @Delete
     @Mapping("/{userId}")
+    @SaCheckPermission("user:remove")
     public ApiResult<?> remove(Long userId) {
         boolean result = baseService.removeById(userId);
         return toResult(result);

@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.system.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
@@ -36,6 +37,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("角色列表分页查询")
     @Get
     @Mapping("page")
+    @SaCheckPermission("role")
     public ApiResult<Page<PoemRole>> page(PoemRolePageDTO poemRolePageDTO) {
         PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
@@ -63,6 +65,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("角色详情")
     @Get
     @Mapping("{roleId}")
+    @SaCheckPermission("role")
     public ApiResult<PoemRoleVo> info(Long roleId) {
         return ApiResult.ok(baseService.info(roleId));
     }
@@ -70,6 +73,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("新增角色")
     @Post
     @Mapping
+    @SaCheckPermission("role:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemRoleFromDTO poemRoleFromDTO) {
         return toResult(baseService.save(poemRoleFromDTO));
     }
@@ -77,6 +81,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("修改角色")
     @Put
     @Mapping
+    @SaCheckPermission("role:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemRoleFromDTO poemRoleFromDTO) {
         boolean result = baseService.update(poemRoleFromDTO);
         return toResult(result);
@@ -85,6 +90,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("删除角色")
     @Delete
     @Mapping("/{roleId}")
+    @SaCheckPermission("role:remove")
     public ApiResult<?> remove(Long roleId) {
         boolean result = baseService.removeById(roleId);
         return toResult(result);

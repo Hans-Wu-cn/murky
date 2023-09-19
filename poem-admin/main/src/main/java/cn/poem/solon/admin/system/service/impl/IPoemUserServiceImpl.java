@@ -31,6 +31,7 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
 
     @Inject
     private PoemDeptAncestorsMapper poemDeptAncestorsMapper;
+
     /**
      * 根据用户id查询用户详细信息，包含角色信息
      *

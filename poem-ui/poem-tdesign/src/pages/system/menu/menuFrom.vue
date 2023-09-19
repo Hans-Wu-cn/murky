@@ -77,7 +77,7 @@ import { useRoute, useRouter } from 'vue-router';
 import IconSelect from '@/components/iconSelect/index.vue'
 const route = useRoute();
 const router = useRouter()
-const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''})
+const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
     name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
     label: [{ required: true, message: '请输入菜单标题' }],
@@ -88,7 +88,7 @@ const FORM_RULES = ref<FormRules>({
  * 重置表单
  */
 const onReset = () => {
-    if (poemId.value){
+    if (poemId.value) {
         menuFormData.value = historyPoemMenu.value
     }
     MessagePlugin.success('重置成功');
@@ -118,6 +118,9 @@ const poemId = ref(route.query.poemId as string);
 const historyPoemMenu = ref({})
 const onInitFrom = async () => {
     const parentMenuId = route.query.parentMenuId as string
+    console.log(parentMenuId)
+    console.log(poemId)
+    console.log(route.query)
     if (parentMenuId) {
         menuFormData.value.parentMenuId = parentMenuId;
     }
@@ -131,7 +134,7 @@ onInitFrom()
 
 </script>
 <style>
-.overlay-options{
+.overlay-options {
     display: inline-block;
 }
 </style>
