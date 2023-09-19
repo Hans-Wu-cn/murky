@@ -3,6 +3,7 @@ package cn.poem.solon.admin.system.mapper;
 import cn.poem.solon.admin.domin.PoemDeptAncestors;
 import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface PoemDeptAncestorsMapper extends BaseMapper<PoemDeptAncestors> {
     PoemDeptAncestorsTableDef POEM_DEPT_ANCESTORS = PoemDeptAncestorsTableDef.POEM_DEPT_ANCESTORS;
 
     /**
-     * 根据deptId查询数量
+     * 根据deptId查询
      * @param deptId
      * @return 数量
      */
@@ -24,6 +25,18 @@ public interface PoemDeptAncestorsMapper extends BaseMapper<PoemDeptAncestors> {
         return this.selectListByQuery(QueryWrapper.create()
                 .from(POEM_DEPT_ANCESTORS)
                 .where(POEM_DEPT_ANCESTORS.DEPT_ID.eq(deptId)));
+    }
+
+    /**
+     * 根据deptId查询
+     * @param ancestors
+     * @return 相关数据
+     */
+    default List<PoemDeptAncestors> getListByAncestors(Long ancestors){
+
+        return this.selectListByQuery(QueryWrapper.create()
+                .from(POEM_DEPT_ANCESTORS)
+                .where(POEM_DEPT_ANCESTORS.ANCESTORS.eq(ancestors, If::notNull)));
     }
 
     /**

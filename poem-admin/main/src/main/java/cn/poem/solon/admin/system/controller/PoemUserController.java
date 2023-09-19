@@ -9,6 +9,7 @@ import cn.poem.solon.admin.domin.table.PoemUserTableDef;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemUserPageDTO;
 import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
+import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
 import cn.poem.solon.admin.system.service.IPoemUserService;
 import cn.poem.solon.admin.utils.SecurityUtils;
@@ -29,14 +30,8 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("用户列表查询")
     @Get
     @Mapping("page")
-    public ApiResult<Page<PoemUser>> page(PoemUserPageDTO poemUserPageDTO) {
-        Page<PoemUser> result = baseService.page(poemUserPageDTO,
-                QueryWrapper.create()
-                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::hasText))
-                        .and(PoemUserTableDef.POEM_USER.DEPT_ID.eq(poemUserPageDTO.getDeptId(),If::notNull))
-                        .orderBy(PoemUserTableDef.POEM_USER.CREATE_TIME.asc())
-        );
-        return ApiResult.ok(result);
+    public ApiResult<Page<PoemUserPageVo>> page(PoemUserPageDTO poemUserPageDTO) {
+        return ApiResult.ok(baseService.page(poemUserPageDTO));
     }
 
     @ApiOperation("用户详情")

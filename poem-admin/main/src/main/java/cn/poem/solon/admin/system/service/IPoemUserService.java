@@ -2,8 +2,13 @@ package cn.poem.solon.admin.system.service;
 
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
+import cn.poem.solon.admin.system.domain.dto.PoemUserPageDTO;
+import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
+import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.service.IService;
+
+import java.util.List;
 
 /**
  * 用户 Service
@@ -40,4 +45,6 @@ public interface IPoemUserService extends IService<PoemUser> {
      * @return 重置成功状态
      */
     boolean resetPassword(Long userId,String password);
+
+    Page<PoemUserPageVo> page(PoemUserPageDTO poemUserPageDTO);
 }
