@@ -25,7 +25,7 @@ public class ExceptionFilter implements Filter {
             //推送未登录事件
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN,ex.getMessage()));
         }catch (ServiceException ex){
-            log.error("业务异常:{}",ex.getMessage());
+            ex.printStackTrace();
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
         }catch (ValidatorException ex){
             log.error("表单验证异常:{}",ex.getMessage());

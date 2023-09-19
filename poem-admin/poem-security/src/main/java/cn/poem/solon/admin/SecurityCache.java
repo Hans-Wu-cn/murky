@@ -1,6 +1,7 @@
 package cn.poem.solon.admin;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.poem.solon.admin.constant.BusTopicConstant;
 import cn.poem.solon.admin.entity.SecurityUserInfo;
 import org.noear.dami.Dami;
 import org.noear.redisx.RedisClient;
@@ -25,8 +26,6 @@ public class SecurityCache implements InitializingBean {
     private static int expire = 0;
 
     private final String key = "System:SecurityUser:";
-
-    private final String topic = "SecurityUserInfo";
 
     /**
      * 用户是否是超级管理员
@@ -78,12 +77,26 @@ public class SecurityCache implements InitializingBean {
     }
 
 
+    /**
+     * 1.同步配置文件参数
+     * 2.挂在damiBus事件
+     *
+     * @throws Throwable
+     */
     public void afterInjection() throws Throwable {
         String s = Solon.cfg().get("sa-token.timeout");
         expire = Integer.parseInt(s);
-        Dami.<String, Long>bus().listen(topic, payload -> {
+        //挂载获取用户i事件
+        Dami.<String, Long>bus().listen(BusTopicConstant.USER_ID_TOPIC, payload -> {
             if (payload.isRequest()) {
                 payload.reply(this.getUserId()); // sendAndResponse 只接收第一个
+            }
+        });
+
+        //挂载获取用户详情事件
+        Dami.<String, SecurityUserInfo>bus().listen(BusTopicConstant.USER_INFO_TOPIC,payload -> {
+            if (payload.isRequest()) {
+                payload.reply(this.getUserInfo()); // sendAndResponse 只接收第一个
             }
         });
     }

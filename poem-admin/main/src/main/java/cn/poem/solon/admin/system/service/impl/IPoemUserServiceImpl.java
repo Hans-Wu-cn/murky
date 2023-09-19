@@ -3,12 +3,6 @@ package cn.poem.solon.admin.system.service.impl;
 import cn.poem.solon.admin.PoemServiceImpl;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.domin.PoemUser;
-
-import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
-import cn.poem.solon.admin.domin.table.PoemRoleDeptTableDef;
-import cn.poem.solon.admin.domin.table.PoemUserTableDef;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
-import cn.poem.solon.admin.enums.DataScope;
 import cn.poem.solon.admin.system.domain.convert.PoemUserConvert;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemUserRole;
@@ -28,7 +22,7 @@ import java.util.*;
 @Component
 public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUser> implements IPoemUserService {
     @Inject
-    PoemUserRoleMapper poemUserRoleMapper;
+    private PoemUserRoleMapper poemUserRoleMapper;
 
     /**
      * 根据用户id查询用户详细信息，包含角色信息
@@ -56,6 +50,10 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     @Tran
     public boolean save(PoemUserFromDTO poemUserFromDTO) {
         PoemUser entity = poemUserFromDTO.toEntity();
+        Long countByAccount = mapper.getCountByAccount(entity.getAccount());
+        if(countByAccount>0){
+            throw new ServiceException("添加失败:账号已存在");
+        }
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             throw new ServiceException("添加失败");

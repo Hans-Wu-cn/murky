@@ -1,5 +1,6 @@
 package cn.poem.solon.admin;
 
+import cn.poem.solon.admin.constant.BusTopicConstant;
 import cn.poem.solon.admin.domin.BaseEntity;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
@@ -21,7 +22,6 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
         super(KeywordWrap.DOUBLE_QUOTATION, LimitOffsetProcessor.POSTGRESQL);
     }
 
-    private final String topic="SecurityUserInfo";
     /**
      * 新增sql 字段填充
      *
@@ -50,6 +50,6 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
     }
 
     private Long getUserId(){
-        return Dami.<String, Long>bus().sendAndResponse(topic, "userId");
+        return Dami.<String, Long>bus().sendAndResponse(BusTopicConstant.USER_ID_TOPIC,null);
     }
 }

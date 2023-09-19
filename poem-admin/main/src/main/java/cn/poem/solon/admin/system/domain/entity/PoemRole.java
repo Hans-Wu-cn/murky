@@ -32,6 +32,9 @@ public class PoemRole extends BaseEntity {
     @ApiModelProperty("数据权限")
     private DataScope dataScope;
 
+    @ApiModelProperty("部门Id")
+    private Long deptId;
+
     @ApiModelProperty("描述")
     private String describe;
 }

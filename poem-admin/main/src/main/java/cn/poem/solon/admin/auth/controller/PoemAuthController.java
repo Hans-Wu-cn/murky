@@ -44,8 +44,8 @@ public class PoemAuthController {
     @ApiOperation("登出")
     @Mapping("logout")
     public ApiResult<?> logout() {
-        StpUtil.logout();
         SecurityUtils.delUserInfo();
+        StpUtil.logout();
         return ApiResult.ok();
     }
 

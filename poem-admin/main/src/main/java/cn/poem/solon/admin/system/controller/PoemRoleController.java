@@ -5,6 +5,7 @@ import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
+import cn.poem.solon.admin.system.contant.AdminContant;
 import cn.poem.solon.admin.system.domain.dto.PoemRoleFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleTableDef;
@@ -36,12 +37,14 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @Get
     @Mapping("page")
     public ApiResult<Page<PoemRole>> page(PoemRolePageDTO poemRolePageDTO) {
+        PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create()
-                        .where(PoemRoleTableDef.POEM_ROLE.CREATE_USER.eq(SecurityUtils.getUserId()))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
-                        .orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
+                        .and(POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
+                        .and(POEM_ROLE.ROLE_NAME.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
+                        .and(POEM_ROLE.ROLE_CODE.ne(AdminContant.ADMIN_ROLE_CODE))
+                        .and(POEM_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                        .orderBy(POEM_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
     }

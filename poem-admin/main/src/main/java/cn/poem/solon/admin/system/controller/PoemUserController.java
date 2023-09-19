@@ -32,8 +32,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     public ApiResult<Page<PoemUser>> page(PoemUserPageDTO poemUserPageDTO) {
         Page<PoemUser> result = baseService.page(poemUserPageDTO,
                 QueryWrapper.create()
-                        .where(PoemUserTableDef.POEM_USER.CREATE_USER.eq(SecurityUtils.getUserId()))
-                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::notNull))
+                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::hasText))
                         .and(PoemUserTableDef.POEM_USER.DEPT_ID.eq(poemUserPageDTO.getDeptId(),If::notNull))
                         .orderBy(PoemUserTableDef.POEM_USER.CREATE_TIME.asc())
         );

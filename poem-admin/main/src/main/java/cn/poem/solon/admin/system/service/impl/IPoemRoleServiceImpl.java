@@ -1,10 +1,13 @@
 package cn.poem.solon.admin.system.service.impl;
 
+import cn.poem.solon.admin.PoemServiceImpl;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.domin.PoemRoleDept;
 import cn.poem.solon.admin.enums.DataScope;
 import cn.poem.solon.admin.system.domain.convert.PoemRoleConvert;
+import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
+import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleDeptMapper;
 import cn.poem.solon.admin.core.utils.CollectionUtils;
 import cn.poem.solon.admin.system.domain.dto.PoemRoleFromDTO;
@@ -13,12 +16,14 @@ import cn.poem.solon.admin.system.domain.vo.PoemRoleVo;
 import cn.poem.solon.admin.system.mapper.PoemRoleMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.admin.system.service.IPoemRoleService;
+import cn.poem.solon.admin.utils.SecurityUtils;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,13 +33,16 @@ import java.util.Optional;
  * @author hans
  */
 @Component
-public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> implements IPoemRoleService {
+public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRole> implements IPoemRoleService {
 
     @Inject
-    PoemRoleMenuMapper poemRoleMenuMapper;
+    private PoemRoleMenuMapper poemRoleMenuMapper;
 
     @Inject
-    PoemRoleDeptMapper poemRoleDeptMapper;
+    private PoemRoleDeptMapper poemRoleDeptMapper;
+
+    @Inject
+    private PoemMenuMapper poemMenuMapper;
 
     /**
      * 修改角色以及角色菜单关系
@@ -81,22 +89,26 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
             return null;
         });
         entity.setDataScope(DataScope.ONESELF);
+        entity.setDeptId(SecurityUtils.getUserInfo().getDeptId());
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             return false;
         }
         //如果有配置菜单则添加菜单信息
-
         if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
+            //补充不完全一定存在的父级元素
+            List<Long> parentMenuIds = poemMenuMapper.selectByListByIds(poemRoleFromDTO.getMenuIds()).stream().map(PoemMenu::getParentMenuId).toList();
+            HashSet<Long> menuIds = new HashSet<>(poemRoleFromDTO.getMenuIds());
+            menuIds.addAll(parentMenuIds);
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
-            for (Long menuId : poemRoleFromDTO.getMenuIds()) {
+            for (Long menuId : menuIds) {
                 poemRoleMenuList.add(new PoemRoleMenu()
                         .setRoleId(entity.getRoleId())
                         .setMenuId(menuId)
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            if (i != poemRoleFromDTO.getMenuIds().size()) {
+            if (i != menuIds.size()) {
                 throw new ServiceException("添加失败");
             }
 
@@ -133,18 +145,23 @@ public class IPoemRoleServiceImpl extends ServiceImpl<PoemRoleMapper, PoemRole> 
         if (insert <= 0) {
             return false;
         }
+
         //先删除在新增，覆盖原本的权限
         poemRoleMenuMapper.deleteByRoleId(poemRoleFromDTO.getRoleId());
         if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
+            //补充不完全一定存在的父级元素
+            List<Long> parentMenuIds = poemMenuMapper.selectByListByIds(poemRoleFromDTO.getMenuIds()).stream().map(PoemMenu::getParentMenuId).toList();
+            HashSet<Long> menuIds = new HashSet<>(poemRoleFromDTO.getMenuIds());
             List<PoemRoleMenu> poemRoleMenuList = new ArrayList<>();
-            for (Long menuId : poemRoleFromDTO.getMenuIds()) {
+            menuIds.addAll(parentMenuIds);
+            for (Long menuId : menuIds) {
                 poemRoleMenuList.add(new PoemRoleMenu()
                         .setRoleId(entity.getRoleId())
                         .setMenuId(menuId)
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            if (i != poemRoleFromDTO.getMenuIds().size()) {
+            if (i != menuIds.size()) {
                 throw new ServiceException("修改失败");
             }
         }

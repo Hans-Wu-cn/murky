@@ -32,4 +32,16 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
                 POEM_USER.USER_ID.eq(userId)
         ));
     }
+
+    /**
+     * 查询账号数量
+     * @param account 账号
+     * @return 数量
+     */
+    default Long getCountByAccount(String account){
+        return selectCountByQuery(QueryWrapper.create()
+                .from(POEM_USER)
+                .where(POEM_USER.ACCOUNT.eq(account))
+        );
+    }
 }

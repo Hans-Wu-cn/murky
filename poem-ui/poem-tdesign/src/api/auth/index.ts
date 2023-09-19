@@ -5,6 +5,7 @@ import { request } from '@/utils/request';
 const Api = {
   menuList: '/auth/menu',
   login: '/auth/login',
+  logout: '/auth/logout',
   userInfo: '/auth/info',
 };
 
@@ -16,6 +17,16 @@ export function login(data: Record<string, unknown>) {
   return request.post({
     url: Api.login,
     data,
+  });
+}
+
+/**
+ * 登出
+ * @returns
+ */
+export function logout() {
+  return request.post({
+    url: Api.logout
   });
 }
 

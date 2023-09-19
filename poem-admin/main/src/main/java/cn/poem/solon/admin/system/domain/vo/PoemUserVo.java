@@ -35,6 +35,9 @@ public class PoemUserVo {
     @ApiModelProperty("邮箱")
     private String email;
 
+    @ApiModelProperty("部门id")
+    private String deptId;
+
     @ApiModelProperty("邮箱")
     private List<Long> roleIds;
 

@@ -22,19 +22,14 @@
                 <t-input v-model="formData.email" placeholder="请输入邮箱"></t-input>
             </t-form-item>
             <t-form-item label="部门" name="deptId">
-                <t-tree-select
-                    v-model="formData.deptId"
-                    :data="deptTree"
-                    :tree-props="deptTreeKeys"
-                    clearable
-                    filterable
-                    placeholder="请选择"
-                />
+                <t-tree-select v-model="formData.deptId" :data="deptTree" :tree-props="deptTreeKeys" clearable filterable
+                    placeholder="请选择" />
             </t-form-item>
             <t-form-item label="角色" name="roleIds">
                 <t-select v-model="formData.roleIds" placeholder="请选择角色" multiple clearable :min-collapsed-num="3">
                     <t-option label="全选" :check-all="true" />
-                    <t-option v-for="item in roleData" :key="item.roleId" :value="item.roleId" :label="item.roleName"></t-option>
+                    <t-option v-for="item in roleData" :key="item.roleId" :value="item.roleId"
+                        :label="item.roleName"></t-option>
                 </t-select>
             </t-form-item>
             <t-form-item>
@@ -63,10 +58,12 @@ const FORM_RULES = ref<FormRules>({
     account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
     password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     sex: [{ required: true, message: '请输入性别', trigger: 'change' }],
-    email:[{email:{ ignore_max_length: true }, message: '请输入正确的邮箱地址'}]
+    email: [{ email: { ignore_max_length: true }, message: '请输入正确的邮箱地址' }]
 })
 // 表单对象
-const formData = ref<PoemUser>({});
+const formData = ref<PoemUser>({
+    sex: 0
+});
 
 const roleFromId = ref('');
 const loading = ref(false);
@@ -121,12 +118,12 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
 };
 //部门数据
 const deptTree = ref<PoemDeptTree[]>();
-const deptTreeKeys = {keys: { value: 'deptId', label: 'deptName', children: 'children' }}
+const deptTreeKeys = { keys: { value: 'deptId', label: 'deptName', children: 'children' } }
 const getdeptTreeData = async () => {
-  const { code, result } = await getDeptList();
-  if (ResultEnum.SUCCESS === code) {
-    deptTree.value = result
-  }
+    const { code, result } = await getDeptList();
+    if (ResultEnum.SUCCESS === code) {
+        deptTree.value = result
+    }
 }
 
 // 角色
@@ -139,7 +136,7 @@ const getroleTreeData = async () => {
         MessagePlugin.error(message);
     }
 }
-onMounted(()=>{
+onMounted(() => {
     getdeptTreeData();
     getroleTreeData();
 })
@@ -150,5 +147,4 @@ defineExpose({
 
 
 </script>
-<style lang="less">
-</style>
+<style lang="less"></style>
