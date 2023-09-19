@@ -57,7 +57,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
 
     @ApiOperation("重置密码")
     @Put
-    @Mapping
+    @Mapping("password")
     public ApiResult<?> resetPassword(@Body @Validated ResetPasswordDto resetPasswordDto) {
         return toResult(baseService.resetPassword(resetPasswordDto.getUserId(),resetPasswordDto.getPassword()));
     }

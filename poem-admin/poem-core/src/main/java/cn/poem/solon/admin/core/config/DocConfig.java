@@ -84,8 +84,8 @@ public class DocConfig{
                 .globalResponseInData(true)
                 .globalResult(ApiResult.class)
                 .globalResponseCodes(responseCodes)
-                .apis("cn.poem.solon.auth.controller") //可以加多条，以包名为单位
-                .apis("cn.poem.solon.system.controller") //可以加多条，以包名为单位
+                .apis("cn.poem.solon.admin.auth.controller") //可以加多条，以包名为单位
+                .apis("cn.poem.solon.admin.system.controller") //可以加多条，以包名为单位
                 ;//.securityDefinitionInHeader("tok en");
 
     }
