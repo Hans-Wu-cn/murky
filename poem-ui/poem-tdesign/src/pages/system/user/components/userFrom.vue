@@ -44,7 +44,7 @@
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addUser, queryUserInfo } from '@/api/user';
+import { addUser, editUser, queryUserInfo } from '@/api/user';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemUser } from '@/api/user/types';
 import { getDeptList } from '@/api/dept';
@@ -106,7 +106,8 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
     if (validateResult === true) {
         loading.value = true
         console.log(formData.value)
-        const res = await addUser(formData.value);
+        const api = formData.value.userId?editUser:addUser
+        const res = await api(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success('提交成功');
             emit('submit-hook');

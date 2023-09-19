@@ -1,10 +1,10 @@
 <template>
   <router-view v-if="!isRefreshing" v-slot="{ Component }">
-    <transition name="fade">
+    <!-- <transition name="fade"> -->
       <keep-alive :include="aliveViews">
         <component :is="Component" />
       </keep-alive>
-    </transition>
+    <!-- </transition> -->
   </router-view>
   <frame-page />
 </template>
