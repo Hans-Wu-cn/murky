@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.gen.domain;
+package cn.poem.solon.admin.gen.domain.entity;
 
 import cn.poem.solon.admin.domin.BaseEntity;
 import cn.poem.solon.admin.gen.enums.GenType;
@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.NotBlank;
+
 import java.io.Serializable;
 
 /**
@@ -26,15 +28,17 @@ public class GenTable extends BaseEntity implements Serializable
     @ApiModelProperty("table_id")
     private Long tableId;
 
-
+    @NotBlank
     @ApiModelProperty("表名")
     private String tableName;
 
 
+    @NotBlank
     @ApiModelProperty("表描述")
-    private String tableDescribe;
+    private String tableComment;
 
 
+    @NotBlank
     @ApiModelProperty("实体类名称")
     private String className;
 
@@ -51,22 +55,24 @@ public class GenTable extends BaseEntity implements Serializable
     private TplCategory tplCategory;
 
 
+    @NotBlank
     @ApiModelProperty("生成包名")
     private String packageName;
 
 
+    @NotBlank
     @ApiModelProperty("生成模块名")
     private String moduleName;
 
-
+    @NotBlank
     @ApiModelProperty("生成业务名")
     private String businessName;
 
-
+    @NotBlank
     @ApiModelProperty("生成功能名")
     private String functionName;
 
-
+    @NotBlank
     @ApiModelProperty("生成作者")
     private String functionAuthor;
 

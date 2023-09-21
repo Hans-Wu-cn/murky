@@ -2,6 +2,8 @@ server:
   port: 8080
 
 solon:
+  stop:
+    safe: 0
   debug: 1
   app:
     name: 'demo-app'
@@ -9,9 +11,9 @@ solon:
 
 # 记录器级别的配置示例
 solon.logging.logger:
-  "root": #默认记录器配置
+  root: #默认记录器配置
     level: debug
-  "com.zaxxer.hikari":
+  com.zaxxer.hikari:
     level: info
 
 redis:
@@ -37,6 +39,7 @@ mybatis.db:
     - "cn.poem.solon.**.domain.entity"
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
     - "cn.poem.solon.admin.system.mapper.*"
+    - "cn.poem.solon.admin.gen.mapper.*"
     - "classpath:mapper/*.xml"
   configuration: #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
@@ -89,3 +92,9 @@ knife4j:
     enableOpenApi: true
     enableSwaggerModels: true
     enableFooter: true
+
+gen:
+  author: hans
+  packageName: cn.poem.solon.admin
+  autoRemovePre: true
+  tablePrefix:

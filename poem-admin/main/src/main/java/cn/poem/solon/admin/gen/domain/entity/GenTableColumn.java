@@ -1,6 +1,7 @@
-package cn.poem.solon.admin.gen.domain;
+package cn.poem.solon.admin.gen.domain.entity;
 
 
+import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.domin.BaseEntity;
 import cn.poem.solon.admin.gen.enums.HtmlType;
 import cn.poem.solon.admin.gen.enums.QueryType;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.NotBlank;
 
 /**
  * 代码生成业务字段表 gen_table_column
@@ -23,10 +25,8 @@ import lombok.experimental.Accessors;
 @Table("gen_table_column")
 public class GenTableColumn extends BaseEntity
 {
-
-    private static final long serialVersionUID = 1L;
-
     @Id
+    @NotBlank(groups = Update.class)
     @ApiModelProperty("主键")
     private Long columnId;
 
@@ -50,37 +50,37 @@ public class GenTableColumn extends BaseEntity
     @ApiModelProperty("java类型")
     private String javaType;
 
-
-    @ApiModelProperty("java字段名")
+    @NotBlank
+    @ApiModelProperty(value = "java字段名",required = true)
     private String javaField;
 
 
     @ApiModelProperty("是否主键（0:否 1是）")
-    private YesOrNo isPk;
+    private YesOrNo pk;
 
 
     @ApiModelProperty("是否自增（0:否 1:是）")
-    private YesOrNo isIncrement;
+    private YesOrNo increment;
 
 
     @ApiModelProperty("是否必填（0:否 1:是）")
-    private YesOrNo isRequired;
+    private YesOrNo required;
 
 
     @ApiModelProperty("是否为插入字段（0:否 1:是）")
-    private YesOrNo isInsert;
+    private YesOrNo insert;
 
 
     @ApiModelProperty("是否编辑字段（0:否 1:是）")
-    private YesOrNo isEdit;
+    private YesOrNo edit;
 
 
     @ApiModelProperty("是否编辑字段（0:否  1:是）")
-    private YesOrNo isList;
+    private YesOrNo list;
 
 
     @ApiModelProperty("是否查询字段（0:否 1是）")
-    private YesOrNo isQuery;
+    private YesOrNo query;
 
 
     @ApiModelProperty("查询方式（0:等于、1:不等于、2:大于、3:小于、4:范围）")
@@ -97,5 +97,10 @@ public class GenTableColumn extends BaseEntity
 
     @ApiModelProperty("排序")
     private Integer sort;
+
+    public Boolean isPk(){
+        return YesOrNo.YES==pk;
+    }
+
 
 }

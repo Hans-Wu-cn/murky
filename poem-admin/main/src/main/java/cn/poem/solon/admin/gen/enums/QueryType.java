@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
 /**
- * 查询方式（0:等于、1:不等于、2:大于、3:小于、4:范围）
+ * 查询方式（0:等于、1:不等于、2:大于、3:小于、4:范围 5:模糊搜索）
  *
  * @author hans
  */
@@ -18,6 +18,7 @@ public enum QueryType {
     GT(2, "大于"),
     LT(3, "小于"),
     RANGE(4, "范围"),
+    LIKE(5, "模糊搜索"),
     ;
     @EnumValue
     @ONodeAttr

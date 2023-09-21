@@ -4,6 +4,7 @@ import cn.poem.solon.admin.system.domain.vo.PoemDeptTreeVO;
 import cn.poem.solon.admin.system.domain.dto.PoemDeptFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemDept;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public interface PoemDeptConvert {
      * @param poemDept 部门实体对象
      * @return 部门树视图对象
      */
+    @Mapping(target = "children", ignore = true)
     PoemDeptTreeVO toEntity(PoemDept poemDept);
 
 
@@ -36,6 +38,10 @@ public interface PoemDeptConvert {
      * @param poemDeptFromDTO 部门表单实体列表对象
      * @return 部门实体
      */
+    @Mapping(target = "updateUser", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     PoemDept toEntity(PoemDeptFromDTO poemDeptFromDTO);
 
 }

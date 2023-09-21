@@ -15,6 +15,7 @@ import org.noear.snack.annotation.ONodeAttr;
 public enum TplCategory {
     SINGLE(0, "单表操作"),
     TREE(1, "树表操作"),
+    SUB(2, "主子操作"),
     ;
     @EnumValue
     @ONodeAttr

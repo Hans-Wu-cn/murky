@@ -12,9 +12,6 @@
     <artifactId>poem-core</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mybatis-flex.version>1.6.5</mybatis-flex.version>
         <postgresql.verion>42.6.0</postgresql.verion>
         <redisx.verion>1.4.9</redisx.verion>
