@@ -11,9 +11,6 @@
     <artifactId>poem-flex</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HikariCP.verion>5.0.1</HikariCP.verion>
         <dami.version>0.26</dami.version>
     </properties>
@@ -39,7 +36,7 @@
             <version>${HikariCP.verion}</version>
         </dependency>
 
-        <!--https://gitee.com/noear/dami-->
+        <!--https://gitee.com/noear/dami -->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>dami</artifactId>
