@@ -2,11 +2,7 @@ package cn.poem.solon.admin;
 
 
 import cn.poem.solon.admin.constant.BusTopicConstant;
-import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
-import cn.poem.solon.admin.domin.table.PoemRoleDeptTableDef;
-import cn.poem.solon.admin.domin.table.PoemUserTableDef;
 import cn.poem.solon.admin.entity.SecurityUserInfo;
-import cn.poem.solon.admin.enums.DataScope;
 import cn.poem.solon.admin.utils.DataScopeUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
@@ -14,15 +10,8 @@ import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.dami.Dami;
-import org.noear.solon.Solon;
-import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.bean.InitializingBean;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public abstract class PoemServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements IService<T>, InitializingBean {
 

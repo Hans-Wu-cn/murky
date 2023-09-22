@@ -45,7 +45,7 @@ public class SecurityUserInfo implements Serializable {
     /**
      * 权限关联部门
      */
-    private Set<Long> deptIds;
+//    private Set<Long> deptIds;
 
     /**
      * 所属部门的数据权限
