@@ -6,17 +6,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 /**
- * 用户视图类，包含角色信息
+ * 用户分页视图类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("用户视图类")
-public class PoemUserVo {
+@ApiModel("用户分页视图类")
+public class PoemUserPageVo {
     @ApiModelProperty("用户id")
     private Long userId;
 
@@ -38,7 +36,6 @@ public class PoemUserVo {
     @ApiModelProperty("部门id")
     private String deptId;
 
-    @ApiModelProperty("角色id")
-    private List<Long> roleIds;
-
+    @ApiModelProperty("部门名称")
+    private String deptName;
 }

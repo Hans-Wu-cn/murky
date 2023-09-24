@@ -4,6 +4,7 @@ import cn.poem.solon.admin.system.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -19,15 +20,15 @@ public interface PoemMenuConvert {
 
     /**
      * 将PoemMenuFromDTO转为PoemMenu
-     * @param poemMenuSaveDTO
-     * @return
      */
+    @Mapping(target = "updateUser", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     PoemMenu toEntity(PoemMenuFromDTO poemMenuSaveDTO);
 
     /**
      * PoemMenu 菜单实体转树形菜单vo
-     * @param poemMenu
-     * @return
      */
     List<PoemMenuTreeVO> toEntity(List<PoemMenu> poemMenu);
 }

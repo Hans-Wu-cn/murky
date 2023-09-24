@@ -6,7 +6,7 @@
     </t-card>
     <t-card :bordered="false" title="用户列表">
       <div>
-        <t-button @click="userVisible=true">添加用户</t-button>
+        <t-button @click="userVisible = true">添加用户</t-button>
       </div>
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
@@ -60,6 +60,11 @@ const columns: Array<PrimaryTableCol> = [
     minWidth: 100,
   },
   {
+    colKey: 'deptName',
+    title: '部门',
+    minWidth: 100,
+  },
+  {
     colKey: 'sex',
     title: '性别',
     minWidth: 100,
@@ -93,19 +98,19 @@ const columns: Array<PrimaryTableCol> = [
 const userVisible = ref(false);
 const userDialogTitle = ref('用户信息');
 const roleFromRef = ref();
-const onEditHander = async(row:any)=>{
+const onEditHander = async (row: any) => {
   userVisible.value = true;
   await nextTick();
   roleFromRef.value.initFromData(row.userId);
 }
-const onDelHander = async(row:any)=>{
-  const {code} = await delUserInfo(row.userId);
+const onDelHander = async (row: any) => {
+  const { code } = await delUserInfo(row.userId);
   if (ResultEnum.SUCCESS === code) {
     MessagePlugin.success('删除成功');
     loadUserData();
   }
 }
-const onSubmit = ()=>{
+const onSubmit = () => {
   userVisible.value = false;
   loadUserData();
 }

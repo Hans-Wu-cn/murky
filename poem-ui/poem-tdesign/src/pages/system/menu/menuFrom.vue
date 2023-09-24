@@ -95,7 +95,7 @@ const FORM_RULES = ref<FormRules>({
  * 重置表单
  */
 const onReset = () => {
-    if (poemId.value){
+    if (poemId.value) {
         menuFormData.value = historyPoemMenu.value
     }else{
         menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''}
@@ -141,7 +141,7 @@ onInitFrom()
 
 </script>
 <style>
-.overlay-options{
+.overlay-options {
     display: inline-block;
 }
 </style>

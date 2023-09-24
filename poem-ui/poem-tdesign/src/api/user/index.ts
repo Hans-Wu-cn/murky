@@ -20,11 +20,21 @@ export function userPage(params: PageUser) {
   });
 }
 /**
- * 添加和编辑用户
+ * 新增用户
  * @returns Route
  */
 export function addUser(data: PoemUser) {
   return request.post({
+    url: '/poemUser',
+    data
+  });
+}
+/**
+ * 编辑用户
+ * @returns Route
+ */
+export function editUser(data: PoemUser) {
+  return request.put({
     url: '/poemUser',
     data
   });

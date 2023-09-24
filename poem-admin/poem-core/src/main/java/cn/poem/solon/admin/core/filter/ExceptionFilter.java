@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.core.filter;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.core.enums.ApiResultEnum;
 import cn.poem.solon.admin.core.utils.ApiResult;
@@ -24,8 +25,10 @@ public class ExceptionFilter implements Filter {
             log.debug("登录状态过期:{},{}",ex.getCode(),ex.getMessage());
             //推送未登录事件
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN,ex.getMessage()));
+        }catch (NotPermissionException ex){
+            ex.printStackTrace();
+            ctx.render(ApiResult.fail(ApiResultEnum.NOT_PREMISSION));
         }catch (ServiceException ex){
-            log.error("业务异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
         }catch (ValidatorException ex){
             log.error("表单验证异常:{}",ex.getMessage());

@@ -4,6 +4,7 @@ import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -17,15 +18,16 @@ public interface PoemUserConvert {
 
     /**
      * 将PoemUserFromDTO转为PoemUser
-     * @param PoemUserFromDTO
-     * @return
      */
+    @Mapping(target = "updateUser", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     PoemUser toEntity(PoemUserFromDTO PoemUserFromDTO);
 
     /**
      * 将PoemUser转为PoemUserVo
-     * @param poemUser
-     * @return PoemUserVo
      */
+    @Mapping(target = "roleIds", ignore = true)
     PoemUserVo toVo(PoemUser poemUser);
 }

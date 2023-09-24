@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
@@ -9,6 +10,7 @@ import cn.poem.solon.admin.domin.table.PoemUserTableDef;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemUserPageDTO;
 import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
+import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
 import cn.poem.solon.admin.system.service.IPoemUserService;
 import cn.poem.solon.admin.utils.SecurityUtils;
@@ -29,20 +31,15 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("用户列表查询")
     @Get
     @Mapping("page")
-    public ApiResult<Page<PoemUser>> page(PoemUserPageDTO poemUserPageDTO) {
-        Page<PoemUser> result = baseService.page(poemUserPageDTO,
-                QueryWrapper.create()
-                        .where(PoemUserTableDef.POEM_USER.CREATE_USER.eq(SecurityUtils.getUserId()))
-                        .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::notNull))
-                        .and(PoemUserTableDef.POEM_USER.DEPT_ID.eq(poemUserPageDTO.getDeptId(),If::notNull))
-                        .orderBy(PoemUserTableDef.POEM_USER.CREATE_TIME.asc())
-        );
-        return ApiResult.ok(result);
+    @SaCheckPermission("user")
+    public ApiResult<Page<PoemUserPageVo>> page(PoemUserPageDTO poemUserPageDTO) {
+        return ApiResult.ok(baseService.page(poemUserPageDTO));
     }
 
     @ApiOperation("用户详情")
     @Get
     @Mapping("{userId}")
+    @SaCheckPermission("user")
     public ApiResult<PoemUserVo> info(Long userId) {
         return ApiResult.ok(baseService.info(userId));
     }
@@ -50,6 +47,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("新增用户")
     @Post
     @Mapping
+    @SaCheckPermission("user:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemUserFromDTO poemUserFromDTO) {
         return toResult(baseService.save(poemUserFromDTO));
     }
@@ -57,13 +55,14 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("修改用户")
     @Put
     @Mapping
+    @SaCheckPermission("user:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemUserFromDTO poemUserFromDTO) {
         return toResult(baseService.update(poemUserFromDTO));
     }
 
     @ApiOperation("重置密码")
     @Put
-    @Mapping
+    @Mapping("password")
     public ApiResult<?> resetPassword(@Body @Validated ResetPasswordDto resetPasswordDto) {
         return toResult(baseService.resetPassword(resetPasswordDto.getUserId(),resetPasswordDto.getPassword()));
     }
@@ -71,6 +70,7 @@ public class PoemUserController extends BaseController<IPoemUserService> {
     @ApiOperation("删除用户")
     @Delete
     @Mapping("/{userId}")
+    @SaCheckPermission("user:remove")
     public ApiResult<?> remove(Long userId) {
         boolean result = baseService.removeById(userId);
         return toResult(result);

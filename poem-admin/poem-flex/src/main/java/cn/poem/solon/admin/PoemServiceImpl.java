@@ -1,43 +1,50 @@
 package cn.poem.solon.admin;
 
 
-import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
-import cn.poem.solon.admin.domin.table.PoemRoleDeptTableDef;
-import cn.poem.solon.admin.domin.table.PoemUserTableDef;
+import cn.poem.solon.admin.constant.BusTopicConstant;
 import cn.poem.solon.admin.entity.SecurityUserInfo;
-import cn.poem.solon.admin.enums.DataScope;
+import cn.poem.solon.admin.utils.DataScopeUtils;
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.dami.Dami;
+import org.noear.solon.core.bean.InitializingBean;
+import java.util.List;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-public abstract class PoemServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements IService<T> {
-    PoemUserTableDef POEM_USER = PoemUserTableDef.POEM_USER;
-    PoemRoleDeptTableDef POEM_ROLE_DEPT = PoemRoleDeptTableDef.POEM_ROLE_DEPT;
-    PoemDeptAncestorsTableDef POEM_DEPT_ANCESTORS = PoemDeptAncestorsTableDef.POEM_DEPT_ANCESTORS;
-
+public abstract class PoemServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements IService<T>, InitializingBean {
 
     protected QueryWrapper dataScope(QueryWrapper query, SecurityUserInfo userInfo){
-        Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
-        for (DataScope dataScope : dataScopes) {
-            if (DataScope.CUSTOMIZE.equals(dataScope)) {
-                query.or(POEM_USER.DEPT_ID.in(QueryWrapper.create().from(POEM_ROLE_DEPT).where(POEM_ROLE_DEPT.ROLE_ID.in(userInfo.getRoleIds()))));
-            }
-            if (DataScope.DEPARTMENT_BELOW.equals(dataScope)) {
-                QueryWrapper chrendQuery = QueryWrapper.create().from(POEM_DEPT_ANCESTORS).where(POEM_DEPT_ANCESTORS.ANCESTORS.eq(userInfo.getDeptId()));
-                query.or(POEM_USER.DEPT_ID.in(chrendQuery).or(POEM_USER.DEPT_ID.eq(userInfo.getDeptId())));
-            }
-            if (DataScope.DEPARTMENT.equals(dataScope)) {
-                query.or(POEM_ROLE_DEPT.DEPT_ID.eq(userInfo.getDeptId()));
-            }
-            if (DataScope.ONESELF.equals(dataScope)) {
-                query.or(POEM_USER.CREATE_USER.eq(userInfo.getUserId()));
-            }
-        }
-        return query;
+
+        return DataScopeUtils.dataScope(query,userInfo);
     }
+
+    protected QueryWrapper dataScope(QueryWrapper query){
+        return DataScopeUtils.dataScope(query);
+    }
+
+    public List<T> list(QueryWrapper query,SecurityUserInfo userInfo) {
+        return getMapper().selectListByQuery(dataScope(query,userInfo));
+    }
+
+    public List<T> list(QueryWrapper query) {
+        return getMapper().selectListByQuery(dataScope(query));
+    }
+
+    public Page<T> page(Page<T> page, QueryWrapper query,SecurityUserInfo userInfo) {
+        QueryWrapper queryWrapper = dataScope(query, userInfo);
+        return super.page(page,queryWrapper);
+    }
+
+    public Page<T> page(Page<T> page, QueryWrapper query) {
+        QueryWrapper queryWrapper = dataScope(query, getUserInfo());
+        return super.page(page,queryWrapper);
+    }
+
+    private SecurityUserInfo getUserInfo(){
+        return Dami.<String, SecurityUserInfo>bus().sendAndResponse(BusTopicConstant.USER_INFO_TOPIC,null);
+    }
+
+
 }

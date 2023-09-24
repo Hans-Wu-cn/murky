@@ -48,7 +48,7 @@
               <template #icon>
                 <t-icon class="header-user-avatar" name="user-circle" />
               </template>
-              <div class="header-user-account">{{ user.userInfo.name }}</div>
+              <div class="header-user-account">{{ user.userInfo.userName }}</div>
               <template #suffix><t-icon name="chevron-down" /></template>
             </t-button>
           </t-dropdown>
@@ -77,6 +77,7 @@ import type { MenuRoute } from '@/types/interface';
 import MenuContent from './MenuContent.vue';
 import Notice from './Notice.vue';
 import Search from './Search.vue';
+import { logout } from '@/api/auth';
 
 const props = defineProps({
   theme: {
@@ -145,7 +146,8 @@ const handleNav = (url: string) => {
   router.push(url);
 };
 
-const handleLogout = () => {
+const handleLogout = async () => {
+  await logout();
   router.push({
     path: '/login',
     query: { redirect: encodeURIComponent(router.currentRoute.value.fullPath) },
@@ -177,6 +179,7 @@ const navToHelper = () => {
       z-index: 10;
       width: auto;
       transition: all 0.3s;
+
       &-compact {
         left: 64px;
       }
@@ -188,6 +191,7 @@ const navToHelper = () => {
     display: inline-flex;
   }
 }
+
 .header-menu {
   flex: 1 1 1;
   display: inline-flex;
@@ -229,6 +233,7 @@ const navToHelper = () => {
   .t-logo {
     width: 100%;
     height: 100%;
+
     &:hover {
       cursor: pointer;
     }
@@ -254,10 +259,12 @@ const navToHelper = () => {
     color: var(--td-text-color-primary);
   }
 }
+
 .t-menu--dark {
   .t-head-menu__inner {
     border-bottom: 1px solid var(--td-gray-color-10);
   }
+
   .header-user-account {
     color: rgba(255, 255, 255, 0.55);
   }
@@ -282,6 +289,7 @@ const navToHelper = () => {
     width: 100%;
     margin-bottom: 0px;
   }
+
   &:last-child {
     :deep(.t-dropdown__item) {
       margin-bottom: 8px;

@@ -4,7 +4,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.domin.PoemUser;
-import cn.poem.solon.admin.domin.table.PoemUserTableDef;
+import cn.poem.solon.admin.domin.tab.PoemUserTableDef;
 import cn.poem.solon.admin.entity.SecurityUserInfo;
 import cn.poem.solon.admin.enums.DataScope;
 import cn.poem.solon.admin.system.contant.AdminContant;
@@ -31,19 +31,19 @@ import java.util.stream.Collectors;
 public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     @Inject
-    IPoemUserService iPoemUserService;
+    private IPoemUserService iPoemUserService;
 
     @Inject
-    PoemMenuMapper poemMenuMapper;
+    private PoemMenuMapper poemMenuMapper;
 
     @Inject
-    PoemUserRoleMapper poemUserRoleMapper;
+    private PoemUserRoleMapper poemUserRoleMapper;
 
     @Inject
-    PoemRoleMapper poemRoleMapper;
+    private PoemRoleMapper poemRoleMapper;
 
     @Inject
-    PoemDeptMapper poemDeptMapper;
+    private PoemDeptMapper poemDeptMapper;
 
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
@@ -98,7 +98,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
             //查询数据权限信息
             Set<DataScope> dataScopes = poemRoles.stream().map(PoemRole::getDataScope).collect(Collectors.toSet());
             dataScopes.forEach(userInfo::addDataScope);
-            userInfo.setDeptIds(getDeptIdByDataScope(dataScopes, userInfo.getDeptId()));
+//            userInfo.setDeptIds(getDeptIdByDataScope(dataScopes, userInfo.getDeptId()));
             //查询权限列表
             List<String> permissions = poemMenuMapper.selectByMenuType(
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
@@ -114,7 +114,6 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
      *
      * @param dataScopes 数据权限
      * @param deptId     当前用户所属部门id
-     * @return
      */
     private Set<Long> getDeptIdByDataScope(Collection<DataScope> dataScopes, Long deptId) {
         Set<Long> deptIds = new HashSet<>();

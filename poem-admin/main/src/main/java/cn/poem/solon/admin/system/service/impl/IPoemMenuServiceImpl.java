@@ -32,7 +32,7 @@ import java.util.List;
 public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> implements IPoemMenuService {
 
     @Inject
-    PoemRoleMenuMapper poemRoleMenuMapper;
+    private PoemRoleMenuMapper poemRoleMenuMapper;
 
     /**
      * 菜单排序接口,设置菜单排序并统一设定父级菜单

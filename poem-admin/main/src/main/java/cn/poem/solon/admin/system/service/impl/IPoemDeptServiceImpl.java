@@ -23,13 +23,13 @@ import java.util.List;
 public class IPoemDeptServiceImpl extends ServiceImpl<PoemDeptMapper, PoemDept> implements IPoemDeptService {
 
     @Inject
-    PoemDeptAncestorsMapper poemDeptAncestorsMapper;
+    private PoemDeptAncestorsMapper poemDeptAncestorsMapper;
 
     @Inject
-    PoemUserMapper poemUserMapper;
+    private PoemUserMapper poemUserMapper;
 
     @Inject
-    IPoemDeptService iPoemDeptService;
+    private IPoemDeptService iPoemDeptService;
 
     /**
      * 获取部门树
@@ -37,7 +37,7 @@ public class IPoemDeptServiceImpl extends ServiceImpl<PoemDeptMapper, PoemDept> 
      */
     @Override
     public List<PoemDeptTreeVO> treeDept() {
-        List<PoemDept> allPoemDept = mapper.getSelectByCreate(SecurityUtils.getUserId());
+        List<PoemDept> allPoemDept = mapper.getSelectByCreate(SecurityUtils.getUserInfo());
         List<PoemDeptTreeVO> poemDeptTreeVOList = PoemDeptConvert.INSTANCES.toEntity(allPoemDept);
         List<PoemDeptTreeVO> list = poemDeptTreeVOList.stream().filter(item -> item.getParentDept() == 0).toList();
         buildTreePoemDept(list,poemDeptTreeVOList);

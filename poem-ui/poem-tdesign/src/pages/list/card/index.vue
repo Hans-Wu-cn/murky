@@ -16,34 +16,18 @@
     <template v-if="pagination.total > 0 && !dataLoading">
       <div class="list-card-items">
         <t-row :gutter="[16, 16]">
-          <t-col
-            v-for="product in productList.slice(
-              pagination.pageSize * (pagination.current - 1),
-              pagination.pageSize * pagination.current,
-            )"
-            :key="product.index"
-            :lg="4"
-            :xs="6"
-            :xl="3"
-          >
-            <product-card
-              class="list-card-item"
-              :product="product"
-              @delete-item="handleDeleteItem"
-              @manage-product="handleManageProduct"
-            />
+          <t-col v-for="product in productList.slice(
+            pagination.pageSize * (pagination.current - 1),
+            pagination.pageSize * pagination.current,
+          )" :key="product.index" :lg="4" :xs="6" :xl="3">
+            <product-card class="list-card-item" :product="product" @delete-item="handleDeleteItem"
+              @manage-product="handleManageProduct" />
           </t-col>
         </t-row>
       </div>
       <div class="list-card-pagination">
-        <t-pagination
-          v-model="pagination.current"
-          v-model:page-size="pagination.pageSize"
-          :total="pagination.total"
-          :page-size-options="[12, 24, 36]"
-          @page-size-change="onPageSizeChange"
-          @current-change="onCurrentChange"
-        />
+        <t-pagination v-model="pagination.current" v-model:page-size="pagination.pageSize" :total="pagination.total"
+          :page-size-options="[12, 24, 36]" @page-size-change="onPageSizeChange" @current-change="onCurrentChange" />
       </div>
     </template>
 
@@ -51,13 +35,8 @@
       <t-loading size="large" text="加载数据中..." />
     </div>
 
-    <t-dialog
-      v-model:visible="confirmVisible"
-      header="确认删除所选产品？"
-      :body="confirmBody"
-      :on-cancel="onCancel"
-      @confirm="onConfirmDelete"
-    />
+    <t-dialog v-model:visible="confirmVisible" header="确认删除所选产品？" :body="confirmBody" :on-cancel="onCancel"
+      @confirm="onConfirmDelete" />
   </div>
 </template>
 

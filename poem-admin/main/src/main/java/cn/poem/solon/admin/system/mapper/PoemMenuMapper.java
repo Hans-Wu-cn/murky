@@ -36,4 +36,15 @@ public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
                         .orderBy(POEM_MENU.SORT.asc(), POEM_MENU.LABEL.asc())
         );
     }
+
+    default List<PoemMenu> selectByListByIds(List<Long> menuIds) {
+
+        return this.selectListByQuery(
+                QueryWrapper.create()
+                        .select().from(POEM_MENU)
+                        .where(POEM_MENU.MENU_ID.in(menuIds))
+                        .orderBy(POEM_MENU.SORT.asc(), POEM_MENU.LABEL.asc())
+        );
+    }
+
 }

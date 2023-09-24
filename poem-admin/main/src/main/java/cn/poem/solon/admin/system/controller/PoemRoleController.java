@@ -1,10 +1,12 @@
 package cn.poem.solon.admin.system.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
+import cn.poem.solon.admin.system.contant.AdminContant;
 import cn.poem.solon.admin.system.domain.dto.PoemRoleFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleTableDef;
@@ -35,13 +37,16 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("角色列表分页查询")
     @Get
     @Mapping("page")
+    @SaCheckPermission("role")
     public ApiResult<Page<PoemRole>> page(PoemRolePageDTO poemRolePageDTO) {
+        PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create()
-                        .where(PoemRoleTableDef.POEM_ROLE.CREATE_USER.eq(SecurityUtils.getUserId()))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
-                        .and(PoemRoleTableDef.POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
-                        .orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
+                        .and(POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
+                        .and(POEM_ROLE.ROLE_NAME.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
+                        .and(POEM_ROLE.ROLE_CODE.ne(AdminContant.ADMIN_ROLE_CODE))
+                        .and(POEM_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                        .orderBy(POEM_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
     }
@@ -60,6 +65,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("角色详情")
     @Get
     @Mapping("{roleId}")
+    @SaCheckPermission("role")
     public ApiResult<PoemRoleVo> info(Long roleId) {
         return ApiResult.ok(baseService.info(roleId));
     }
@@ -67,6 +73,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("新增角色")
     @Post
     @Mapping
+    @SaCheckPermission("role:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemRoleFromDTO poemRoleFromDTO) {
         return toResult(baseService.save(poemRoleFromDTO));
     }
@@ -74,6 +81,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("修改角色")
     @Put
     @Mapping
+    @SaCheckPermission("role:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemRoleFromDTO poemRoleFromDTO) {
         boolean result = baseService.update(poemRoleFromDTO);
         return toResult(result);
@@ -82,6 +90,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @ApiOperation("删除角色")
     @Delete
     @Mapping("/{roleId}")
+    @SaCheckPermission("role:remove")
     public ApiResult<?> remove(Long roleId) {
         boolean result = baseService.removeById(roleId);
         return toResult(result);
