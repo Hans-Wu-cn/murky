@@ -2,7 +2,6 @@
     <t-select-input
         :value="value"
         placeholder="请选择图标"
-        :style="{ width: '400px' }"
         :popup-props="{ overlayInnerStyle: { width: '400px',maxHeight:'300px','overflow-y': 'auto','overscroll-behavior': 'contain' } }"
         clearable
         allow-input

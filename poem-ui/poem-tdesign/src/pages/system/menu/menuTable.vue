@@ -7,6 +7,9 @@
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
             @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
     </div>
+    <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
+        <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" @submit="submit"></menuFrom>
+    </t-dialog>
 </template>
 <script setup lang="tsx">
 import {
@@ -21,6 +24,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { PoemMenu } from '@/api/menu/types';
 import { menuConfig } from './config';
 import { useRouter } from 'vue-router';
+import menuFrom from './menuFrom.vue';
 
 const router = useRouter();
 const tableRef = ref();
@@ -106,9 +110,7 @@ const getData = async () => {
     const { code, result } = await getMenuList();
 
     if (ResultEnum.SUCCESS === code) {
-        result.forEach((item) => {
-            data.push(item);
-        });
+        return result
     }
     return data;
 }
@@ -125,21 +127,35 @@ const resetData = async () => {
     tableLoading.value = false;
 };
 /**
- * 跳转至表单页面
+ * 打开表单页面
  * @param row 当前行的菜单对象
  */
+const menuVisible = ref(false);
+const parentMenuId = ref('');
 const onAddClick = async (row: PoemMenu) => {
-    router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
+    menuVisible.value = true;
+    parentMenuId.value = row.menuId;
+    poemId.value = ''
+    // router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
 };
 
 /**
  * 跳转至表单页面
  * @param row 当前行的菜单对象
  */
+const poemId = ref('')
 const onEditClick = async (row: PoemMenu) => {
-    router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
+    menuVisible.value = true;
+    parentMenuId.value = '';
+    poemId.value = row.menuId
+    // router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
 };
 
+// 表单提交成功页面
+const submit = ()=>{
+    menuVisible.value = false;
+    resetData();
+}
 /**
  * 删除菜单
  * @param row 当前行的菜单对象

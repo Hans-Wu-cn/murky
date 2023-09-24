@@ -1,7 +1,7 @@
 <template>
     <div class="menuFormBox">
         <t-card :bordered="false">
-            <t-form ref="form" :rules="FORM_RULES" :data="menuFormData" :colon="true" @reset="onReset" @submit="onSubmit">
+            <t-form ref="form" :rules="FORM_RULES" :data="menuFormData" :colon="true" @submit="onSubmit">
                 <t-form-item label="菜单类型" name="type">
                     <t-select v-model="menuFormData.type">
                         <t-option label="目录" :value="0" />
@@ -60,7 +60,7 @@
                 <t-form-item>
                     <t-space size="small">
                         <t-button theme="primary" type="submit">提交</t-button>
-                        <t-button theme="default" variant="base" type="reset">重置</t-button>
+                        <t-button theme="default" variant="base" @click="onReset">重置</t-button>
                     </t-space>
                 </t-form-item>
             </t-form>
@@ -77,6 +77,13 @@ import { useRoute, useRouter } from 'vue-router';
 import IconSelect from '@/components/iconSelect/index.vue'
 const route = useRoute();
 const router = useRouter()
+const props = defineProps<{
+    poemId?:string,
+    parentMenuId?:string
+}>()
+const emit = defineEmits<{
+    (e:'submit'):void
+}>()
 const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''})
 const FORM_RULES = ref<FormRules>({
     name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
@@ -90,6 +97,8 @@ const FORM_RULES = ref<FormRules>({
 const onReset = () => {
     if (poemId.value){
         menuFormData.value = historyPoemMenu.value
+    }else{
+        menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''}
     }
     MessagePlugin.success('重置成功');
 };
@@ -104,7 +113,8 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>)
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success('提交成功');
-            router.go(-1);
+            emit('submit');
+            // router.go(-1);
         } else {
             MessagePlugin.error(res.message);
         }
@@ -114,10 +124,10 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>)
 /**
  * 表单初始化事件
  */
-const poemId = ref(route.query.poemId as string);
+const poemId = ref(route.query.poemId as string || props.poemId);
 const historyPoemMenu = ref({})
 const onInitFrom = async () => {
-    const parentMenuId = route.query.parentMenuId as string
+    const parentMenuId = route.query.parentMenuId as string || props.parentMenuId
     if (parentMenuId) {
         menuFormData.value.parentMenuId = parentMenuId;
     }
