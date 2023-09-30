@@ -6,7 +6,6 @@ export default function (app: App<Element>) {
         mounted(el: Element, binding: any) {
             if (!el) return;
             const { value } = binding
-            console.log(value)
             const { userInfo } = useUserStore();
             const { permissions } = userInfo
             if (typeof value === 'string') {
@@ -16,7 +15,6 @@ export default function (app: App<Element>) {
                 }
             } else if (value && value instanceof Array) {
                 let flag = true;
-                console.log(value)
                 for (let i = 0; i < value.length; i++) {
                     if(permissions.includes(value[i])){
                         flag = false;
