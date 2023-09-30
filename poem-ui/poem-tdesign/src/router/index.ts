@@ -20,7 +20,7 @@ const defaultRouterList: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    redirect: '/dashboard/base',
+    redirect: '/system/menu',
   },
 ];
 // 存放固定路由

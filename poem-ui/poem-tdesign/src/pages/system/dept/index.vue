@@ -1,7 +1,7 @@
 <template>
   <t-card class="dept" :bordered="false">
     <div>
-      <t-button @click="onAddHander('0')">添加部门</t-button>
+      <t-button @click="onAddHander('0')" v-auth="['dept:add']">添加部门</t-button>
     </div>
     <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
     <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
