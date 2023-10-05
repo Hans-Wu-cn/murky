@@ -6,7 +6,7 @@
     </t-card>
     <t-card :bordered="false" title="用户列表">
       <div>
-        <t-button @click="userVisible = true">添加用户</t-button>
+        <t-button @click="userVisible = true" v-auth="'user:add'">添加用户</t-button>
       </div>
       <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
@@ -27,6 +27,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { userPage, delUserInfo } from '@/api/user'
 import { PageUser } from '@/api/user/types'
 import userFrom from './components/userFrom.vue'
+import { useAuth } from '@/hooks/auth';
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -82,14 +83,14 @@ const columns: Array<PrimaryTableCol> = [
     cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+          {useAuth('user:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             编辑
-          </t-link>
-          <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+          </t-link>:''}
+          {useAuth('user:remove')?<t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               删除
             </t-link>
-          </t-popconfirm>
+          </t-popconfirm>:''}
         </t-space>
       </div>
     ),

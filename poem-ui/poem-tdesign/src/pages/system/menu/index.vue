@@ -2,7 +2,7 @@
   <RouterView v-if="route.meta.hidden"></RouterView>
   <t-card v-else class="menuManage" :bordered="false">
     <div>
-      <t-button @click="handleAdd">添加根菜单</t-button>
+      <t-button @click="handleAdd" v-auth="['menu']">添加根菜单</t-button>
     </div>
     <!-- 菜单表格组件 -->
     <MenuTable></MenuTable>

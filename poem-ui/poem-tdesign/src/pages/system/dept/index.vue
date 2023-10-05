@@ -28,6 +28,7 @@ import { useRouter } from 'vue-router';
 import deptFrom from './compoments/deptFrom.vue';
 import { PoemDept, PoemDeptTree } from '@/api/dept/types';
 import { useSettingStore } from '@/store';
+import { useAuth } from '@/hooks/auth';
 
 const router = useRouter();
 const tableRef = ref();
@@ -67,14 +68,14 @@ const columns: Array<PrimaryTableCol<any>> = [
     cell: (h, { row, rowIndex }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
+          {useAuth('dept:add')?<t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
             新增子菜单
-          </t-link>
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
+          </t-link>:''}
+          {useAuth('dept:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
             编辑
-          </t-link>
+          </t-link>:''}
           {
-            row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
+            useAuth('dept:remove')&&row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
               </t-link>

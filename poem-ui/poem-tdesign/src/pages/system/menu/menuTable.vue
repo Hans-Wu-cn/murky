@@ -25,6 +25,7 @@ import { PoemMenu } from '@/api/menu/types';
 import { menuConfig } from './config';
 import { useRouter } from 'vue-router';
 import menuFrom from './menuFrom.vue';
+import { useAuth } from '@/hooks/auth';
 
 const router = useRouter();
 const tableRef = ref();
@@ -79,17 +80,17 @@ const columns: Array<PrimaryTableCol<any>> = [
         cell: (h, { row, rowIndex }) => (
             <div class="tdesign-table-demo__table-operations">
                 <t-space>
-                    <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
+                    {useAuth('menu:add')?<t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
                         新增子菜单
-                    </t-link>
-                    <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                    </t-link>:''}
+                    {useAuth('menu:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
                         编辑
-                    </t-link>
+                    </t-link>:''}
                     <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
                         查看
                     </t-link>
                     {
-                        row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
+                        useAuth('menu:remove')&&row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
                             <t-link variant="text" hover="color" theme="danger">
                                 删除
                             </t-link>
