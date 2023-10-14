@@ -68,14 +68,18 @@ const columns: Array<PrimaryTableCol<any>> = [
     cell: (h, { row, rowIndex }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
-          {useAuth('dept:add')?<t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
-            新增子菜单
-          </t-link>:''}
-          {useAuth('dept:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
-            编辑
-          </t-link>:''}
           {
-            useAuth('dept:remove')&&row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
+            useAuth('dept:add') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
+              新增子菜单
+            </t-link>
+          }
+          {
+            useAuth('dept:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
+              编辑
+            </t-link>
+          }
+          {
+            (useAuth('dept:remove') && !row.children?.length) ?? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
               </t-link>
@@ -221,6 +225,7 @@ const showBreadcrumbHeight = computed(() => {
 .menuTable {
   margin-top: 20px;
 }
+
 .dept {
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
 }

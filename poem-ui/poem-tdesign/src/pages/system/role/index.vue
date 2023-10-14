@@ -70,17 +70,23 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
     cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
-          {useAuth('role:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            编辑
-          </t-link>:''}
-          {useAuth('role:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
-            数据权限
-          </t-link>:''}
-          {useAuth('role:remove')?<t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
-            <t-link variant="text" hover="color" theme="danger">
-              删除
+          {
+            useAuth('role:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+              编辑
             </t-link>
-          </t-popconfirm>:''}
+          }
+          {
+            useAuth('role:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
+              数据权限
+            </t-link>
+          }
+          {
+            useAuth('role:remove') ?? <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+              <t-link variant="text" hover="color" theme="danger">
+                删除
+              </t-link>
+            </t-popconfirm>
+          }
         </t-space>
       </div>
     ),

@@ -16,7 +16,9 @@ public class SaConfig {
     @Bean(index = -100) //-100，是顺序位（低值优先）
     public SaTokenInterceptor saTokenInterceptor() {
         return new SaTokenInterceptor()
-                .addInclude("/**").addExclude("/swagger-resources").addExclude("/auth/login","/auth/logout");
+                .addInclude("/**")
+                .addExclude("/swagger-resources")
+                .addExclude("/auth/login","/auth/logout");
     }
 
     @Bean

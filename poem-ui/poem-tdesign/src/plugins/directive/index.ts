@@ -16,12 +16,12 @@ export default function (app: App<Element>) {
             } else if (value && value instanceof Array) {
                 let flag = true;
                 for (let i = 0; i < value.length; i++) {
-                    if(permissions.includes(value[i])){
+                    if (permissions.includes(value[i])) {
                         flag = false;
                         return;
                     }
                 }
-                flag?el.remove():''
+                flag ? el.remove() : ''
             }
 
         }

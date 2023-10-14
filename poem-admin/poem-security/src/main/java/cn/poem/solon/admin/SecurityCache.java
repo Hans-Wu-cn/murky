@@ -81,9 +81,8 @@ public class SecurityCache implements InitializingBean {
      * 1.同步配置文件参数
      * 2.挂在damiBus事件
      *
-     * @throws Throwable
      */
-    public void afterInjection() throws Throwable {
+    public void afterInjection(){
         String s = Solon.cfg().get("sa-token.timeout");
         expire = Integer.parseInt(s);
         //挂载获取用户i事件

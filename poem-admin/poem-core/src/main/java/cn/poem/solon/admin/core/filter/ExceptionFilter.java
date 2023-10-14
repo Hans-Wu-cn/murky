@@ -23,7 +23,6 @@ public class ExceptionFilter implements Filter {
             chain.doFilter(ctx);
         }catch (NotLoginException ex){
             log.debug("登录状态过期:{},{}",ex.getCode(),ex.getMessage());
-            //推送未登录事件
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN,ex.getMessage()));
         }catch (NotPermissionException ex){
             ex.printStackTrace();
@@ -34,7 +33,7 @@ public class ExceptionFilter implements Filter {
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
         }catch (RuntimeException ex){
-            //其他异常
+            // 其他异常
             ex.printStackTrace();
             ctx.render(ApiResult.fail(500,ex.getMessage()));
         }

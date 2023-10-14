@@ -80,17 +80,21 @@ const columns: Array<PrimaryTableCol<any>> = [
         cell: (h, { row, rowIndex }) => (
             <div class="tdesign-table-demo__table-operations">
                 <t-space>
-                    {useAuth('menu:add')?<t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
-                        新增子菜单
-                    </t-link>:''}
-                    {useAuth('menu:edit')?<t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
-                        编辑
-                    </t-link>:''}
+                    {
+                        useAuth('menu:add') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
+                            新增子菜单
+                        </t-link>
+                    }
+                    {
+                        useAuth('menu:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                            编辑
+                        </t-link>
+                    }
                     <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
                         查看
                     </t-link>
                     {
-                        useAuth('menu:remove')&&row.children?.length ? '' : <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
+                        (useAuth('menu:remove') && !row.children?.length) ?? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
                             <t-link variant="text" hover="color" theme="danger">
                                 删除
                             </t-link>
@@ -153,7 +157,7 @@ const onEditClick = async (row: PoemMenu) => {
 };
 
 // 表单提交成功页面
-const submit = ()=>{
+const submit = () => {
     menuVisible.value = false;
     resetData();
 }
