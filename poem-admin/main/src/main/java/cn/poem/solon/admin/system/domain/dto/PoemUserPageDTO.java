@@ -24,9 +24,8 @@ public class PoemUserPageDTO extends Page<PoemUser> {
     @ApiModelProperty("邮箱")
     private String email;
 
-    //@ApiModelProperty("性别")
-    //TODO 需要SOLON框架给出更合适的能力
-    //private Sex sex;
+    @ApiModelProperty("性别")
+    private Sex sex;
 
     @ApiModelProperty("部门id")
     private Long deptId;

@@ -69,7 +69,7 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
                 .leftJoin(POEM_DEPT).on(POEM_DEPT.DEPT_ID.eq(POEM_USER.DEPT_ID))
                 .and(POEM_USER.DEPT_ID.in(deptIds, If::notNull))
                 .and(POEM_USER.EMAIL.like(poemUserPageDTO.getEmail(), If::hasText))
-//                .and(POEM_USER.SEX.eq(poemUserPageDTO.getSex(), If::notNull))
+                .and(POEM_USER.SEX.eq(poemUserPageDTO.getSex(), If::notNull))
                 .and(POEM_USER.USER_NAME.like(poemUserPageDTO.getUserName(), If::hasText))
                 .and(POEM_USER.DEPT_ID.in(deptIds, If::notNull))
                 .orderBy(POEM_USER.CREATE_TIME.asc());
