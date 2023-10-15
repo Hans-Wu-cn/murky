@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.domain.vo;
 
-import cn.poem.solon.admin.enums.DataScope;
+import cn.poem.solon.admin.common.enums.DataScope;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

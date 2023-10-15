@@ -2,7 +2,7 @@ package cn.poem.solon.admin.auth.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.system.domain.dto.LoginDto;
 import cn.poem.solon.admin.system.enums.MenuType;
 import cn.poem.solon.admin.system.service.IPoemMenuService;

@@ -2,7 +2,7 @@ package cn.poem.solon.admin.utils;
 
 
 import cn.poem.solon.admin.SecurityCache;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import org.noear.solon.Solon;
 
 public class SecurityUtils {

@@ -1,8 +1,8 @@
 package cn.poem.solon.admin;
 
 
-import cn.poem.solon.admin.constant.BusTopicConstant;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.constant.BusTopicConstant;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.utils.DataScopeUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;

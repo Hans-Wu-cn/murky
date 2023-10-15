@@ -1,6 +1,6 @@
-package cn.poem.solon.admin.entity;
+package cn.poem.solon.admin.common.entity;
 
-import cn.poem.solon.admin.enums.DataScope;
+import cn.poem.solon.admin.common.enums.DataScope;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

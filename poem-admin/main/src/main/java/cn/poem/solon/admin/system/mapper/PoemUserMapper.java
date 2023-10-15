@@ -67,14 +67,12 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
     default Page<PoemUserPageVo> page(PoemUserPageDTO poemUserPageDTO, Set<Long> deptIds) {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .leftJoin(POEM_DEPT).on(POEM_DEPT.DEPT_ID.eq(POEM_USER.DEPT_ID))
-                .and(POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::hasText))
+                .and(POEM_USER.DEPT_ID.in(deptIds, If::notNull))
+                .and(POEM_USER.EMAIL.like(poemUserPageDTO.getEmail(), If::hasText))
+//                .and(POEM_USER.SEX.eq(poemUserPageDTO.getSex(), If::notNull))
+                .and(POEM_USER.USER_NAME.like(poemUserPageDTO.getUserName(), If::hasText))
                 .and(POEM_USER.DEPT_ID.in(deptIds, If::notNull))
                 .orderBy(POEM_USER.CREATE_TIME.asc());
-//         paginateAs()poemUserPageDTO,
-//        QueryWrapper.create()
-//                .and(PoemUserTableDef.POEM_USER.USER_NAME.likeRight(poemUserPageDTO.getUserName(), If::hasText))
-//                .and(PoemUserTableDef.POEM_USER.DEPT_ID.eq(poemUserPageDTO.getDeptId(), If::notNull))
-//                .orderBy(PoemUserTableDef.POEM_USER.CREATE_TIME.asc());
         return paginateAs(poemUserPageDTO.getPageNumber(), poemUserPageDTO.getPageSize(), DataScopeUtils.dataScope(queryWrapper), PoemUserPageVo.class);
     }
 }

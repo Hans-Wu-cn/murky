@@ -1,8 +1,9 @@
 package cn.poem.solon.admin;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.poem.solon.admin.constant.BusTopicConstant;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.constant.BusTopicConstant;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import org.noear.dami.Dami;
 import org.noear.redisx.RedisClient;
 import org.noear.snack.ONode;
@@ -53,7 +54,7 @@ public class SecurityCache implements InitializingBean {
      *
      * @return 用户信息对象
      */
-    public SecurityUserInfo getUserInfo() {
+    public SecurityUserInfo getUserInfo() throws NotLoginException {
         String json = redisClient.openAndGet(session -> session.key(key + getUserId()).get());
         return ONode.deserialize(json);
     }

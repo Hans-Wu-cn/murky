@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.mapper;
 
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.system.domain.entity.PoemDept;
 import cn.poem.solon.admin.system.domain.entity.table.PoemDeptTableDef;
 import cn.poem.solon.admin.utils.DataScopeUtils;

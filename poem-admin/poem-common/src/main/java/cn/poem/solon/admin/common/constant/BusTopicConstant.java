@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.constant;
+package cn.poem.solon.admin.common.constant;
 
 public class BusTopicConstant {
 

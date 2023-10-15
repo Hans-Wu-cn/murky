@@ -30,7 +30,7 @@ import { PageUser } from '@/api/user/types'
 import userFrom from './components/userFrom.vue'
 import { useAuth } from '@/hooks/auth';
 import { gender } from './constants';
-import search, { SearchOption } from '../search/index.vue';
+import search, { SearchOption } from '@/components/search/index.vue';
 
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
@@ -73,7 +73,7 @@ const columns: Array<PrimaryTableCol> = [
     colKey: 'sex',
     title: '性别',
     minWidth: 100,
-    cell:(h, {col,row })=> (
+    cell: (h, { col, row }) => (
       <div>
         {
           gender[row[col.colKey]]
@@ -154,10 +154,10 @@ const getdeptTreeData = async () => {
 /**
 * load tree data
 */
-const loadUserData = async (query?:{}) => {
+const loadUserData = async (query?: {}) => {
   // 需要更新数据地址空间
   tableLoading.value = true;
-  const { code, result } = await userPage({...userQuery.value,...query});
+  const { code, result } = await userPage({ ...userQuery.value, ...query });
   if (ResultEnum.SUCCESS === code) {
     userData.value = result.records
     pagination.total = +result.totalRow
@@ -192,33 +192,29 @@ onMounted(async () => {
 // 查询组件
 const searchOptions = ref<SearchOption[]>([
   {
-    name:'userName',
-    value:'',
-    label:'用户名',
-    type:'input',
+    name: 'userName',
+    value: '',
+    label: '用户名',
+    type: 'input',
+    placeholder: '请输入用户名'
   },
   {
-    name:'email',
-    value:'',
-    label:'邮箱',
-    type:'input',
+    name: 'email',
+    value: '',
+    label: '邮箱',
+    type: 'input',
+    placeholder: '请输入邮箱'
   },
   {
-    name:'sex',
-    value:'',
-    label:'性别',
-    type:'select',
-    radioOptions:gender
+    name: 'sex',
+    value: '',
+    label: '性别',
+    type: 'select',
+    placeholder: '请选择性别',
+    radioOptions: gender
   },
-  {
-    name:'deptId',
-    value:'',
-    label:'部门',
-    type:'deptTreeSelect',
-  },
-  
 ])
-const searchSubmit = (params:any)=>{
+const searchSubmit = (params: any) => {
   console.log(params)
   loadUserData(params)
 }

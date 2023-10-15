@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.enums;
+package cn.poem.solon.admin.common.enums;
 
 
 import com.mybatisflex.annotation.EnumValue;

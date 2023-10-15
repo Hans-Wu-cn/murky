@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.auth.service;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.system.domain.dto.LoginDto;
 
 /**

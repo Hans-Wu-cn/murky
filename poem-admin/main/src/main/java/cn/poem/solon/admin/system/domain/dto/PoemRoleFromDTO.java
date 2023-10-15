@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.domain.dto;
 
 import cn.poem.solon.admin.core.validat.Update;
-import cn.poem.solon.admin.enums.DataScope;
+import cn.poem.solon.admin.common.enums.DataScope;
 import cn.poem.solon.admin.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
 

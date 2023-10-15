@@ -42,8 +42,8 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
         PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
         Page<PoemRole> result = baseService.page(poemRolePageDTO,
                 QueryWrapper.create()
-                        .and(POEM_ROLE.ROLE_CODE.likeRight(poemRolePageDTO.getRoleCode(), If::hasText))
-                        .and(POEM_ROLE.ROLE_NAME.likeRight(poemRolePageDTO.getRoleName(), If::hasText))
+                        .and(POEM_ROLE.ROLE_CODE.like(poemRolePageDTO.getRoleCode(), If::hasText))
+                        .and(POEM_ROLE.ROLE_NAME.like(poemRolePageDTO.getRoleName(), If::hasText))
                         .and(POEM_ROLE.ROLE_CODE.ne(AdminContant.ADMIN_ROLE_CODE))
                         .and(POEM_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
                         .orderBy(POEM_ROLE.CREATE_TIME.asc())

@@ -1,17 +1,14 @@
 package cn.poem.solon.admin.utils;
 
 import cn.poem.solon.admin.PoemServiceImpl;
-import cn.poem.solon.admin.constant.BusTopicConstant;
+import cn.poem.solon.admin.common.constant.BusTopicConstant;
 import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
 import cn.poem.solon.admin.domin.table.PoemRoleDeptTableDef;
-import cn.poem.solon.admin.domin.table.PoemUserTableDef;
-import cn.poem.solon.admin.entity.SecurityUserInfo;
-import cn.poem.solon.admin.enums.DataScope;
+import cn.poem.solon.admin.common.entity.SecurityUserInfo;
+import cn.poem.solon.admin.common.enums.DataScope;
 import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.service.IService;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.dami.Dami;
-import org.noear.solon.Solon;
 
 import java.text.MessageFormat;
 import java.util.HashSet;
