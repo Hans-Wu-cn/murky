@@ -13,8 +13,8 @@
       </t-form-item>
       <t-form-item label="菜单权限" name="menuIds">
         <div class="treeBox">
-          <t-tree ref="deptTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys" checkable
-            value-mode="all" @change="treeOnChange" />
+          <t-tree ref="deptTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys"
+            checkable value-mode="all" @change="treeOnChange" />
         </div>
       </t-form-item>
       <t-form-item>

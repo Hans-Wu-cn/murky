@@ -1,4 +1,6 @@
 <template>
+    <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
+
     <div class="menuTable">
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
@@ -25,10 +27,12 @@ import { PoemMenu } from '@/api/menu/types';
 import { menuConfig } from './config';
 import { useRouter } from 'vue-router';
 import menuFrom from './menuFrom.vue';
-import { useAuth } from '@/hooks/auth';
+import { hasAuth, useAuth } from '@/hooks/auth';
+import search, { SearchOption } from '@/components/search/index.vue';
 
 const router = useRouter();
 const tableRef = ref();
+const tableData = ref<PoemMenu[]>();
 //菜单loading标记
 const tableLoading = ref(false);
 //菜单列表数据
@@ -49,6 +53,11 @@ const columns: Array<PrimaryTableCol<any>> = [
     {
         colKey: 'label',
         title: '标题',
+        minWidth: 200,
+    },
+    {
+        colKey: 'name',
+        title: '菜单名',
         minWidth: 200,
     },
     {
@@ -81,24 +90,24 @@ const columns: Array<PrimaryTableCol<any>> = [
             <div class="tdesign-table-demo__table-operations">
                 <t-space>
                     {
-                        useAuth('menu:add') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
+                        useAuth('menu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
                             新增子菜单
-                        </t-link>
+                        </t-link>)
                     }
                     {
-                        useAuth('menu:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                        useAuth('menu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
                             编辑
-                        </t-link>
+                        </t-link>)
                     }
                     <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
                         查看
                     </t-link>
                     {
-                        (useAuth('menu:remove') && !row.children?.length) ?? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
+                        (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
                             <t-link variant="text" hover="color" theme="danger">
                                 删除
                             </t-link>
-                        </t-popconfirm>
+                        </t-popconfirm> : null
                     }
 
                 </t-space>
@@ -107,16 +116,99 @@ const columns: Array<PrimaryTableCol<any>> = [
     }
 ];
 
+// 查询组件配置
+const searchOptions = ref<SearchOption[]>([
+    {
+        name: 'label',
+        value: '',
+        label: '标题',
+        type: 'input',
+        placeholder: "请输入菜单标题"
+    },
+    {
+        name: 'name',
+        value: '',
+        label: '菜单名',
+        type: 'input',
+        placeholder: "请输入菜单名"
+    },
+    {
+        name: 'path',
+        value: '',
+        label: '路径',
+        type: 'input',
+        placeholder: "请输入菜单路径"
+    },
+    {
+        name: 'auth',
+        value: '',
+        label: '权限',
+        type: 'input',
+        placeholder: "请输入菜单权限"
+    },
+
+])
+
+/**
+ * 搜索框提交事件
+ */
+const searchSubmit = (params: any) => {
+    tableLoading.value = true;
+    const { label, name, path, auth } = params;
+    console.log(params)
+    console.log(label, name, path, auth)
+    const data = recursion(tableData.value, label, name, path, auth)
+    console.log(data)
+    tableRef.value.resetData(data)
+    tableLoading.value = false;
+}
+
+/**
+ * 递归过滤数据
+ * @param data 需要过滤的数据
+ * @param label 菜单标题
+ * @param name 菜单名
+ * @param path 菜单路径
+ * @param auth 菜单权限码
+ */
+const recursion = (data: PoemMenu[], label: string, name: string, path: string, auth: string): PoemMenu[] => {
+    function searchStr(source: string, target: string) {
+        if (target && source) {
+            debugger
+            return source.includes(target)
+        }
+        return false
+    }
+    return data.filter(item => {
+        debugger
+        if (item.children.length > 0) {
+            item.children = recursion(item.children, label, name, path, auth)
+        }
+        return item.children.length > 0 || (searchStr(item.label, label) || searchStr(item.name, name) || searchStr(item.path, path) || item.auth.includes(auth))
+    })
+}
+
+/**
+ * 搜索框重置事件
+ */
+const searchReset = () => {
+    tableLoading.value = true;
+    tableRef.value.resetData(tableData.value)
+    tableLoading.value = false;
+}
+
+
 /**
  * 加载列表数据
  */
 const getData = async () => {
-    const data: PoemMenu[] = [];
+    let data: PoemMenu[] = [];
     const { code, result } = await getMenuList();
 
     if (ResultEnum.SUCCESS === code) {
-        return result
+        data = result
     }
+    tableData.value = data
     return data;
 }
 
@@ -128,7 +220,6 @@ const resetData = async () => {
     tableLoading.value = true;
     const res = await getData()
     tableRef.value.resetData(res)
-    tableRef.value.expandAll();
     tableLoading.value = false;
 };
 /**
@@ -141,7 +232,6 @@ const onAddClick = async (row: PoemMenu) => {
     menuVisible.value = true;
     parentMenuId.value = row.menuId;
     poemId.value = ''
-    // router.push(`${menuConfig.menuFromUrl}?parentMenuId=${row.menuId}`);
 };
 
 /**
@@ -153,7 +243,6 @@ const onEditClick = async (row: PoemMenu) => {
     menuVisible.value = true;
     parentMenuId.value = '';
     poemId.value = row.menuId
-    // router.push(menuConfig.menuFromUrl + '?poemId=' + row.menuId);
 };
 
 // 表单提交成功页面

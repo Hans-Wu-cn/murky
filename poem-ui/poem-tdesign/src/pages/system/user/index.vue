@@ -95,16 +95,17 @@ const columns: Array<PrimaryTableCol> = [
       <div class="tdesign-table-demo__table-operations">
         <t-space>
           {
-            useAuth('user:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+
+            useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
               编辑
-            </t-link>
+            </t-link>)
           }
           {
-            useAuth('user:remove') ?? <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            useAuth('user:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
               </t-link>
-            </t-popconfirm>
+            </t-popconfirm>)
           }
         </t-space>
       </div>

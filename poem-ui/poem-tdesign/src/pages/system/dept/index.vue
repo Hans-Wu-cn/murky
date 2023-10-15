@@ -1,4 +1,5 @@
 <template>
+  <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
   <t-card class="dept" :bordered="false">
     <div>
       <t-button @click="onAddHander('0')" v-auth="['dept:add']">添加部门</t-button>
@@ -28,9 +29,11 @@ import { useRouter } from 'vue-router';
 import deptFrom from './compoments/deptFrom.vue';
 import { PoemDept, PoemDeptTree } from '@/api/dept/types';
 import { useSettingStore } from '@/store';
-import { useAuth } from '@/hooks/auth';
+import { hasAuth, useAuth } from '@/hooks/auth';
+import search, { SearchOption } from '@/components/search/index.vue';
 
 const router = useRouter();
+const tableData = ref<PoemDeptTree[]>();
 const tableRef = ref();
 //菜单loading标记
 const tableLoading = ref(false);
@@ -69,21 +72,21 @@ const columns: Array<PrimaryTableCol<any>> = [
       <div class="tdesign-table-demo__table-operations">
         <t-space>
           {
-            useAuth('dept:add') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
-              新增子菜单
-            </t-link>
+            useAuth('dept:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
+              新增子部门
+            </t-link>)
           }
           {
-            useAuth('dept:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
+            useAuth('dept:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
               编辑
-            </t-link>
+            </t-link>)
           }
           {
-            (useAuth('dept:remove') && !row.children?.length) ?? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
+            (hasAuth('dept:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
               </t-link>
-            </t-popconfirm>
+            </t-popconfirm> : null
           }
 
         </t-space>
@@ -91,9 +94,45 @@ const columns: Array<PrimaryTableCol<any>> = [
     ),
   }
 ];
+// 查询组件字段
+const searchOptions = ref<SearchOption[]>([
+  {
+    name: 'deptName',
+    value: '',
+    label: '部门名称',
+    type: 'input',
+    placeholder: '请输入部门名称'
+  }
+])
 const visible = ref(false);
 const deptFromTitle = ref('');
 const deptFromRef = ref();
+
+/**
+ * 搜索框提交事件
+ */
+const searchSubmit = (params: any) => {
+  tableLoading.value = true;
+  const { deptName } = params;
+  console.log(params)
+  const data = tableData.value.filter(item => {
+    return item.deptName.includes(deptName)
+  })
+  tableRef.value.resetData(data)
+  tableLoading.value = false;
+}
+
+/**
+ * 搜索框重置事件
+ */
+const searchReset = () => {
+  tableLoading.value = true;
+  tableRef.value.resetData(tableData.value)
+  tableLoading.value = false;
+}
+
+
+
 /**
 * 加载列表数据
 */
@@ -106,6 +145,7 @@ const getData = async () => {
       data.push(item);
     });
   }
+  tableData.value = data;
   return data;
 }
 
@@ -117,7 +157,6 @@ const resetData = async () => {
   tableLoading.value = true;
   const res = await getData()
   tableRef.value.resetData(res)
-  tableRef.value.expandAll();
   tableLoading.value = false;
 };
 /**

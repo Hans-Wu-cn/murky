@@ -73,21 +73,21 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
       <div class="tdesign-table-demo__table-operations">
         <t-space>
           {
-            useAuth('role:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
               编辑
-            </t-link>
+            </t-link>)
           }
           {
-            useAuth('role:edit') ?? <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
+            useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
               数据权限
-            </t-link>
+            </t-link>)
           }
           {
-            useAuth('role:remove') ?? <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            useAuth('role:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
               </t-link>
-            </t-popconfirm>
+            </t-popconfirm>)
           }
         </t-space>
       </div>
@@ -187,7 +187,7 @@ const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
 })
 
-// 查询组件
+// 查询组件配置
 const searchOptions = ref<SearchOption[]>([
   {
     name: 'roleName',
@@ -203,9 +203,11 @@ const searchOptions = ref<SearchOption[]>([
   },
 
 ])
+
 onMounted(async () => {
   loadData();
 });
+
 const searchSubmit = (params: any) => {
   console.log(params)
   loadData(params)

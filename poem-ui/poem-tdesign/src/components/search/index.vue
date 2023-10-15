@@ -7,7 +7,7 @@
                 </InputContent>
             </t-form-item>
             <t-button theme="primary" type="submit">查 询</t-button>
-            <t-button theme="primary" type="reset">重置</t-button>
+            <t-button theme="primary" type="reset">重 置</t-button>
         </t-form>
     </div>
 </template>
@@ -38,7 +38,8 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    (e: 'submit', value: any): void
+    (e: 'submit', value: any): void;
+    (e: 'reset', value: any): void;
 }>()
 
 /**
@@ -62,6 +63,7 @@ const onReset = () => {
     props.options.forEach(val => {
         val.value = ''
     })
+    emit('reset');
 }
 </script>
 <style scoped lang="less">
