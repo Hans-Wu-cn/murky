@@ -13,9 +13,7 @@
             </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
-                    <t-radio :value="0">男</t-radio>
-                    <t-radio :value="1">女</t-radio>
-                    <t-radio :value="2">其他</t-radio>
+                    <t-radio v-for="(value,key) in gender" :key="key" :value="key">{{ value }}</t-radio>
                 </t-radio-group>
             </t-form-item>
             <t-form-item label="邮箱" name="email">
@@ -51,6 +49,7 @@ import { getDeptList } from '@/api/dept';
 import { PoemDeptTree } from '@/api/dept/types';
 import { PoemRole } from '@/api/role/types';
 import { roleList } from '@/api/role';
+import { gender } from '../constants';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({

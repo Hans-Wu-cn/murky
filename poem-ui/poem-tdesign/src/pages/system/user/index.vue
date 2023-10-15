@@ -28,6 +28,7 @@ import { userPage, delUserInfo } from '@/api/user'
 import { PageUser } from '@/api/user/types'
 import userFrom from './components/userFrom.vue'
 import { useAuth } from '@/hooks/auth';
+import { gender } from './constants';
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -69,6 +70,13 @@ const columns: Array<PrimaryTableCol> = [
     colKey: 'sex',
     title: '性别',
     minWidth: 100,
+    cell:(h, {col,row })=> (
+      <div>
+        {
+          gender[row[col.colKey]]
+        }
+      </div>
+    ),
   },
   {
     colKey: 'email',
