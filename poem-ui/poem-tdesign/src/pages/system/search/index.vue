@@ -1,25 +1,67 @@
 <template>
-    <div>
-        
+    <div class="searchParams">
+        <t-form colon reset-type="initial" :layout="'inline'" @reset="onReset" @submit="onSubmit">
+            <t-form-item v-for="item in props.options" :label="item.label" :name="item.name">
+                <InputContent v-model:value="item.value" :type="item.type" :radio-options="item.radioOptions"></InputContent>
+            </t-form-item>
+            <t-button theme="primary" type="submit">查 询</t-button>
+        </t-form>
     </div>
 </template>
 <script setup lang="ts">
+import { SubmitContext } from 'tdesign-vue-next';
+import InputContent from './components/inputContent.vue';
+import { ref } from 'vue';
+export interface SearchOption {
+    name: string,
+    label: string,
+    value: string,
+    type: string,// 输入框类型
+    placeholder?: string,
+    radioOptions?: { [key: string]: string },// 单选项字典
+}
 const props = withDefaults(defineProps<{
-    options:{
-        name:string,
-        value:string,
-        key:string,
-        type:string
-    }[]
-}>(),{
-    options:()=>[{
-        name:'',
-        value:'',
-        key:'',
-        type:'input'
-    }]
+    options?: SearchOption[]
+}>(), {
+    options: () => [{
+        name: '',
+        value: '',
+        label: '用户名',
+        type: 'input',
+        placeholder: '请输入'
+    }],
 })
+const emit = defineEmits<{
+    (e: 'submit', value: any): void
+}>()
+
+/**
+ * 表单提交事件
+ * @param param0 表单验证
+ */
+const onSubmit = async ({ validateResult }: SubmitContext) => {
+    if (validateResult === true) {
+        const params: { [key: string]: any } = {}
+        props.options.forEach(val => {
+            params[val.name] = val.value
+        })
+        emit('submit', params);
+    }
+};
+/**
+ * 表单重置事件
+ */
+const onReset = () => {
+    props.options.forEach(val => {
+        val.value = ''
+    })
+}
 </script>
 <style scoped lang="less">
-
+.searchParams {
+    background: #fff;
+    border-radius: var(--td-radius-medium);
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
 </style>

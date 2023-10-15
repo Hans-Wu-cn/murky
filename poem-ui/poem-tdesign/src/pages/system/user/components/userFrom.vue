@@ -20,15 +20,10 @@
                 <t-input v-model="formData.email" placeholder="请输入邮箱"></t-input>
             </t-form-item>
             <t-form-item label="部门" name="deptId">
-                <t-tree-select v-model="formData.deptId" :data="deptTree" :tree-props="deptTreeKeys" clearable filterable
-                    placeholder="请选择" />
+                <deptTreeSelect v-model:value="formData.deptId"></deptTreeSelect>
             </t-form-item>
             <t-form-item label="角色" name="roleIds">
-                <t-select v-model="formData.roleIds" placeholder="请选择角色" multiple clearable :min-collapsed-num="3">
-                    <t-option label="全选" :check-all="true" />
-                    <t-option v-for="item in roleData" :key="item.roleId" :value="item.roleId"
-                        :label="item.roleName"></t-option>
-                </t-select>
+                <userSelect v-model:value="formData.roleIds"></userSelect>
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
@@ -50,6 +45,8 @@ import { PoemDeptTree } from '@/api/dept/types';
 import { PoemRole } from '@/api/role/types';
 import { roleList } from '@/api/role';
 import { gender } from '../constants';
+import deptTreeSelect from './deptTreeSelect.vue';
+import userSelect from './userSelect.vue';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
@@ -61,7 +58,9 @@ const FORM_RULES = ref<FormRules>({
 })
 // 表单对象
 const formData = ref<PoemUser>({
-    sex: 0
+    sex: 0,
+    deptId:'',
+    roleIds:[]
 });
 
 const roleFromId = ref('');
@@ -116,30 +115,6 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
         loading.value = false
     }
 };
-//部门数据
-const deptTree = ref<PoemDeptTree[]>();
-const deptTreeKeys = { keys: { value: 'deptId', label: 'deptName', children: 'children' } }
-const getdeptTreeData = async () => {
-    const { code, result } = await getDeptList();
-    if (ResultEnum.SUCCESS === code) {
-        deptTree.value = result
-    }
-}
-
-// 角色
-const roleData = ref<PoemRole[]>();
-const getroleTreeData = async () => {
-    const { code, result, message } = await roleList()
-    if (code === ResultEnum.SUCCESS) {
-        roleData.value = result
-    } else {
-        MessagePlugin.error(message);
-    }
-}
-onMounted(() => {
-    getdeptTreeData();
-    getroleTreeData();
-})
 defineExpose({
     initFromData
 })

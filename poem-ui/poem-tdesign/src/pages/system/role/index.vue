@@ -1,4 +1,5 @@
 <template>
+  <search v-model:options="searchOptions" @submit="searchSubmit"></search>
   <div class="roleManage">
     <t-card :bordered="false">
       <div>
@@ -30,6 +31,7 @@ import datascope from './components/datascope.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
+import search, { SearchOption } from '../search/index.vue';
 
 const PageRoleParams = ref<PageRole>({
   roleName: '',
@@ -161,9 +163,9 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = async () => {
+const loadData = async (params?:{}) => {
   tableLoading.value = true;
-  const { code, result, message } = await rolePage(PageRoleParams.value)
+  const { code, result, message } = await rolePage({...PageRoleParams.value,...params})
   if (code === ResultEnum.SUCCESS) {
     roleData.value = result.records
     pagination.total = +result.totalRow
@@ -185,10 +187,29 @@ const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
 })
 
+// 查询组件
+const searchOptions = ref<SearchOption[]>([
+  {
+    name:'roleName',
+    value:'',
+    label:'角色名',
+    type:'input',
+  },
+  {
+    name:'roleCode',
+    value:'',
+    label:'角色码',
+    type:'input',
+  },
+  
+])
 onMounted(async () => {
   loadData();
 });
-
+const searchSubmit = (params:any)=>{
+  console.log(params)
+  loadData(params)
+}
 </script>
 <style scoped lang="less">
 .roleManage {

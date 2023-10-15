@@ -1,4 +1,5 @@
 <template>
+  <search v-model:options="searchOptions" @submit="searchSubmit"></search>
   <div class="user">
     <t-card :bordered="false" title="部门树">
       <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys"
@@ -29,6 +30,8 @@ import { PageUser } from '@/api/user/types'
 import userFrom from './components/userFrom.vue'
 import { useAuth } from '@/hooks/auth';
 import { gender } from './constants';
+import search, { SearchOption } from '../search/index.vue';
+
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
@@ -151,10 +154,10 @@ const getdeptTreeData = async () => {
 /**
 * load tree data
 */
-const loadUserData = async () => {
+const loadUserData = async (query?:{}) => {
   // 需要更新数据地址空间
   tableLoading.value = true;
-  const { code, result } = await userPage(userQuery.value);
+  const { code, result } = await userPage({...userQuery.value,...query});
   if (ResultEnum.SUCCESS === code) {
     userData.value = result.records
     pagination.total = +result.totalRow
@@ -185,6 +188,40 @@ onMounted(async () => {
   deptData.value = await getdeptTreeData()
   await loadUserData();
 });
+
+// 查询组件
+const searchOptions = ref<SearchOption[]>([
+  {
+    name:'userName',
+    value:'',
+    label:'用户名',
+    type:'input',
+  },
+  {
+    name:'email',
+    value:'',
+    label:'邮箱',
+    type:'input',
+  },
+  {
+    name:'sex',
+    value:'',
+    label:'性别',
+    type:'select',
+    radioOptions:gender
+  },
+  {
+    name:'deptId',
+    value:'',
+    label:'部门',
+    type:'deptTreeSelect',
+  },
+  
+])
+const searchSubmit = (params:any)=>{
+  console.log(params)
+  loadUserData(params)
+}
 </script>
 <style scoped lang="less">
 .user {
