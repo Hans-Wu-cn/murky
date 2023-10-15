@@ -15,7 +15,7 @@ public interface PoemDeptMapper extends BaseMapper<PoemDept> {
     default List<PoemDept> getSelectByCreate(SecurityUserInfo userInfo){
         QueryWrapper queryWrapper = QueryWrapper.create().select().from(POEM_DEPT)
                 .orderBy(POEM_DEPT.SORT.asc(), POEM_DEPT.DEPT_NAME.asc());
-        queryWrapper = DataScopeUtils.dataScope(queryWrapper, userInfo);
+        DataScopeUtils.dataScope(queryWrapper, userInfo);
         return this.selectListByQuery(queryWrapper);
     }
 }

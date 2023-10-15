@@ -33,9 +33,11 @@ public class DataScopeUtils {
      * 数据权限方法，将query绑定数据权限sql
      * @param query query
      * @param userInfo 用户信息
-     * @return QueryWrapper
      */
-    public static QueryWrapper dataScope(QueryWrapper query, SecurityUserInfo userInfo){
+    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo){
+        if(userInfo.getAdmin()){
+            return;
+        }
         Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
         for (DataScope dataScope : dataScopes) {
             StringBuffer sql=new StringBuffer();
@@ -65,11 +67,11 @@ public class DataScopeUtils {
             query.and(MessageFormat.format("({0})",sql));
         }
         log.debug("sql=================="+query.toSQL());
-        return query;
     }
 
     public static QueryWrapper dataScope(QueryWrapper query){
-        return dataScope(query,getUserInfo());
+        dataScope(query,getUserInfo());
+        return query;
     }
 
     private static SecurityUserInfo getUserInfo(){

@@ -35,7 +35,7 @@ public class SecurityUserInfo implements Serializable {
     /**
      * 是否是超级管理员
      */
-    private Boolean admin = false;
+    private Boolean admin;
 
     /**
      * 所属部门id

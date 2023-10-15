@@ -17,7 +17,8 @@ public abstract class PoemServiceImpl<M extends BaseMapper<T>, T> extends Servic
 
     protected QueryWrapper dataScope(QueryWrapper query, SecurityUserInfo userInfo){
 
-        return DataScopeUtils.dataScope(query,userInfo);
+        DataScopeUtils.dataScope(query,userInfo);
+        return query;
     }
 
     protected QueryWrapper dataScope(QueryWrapper query){

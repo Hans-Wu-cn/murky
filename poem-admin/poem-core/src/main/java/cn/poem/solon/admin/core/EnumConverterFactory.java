@@ -25,7 +25,7 @@ public class EnumConverterFactory implements ConverterFactory<String, Enum> {
     }
 
     public static class EnumTypeConverter<T extends Enum> implements Converter<String, T> {
-        private EnumWrap enumWrap;
+        private final EnumWrap enumWrap;
 
         public EnumTypeConverter(Class<T> targetType) {
             enumWrap = TypeUtil.createEnum(targetType);

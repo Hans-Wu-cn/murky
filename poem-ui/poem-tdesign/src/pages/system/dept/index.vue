@@ -267,5 +267,6 @@ const showBreadcrumbHeight = computed(() => {
 
 .dept {
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
+  display: flex;
 }
 </style>
