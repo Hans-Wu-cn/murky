@@ -40,6 +40,9 @@ public class DataScopeUtils {
         }
         Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
         for (DataScope dataScope : dataScopes) {
+            if (DataScope.ALL.equals(dataScope)) {
+                break;
+            }
             StringBuffer sql=new StringBuffer();
             if (DataScope.CUSTOMIZE.equals(dataScope)) {
                 sql.append(MessageFormat.format(" dept_id in (select dept_id from poem_role_dept where role_id in ({0}))",userInfo.getRoleIds()));
@@ -61,6 +64,7 @@ public class DataScopeUtils {
 
 //                query.and(MessageFormat.format("create_user = {0}",userInfo.getUserId().toString()));
             }
+
             if(sql.isEmpty()){
                 continue;
             }
