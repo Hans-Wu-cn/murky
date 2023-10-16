@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@ApiModel("角色实体类")
+@ApiModel("角色分页DTO实体类")
 public class PoemRolePageDTO extends Page<PoemRole> {
     @ApiModelProperty("角色名")
     private String roleName;

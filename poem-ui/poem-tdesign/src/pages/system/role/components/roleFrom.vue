@@ -97,7 +97,7 @@ const initFromData = async (roleId: string) => {
   const { code, result } = await roleInfo(roleId)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
-    resetValue.value = JSON.parse(JSON.stringify(result))
+    resetValue.value = result
   }
 }
 

@@ -17,6 +17,7 @@ import { AxiosRequestConfigRetry, RequestOptions, Result } from '@/types/axios';
 
 import { AxiosCanceler } from './AxiosCancel';
 import { CreateAxiosOptions } from './AxiosTransform';
+import { ResultEnum } from '@/enums/httpEnum';
 
 /**
  * Axios 模块
@@ -117,7 +118,23 @@ export class VAxios {
 
     // 响应结果处理
     this.instance.interceptors.response.use((res: AxiosResponse) => {
-      if (res) axiosCanceler.removePending(res.config);
+      console.log("111", res)
+      if (res) {
+        axiosCanceler.removePending(res.config);
+        if (res.data) {
+          switch (res.data.code) {
+            case ResultEnum.NOT_LOGIN:
+              console.log('跳转登录页');
+              break;
+            case ResultEnum.TIMEOUT:
+              console.log('请求超时');
+              break;
+            case ResultEnum.ERROR:
+              console.log('弹出错误信息');
+            default: console.log(' default letter Checked');
+          }
+        }
+      }
       if (responseInterceptors && isFunction(responseInterceptors)) {
         res = responseInterceptors(res);
       }

@@ -23,11 +23,6 @@ import java.util.Set;
  */
 @Slf4j
 public class DataScopeUtils {
-    private static PoemServiceImpl poemService;
-    private static final  String CREATE_USER_COLUM="create_user";
-    private static PoemRoleDeptTableDef POEM_ROLE_DEPT = PoemRoleDeptTableDef.POEM_ROLE_DEPT;
-    private static PoemDeptAncestorsTableDef POEM_DEPT_ANCESTORS = PoemDeptAncestorsTableDef.POEM_DEPT_ANCESTORS;
-
 
     /**
      * 数据权限方法，将query绑定数据权限sql
