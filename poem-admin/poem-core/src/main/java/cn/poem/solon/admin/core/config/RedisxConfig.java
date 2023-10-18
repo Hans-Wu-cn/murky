@@ -12,4 +12,6 @@ public class RedisxConfig {
     public RedisClient redisClient(@Inject("${redis}") RedisClient client) {
         return client;
     }
+
+
 }

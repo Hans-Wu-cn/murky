@@ -13,7 +13,7 @@
             </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
-                    <t-radio v-for="(value,key) in gender" :key="key" :value="key">{{ value }}</t-radio>
+                    <t-radio v-for="(value, key) in gender" :key="key" :value="key">{{ value }}</t-radio>
                 </t-radio-group>
             </t-form-item>
             <t-form-item label="邮箱" name="email">
@@ -35,15 +35,12 @@
     </div>
 </template>
 <script setup lang="tsx">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addUser, editUser, queryUserInfo } from '@/api/user';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemUser } from '@/api/user/types';
-import { getDeptList } from '@/api/dept';
-import { PoemDeptTree } from '@/api/dept/types';
-import { PoemRole } from '@/api/role/types';
-import { roleList } from '@/api/role';
+
 import { gender } from '../constants';
 import deptTreeSelect from './deptTreeSelect.vue';
 import userSelect from './userSelect.vue';
@@ -59,8 +56,8 @@ const FORM_RULES = ref<FormRules>({
 // 表单对象
 const formData = ref<PoemUser>({
     sex: 0,
-    deptId:'',
-    roleIds:[]
+    deptId: '',
+    roleIds: []
 });
 
 const roleFromId = ref('');
@@ -104,7 +101,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
     if (validateResult === true) {
         loading.value = true
         console.log(formData.value)
-        const api = formData.value.userId?editUser:addUser
+        const api = formData.value.userId ? editUser : addUser
         const res = await api(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success('提交成功');

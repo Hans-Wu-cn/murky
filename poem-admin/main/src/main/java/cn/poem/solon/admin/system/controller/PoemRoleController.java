@@ -6,7 +6,7 @@ import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
-import cn.poem.solon.admin.system.contant.AdminContant;
+import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.dto.PoemRoleFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleTableDef;
@@ -44,7 +44,7 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
                 QueryWrapper.create()
                         .and(POEM_ROLE.ROLE_CODE.like(poemRolePageDTO.getRoleCode(), If::hasText))
                         .and(POEM_ROLE.ROLE_NAME.like(poemRolePageDTO.getRoleName(), If::hasText))
-                        .and(POEM_ROLE.ROLE_CODE.ne(AdminContant.ADMIN_ROLE_CODE))
+                        .and(POEM_ROLE.ROLE_CODE.ne(SystemContant.ADMIN_ROLE_CODE))
                         .and(POEM_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
                         .orderBy(POEM_ROLE.CREATE_TIME.asc())
         );

@@ -22,7 +22,7 @@ import java.util.Collections;
 @Component
 public class SecurityCache implements InitializingBean {
     @Inject
-    public RedisClient redisClient;
+    private RedisClient redisClient;
 
     private static int expire = 0;
 
@@ -44,7 +44,7 @@ public class SecurityCache implements InitializingBean {
      */
     public void setUserInfo(SecurityUserInfo securityUser) {
         redisClient.open(session -> {
-            String serialize = ONode.serialize(securityUser);
+            String serialize = ONode.stringify(securityUser);
             session.key(key + getUserId()).expire(expire).set(serialize);
         });
     }
@@ -56,7 +56,7 @@ public class SecurityCache implements InitializingBean {
      */
     public SecurityUserInfo getUserInfo() throws NotLoginException {
         String json = redisClient.openAndGet(session -> session.key(key + getUserId()).get());
-        return ONode.deserialize(json);
+        return ONode.deserialize(json,SecurityUserInfo.class);
     }
 
     /**

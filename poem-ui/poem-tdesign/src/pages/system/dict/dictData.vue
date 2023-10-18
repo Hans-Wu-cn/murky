@@ -1,24 +1,24 @@
 <template>
-  <search v-model:options="searchOptions" @submit="searchSubmit"></search>
+  <search v-model:options="searchOptions" @submit="searchSubmit(PagePoemDictDataParams)" @reset="searchRest"></search>
   <div class="roleManage">
     <t-card :bordered="false">
       <div>
         <t-button @click="onAddHander" v-auth="'dict:add'">添加字典数据</t-button>
       </div>
-      <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="dictData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="dictTypeFromVisible" :footer="false" width="500px" top="20px">
-      <template #header>{{ roleFromTitle }}</template>
-      <dictTypeFrom ref="dictTypeFromRef" @submit-hook="onSubmitHook"></dictTypeFrom>
+    <t-dialog v-model:visible="dictDataFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ dictDataFromTitle }}</template>
+      <dictDataFrom ref="dictDataFromRef" @submit-hook="onSubmitHook"></dictDataFrom>
     </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictTypePage, PoemDictTypeRemove } from '@/api/dict';
-import { PoemDictType, PagePoemDictType } from '@/api/dict/types';
+import { dictDataPage, PoemDictDataRemove } from '@/api/dict';
+import { PagePoemDictData, PoemDictData } from '@/api/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
@@ -26,45 +26,35 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import { status } from './constants';
-import dictTypeFrom from './components/dictTypeFrom.vue'
+import dictDataFrom from './components/dictDataFrom.vue'
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const PagePoemDictTypeParams = ref<PagePoemDictType>({
-  dictName: '',
+const PagePoemDictDataParams = ref<PagePoemDictData>({
   dictType: '',
-  status: 0,
+  status: undefined,
   pageNumber: 1,
-  pageSize: 10
+  pageSize: 10,
 })
 const pagination: PaginationProps = reactive({
   total: 0
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemDictType>> = [
+const columns: Array<PrimaryTableCol<PoemDictData>> = [
   {
     colKey: 'serial-number',
     title: '序号',
     minWidth: 50,
   },
   {
-    colKey: 'dictName',
-    title: '字典名称',
+    colKey: 'dictLabel',
+    title: '字典标签',
     minWidth: 100,
   },
   {
-    colKey: 'dictType',
-    title: '字典类型',
+    colKey: 'dictValue',
+    title: '字典值',
     minWidth: 100,
-    cell: (h, { col, row }) => (
-      <t-space>
-        {
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            {row.dictType}
-          </t-link>
-        }
-      </t-space>
-    )
   },
   {
     colKey: 'status',
@@ -109,41 +99,41 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
   },
 ];
 
-const roleData = ref<PoemDictType[]>([]);
+const dictData = ref<PoemDictData[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
-const roleFromTitle = ref('');
-const dictTypeFromRef = ref();
-//控制角色表单dialog是否显示
-const dictTypeFromVisible = ref(false)
+const dictDataFromTitle = ref('');
+const dictDataFromRef = ref();
+//控制字典数据表单dialog是否显示
+const dictDataFromVisible = ref(false)
 
 const settingStore = useSettingStore();
 
 /**
- * 添加角色表单适配器
+ * 添加字典数据表单适配器
  */
 const onAddHander = () => {
-  roleFromTitle.value = '添加字典'
-  dictTypeFromRef.value.initFromData()
-  dictTypeFromVisible.value = true
+  dictDataFromTitle.value = '添加字典'
+  dictDataFromRef.value.initFromData(undefined, PagePoemDictDataParams.value.dictType)
+  dictDataFromVisible.value = true
 }
 
 /**
- * 修改角色表单适配器
+ * 修改字典数据表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemDictType) => {
-  roleFromTitle.value = '编辑字典'
-  dictTypeFromRef.value.initFromData(row.dictTypeId)
-  dictTypeFromVisible.value = true
+const onEditHander = (row: PoemDictData) => {
+  dictDataFromTitle.value = '编辑字典'
+  dictDataFromRef.value.initFromData(row.dictCode, row.dictType)
+  dictDataFromVisible.value = true
 }
 
 /**
- * 删除角色
+ * 删除字典数据
  * @param row 
  */
-const onDelHander = async (row: PoemDictType) => {
-  const { code } = await PoemDictTypeRemove(row.dictTypeId)
+const onDelHander = async (row: PoemDictData) => {
+  const { code } = await PoemDictDataRemove(row.dictCode)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success('删除成功');
     loadData();
@@ -157,8 +147,8 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const onPageChange = async (pageInfo: PaginationProps) => {
-  PagePoemDictTypeParams.value.pageNumber = pageInfo.current;
-  PagePoemDictTypeParams.value.pageSize = pageInfo.pageSize;
+  PagePoemDictDataParams.value.pageNumber = pageInfo.current;
+  PagePoemDictDataParams.value.pageSize = pageInfo.pageSize;
   loadData()
 };
 
@@ -167,9 +157,9 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async (params?: {}) => {
   tableLoading.value = true;
-  const { code, result, message } = await dictTypePage({ ...PagePoemDictTypeParams.value, ...params })
+  const { code, result, message } = await dictDataPage({ ...PagePoemDictDataParams.value, ...params })
   if (code === ResultEnum.SUCCESS) {
-    roleData.value = result.records
+    dictData.value = result.records
     pagination.total = +result.totalRow
   } else {
     MessagePlugin.error(message);
@@ -181,7 +171,7 @@ const loadData = async (params?: {}) => {
  * 新增/修改成功后的回调事件
  */
 const onSubmitHook = () => {
-  dictTypeFromVisible.value = false
+  dictDataFromVisible.value = false
   loadData();
 }
 
@@ -215,19 +205,23 @@ const searchOptions = ref<SearchOption[]>([
   },
 ])
 
-const querydictType = async () => {
-  const dictTypeId = route.query.dictTypeId as string
-  console.log(dictTypeId)
+const querydictType = () => {
+  const dictType = route.query.dictType as string
+  PagePoemDictDataParams.value.dictType = dictType
 }
 
 onMounted(async () => {
-  loadData();
   querydictType()
+  loadData();
 });
 
 const searchSubmit = (params: any) => {
   console.log(params)
   loadData(params)
+}
+
+const searchRest = () => {
+  querydictType()
 }
 </script>
 <style scoped lang="less">

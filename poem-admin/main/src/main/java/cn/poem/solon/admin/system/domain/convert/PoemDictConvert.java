@@ -1,7 +1,9 @@
 package cn.poem.solon.admin.system.domain.convert;
 
+import cn.poem.solon.admin.system.domain.dto.PoemDictDataFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemDictTypeFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
+import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.domain.entity.PoemDictType;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import org.mapstruct.Mapper;
@@ -21,4 +23,10 @@ public interface PoemDictConvert {
     @Mapping(target = "createUser", ignore = true)
     @Mapping(target = "createTime", ignore = true)
     PoemDictType toEntity(PoemDictTypeFromDTO poemDictTypeFromDTO);
+
+    @Mapping(target = "updateUser", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    PoemDictData toEntity(PoemDictDataFromDTO poemDictDataFromDTO);
 }

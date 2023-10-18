@@ -7,7 +7,7 @@ import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.domin.tab.PoemUserTableDef;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
-import cn.poem.solon.admin.system.contant.AdminContant;
+import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.dto.LoginDto;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
@@ -89,7 +89,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
             //查询角色code列表
             List<PoemRole> poemRoles = poemRoleMapper.selectListByIds(roleIds);
             List<String> roleCodes = poemRoles.stream().map(item -> {
-                if (AdminContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())) {
+                if (SystemContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())) {
                     userInfo.setAdmin(true);
                 }
                 return item.getRoleCode();

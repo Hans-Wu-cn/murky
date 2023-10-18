@@ -1,14 +1,16 @@
 import { PageResponse } from "../types";
-import { PagePoemDictType, PoemDictType } from "./types";
+import { PagePoemDictData, PagePoemDictType, PoemDictData, PoemDictType } from "./types";
 import { request } from '@/utils/request';
 
 const Api = {
   dictType: '/poemDictType',
+  dictData: '/poemDictData',
   dictTypePage: '/poemDictType/page',
+  dictDataPage: '/poemDictData/page',
 };
 
 /**
- * 获取数据字典分页列表
+ * 获取字典类型分页列表
  * @returns Route
  */
 export function dictTypePage(params: PagePoemDictType) {
@@ -19,7 +21,18 @@ export function dictTypePage(params: PagePoemDictType) {
 }
 
 /**
- * 新增
+ * 获取字典数据分页列表
+ * @returns Route
+ */
+export function dictDataPage(params: PagePoemDictData) {
+  return request.get<PageResponse<Array<PoemDictData>>>({
+    url: Api.dictDataPage,
+    params
+  });
+}
+
+/**
+ * 新增字典分类
  * @returns Route
  */
 export function addPoemDictType(data: PoemDictType) {
@@ -30,12 +43,34 @@ export function addPoemDictType(data: PoemDictType) {
 }
 
 /**
- * 修改
+ * 新增字典数据
+ * @returns Route
+ */
+export function addPoemDictData(data: PoemDictData) {
+  return request.post({
+    url: Api.dictData,
+    data
+  });
+}
+
+/**
+ * 修改字典分类
  * @returns Route
  */
 export function editPoemDictType(data: PoemDictType) {
   return request.put({
     url: Api.dictType,
+    data
+  });
+}
+
+/**
+ * 修改字典数据
+ * @returns Route
+ */
+export function editPoemDictData(data: PoemDictData) {
+  return request.put({
+    url: Api.dictData,
     data
   });
 }
@@ -51,11 +86,31 @@ export function PoemDictTypeInfo(dictTypeId: string) {
 }
 
 /**
- * 字典类型详情
+ * 字典数据详情
+ * @returns Route
+ */
+export function PoemDictDataInfo(dictCode: string) {
+  return request.get({
+    url: `${Api.dictData}/${dictCode}`,
+  });
+}
+
+/**
+ * 删除字典分类
  * @returns Route
  */
 export function PoemDictTypeRemove(dictTypeId: string) {
   return request.delete({
     url: `${Api.dictType}/${dictTypeId}`,
+  });
+}
+
+/**
+ * 删除字典数据
+ * @returns Route
+ */
+export function PoemDictDataRemove(dictDataId: string) {
+  return request.delete({
+    url: `${Api.dictData}/${dictDataId}`,
   });
 }

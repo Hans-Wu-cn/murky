@@ -12,7 +12,7 @@
     <artifactId>poem-security</artifactId>
 
     <properties>
-        <redisx.verion>1.4.9</redisx.verion>
+        <redisx.verion>1.6.0</redisx.verion>
         <dami.version>0.26</dami.version>
     </properties>
 

@@ -1,4 +1,5 @@
 <template>
+  <RouterView v-if="route.meta.hidden"></RouterView>
   <search v-model:options="searchOptions" @submit="searchSubmit"></search>
   <div class="roleManage">
     <t-card :bordered="false">
@@ -116,13 +117,13 @@ const roleData = ref<PoemDictType[]>([]);
 const tableLoading = ref(false);
 const roleFromTitle = ref('');
 const dictTypeFromRef = ref();
-//控制角色表单dialog是否显示
+//控制字典数据表单dialog是否显示
 const dictTypeFromVisible = ref(false)
 
 const settingStore = useSettingStore();
 
 /**
- * 添加角色表单适配器
+ * 添加字典数据表单适配器
  */
 const onAddHander = () => {
   roleFromTitle.value = '添加字典'
@@ -131,7 +132,7 @@ const onAddHander = () => {
 }
 
 /**
- * 修改角色表单适配器
+ * 修改字典数据表单适配器
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemDictType) => {
@@ -141,7 +142,7 @@ const onEditHander = (row: PoemDictType) => {
 }
 
 /**
- * 删除角色
+ * 删除字典数据
  * @param row 
  */
 const onDelHander = async (row: PoemDictType) => {
@@ -153,15 +154,15 @@ const onDelHander = async (row: PoemDictType) => {
 }
 
 /**
- * 删除角色
+ * 查询字典分类下对应得字典数据
  * @param row 
  */
 const onDictData = (row: PoemDictType) => {
   // router.push(`${dictConfig.dictUrl}?dictTypeId=${row.dictTypeId}`)
   router.push({
-    name: 'dictData',
+    name: dictConfig.dictData,
     query: {
-      dictTypeId: row.dictTypeId
+      dictType: row.dictType
     }
   })
 

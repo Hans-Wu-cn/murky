@@ -69,6 +69,12 @@
             <artifactId>redisx</artifactId>
             <version>${redisx.verion}</version>
         </dependency>
+        <!--单元测试 依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
     (e: 'submit', value: any): void;
-    (e: 'reset', value: any): void;
+    (e: 'reset'): void;
 }>()
 
 /**

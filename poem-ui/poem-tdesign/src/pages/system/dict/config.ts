@@ -1,3 +1,3 @@
 export const dictConfig = {
-  dictUrl: '/system/dict/dictData'
+  dictData: 'dictData'
 }

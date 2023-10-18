@@ -20,6 +20,10 @@ import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
+/**
+ * 字典类型Controller
+ * @author hans
+ */
 @Controller
 @Valid
 @Mapping("poemDictType")
@@ -74,6 +78,14 @@ public class PoemDictTypeController extends BaseController<IPoemDictTypeService>
     @SaCheckPermission("dict:remove")
     public ApiResult<?> remove(Long dictTypeId) {
         return toResult(baseService.removeById(dictTypeId));
+    }
+
+    @ApiOperation("刷新字典")
+    @Get
+    @SaCheckPermission("dict:refresh")
+    public ApiResult<?> refresh() {
+        baseService.refreshDict();
+        return ApiResult.ok();
     }
 
 }

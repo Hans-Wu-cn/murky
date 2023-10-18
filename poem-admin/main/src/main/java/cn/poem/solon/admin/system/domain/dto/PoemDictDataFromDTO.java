@@ -2,7 +2,6 @@ package cn.poem.solon.admin.system.domain.dto;
 
 import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.system.enums.DictStatus;
-import com.mybatisflex.annotation.Id;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,28 +10,35 @@ import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
 /**
- * 字典类型表单DTO实体
+ * 字典数据表单DTO实体
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("字典类型表单DTO实体")
-public class PoemDictTypeFromDTO {
+@ApiModel("字典数据表单DTO实体")
+public class PoemDictDataFromDTO {
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty("字典编码")
     @NotNull(groups = Update.class)
-    private Long dictTypeId;
+    private Long dictCode;
 
-    @ApiModelProperty(value = "字典名称",required = true)
-    @NotBlank
-    private String dictName;
+    @ApiModelProperty("字典排序")
+    private Short dictSort;
 
-    @ApiModelProperty(value = "字典类型",required = true)
+    @ApiModelProperty("字典类型")
     @NotBlank
     private String dictType;
 
-    @ApiModelProperty("字典状态")
+    @ApiModelProperty("字典标签")
+    @NotBlank
+    private String dictLabel;
+
+    @ApiModelProperty("字典值")
+    @NotBlank
+    private String dictValue;
+
+    @ApiModelProperty("状态")
     private DictStatus status;
 
     @ApiModelProperty("备注")
