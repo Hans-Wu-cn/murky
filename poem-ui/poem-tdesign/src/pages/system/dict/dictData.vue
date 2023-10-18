@@ -3,7 +3,7 @@
   <div class="roleManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'dict:add'">添加字典</t-button>
+        <t-button @click="onAddHander" v-auth="'dict:add'">添加字典数据</t-button>
       </div>
       <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -27,11 +27,9 @@ import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import { status } from './constants';
 import dictTypeFrom from './components/dictTypeFrom.vue'
-import { dictConfig } from './config';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
 const PagePoemDictTypeParams = ref<PagePoemDictType>({
   dictName: '',
   dictType: '',
@@ -61,7 +59,7 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
     cell: (h, { col, row }) => (
       <t-space>
         {
-          <t-link theme="primary" variant="text" hover="color" onClick={() => onDictData(row)}>
+          <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             {row.dictType}
           </t-link>
         }
@@ -152,21 +150,6 @@ const onDelHander = async (row: PoemDictType) => {
   }
 }
 
-/**
- * 删除角色
- * @param row 
- */
-const onDictData = (row: PoemDictType) => {
-  // router.push(`${dictConfig.dictUrl}?dictTypeId=${row.dictTypeId}`)
-  router.push({
-    name: 'dictData',
-    query: {
-      dictTypeId: row.dictTypeId
-    }
-  })
-
-}
-
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
   console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
@@ -232,8 +215,14 @@ const searchOptions = ref<SearchOption[]>([
   },
 ])
 
+const querydictType = async () => {
+  const dictTypeId = route.query.dictTypeId as string
+  console.log(dictTypeId)
+}
+
 onMounted(async () => {
   loadData();
+  querydictType()
 });
 
 const searchSubmit = (params: any) => {

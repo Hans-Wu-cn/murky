@@ -118,7 +118,6 @@ export class VAxios {
 
     // 响应结果处理
     this.instance.interceptors.response.use((res: AxiosResponse) => {
-      console.log("111", res)
       if (res) {
         axiosCanceler.removePending(res.config);
         if (res.data) {
