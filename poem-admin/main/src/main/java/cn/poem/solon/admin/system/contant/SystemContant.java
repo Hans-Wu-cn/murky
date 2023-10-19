@@ -7,8 +7,4 @@ public class SystemContant {
      */
     public static final String ADMIN_ROLE_CODE="admin";
 
-    /**
-     * 字典缓存key
-     */
-    public static final String DICT_CACHE="System:Dict:";
 }

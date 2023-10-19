@@ -17,6 +17,17 @@
     </properties>
 
     <dependencies>
+        <!--单元测试依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- http容器 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.boot.smarthttp</artifactId>
+        </dependency>
         <!-- 内核 -->
         <dependency>
             <groupId>org.noear</groupId>

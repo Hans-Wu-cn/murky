@@ -1,7 +1,6 @@
 package cn.poem.solon.admin.system.service.impl;
 
-import cn.poem.solon.admin.system.contant.SystemContant;
-import cn.poem.solon.admin.system.domain.bo.PoemDictBo;
+import cn.poem.solon.admin.system.contant.DictContant;
 import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.mapper.PoemDictDataMapper;
 import cn.poem.solon.admin.system.mapper.PoemDictTypeMapper;
@@ -11,13 +10,14 @@ import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -39,13 +39,15 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
      * @param poemDictData
      * @return
      */
+    @Tran
     @Override
     public boolean save(PoemDictData poemDictData) {
         boolean bool = SqlUtil.toBool(this.getMapper().insert(poemDictData, true));
 
         if (bool) {
-            RedisHash redisHash = redisClient.getHash(SystemContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(), (new ArrayList<PoemDictData>(){}).getClass());
+            dictList = Optional.ofNullable(dictList).orElseGet(ArrayList::new);
             dictList.add(poemDictData);
             dictList.sort(Comparator.comparing(PoemDictData::getDictSort));
             redisHash.putAndSerialize(poemDictData.getDictType(),dictList);
@@ -59,11 +61,12 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
      * @param poemDictData
      * @return
      */
+    @Tran
     @Override
     public boolean updateById(PoemDictData poemDictData) {
         boolean bool = this.updateById(poemDictData, true);
         if (bool) {
-            RedisHash redisHash = redisClient.getHash(SystemContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(), (new ArrayList<PoemDictData>(){}).getClass());
             dictList.forEach(item->{
                 if (item.getDictCode().equals(poemDictData.getDictCode())){
@@ -77,12 +80,13 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
     }
 
 
+    @Tran
     @Override
     public boolean removeById(Serializable id) {
+        PoemDictData poemDictData = mapper.selectOneById(id);
         boolean bool = SqlUtil.toBool(this.getMapper().deleteById(id));
         if(bool){
-            PoemDictData poemDictData = mapper.selectOneById(id);
-            RedisHash redisHash = redisClient.getHash(SystemContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(),  (new ArrayList<PoemDictData>(){}).getClass());
             dictList = dictList.stream().filter(item -> !item.getDictCode().equals(id)).collect(Collectors.toList());
             redisHash.putAndSerialize(poemDictData.getDictType(),dictList);
@@ -91,4 +95,10 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
         return bool;
     }
 
+    @Override
+    public List<PoemDictData> getI18nDict() {
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+        return redisHash.getAndDeserialize(DictContant.I18N_DICT, (new ArrayList<PoemDictData>() {
+        }).getClass());
+    }
 }

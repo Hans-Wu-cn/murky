@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.service.impl;
 
-import cn.poem.solon.admin.system.contant.SystemContant;
+import cn.poem.solon.admin.system.contant.DictContant;
 import cn.poem.solon.admin.system.domain.bo.PoemDictBo;
 import cn.poem.solon.admin.system.domain.entity.PoemDictType;
 import cn.poem.solon.admin.system.mapper.PoemDictTypeMapper;
@@ -32,7 +32,7 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
     @Override
     public void refreshDict() {
         List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
-        RedisHash redisHash = redisClient.getHash(SystemContant.DICT_CACHE);
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
         for (PoemDictBo poemDictBo : poemDictBos) {
             redisHash.putAndSerialize(poemDictBo.getDictType(),poemDictBo.getPoemDictDatas());
         }
