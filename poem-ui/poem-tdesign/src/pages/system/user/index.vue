@@ -9,7 +9,7 @@
       <div>
         <t-button @click="userVisible = true" v-auth="'user:add'">添加用户</t-button>
       </div>
-      <t-table stripe :data="userData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="userData" :columns="columns" row-key="userId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
     </t-card>
     <t-dialog v-model:visible="userVisible" v-if="userVisible" :footer="false" width="500px" top="20px">

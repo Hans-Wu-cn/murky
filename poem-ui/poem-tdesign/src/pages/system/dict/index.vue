@@ -1,16 +1,16 @@
 <template>
   <RouterView v-if="route.meta.hidden"></RouterView>
   <search v-model:options="searchOptions" @submit="searchSubmit"></search>
-  <div class="roleManage">
+  <div class="dictManage">
     <t-card :bordered="false">
       <div>
         <t-button @click="onAddHander" v-auth="'dict:add'">添加字典</t-button>
       </div>
-      <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="dictTypeData" :columns="columns" row-key="dictTypeId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
     <t-dialog v-model:visible="dictTypeFromVisible" :footer="false" width="500px" top="20px">
-      <template #header>{{ roleFromTitle }}</template>
+      <template #header>{{ dictTypeFromTitle }}</template>
       <dictTypeFrom ref="dictTypeFromRef" @submit-hook="onSubmitHook"></dictTypeFrom>
     </t-dialog>
   </div>
@@ -112,10 +112,10 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
   },
 ];
 
-const roleData = ref<PoemDictType[]>([]);
+const dictTypeData = ref<PoemDictType[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
-const roleFromTitle = ref('');
+const dictTypeFromTitle = ref('');
 const dictTypeFromRef = ref();
 //控制字典数据表单dialog是否显示
 const dictTypeFromVisible = ref(false)
@@ -126,7 +126,7 @@ const settingStore = useSettingStore();
  * 添加字典数据表单适配器
  */
 const onAddHander = () => {
-  roleFromTitle.value = '添加字典'
+  dictTypeFromTitle.value = '添加字典'
   dictTypeFromRef.value.initFromData()
   dictTypeFromVisible.value = true
 }
@@ -136,7 +136,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemDictType) => {
-  roleFromTitle.value = '编辑字典'
+  dictTypeFromTitle.value = '编辑字典'
   dictTypeFromRef.value.initFromData(row.dictTypeId)
   dictTypeFromVisible.value = true
 }
@@ -187,7 +187,7 @@ const loadData = async (params?: {}) => {
   tableLoading.value = true;
   const { code, result, message } = await dictTypePage({ ...PagePoemDictTypeParams.value, ...params })
   if (code === ResultEnum.SUCCESS) {
-    roleData.value = result.records
+    dictTypeData.value = result.records
     pagination.total = +result.totalRow
   } else {
     MessagePlugin.error(message);
@@ -243,7 +243,7 @@ const searchSubmit = (params: any) => {
 }
 </script>
 <style scoped lang="less">
-.roleManage {
+.dictManage {
   // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;

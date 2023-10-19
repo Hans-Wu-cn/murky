@@ -28,7 +28,7 @@ public class I18nTest {
         PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery()
                 .setI18nKeys(Arrays.asList("en","zh"))
                 .setPoemI18nPageDTO(admin);
-        Page<Map> page = poemI18nMapper.page(poemI18nPageQuery);
+        Page<Map<String, String>> page = poemI18nMapper.page(poemI18nPageQuery);
         log.debug(String.valueOf(page));
     }
 }

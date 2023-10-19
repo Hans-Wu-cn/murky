@@ -8,7 +8,6 @@ import cn.poem.solon.admin.system.domain.query.PoemI18nPageQuery;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
-import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
 

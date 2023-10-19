@@ -10,7 +10,6 @@ import cn.poem.solon.admin.system.mapper.PoemI18nMapper;
 import cn.poem.solon.admin.system.service.IPoemDictDataService;
 import cn.poem.solon.admin.system.service.IPoemI18nService;
 import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
@@ -95,6 +94,10 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
         return count > 0;
     }
 
+    /**
+     * 重写删除方法
+     * @return 保存状态
+     */
     @Override
     public boolean remove(String i18nKey) {
         return mapper.deleteByI18nKey(i18nKey) > 0;

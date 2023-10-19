@@ -1,11 +1,11 @@
 <template>
   <search v-model:options="searchOptions" @submit="searchSubmit(PagePoemDictDataParams)" @reset="searchRest"></search>
-  <div class="roleManage">
+  <div class="dictDataManage">
     <t-card :bordered="false">
       <div>
         <t-button @click="onAddHander" v-auth="'dict:add'">添加字典数据</t-button>
       </div>
-      <t-table stripe :data="dictData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="dictData" :columns="columns" row-key="dictCode" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
     <t-dialog v-model:visible="dictDataFromVisible" :footer="false" width="500px" top="20px">
@@ -71,7 +71,14 @@ const columns: Array<PrimaryTableCol<PoemDictData>> = [
   {
     colKey: 'remark',
     title: '描述',
+    ellipsis: {
+      theme: 'light',
+      placement: 'bottom',
+    },
     minWidth: 100,
+    cell: (h, { row }) => (
+      <t-space>{row.remark}</t-space>
+    )
   },
   {
     colKey: 'operate',
@@ -79,22 +86,20 @@ const columns: Array<PrimaryTableCol<PoemDictData>> = [
     title: '操作',
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
-      <div class="tdesign-table-demo__table-operations">
-        <t-space>
-          {
-            useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              编辑
-            </t-link>)
-          }
-          {
-            useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
-              <t-link variant="text" hover="color" theme="danger">
-                删除
-              </t-link>
-            </t-popconfirm>)
-          }
-        </t-space>
-      </div>
+      <t-space>
+        {
+          useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            编辑
+          </t-link>)
+        }
+        {
+          useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              删除
+            </t-link>
+          </t-popconfirm>)
+        }
+      </t-space>
     ),
   },
 ];
@@ -225,7 +230,7 @@ const searchRest = () => {
 }
 </script>
 <style scoped lang="less">
-.roleManage {
+.dictDataManage {
   // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;
