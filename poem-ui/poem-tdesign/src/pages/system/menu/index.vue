@@ -1,12 +1,11 @@
 <template>
   <RouterView v-if="route.meta.hidden"></RouterView>
-  <t-card v-else class="menuManage" :bordered="false">
-    <div>
-      <t-button @click="handleAdd" v-auth="['menu:add']">添加根菜单</t-button>
-    </div>
+  <div v-else class="menuManage" :bordered="false">
     <!-- 菜单表格组件 -->
-    <MenuTable></MenuTable>
-  </t-card>
+    <MenuTable>
+        <t-button @click="handleAdd" v-auth="['menu:add']">添加根菜单</t-button>
+    </MenuTable>
+  </div>
   <t-dialog v-model:visible="menuVisible" :footer="false" width="600px" top="10">
     <menuFrom></menuFrom>
   </t-dialog>
@@ -16,8 +15,6 @@ import { computed, ref } from 'vue';
 import MenuTable from './menuTable.vue';
 import { useSettingStore } from '@/store';
 import { useRoute } from 'vue-router';
-import router from '@/router';
-import { menuConfig } from './config';
 import menuFrom from './menuFrom.vue';
 const route = useRoute();
 const settingStore = useSettingStore();

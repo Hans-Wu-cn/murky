@@ -268,5 +268,8 @@ const showBreadcrumbHeight = computed(() => {
 .dept {
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;
+  >:deep(.t-card__body){
+    flex: 1;
+  }
 }
 </style>

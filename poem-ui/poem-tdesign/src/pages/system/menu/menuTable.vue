@@ -1,14 +1,16 @@
 <template>
     <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
 
-    <div class="menuTable">
+    <t-card class="menuTable">
+        <slot></slot>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
         <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
             :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
-            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
-    </div>
+            v-model:expandedTreeNodes="expandedTableTreeNodes"
+            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange" />
+    </t-card>
     <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
         <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" @submit="submit"></menuFrom>
     </t-dialog>
@@ -269,15 +271,10 @@ const onDeleteClick = async (row: PoemMenu) => {
 const onLookUp = (row: PoemMenu) => {
     router.push(menuConfig.detailUrl + '?poemId=' + row.menuId)
 };
-
-const onTreeExpandChange = (context: TableTreeExpandChangeContext<T>) => {
-    console.log(context.rowState.expanded ? '展开' : '收起', context);
-    /**
-     * 如果是懒加载，请确认自己完成了以下几个步骤
-     * 1. 提前设置 children 值为 true；
-     * 2. 在 onTreeExpandChange 事件中处理异步数据；
-     * 3. 自定义展开图标渲染 lazyLoadingTreeIconRender
-     */
+const expandedTableTreeNodes = ref<Array<string|number>>(['1']); // 存储展开的数据
+const onExpandedTreeNodesChange = (expandedTreeNodes:Array<string | number>, context:any) => {
+  console.log(expandedTreeNodes, context);
+  expandedTableTreeNodes.value = expandedTreeNodes
 };
 type T = /*unresolved*/ any
 // 应用于需要阻止拖拽排序的场景。如：当子节点存在时，则不允许调整顺序。
