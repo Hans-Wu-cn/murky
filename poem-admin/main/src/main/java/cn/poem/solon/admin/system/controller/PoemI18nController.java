@@ -3,18 +3,16 @@ package cn.poem.solon.admin.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
+
+import cn.poem.solon.admin.core.validat.Info;
 import cn.poem.solon.admin.core.validat.Insert;
-import cn.poem.solon.admin.system.domain.convert.PoemDictConvert;
-import cn.poem.solon.admin.system.domain.dto.PoemDictTypeFromDTO;
-import cn.poem.solon.admin.system.domain.dto.PoemDictTypePageDTO;
+import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.system.domain.dto.PoemI18nFromDTO;
-import cn.poem.solon.admin.system.domain.dto.PoemI18nPageDTO;
-import cn.poem.solon.admin.system.domain.entity.PoemDictType;
-import cn.poem.solon.admin.system.domain.entity.table.PoemDictTypeTableDef;
+import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
+import cn.poem.solon.admin.system.domain.entity.PoemI18n;
+import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
 import cn.poem.solon.admin.system.service.IPoemI18nService;
 import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.query.If;
-import com.mybatisflex.core.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
@@ -38,16 +36,23 @@ public class PoemI18nController extends BaseController<IPoemI18nService> {
     @Get
     @Mapping("page")
     @SaCheckPermission("i18n")
-    public ApiResult<Page<Map<String, String>>> page(PoemI18nPageDTO poemI18nPageDTO) {
-        Page<Map<String, String>> page = baseService.page(poemI18nPageDTO);
-        return ApiResult.ok(page);
+    public ApiResult<Page<Map>> page(PoemI18nDTO poemI18nDTO) {
+        return ApiResult.ok(baseService.page(poemI18nDTO));
+    }
+
+    @ApiOperation("i18n详情")
+    @Get
+    @Mapping("info")
+    @SaCheckPermission("i18n")
+    public ApiResult<PoemI18nVo> info(@Validated(Info.class) PoemI18nDTO poemI18nDTO) {
+        return ApiResult.ok(baseService.info(poemI18nDTO));
     }
 
     @ApiOperation("新增i18n")
     @Post
     @Mapping
     @SaCheckPermission("i18n:add")
-    public ApiResult<?> add(@Body PoemI18nFromDTO poemI18nFromDTO) {
+    public ApiResult<?> add(@Body @Validated(Insert.class) PoemI18nFromDTO poemI18nFromDTO) {
         return toResult(baseService.save(poemI18nFromDTO));
     }
 
@@ -55,7 +60,7 @@ public class PoemI18nController extends BaseController<IPoemI18nService> {
     @Put
     @Mapping
     @SaCheckPermission("i18n:edit")
-    public ApiResult<?> edit(@Body PoemI18nFromDTO poemI18nFromDTO) {
+    public ApiResult<?> edit(@Body @Validated(Update.class)PoemI18nFromDTO poemI18nFromDTO) {
         return toResult(baseService.edit(poemI18nFromDTO));
     }
 

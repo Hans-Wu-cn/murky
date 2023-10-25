@@ -18,4 +18,10 @@ public interface IPoemDictDataService extends IService<PoemDictData> {
      * @return
      */
     List<PoemDictData> getI18nDict();
+
+    /**
+     * 获取指定标签列表
+     * @return
+     */
+    List<PoemDictData> getDict(String dictType);
 }

@@ -92,22 +92,20 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
     title: '操作',
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
-      <div class="tdesign-table-demo__table-operations">
-        <t-space>
-          {
-            useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              编辑
-            </t-link>)
-          }
-          {
-            useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
-              <t-link variant="text" hover="color" theme="danger">
-                删除
-              </t-link>
-            </t-popconfirm>)
-          }
-        </t-space>
-      </div>
+      <t-space>
+        {
+          useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            编辑
+          </t-link>)
+        }
+        {
+          useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              删除
+            </t-link>
+          </t-popconfirm>)
+        }
+      </t-space>
     ),
   },
 ];

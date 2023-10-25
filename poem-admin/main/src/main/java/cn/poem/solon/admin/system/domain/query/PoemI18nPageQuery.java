@@ -1,8 +1,6 @@
 package cn.poem.solon.admin.system.domain.query;
 
-import cn.poem.solon.admin.system.domain.dto.PoemI18nPageDTO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,7 +18,7 @@ public class PoemI18nPageQuery {
     /**
      * 前端分页视图参数
      */
-    private PoemI18nPageDTO poemI18nPageDTO;
+    private PoemI18nDTO poemI18nDTO;
 
     /**
      * i18n语言集合

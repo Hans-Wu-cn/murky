@@ -65,7 +65,7 @@
                     </t-form-item>
                 </t-form>
             </t-loading>
-            
+
         </t-card>
     </div>
 </template>
@@ -80,15 +80,16 @@ import IconSelect from '@/components/iconSelect/index.vue'
 const route = useRoute();
 const router = useRouter()
 const props = defineProps<{
-    poemId?:string,
-    parentMenuId?:string
+    poemId?: string,
+    parentMenuId?: string
 }>()
 const emit = defineEmits<{
-    (e:'submit'):void
+    (e: 'submit'): void
 }>()
-const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''})
+const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
-    name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
+    // name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
+    name: [{ required: true, message: '请输入菜单名' }],
     label: [{ required: true, message: '请输入菜单标题' }],
     type: [{ required: true, message: '请选择菜单类型' }],
     path: [{ required: true, message: '请输入路由地址' }],
@@ -99,8 +100,8 @@ const FORM_RULES = ref<FormRules>({
 const onReset = () => {
     if (poemId.value) {
         menuFormData.value = historyPoemMenu.value
-    }else{
-        menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0 ,icon:''}
+    } else {
+        menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' }
     }
     MessagePlugin.success('重置成功');
 };

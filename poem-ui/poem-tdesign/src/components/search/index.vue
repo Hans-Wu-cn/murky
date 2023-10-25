@@ -3,7 +3,7 @@
         <t-form colon reset-type="initial" :layout="'inline'" @reset="onReset" @submit="onSubmit">
             <t-form-item v-for="item in props.options" :label="item.label" :name="item.name">
                 <InputContent v-model:value="item.value" :type="item.type" :radio-options="item.radioOptions"
-                    :placeholder="item.placeholder">
+                    :placeholder="item.placeholder" :dictOptions="item.dictOptions">
                 </InputContent>
             </t-form-item>
             <t-button theme="primary" type="submit">查 询</t-button>
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
-import { ref } from 'vue';
+import { PoemDictData } from '@/api/dict/types';
 
 export interface SearchOption {
     name: string,
@@ -22,7 +22,8 @@ export interface SearchOption {
     value: string,
     type: string,// 输入框类型
     placeholder?: string,
-    radioOptions?: { [key: string]: string },// 单选项字典
+    radioOptions?: { [key: string]: string },// 单选项搜索
+    dictOptions?: Array<PoemDictData>,// 单选项字典
 }
 
 const props = withDefaults(defineProps<{

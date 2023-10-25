@@ -2,10 +2,11 @@ package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.system.domain.dto.PoemI18nFromDTO;
-import cn.poem.solon.admin.system.domain.dto.PoemI18nPageDTO;
+import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.domain.entity.PoemI18n;
 import cn.poem.solon.admin.system.domain.query.PoemI18nPageQuery;
+import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
 import cn.poem.solon.admin.system.mapper.PoemI18nMapper;
 import cn.poem.solon.admin.system.service.IPoemDictDataService;
 import cn.poem.solon.admin.system.service.IPoemI18nService;
@@ -33,14 +34,25 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
     /**
      * 根据字典和tag数据节后的动态分页
      *
-     * @param poemI18nPageDTO
+     * @param poemI18nDTO
      * @return 返回的是根据字典内容指定的Map
      */
     @Override
-    public Page<Map<String, String>> page(PoemI18nPageDTO poemI18nPageDTO) {
+    public Page<Map> page(PoemI18nDTO poemI18nDTO) {
         List<String> i18nDict = iPoemDictDataService.getI18nDict().stream().map(PoemDictData::getDictValue).toList();
-        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery().setPoemI18nPageDTO(poemI18nPageDTO).setI18nKeys(i18nDict);
+        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery().setPoemI18nDTO(poemI18nDTO).setI18nKeys(i18nDict);
         return mapper.page(poemI18nPageQuery);
+    }
+
+    /**
+     * 根据i18nKey查询某一个国际化编码的详情信息
+     * @return 返回的是根据字典内容指定的字段已经详细信息
+     */
+    @Override
+    public PoemI18nVo info(PoemI18nDTO poemI18nDTO) {
+        List<String> i18nDict = iPoemDictDataService.getI18nDict().stream().map(PoemDictData::getDictValue).toList();
+        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery().setPoemI18nDTO(poemI18nDTO).setI18nKeys(i18nDict);
+        return mapper.info(poemI18nPageQuery);
     }
 
     /**

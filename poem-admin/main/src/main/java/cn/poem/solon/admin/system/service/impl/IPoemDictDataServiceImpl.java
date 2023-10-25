@@ -101,4 +101,12 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
         return redisHash.getAndDeserialize(DictContant.I18N_DICT, (new ArrayList<PoemDictData>() {
         }).getClass());
     }
+
+    @Override
+    public List<PoemDictData> getDict(String dictType) {
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+
+        return redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>() {
+        }).getClass());
+    }
 }

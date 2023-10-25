@@ -1,7 +1,9 @@
 package cn.poem.solon.admin;
 
-import cn.poem.solon.admin.system.domain.dto.PoemI18nPageDTO;
+import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
+import cn.poem.solon.admin.system.domain.entity.PoemI18n;
 import cn.poem.solon.admin.system.domain.query.PoemI18nPageQuery;
+import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
 import cn.poem.solon.admin.system.mapper.PoemI18nMapper;
 import com.mybatisflex.core.paginate.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,26 @@ public class I18nTest {
 
     @Test
     public void i18nPage(){
-        PoemI18nPageDTO admin = new PoemI18nPageDTO().setI18nTag("admin");
+        PoemI18nDTO admin = new PoemI18nDTO().setI18nTag("admin");
 
         PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery()
-                .setI18nKeys(Arrays.asList("en","zh"))
-                .setPoemI18nPageDTO(admin);
-        Page<Map<String, String>> page = poemI18nMapper.page(poemI18nPageQuery);
+                .setI18nKeys(Arrays.asList("en","zh-CN"))
+                .setPoemI18nDTO(admin);
+        Page<Map> page = poemI18nMapper.page(poemI18nPageQuery);
         log.debug(String.valueOf(page));
+        assert page.getRecords().get(0).get("en")!=null&&
+        page.getRecords().get(0).get("zh-CN")!=null;
+    }
+
+    @Test
+    public void i18nInfo(){
+        PoemI18nDTO admin = new PoemI18nDTO().setI18nTag("admin").setI18nKey("1");
+
+        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery()
+                .setI18nKeys(Arrays.asList("en","zh-CN"))
+                .setPoemI18nDTO(admin);
+        PoemI18nVo info = poemI18nMapper.info(poemI18nPageQuery);
+        log.debug(String.valueOf(info));
+        assert info!=null;
     }
 }

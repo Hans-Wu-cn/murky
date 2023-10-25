@@ -15,10 +15,14 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
+
+import java.util.List;
 
 /**
  * 字典数据Controller
@@ -44,6 +48,16 @@ public class PoemDictDataController extends BaseController<IPoemDictDataService>
                         .orderBy(POEM_DATA_DATA.DICT_SORT.asc())
         );
         return ApiResult.ok(result);
+    }
+
+    @ApiOperation("获取指定字典数据")
+    @Get
+    @Mapping("dict/{dictType}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "dictType", value = "字典类型")
+    })
+    public ApiResult<List<PoemDictData>> list(String dictType) {
+        return ApiResult.ok(baseService.getDict(dictType));
     }
 
     @ApiOperation("字典数据详情信息")

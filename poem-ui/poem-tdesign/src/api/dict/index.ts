@@ -7,7 +7,20 @@ const Api = {
   dictData: '/poemDictData',
   dictTypePage: '/poemDictType/page',
   dictDataPage: '/poemDictData/page',
+  dict: '/poemDictData/dict',
 };
+
+
+/**
+ * 获取字典数据
+ * @param dictType 字典类型
+ * @returns Route
+ */
+export function dict(params: string) {
+  return request.get<Array<PoemDictData>>({
+    url: `${Api.dict}/${params}`,
+  });
+}
 
 /**
  * 获取字典类型分页列表

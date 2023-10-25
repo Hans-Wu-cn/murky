@@ -6,6 +6,7 @@ import cn.poem.solon.admin.system.domain.entity.PoemDictType;
 import cn.poem.solon.admin.system.mapper.PoemDictTypeMapper;
 import cn.poem.solon.admin.system.service.IPoemDictTypeService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
 import org.noear.solon.annotation.Component;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Author hans
  */
 @Component
+@Slf4j
 public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, PoemDictType> implements IPoemDictTypeService {
 
     @Inject
@@ -36,5 +38,6 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
         for (PoemDictBo poemDictBo : poemDictBos) {
             redisHash.putAndSerialize(poemDictBo.getDictType(),poemDictBo.getPoemDictDatas());
         }
+        log.info("初始化字典缓存");
     }
 }
