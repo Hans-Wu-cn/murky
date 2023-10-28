@@ -14,7 +14,7 @@ export interface I18nPageParams extends PageRequest {
  * @param i18nTag 国际化标签
  * @param i18nKey 国际化编码
  */
-export interface I18nParams {
+export interface I18nParam {
   i18nTag: string,
   i18nKey: string,
 }
@@ -24,8 +24,17 @@ export interface I18nParams {
  * @param i18nKey 国际化编码
  * @param i18nInputs 国际化值集合[{i18n:en,i18nValue:submit}]
  */
-export interface I18nResult {
+export interface I18nData {
   i18nTag: string,
   i18nKey: string,
-  i18nInputs: any,
+  i18nInputs: Array<I18nInputs>,
+}
+
+/**
+ * @param i18n 国际化对应语言
+ * @param i18nValue 国际化语言对应得值
+ */
+export interface I18nInputs {
+  i18n: string,
+  i18nValue: string,
 }

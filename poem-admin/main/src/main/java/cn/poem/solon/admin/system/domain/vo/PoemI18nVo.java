@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.domain.vo;
 
+import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.domain.entity.PoemI18n;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,6 +35,16 @@ public class PoemI18nVo implements Serializable {
             i18nInputs.add(new I18nInput().setI18n(poemI18n.getI18n())
                     .setI18nValue(poemI18n.getI18nValue()));
         }
+    }
+
+    public void pushI18nInputs(PoemDictData poemDictData){
+        if(i18nInputs==null){
+            i18nInputs=new ArrayList<>();
+        }
+        i18nInputs.add(new I18nInput()
+                .setI18n(poemDictData.getDictValue())
+                .setI18nValue(null)
+        );
     }
 
     @Data

@@ -9,7 +9,6 @@ import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.system.domain.dto.PoemI18nFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
-import cn.poem.solon.admin.system.domain.entity.PoemI18n;
 import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
 import cn.poem.solon.admin.system.service.IPoemI18nService;
 import com.mybatisflex.core.paginate.Page;

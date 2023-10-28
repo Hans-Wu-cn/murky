@@ -46,13 +46,28 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
 
     /**
      * 根据i18nKey查询某一个国际化编码的详情信息
+     *
      * @return 返回的是根据字典内容指定的字段已经详细信息
      */
     @Override
     public PoemI18nVo info(PoemI18nDTO poemI18nDTO) {
-        List<String> i18nDict = iPoemDictDataService.getI18nDict().stream().map(PoemDictData::getDictValue).toList();
-        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery().setPoemI18nDTO(poemI18nDTO).setI18nKeys(i18nDict);
-        return mapper.info(poemI18nPageQuery);
+        List<PoemDictData> i18nDict = iPoemDictDataService.getI18nDict();
+        List<String> i18nDictStrList = i18nDict.stream().map(PoemDictData::getDictValue).toList();
+        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery().setPoemI18nDTO(poemI18nDTO).setI18nKeys(i18nDictStrList);
+        PoemI18nVo info = mapper.info(poemI18nPageQuery);
+        for (PoemDictData poemDictData : i18nDict) {
+            boolean have = false;
+            for (PoemI18nVo.I18nInput i18nInput : info.getI18nInputs()) {
+                if (i18nInput.getI18n().equals(poemDictData.getDictValue())) {
+                    have = true;
+                    break;
+                }
+            }
+            if (!have) {
+                info.pushI18nInputs(poemDictData);
+            }
+        }
+        return info;
     }
 
     /**
@@ -108,6 +123,7 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
 
     /**
      * 重写删除方法
+     *
      * @return 保存状态
      */
     @Override

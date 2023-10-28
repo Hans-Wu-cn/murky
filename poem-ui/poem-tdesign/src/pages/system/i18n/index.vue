@@ -10,7 +10,7 @@
     </t-card>
     <t-dialog v-model:visible="i18nFromVisible" :footer="false" width="500px" top="20px">
       <template #header>{{ i18nFromTitle }}</template>
-      <dictTypeFrom ref="i18nFromRef" @submit-hook="onSubmitHook"></dictTypeFrom>
+      <i18nFrom ref="i18nFromRef" @submit-hook="onSubmitHook"></i18nFrom>
     </t-dialog>
   </div>
 </template>
@@ -20,7 +20,7 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { PoemDictTypeRemove, dict } from '@/api/dict';
 import { i18nPage } from '@/api/i18n';
 import { PoemDictType, PoemDictData } from '@/api/dict/types';
-import { I18nPageParams } from '@/api/i18n/types';
+import { I18nData, I18nPageParams } from '@/api/i18n/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
@@ -28,7 +28,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18nFrom from './components/i18nFrom.vue'
-import { i18nTag, i18n } from './constants';
+import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 
 const PagePoemDictTypeParams = ref<I18nPageParams>({
   i18nTag: '',
@@ -40,7 +40,7 @@ const pagination: PaginationProps = reactive({
   total: 0
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemDictType>> = reactive([
+const columns: Array<PrimaryTableCol<any>> = reactive([
   {
     colKey: 'serial-number',
     title: '序号',
@@ -72,9 +72,10 @@ const onAddHander = () => {
  * 修改字典数据表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemDictType) => {
+const onEditHander = (row: any) => {
+  console.log(row['i18nKey']);
   i18nFromTitle.value = '编辑数据'
-  i18nFromRef.value.initFromData(row.dictTypeId)
+  i18nFromRef.value.initFromData(row['i18nKey'], row['i18nTag'])
   i18nFromVisible.value = true
 }
 
@@ -134,17 +135,17 @@ const showBreadcrumbHeight = computed(() => {
 const searchOptions = ref<SearchOption[]>()
 
 const getI18ndict = async () => {
-  const { code, result, message } = await dict(i18n);
-  if (ResultEnum.SUCCESS === code) {
-    i18nDict.value = result
-    loadColumns();
+  const i18ns = await i18nDictHook();
+  if (i18ns) {
+    i18nDict.value = i18ns
+    loadColumns(i18ns);
   }
 }
 
 const getI18nTagdict = async () => {
-  const { code, result, message } = await dict(i18nTag);
-  if (ResultEnum.SUCCESS === code) {
-    i18nTagDict.value = result
+  const i18nTags = await i18nTagDictHook();
+  if (i18nTags) {
+    i18nTagDict.value = i18nTags
     searchOptions.value = [
       {
         name: 'i18nKey',
@@ -155,11 +156,11 @@ const getI18nTagdict = async () => {
       },
       {
         name: 'i18nTag',
-        value: result[0].dictValue,
+        value: i18nTags[0].dictValue,
         label: 'i18n标签',
         type: 'dict',
         placeholder: '请选择i18n标签',
-        dictOptions: result
+        dictOptions: i18nTags
       },
     ];
   }
@@ -167,9 +168,8 @@ const getI18nTagdict = async () => {
 }
 
 // 加载动态字段
-const loadColumns = () => {
-  const i18nTag = i18nDict.value
-  i18nTag.forEach(item => {
+const loadColumns = (i18ns: PoemDictData[]) => {
+  i18ns.forEach(item => {
     const column = {
       colKey: item.dictValue,
       title: item.dictValue,

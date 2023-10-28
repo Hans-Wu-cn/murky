@@ -1,6 +1,6 @@
 import { request } from '@/utils/request';
 import { PageResponse } from '../types';
-import { I18nPageParams, I18nParams, I18nResult } from './types';
+import { I18nPageParams, I18nParam, I18nData } from './types';
 
 const Api = {
   i18n: '/poemI18n',
@@ -24,9 +24,9 @@ export function i18nPage(params: I18nPageParams) {
  * i18n详情
  * @returns Route
  */
-export function i18nInfo(params: I18nParams) {
-  return request.get<I18nResult>({
-    url: `i18nInfo`,
+export function i18nInfo(params: I18nParam) {
+  return request.get<I18nData>({
+    url: Api.i18nInfo,
     params
   });
 }
