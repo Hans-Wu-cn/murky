@@ -20,6 +20,9 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel("i18n vo")
 public class PoemI18nVo implements Serializable {
+    @ApiModelProperty("id")
+    private Long id;
+
     @ApiModelProperty("i18n_key编码")
     private String i18nKey;
 
@@ -32,7 +35,9 @@ public class PoemI18nVo implements Serializable {
     public void setI18nInputs(List<PoemI18n> poemI18nList){
         i18nInputs=new ArrayList<>();
         for (PoemI18n poemI18n : poemI18nList) {
-            i18nInputs.add(new I18nInput().setI18n(poemI18n.getI18n())
+            i18nInputs.add(new I18nInput()
+                            .setId(poemI18n.getId())
+                    .setI18n(poemI18n.getI18n())
                     .setI18nValue(poemI18n.getI18nValue()));
         }
     }
@@ -51,6 +56,9 @@ public class PoemI18nVo implements Serializable {
     @Accessors(chain = true)
     @ApiModel("i18n参数实体")
     public class I18nInput{
+        @ApiModelProperty("i18n字典")
+        private Long id;
+
         @ApiModelProperty("i18n字典")
         private String i18n;
 

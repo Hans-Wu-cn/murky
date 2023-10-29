@@ -1,5 +1,5 @@
 <template>
-  <search v-model:options="searchOptions" @submit="searchSubmit" @reset="getI18nTagdict"></search>
+  <search v-model:options="searchOptions" @submit="searchSubmit" @reset="getI18ndict"></search>
   <div class="i18nManage">
     <t-card :bordered="false">
       <div>
@@ -17,10 +17,9 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { PoemDictTypeRemove, dict } from '@/api/dict';
-import { i18nPage } from '@/api/i18n';
-import { PoemDictType, PoemDictData } from '@/api/dict/types';
-import { I18nData, I18nPageParams } from '@/api/i18n/types';
+import { i18nPage, removeI18n } from '@/api/i18n';
+import { PoemDictData } from '@/api/dict/types';
+import { I18nPageParams } from '@/api/i18n/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
@@ -40,11 +39,16 @@ const pagination: PaginationProps = reactive({
   total: 0
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<any>> = reactive([
+const columns = ref<Array<PrimaryTableCol<any>>>([
   {
     colKey: 'serial-number',
     title: '序号',
     minWidth: 50,
+  },
+  {
+    colKey: 'i18nKey',
+    title: '编码',
+    minWidth: 100,
   },
 ]);
 
@@ -55,10 +59,10 @@ const i18nFromTitle = ref('');
 const i18nFromRef = ref();
 //控制字典数据表单dialog是否显示
 const i18nFromVisible = ref(false)
-const i18nDict = ref<PoemDictData[]>();
+// const i18nDict = ref<PoemDictData[]>();
 const i18nTagDict = ref<PoemDictData[]>();
 const settingStore = useSettingStore();
-
+const searchi18nTag = ref('')
 /**
  * 添加字典数据表单适配器
  */
@@ -83,11 +87,11 @@ const onEditHander = (row: any) => {
  * 删除字典数据
  * @param row 
  */
-const onDelHander = async (row: PoemDictType) => {
-  const { code } = await PoemDictTypeRemove(row.dictTypeId)
+const onDelHander = async (row: any) => {
+  const { code } = await removeI18n(row['i18nKey'])
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success('删除成功');
-    loadData();
+    loadData({ i18nTag: searchi18nTag.value });
   }
 }
 
@@ -101,7 +105,8 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 const onPageChange = async (pageInfo: PaginationProps) => {
   PagePoemDictTypeParams.value.pageNumber = pageInfo.current;
   PagePoemDictTypeParams.value.pageSize = pageInfo.pageSize;
-  loadData()
+  loadData({ i18nTag: searchi18nTag.value });
+
 };
 
 /**
@@ -124,7 +129,7 @@ const loadData = async (params?: {}) => {
  */
 const onSubmitHook = () => {
   i18nFromVisible.value = false
-  loadData();
+  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
 }
 
 const showBreadcrumbHeight = computed(() => {
@@ -137,7 +142,8 @@ const searchOptions = ref<SearchOption[]>()
 const getI18ndict = async () => {
   const i18ns = await i18nDictHook();
   if (i18ns) {
-    i18nDict.value = i18ns
+    // i18nDict.value = i18ns
+    searchOptions.value[1].value = i18nTagDict.value[0].dictValue
     loadColumns(i18ns);
   }
 }
@@ -146,6 +152,7 @@ const getI18nTagdict = async () => {
   const i18nTags = await i18nTagDictHook();
   if (i18nTags) {
     i18nTagDict.value = i18nTags
+    searchi18nTag.value = i18nTags[0].dictValue
     searchOptions.value = [
       {
         name: 'i18nKey',
@@ -164,20 +171,35 @@ const getI18nTagdict = async () => {
       },
     ];
   }
-
+  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
 }
 
 // 加载动态字段
 const loadColumns = (i18ns: PoemDictData[]) => {
+  const columnList: Array<PrimaryTableCol<any>> = [
+    {
+      colKey: 'serial-number',
+      title: '序号',
+      minWidth: 50,
+    },
+    {
+      colKey: 'i18nKey',
+      title: '编码',
+      minWidth: 100,
+    },
+  ]
   i18ns.forEach(item => {
-    const column = {
+    columnList.push({
       colKey: item.dictValue,
       title: item.dictValue,
       minWidth: 100,
-    }
-    columns.push(column)
+      ellipsis: {
+        theme: 'light',
+        placement: 'bottom',
+      },
+    })
   });
-  columns.push({
+  columnList.push({
     colKey: 'operate',
     minWidth: 340,
     title: '操作',
@@ -199,6 +221,7 @@ const loadColumns = (i18ns: PoemDictData[]) => {
       </t-space>
     ),
   })
+  columns.value = columnList
 }
 
 onMounted(async () => {
@@ -207,11 +230,12 @@ onMounted(async () => {
   // 加载	i18n地区编码
   await getI18ndict();
   //加载数据
+  searchi18nTag.value = i18nTagDict.value[0].dictValue
   loadData({ i18nTag: i18nTagDict.value[0].dictValue });
 });
 
 const searchSubmit = (params: any) => {
-  console.log(params)
+  searchi18nTag.value = params.dictValue
   loadData(params)
 }
 </script>

@@ -35,8 +35,6 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @Get
     @Mapping("list")
     public ApiResult<List<PoemMenuTreeVO>> list(){
-
-
         List<PoemMenuTreeVO> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
         return ApiResult.ok(result);
     }

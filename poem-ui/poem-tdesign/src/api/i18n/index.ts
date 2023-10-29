@@ -35,19 +35,30 @@ export function i18nInfo(params: I18nParam) {
  * 新增国际化数据
  * @returns Route
  */
-export function addI18n() {
-  return request.put({
-    url: Api.i18nPage,
+export function saveI18n(data: I18nData) {
+  return request.post({
+    url: Api.i18n,
+    data
   });
 }
 
-
 /**
- * 编辑国际化数据
+ * 修改国际化数据
  * @returns Route
  */
-export function editI18n() {
-  return request.post({
-    url: Api.i18nPage,
+export function updateI18n(data: I18nData) {
+  return request.put({
+    url: Api.i18n,
+    data
+  });
+}
+
+/**
+ * 删除国际化数据
+ * @returns Route
+ */
+export function removeI18n(i18nKey: string) {
+  return request.delete({
+    url: `${Api.i18n}/${i18nKey}`,
   });
 }

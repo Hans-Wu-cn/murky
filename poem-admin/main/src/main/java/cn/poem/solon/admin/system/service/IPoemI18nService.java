@@ -30,7 +30,7 @@ public interface IPoemI18nService extends IService<PoemI18n> {
     PoemI18nVo info(PoemI18nDTO poemI18nDTO);
 
     /**
-     * 重写新增方法
+     * 重载新增方法
      * @return 保存状态
      */
     boolean save(PoemI18nFromDTO poemI18nFromDTO);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-form ref="form" colon reset-type="initial" :rules="FORM_I18N" :data="formData" @reset="onReset">
+    <t-form ref="form" colon reset-type="initial" :rules="FORM_I18N" :data="formData" @reset="onReset" @submit="onSubmit">
       <t-form-item label="i18n编码" name="i18nKey">
         <t-input v-model="formData.i18nKey" placeholder="请输入i18n编码"></t-input>
       </t-form-item>
@@ -27,9 +27,8 @@
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { fromPairs } from 'lodash';
 import { I18nData, I18nInputs } from '@/api/i18n/types';
-import { i18nInfo } from '@/api/i18n';
+import { saveI18n, i18nInfo, updateI18n } from '@/api/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
 import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import { PoemDictData } from '@/api/dict/types';
@@ -48,7 +47,7 @@ const resetValue = ref({})
 const i18nFromKey = ref('');
 const i18nFromTag = ref('');
 const loading = ref(false);
-
+let api = saveI18n
 const i18nTagSelectOption = ref<PoemDictData[]>()
 
 // 表单对象
@@ -74,6 +73,7 @@ const initFromData = async (i18nKey: string, i18nTag: string) => {
     i18nFromKey.value = i18nKey
     i18nFromTag.value = i18nTag
     await loadI18n()
+    api = saveI18n;
     return
   }
   i18nFromKey.value = i18nKey
@@ -84,6 +84,7 @@ const initFromData = async (i18nKey: string, i18nTag: string) => {
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
     resetValue.value = result
+    api = updateI18n;
   }
 }
 
@@ -98,7 +99,24 @@ const onReset = async () => {
     await loadI18n()
   }
   loading.value = false
+};
 
+/**
+ * 表单提交事件
+ * @param param0 表单验证
+ */
+const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
+  if (validateResult === true) {
+    loading.value = true
+    const res = await api(formData.value);
+    if (res.code === ResultEnum.SUCCESS) {
+      MessagePlugin.success('提交成功');
+      emit('submit-hook');
+    } else {
+      MessagePlugin.error(res.message);
+    }
+    loading.value = false
+  }
 };
 
 const loadI18n = async () => {
@@ -122,6 +140,7 @@ const loadI18nTag = async () => {
 onMounted(async () => {
   await loadI18nTag()
 });
+
 
 defineExpose({
   initFromData

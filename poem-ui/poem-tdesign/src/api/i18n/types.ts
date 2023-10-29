@@ -25,6 +25,7 @@ export interface I18nParam {
  * @param i18nInputs 国际化值集合[{i18n:en,i18nValue:submit}]
  */
 export interface I18nData {
+  id?: string
   i18nTag: string,
   i18nKey: string,
   i18nInputs: Array<I18nInputs>,

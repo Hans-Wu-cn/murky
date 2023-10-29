@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * i18n Service
@@ -30,6 +31,8 @@ import java.util.Optional;
 public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> implements IPoemI18nService {
     @Inject
     private IPoemDictDataService iPoemDictDataService;
+    @Inject
+    private IPoemI18nService iPoemI18nService;
 
     /**
      * 根据字典和tag数据节后的动态分页
@@ -71,19 +74,25 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
     }
 
     /**
-     * 重写新增方法
+     * 重载保存方法
      *
      * @return 保存状态
      */
     @Tran
     @Override
     public boolean save(PoemI18nFromDTO poemI18nFromDTO) {
+        long l = mapper.selectByKeyAndTag(poemI18nFromDTO.getI18nKey(), poemI18nFromDTO.getI18nTag());
+        if (l > 0) {
+            throw new ServiceException("当前i18nKey已存在");
+        }
         List<PoemDictData> i18nDict = iPoemDictDataService.getI18nDict();
+        Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(PoemDictData::getDictValue, PoemDictData::getDictValue));
         PoemDictData defaultI18n = i18nDict.get(0);
         List<PoemI18n> poemI18nList = new ArrayList<>();
         for (PoemI18nFromDTO.I18nInput i18nInput : poemI18nFromDTO.getI18nInputs()) {
+            Optional.ofNullable(i18nMap.get(i18nInput.getI18n())).orElseThrow(() -> new ServiceException("非法的i18n"));
             if (i18nInput.getI18n().equals(defaultI18n.getDictValue())) {
-                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("1"));
+                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
             }
             PoemI18n poemI18n = new PoemI18n()
                     .setI18nTag(poemI18nFromDTO.getI18nTag())
@@ -92,8 +101,7 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
                     .setI18n(i18nInput.getI18n());
             poemI18nList.add(poemI18n);
         }
-        int i = mapper.insertBatch(poemI18nList);
-        return i > 0;
+        return iPoemI18nService.saveBatch(poemI18nList);
     }
 
     /**
@@ -105,20 +113,27 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
     @Override
     public boolean edit(PoemI18nFromDTO poemI18nFromDTO) {
         List<PoemDictData> i18nDict = iPoemDictDataService.getI18nDict();
+        Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(PoemDictData::getDictValue, PoemDictData::getDictValue));
         PoemDictData defaultI18n = i18nDict.get(0);
+        List<PoemI18n> list = new ArrayList<>();
         int count = 0;
         for (PoemI18nFromDTO.I18nInput i18nInput : poemI18nFromDTO.getI18nInputs()) {
+            Optional.ofNullable(i18nMap.get(i18nInput.getI18n())).orElseThrow(() -> new ServiceException("非法的i18n"));
             if (i18nInput.getI18n().equals(defaultI18n.getDictValue())) {
-                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("1"));
+                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
             }
+//            PoemI18n poemI18nData = mapper.selectByKeyAndTagAndi18n(poemI18nFromDTO.getI18nKey(), poemI18nFromDTO.getI18nTag(), i18nInput.getI18n());
             PoemI18n poemI18n = new PoemI18n()
+                    .setId(i18nInput.getId())
                     .setI18nTag(poemI18nFromDTO.getI18nTag())
                     .setI18nKey(poemI18nFromDTO.getI18nKey())
                     .setI18nValue(i18nInput.getI18nValue())
                     .setI18n(i18nInput.getI18n());
-            count += mapper.updateI18nValue(poemI18n);
+            list.add(poemI18n);
+//            iPoemI18nService.saveOrUpdateBatch()
+//            count+=mapper.updateI18nValue(poemI18nOne.getI18nKey(),poemI18n);
         }
-        return count > 0;
+        return iPoemI18nService.saveOrUpdateBatch(list);
     }
 
     /**

@@ -1,10 +1,12 @@
 package cn.poem.solon.admin.system.domain.dto;
 
+import cn.poem.solon.admin.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotBlank;
+import org.noear.solon.validation.annotation.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel("i18n表单DTO实体")
 public class PoemI18nFromDTO {
+
     @ApiModelProperty("i18n_key编码")
     @NotBlank
     private String i18nKey;
@@ -27,12 +30,16 @@ public class PoemI18nFromDTO {
     private String i18nTag;
 
     @ApiModelProperty("i18n参数")
+    @NotNull
     private List<I18nInput> i18nInputs;
 
     @Data
     @Accessors(chain = true)
     @ApiModel("i18n参数实体")
     public class I18nInput{
+        @ApiModelProperty("id")
+        private Long id;
+
         @ApiModelProperty("i18n字典")
         private String i18n;
 

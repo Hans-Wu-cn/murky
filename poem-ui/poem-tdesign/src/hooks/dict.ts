@@ -39,12 +39,12 @@ export const i18nTagDictHook = async (): Promise<PoemDictData[]> => {
 const dictFunction = async (key: string): Promise<PoemDictData[]> => {
   const cache = dictCache.get(key);
   if (cache) {
-    console.log("cache")
+    console.debug("cache")
     return cache
   }
   const { code, result, message } = await dict(key);
   if (ResultEnum.SUCCESS === code) {
-    dictCache.set(dictKey.i18nTag, result)
+    dictCache.set(key, result)
     return result
   }
   return []
