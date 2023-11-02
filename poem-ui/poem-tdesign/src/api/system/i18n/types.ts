@@ -1,4 +1,4 @@
-import { BaseApiType, PageRequest } from '../types';
+import { BaseApiType, PageRequest } from '@/api/types';
 
 /**
  * @param i18nTag 国际化标签
@@ -36,6 +36,6 @@ export interface I18nData {
  * @param i18nValue 国际化语言对应得值
  */
 export interface I18nInputs {
-  i18n: string,
+  language: string,
   i18nValue: string,
 }

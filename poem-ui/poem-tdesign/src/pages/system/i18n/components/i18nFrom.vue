@@ -27,11 +27,11 @@
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { I18nData, I18nInputs } from '@/api/i18n/types';
-import { saveI18n, i18nInfo, updateI18n } from '@/api/i18n';
+import { I18nData, I18nInputs } from '@/api/system/i18n/types';
+import { saveI18n, i18nInfo, updateI18n } from '@/api/system/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
 import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
-import { PoemDictData } from '@/api/dict/types';
+import { PoemDictData } from '@/api/system/dict/types';
 
 const emit = defineEmits(['submit-hook'])
 

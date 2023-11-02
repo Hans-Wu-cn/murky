@@ -1,5 +1,5 @@
 import { request } from '@/utils/request';
-import { PageResponse } from '../types';
+import { PageResponse } from '@/api/types';
 import { I18nPageParams, I18nParam, I18nData } from './types';
 
 const Api = {

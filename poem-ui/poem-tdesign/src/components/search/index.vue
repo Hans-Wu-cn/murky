@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
-import { PoemDictData } from '@/api/dict/types';
+import { PoemDictData } from '@/api/system/dict/types';
 
 export interface SearchOption {
     name: string,

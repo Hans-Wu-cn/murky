@@ -3,7 +3,6 @@ package cn.poem.solon.admin.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
-
 import cn.poem.solon.admin.core.validat.Info;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
@@ -45,6 +44,13 @@ public class PoemI18nController extends BaseController<IPoemI18nService> {
     @SaCheckPermission("i18n")
     public ApiResult<PoemI18nVo> info(@Validated(Info.class) PoemI18nDTO poemI18nDTO) {
         return ApiResult.ok(baseService.info(poemI18nDTO));
+    }
+
+    @ApiOperation("i18n语言包")
+    @Get
+    @Mapping()
+    public ApiResult<PoemI18nVo> language(String i18nTag,String laguage) {
+        return ApiResult.ok();
     }
 
     @ApiOperation("新增i18n")

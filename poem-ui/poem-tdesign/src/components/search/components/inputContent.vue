@@ -16,7 +16,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { PoemDictData } from '@/api/dict/types';
+import { PoemDictData } from '@/api/system/dict/types';
 import { useVModels } from '@vueuse/core';
 
 const props = defineProps<{

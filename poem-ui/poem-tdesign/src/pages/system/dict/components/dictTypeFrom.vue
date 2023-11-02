@@ -28,9 +28,9 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemDictType } from '@/api/dict/types'
+import { PoemDictType } from '@/api/system/dict/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { addPoemDictType, editPoemDictType, PoemDictTypeInfo } from '@/api/dict';
+import { addPoemDictType, editPoemDictType, PoemDictTypeInfo } from '@/api/system/dict';
 import { ResultEnum } from '@/enums/httpEnum';
 
 const emit = defineEmits(['submit-hook'])

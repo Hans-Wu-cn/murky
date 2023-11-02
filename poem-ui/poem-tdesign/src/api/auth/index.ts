@@ -1,6 +1,6 @@
-import type { Route } from '@/api/auth/types';
 import type { UserInfo } from '@/types/interface';
 import { request } from '@/utils/request';
+import { Route } from './types';
 
 const Api = {
   menuList: '/auth/menu',

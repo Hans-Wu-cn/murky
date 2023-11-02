@@ -17,8 +17,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictDataPage, PoemDictDataRemove } from '@/api/dict';
-import { PagePoemDictData, PoemDictData } from '@/api/dict/types';
+import { dictDataPage, PoemDictDataRemove } from '@/api/system/dict';
+import { PagePoemDictData, PoemDictData } from '@/api/system/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';

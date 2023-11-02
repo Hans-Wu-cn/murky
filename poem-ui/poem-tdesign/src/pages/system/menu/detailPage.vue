@@ -8,7 +8,7 @@
     </div>
 </template>
 <script setup lang="tsx">
-import { getMenu } from '@/api/menu';
+import { getMenu } from '@/api/system/menu';
 import descriptions from '@/components/descriptions/index.vue'
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -98,31 +98,33 @@ const desc = ref([
  * 
  */
 const loading = ref(true)
- const queryMenuDetail = async()=>{
+const queryMenuDetail = async () => {
     const poemId = route.query.poemId as string
-    if(!poemId)return
+    if (!poemId) return
     loading.value = true
-    const {code, result} = await getMenu(poemId);
+    const { code, result } = await getMenu(poemId);
     loading.value = false
-    code===200?desc.value.forEach(val=>{
+    code === 200 ? desc.value.forEach(val => {
         val.value = result[val.code]
-    }):''
+    }) : ''
 }
 queryMenuDetail()
 </script>
 <style scoped lang="less">
-.detailPage{
-    .t-card{
+.detailPage {
+    .t-card {
         padding: var(--td-comp-paddingTB-xxl) var(--td-comp-paddingLR-xxl);
-        :deep(.t-card__header){
+
+        :deep(.t-card__header) {
             padding: 0;
         }
+
         :deep(.t-card__body) {
             padding: 0;
         }
-        :deep(.t-skeleton){
+
+        :deep(.t-skeleton) {
             margin-top: 20px;
         }
     }
-}
-</style>
+}</style>

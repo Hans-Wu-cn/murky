@@ -64,17 +64,19 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
     @Tran
     @Override
     public boolean updateById(PoemDictData poemDictData) {
+        String dictType = poemDictData.getDictType();
+        poemDictData.setDictType(null);
         boolean bool = this.updateById(poemDictData, true);
         if (bool) {
             RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
-            List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(), (new ArrayList<PoemDictData>(){}).getClass());
+            List<PoemDictData> dictList = redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>(){}).getClass());
             dictList.forEach(item->{
                 if (item.getDictCode().equals(poemDictData.getDictCode())){
                     item=poemDictData;
                 }
             });
             dictList.sort(Comparator.comparing(PoemDictData::getDictSort));
-            redisHash.putAndSerialize(poemDictData.getDictType(),dictList);
+            redisHash.putAndSerialize(dictType,dictList);
         }
         return bool;
     }
@@ -98,7 +100,7 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
     @Override
     public List<PoemDictData> getI18nDict() {
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
-        return redisHash.getAndDeserialize(DictContant.I18N_DICT, (new ArrayList<PoemDictData>() {
+        return redisHash.getAndDeserialize(DictContant.I18N_LANGUAGE_DICT, (new ArrayList<PoemDictData>() {
         }).getClass());
     }
 

@@ -22,8 +22,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { delPoemRole, rolePage } from '@/api/role';
-import { PageRole, PoemRole } from '@/api/role/types';
+import { delPoemRole, rolePage } from '@/api/system/role';
+import { PageRole, PoemRole } from '@/api/system/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import roleFrom from './components/roleFrom.vue'

@@ -37,7 +37,7 @@ public interface PoemI18nMapper extends BaseMapper<PoemI18n> {
                 .select(POEM_I18N.I18N_KEY, POEM_I18N.I18N_TAG);
         for (String i18nKey : poemI18nPageQuery.getI18nKeys()) {
             String sql = MessageFormat.format("STRING_AGG(case " +
-                    " when i18n = ''{0}'' then i18n_value " +
+                    " when language = ''{0}'' then i18n_value " +
                     " else null " +
                     " end, " +
                     " '','' ) as \"{0}\"", i18nKey);
@@ -84,7 +84,7 @@ public interface PoemI18nMapper extends BaseMapper<PoemI18n> {
     default PoemI18n selectByKeyAndTagAndi18n(String i18nKey, String i18nTag, String i18n) {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .where(POEM_I18N.I18N_KEY.eq(i18nKey))
-                .and(POEM_I18N.I18N_TAG.eq(i18nTag).and(POEM_I18N.I18N.eq(i18n))
+                .and(POEM_I18N.I18N_TAG.eq(i18nTag).and(POEM_I18N.LANGUAGE.eq(i18n))
                 );
         return selectOneByQuery(queryWrapper);
     }
@@ -96,7 +96,7 @@ public interface PoemI18nMapper extends BaseMapper<PoemI18n> {
      */
     default int updateI18nValue(String key, PoemI18n poemI18n) {
         return updateByQuery(poemI18n, QueryWrapper.create()
-                .where(POEM_I18N.I18N_KEY.eq(key)).and(POEM_I18N.I18N.eq(poemI18n.getI18n())))
+                .where(POEM_I18N.I18N_KEY.eq(key)).and(POEM_I18N.LANGUAGE.eq(poemI18n.getLanguage())))
                 ;
 //        QueryCondition condition = QueryCondition.create(POEM_I18N.I18N_KEY, key)
 //                .and(QueryCondition.create(POEM_I18N.I18N_TAG, poemI18n.getI18nTag()))

@@ -14,7 +14,7 @@
       <t-form-item label="菜单权限" name="menuIds">
         <div class="treeBox">
           <t-tree ref="deptTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys"
-            checkable value-mode="all" @change="treeOnChange" checkStrictly/>
+            checkable value-mode="all" @change="treeOnChange" checkStrictly />
         </div>
       </t-form-item>
       <t-form-item>
@@ -28,12 +28,12 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemRole } from '@/api/role/types'
+import { PoemRole } from '@/api/system/role/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addPoemRole, updatePoemRole, roleInfo } from '@/api/role';
+import { addPoemRole, updatePoemRole, roleInfo } from '@/api/system/role';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/menu/types';
-import { getMenuList } from '@/api/menu';
+import { PoemMenu } from '@/api/system/menu/types';
+import { getMenuList } from '@/api/system/menu';
 
 const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemMenu>>();

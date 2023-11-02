@@ -10,5 +10,5 @@ public class DictContant {
     /**
      * i18n字典缓存key
      */
-    public static final String I18N_DICT="i18n";
+    public static final String I18N_LANGUAGE_DICT="i18n:language";
 }

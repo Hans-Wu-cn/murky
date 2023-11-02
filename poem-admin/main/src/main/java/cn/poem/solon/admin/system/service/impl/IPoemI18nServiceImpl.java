@@ -61,7 +61,7 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
         for (PoemDictData poemDictData : i18nDict) {
             boolean have = false;
             for (PoemI18nVo.I18nInput i18nInput : info.getI18nInputs()) {
-                if (i18nInput.getI18n().equals(poemDictData.getDictValue())) {
+                if (i18nInput.getLanguage().equals(poemDictData.getDictValue())) {
                     have = true;
                     break;
                 }
@@ -90,15 +90,15 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
         PoemDictData defaultI18n = i18nDict.get(0);
         List<PoemI18n> poemI18nList = new ArrayList<>();
         for (PoemI18nFromDTO.I18nInput i18nInput : poemI18nFromDTO.getI18nInputs()) {
-            Optional.ofNullable(i18nMap.get(i18nInput.getI18n())).orElseThrow(() -> new ServiceException("非法的i18n"));
-            if (i18nInput.getI18n().equals(defaultI18n.getDictValue())) {
+            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException("非法的i18n语言"));
+            if (i18nInput.getI18nValue().equals(defaultI18n.getDictValue())) {
                 Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
             }
             PoemI18n poemI18n = new PoemI18n()
                     .setI18nTag(poemI18nFromDTO.getI18nTag())
                     .setI18nKey(poemI18nFromDTO.getI18nKey())
                     .setI18nValue(i18nInput.getI18nValue())
-                    .setI18n(i18nInput.getI18n());
+                    .setLanguage(i18nInput.getLanguage());
             poemI18nList.add(poemI18n);
         }
         return iPoemI18nService.saveBatch(poemI18nList);
@@ -118,8 +118,8 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
         List<PoemI18n> list = new ArrayList<>();
         int count = 0;
         for (PoemI18nFromDTO.I18nInput i18nInput : poemI18nFromDTO.getI18nInputs()) {
-            Optional.ofNullable(i18nMap.get(i18nInput.getI18n())).orElseThrow(() -> new ServiceException("非法的i18n"));
-            if (i18nInput.getI18n().equals(defaultI18n.getDictValue())) {
+            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException("非法的i18n语言"));
+            if (i18nInput.getLanguage().equals(defaultI18n.getDictValue())) {
                 Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
             }
 //            PoemI18n poemI18nData = mapper.selectByKeyAndTagAndi18n(poemI18nFromDTO.getI18nKey(), poemI18nFromDTO.getI18nTag(), i18nInput.getI18n());
@@ -128,7 +128,7 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
                     .setI18nTag(poemI18nFromDTO.getI18nTag())
                     .setI18nKey(poemI18nFromDTO.getI18nKey())
                     .setI18nValue(i18nInput.getI18nValue())
-                    .setI18n(i18nInput.getI18n());
+                    .setLanguage(i18nInput.getLanguage());
             list.add(poemI18n);
 //            iPoemI18nService.saveOrUpdateBatch()
 //            count+=mapper.updateI18nValue(poemI18nOne.getI18nKey(),poemI18n);

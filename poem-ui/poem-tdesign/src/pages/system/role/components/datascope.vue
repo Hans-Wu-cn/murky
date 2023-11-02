@@ -30,12 +30,12 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemRole } from '@/api/role/types'
+import { PoemRole } from '@/api/system/role/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addPoemRole, updatePoemRole, roleInfo } from '@/api/role';
+import { addPoemRole, updatePoemRole, roleInfo } from '@/api/system/role';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemDeptTree } from '@/api/dept/types';
-import { getDeptList } from '@/api/dept';
+import { PoemDeptTree } from '@/api/system/dept/types';
+import { getDeptList } from '@/api/system/dept';
 import { dataScopeDict } from '../constants'
 
 const emit = defineEmits(['submit-hook'])

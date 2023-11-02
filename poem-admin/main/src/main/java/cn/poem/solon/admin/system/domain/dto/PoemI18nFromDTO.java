@@ -41,7 +41,7 @@ public class PoemI18nFromDTO {
         private Long id;
 
         @ApiModelProperty("i18n字典")
-        private String i18n;
+        private String language;
 
         @ApiModelProperty("i18n值")
         private String i18nValue;

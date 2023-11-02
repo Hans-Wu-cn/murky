@@ -1,4 +1,4 @@
-import { BaseApiType, PageRequest } from "../types";
+import { BaseApiType, PageRequest } from '@/api/types';
 
 
 export interface PageRole extends PageRequest {

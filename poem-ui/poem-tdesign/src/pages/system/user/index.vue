@@ -22,11 +22,11 @@
 import { useSettingStore } from '@/store';
 import { MessagePlugin, PaginationProps, PrimaryTableCol, TreeNodeModel } from 'tdesign-vue-next';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
-import { getDeptList } from '@/api/dept';
-import { PoemDeptTree } from '@/api/dept/types';
+import { getDeptList } from '@/api/system/dept';
+import { PoemDeptTree } from '@/api/system/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
-import { userPage, delUserInfo } from '@/api/user'
-import { PageUser } from '@/api/user/types'
+import { userPage, delUserInfo } from '@/api/system/user'
+import { PageUser } from '@/api/system/user/types'
 import userFrom from './components/userFrom.vue'
 import { useAuth } from '@/hooks/auth';
 import { gender } from './constants';

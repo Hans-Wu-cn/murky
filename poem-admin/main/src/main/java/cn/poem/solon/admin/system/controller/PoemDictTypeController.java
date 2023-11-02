@@ -69,7 +69,7 @@ public class PoemDictTypeController extends BaseController<IPoemDictTypeService>
     @SaCheckPermission("dict:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemDictTypeFromDTO poemDictTypeFromDTO) {
         PoemDictType entity = PoemDictConvert.INSTANCES.toEntity(poemDictTypeFromDTO);
-        return toResult(baseService.updateById(entity));
+        return toResult(baseService.edit(entity));
     }
 
     @ApiOperation("删除字典类型")

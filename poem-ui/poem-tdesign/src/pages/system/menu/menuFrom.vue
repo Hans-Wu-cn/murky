@@ -70,8 +70,8 @@
     </div>
 </template>
 <script setup lang="tsx">
-import { addMenu, getMenu, updateMenu } from '@/api/menu';
-import { PoemMenu } from '@/api/menu/types';
+import { addMenu, getMenu, updateMenu } from '@/api/system/menu';
+import { PoemMenu } from '@/api/system/menu/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { ComputedRef, computed, ref } from 'vue';

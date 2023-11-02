@@ -37,9 +37,9 @@
 <script setup lang="tsx">
 import { ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
-import { addUser, editUser, queryUserInfo } from '@/api/user';
+import { addUser, editUser, queryUserInfo } from '@/api/system/user';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemUser } from '@/api/user/types';
+import { PoemUser } from '@/api/system/user/types';
 
 import { gender } from '../constants';
 import deptTreeSelect from './deptTreeSelect.vue';

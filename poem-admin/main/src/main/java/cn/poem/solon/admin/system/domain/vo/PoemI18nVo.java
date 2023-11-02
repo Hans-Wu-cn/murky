@@ -37,7 +37,7 @@ public class PoemI18nVo implements Serializable {
         for (PoemI18n poemI18n : poemI18nList) {
             i18nInputs.add(new I18nInput()
                             .setId(poemI18n.getId())
-                    .setI18n(poemI18n.getI18n())
+                    .setLanguage(poemI18n.getLanguage())
                     .setI18nValue(poemI18n.getI18nValue()));
         }
     }
@@ -47,7 +47,7 @@ public class PoemI18nVo implements Serializable {
             i18nInputs=new ArrayList<>();
         }
         i18nInputs.add(new I18nInput()
-                .setI18n(poemDictData.getDictValue())
+                .setLanguage(poemDictData.getDictValue())
                 .setI18nValue(null)
         );
     }
@@ -60,7 +60,7 @@ public class PoemI18nVo implements Serializable {
         private Long id;
 
         @ApiModelProperty("i18n字典")
-        private String i18n;
+        private String language;
 
         @ApiModelProperty("i18n值")
         private String i18nValue;

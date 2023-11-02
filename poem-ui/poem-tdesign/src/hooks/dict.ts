@@ -1,7 +1,7 @@
 
 
-import { PoemDictTypeRemove, dict } from '@/api/dict';
-import { PoemDictData } from '@/api/dict/types';
+import { PoemDictTypeRemove, dict } from '@/api/system/dict';
+import { PoemDictData } from '@/api/system/dict/types';
 import { ResultEnum } from '@/enums/httpEnum';
 
 /**
@@ -10,7 +10,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 let dictCache = new Map<string, Array<PoemDictData>>;
 
 const dictKey = {
-  i18n: 'i18n',
+  i18n: 'i18n:language',
   i18nTag: 'i18n:tag',
 };
 

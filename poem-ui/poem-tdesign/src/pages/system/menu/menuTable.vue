@@ -8,8 +8,8 @@
         <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
             :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
-            v-model:expandedTreeNodes="expandedTableTreeNodes"
-            @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange" />
+            v-model:expandedTreeNodes="expandedTableTreeNodes" @abnormal-drag-sort="onAbnormalDragSort"
+            @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange" />
     </t-card>
     <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
         <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" @submit="submit"></menuFrom>
@@ -23,9 +23,9 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { delMenu, dragMenu, getMenuList } from '@/api/menu';
+import { delMenu, dragMenu, getMenuList } from '@/api/system/menu';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/menu/types';
+import { PoemMenu } from '@/api/system/menu/types';
 import { menuConfig } from './config';
 import { useRouter } from 'vue-router';
 import menuFrom from './menuFrom.vue';
@@ -271,10 +271,10 @@ const onDeleteClick = async (row: PoemMenu) => {
 const onLookUp = (row: PoemMenu) => {
     router.push(menuConfig.detailUrl + '?poemId=' + row.menuId)
 };
-const expandedTableTreeNodes = ref<Array<string|number>>(['1']); // 存储展开的数据
-const onExpandedTreeNodesChange = (expandedTreeNodes:Array<string | number>, context:any) => {
-  console.log(expandedTreeNodes, context);
-  expandedTableTreeNodes.value = expandedTreeNodes
+const expandedTableTreeNodes = ref<Array<string | number>>(['1']); // 存储展开的数据
+const onExpandedTreeNodesChange = (expandedTreeNodes: Array<string | number>, context: any) => {
+    console.log(expandedTreeNodes, context);
+    expandedTableTreeNodes.value = expandedTreeNodes
 };
 type T = /*unresolved*/ any
 // 应用于需要阻止拖拽排序的场景。如：当子节点存在时，则不允许调整顺序。

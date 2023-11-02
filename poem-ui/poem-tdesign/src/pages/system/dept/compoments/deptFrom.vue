@@ -19,9 +19,9 @@
 </template>
 <script setup lang="tsx">
 import { ref } from 'vue'
-import { PoemDeptTree, PoemDept } from '@/api/dept/types'
+import { PoemDeptTree, PoemDept } from '@/api/system/dept/types'
 import { FormRules, MessagePlugin, SubmitContext, } from 'tdesign-vue-next';
-import { addDept, deptInfo, editDept } from '@/api/dept';
+import { addDept, deptInfo, editDept } from '@/api/system/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 const emit = defineEmits(['submit-hook'])
 

@@ -29,7 +29,7 @@ public class PoemI18n extends BaseEntity {
     private String i18nValue;
 
     @ApiModelProperty("地区编码(字典:i18n)")
-    private String i18n;
+    private String language;
 
     @ApiModelProperty("标签(字典:i18n:tag)")
     private String i18nTag;

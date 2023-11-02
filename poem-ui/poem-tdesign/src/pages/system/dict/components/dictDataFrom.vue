@@ -31,9 +31,9 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemDictData } from '@/api/dict/types'
+import { PoemDictData } from '@/api/system/dict/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { addPoemDictData, editPoemDictData, PoemDictDataInfo } from '@/api/dict';
+import { addPoemDictData, editPoemDictData, PoemDictDataInfo } from '@/api/system/dict';
 import { ResultEnum } from '@/enums/httpEnum';
 import { fromPairs } from 'lodash';
 

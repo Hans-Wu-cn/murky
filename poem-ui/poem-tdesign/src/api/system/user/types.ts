@@ -1,4 +1,4 @@
-import { BaseApiType, PageRequest } from "../types";
+import { BaseApiType, PageRequest } from '@/api/types';
 
 
 export interface PoemUser extends BaseApiType {
@@ -9,7 +9,7 @@ export interface PoemUser extends BaseApiType {
   sex?: number,
   email?: string,
   deptId?: string,
-  roleIds?:string[]
+  roleIds?: string[]
 }
 
 /**

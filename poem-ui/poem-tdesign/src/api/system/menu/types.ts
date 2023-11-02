@@ -1,4 +1,4 @@
-import { BaseApiType } from '../types';
+import { BaseApiType } from '@/api/types';
 
 /**
  * 菜单类

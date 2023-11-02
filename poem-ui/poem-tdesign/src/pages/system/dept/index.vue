@@ -23,11 +23,11 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { dropDept, getDeptList, removeDept } from '@/api/dept';
+import { dropDept, getDeptList, removeDept } from '@/api/system/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useRouter } from 'vue-router';
 import deptFrom from './compoments/deptFrom.vue';
-import { PoemDept, PoemDeptTree } from '@/api/dept/types';
+import { PoemDept, PoemDeptTree } from '@/api/system/dept/types';
 import { useSettingStore } from '@/store';
 import { hasAuth, useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
@@ -268,7 +268,8 @@ const showBreadcrumbHeight = computed(() => {
 .dept {
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;
-  >:deep(.t-card__body){
+
+  >:deep(.t-card__body) {
     flex: 1;
   }
 }

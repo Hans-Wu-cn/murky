@@ -18,8 +18,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictTypePage, PoemDictTypeRemove } from '@/api/dict';
-import { PoemDictType, PagePoemDictType } from '@/api/dict/types';
+import { dictTypePage, PoemDictTypeRemove } from '@/api/system/dict';
+import { PoemDictType, PagePoemDictType } from '@/api/system/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
