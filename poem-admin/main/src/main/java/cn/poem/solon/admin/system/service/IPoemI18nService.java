@@ -6,6 +6,7 @@ import cn.poem.solon.admin.system.domain.entity.PoemI18n;
 import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.service.IService;
+import org.noear.solon.validation.annotation.NotBlank;
 
 import java.util.Map;
 
@@ -46,4 +47,6 @@ public interface IPoemI18nService extends IService<PoemI18n> {
      * @return 保存状态
      */
     boolean remove(String i18nKey);
+
+    Map<String,String> language(String i18nTag,String laguage);
 }

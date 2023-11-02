@@ -51,4 +51,9 @@ public class PoemUser extends BaseEntity {
      * 邮箱
      */
     private Long deptId;
+
+    /**
+     * 语言
+     */
+    private String language;
 }

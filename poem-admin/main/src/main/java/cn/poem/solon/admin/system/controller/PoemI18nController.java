@@ -14,9 +14,11 @@ import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
+import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /***
@@ -48,9 +50,10 @@ public class PoemI18nController extends BaseController<IPoemI18nService> {
 
     @ApiOperation("i18n语言包")
     @Get
-    @Mapping()
-    public ApiResult<PoemI18nVo> language(String i18nTag,String laguage) {
-        return ApiResult.ok();
+    @Mapping("language")
+    @Valid
+    public ApiResult<Map<String, String>> language(@NotBlank String i18nTag,@NotBlank String laguage) {
+        return ApiResult.ok(baseService.language(i18nTag, laguage));
     }
 
     @ApiOperation("新增i18n")

@@ -113,4 +113,15 @@ public interface PoemI18nMapper extends BaseMapper<PoemI18n> {
         return this.deleteByQuery(QueryWrapper.create().where(POEM_I18N.I18N_KEY.eq(i18nKey)));
     }
 
+    /**
+     * 根据Language和Tag查询
+     * @return 相关数据
+     */
+    default List<PoemI18n> selectByLanguageAndTag(String i18nTag,String language) {
+        return this.selectListByQuery(QueryWrapper.create()
+                .where(POEM_I18N.LANGUAGE.eq(language))
+                .and(POEM_I18N.I18N_TAG.eq(i18nTag))
+        );
+    }
+
 }

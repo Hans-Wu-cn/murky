@@ -12,6 +12,7 @@ import cn.poem.solon.admin.system.service.IPoemDictDataService;
 import cn.poem.solon.admin.system.service.IPoemI18nService;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
+import org.noear.snack.ONode;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
@@ -144,5 +145,15 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
     @Override
     public boolean remove(String i18nKey) {
         return mapper.deleteByI18nKey(i18nKey) > 0;
+    }
+
+    @Override
+    public Map<String,String> language(String i18nTag, String laguage) {
+        List<PoemI18n> poemI18nList = mapper.selectByLanguageAndTag(i18nTag, laguage);
+        ONode node = new ONode();
+        for (PoemI18n poemI18n : poemI18nList) {
+            node.set(poemI18n.getI18nKey(), poemI18n.getI18nValue());
+        }
+        return node.toObject(Map.class);
     }
 }

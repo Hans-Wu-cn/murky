@@ -6,6 +6,7 @@ const Api = {
   i18n: '/poemI18n',
   i18nPage: '/poemI18n/page',
   i18nInfo: '/poemI18n/info',
+  language: '/poemI18n/language',
 };
 
 /**
@@ -60,5 +61,19 @@ export function updateI18n(data: I18nData) {
 export function removeI18n(i18nKey: string) {
   return request.delete({
     url: `${Api.i18n}/${i18nKey}`,
+  });
+}
+
+/**
+ * 获取语言包
+ * @returns Route
+ */
+export function getLanguage(i18nTag: string, laguage: string) {
+  return request.get({
+    url: Api.language,
+    params: {
+      i18nTag,
+      laguage
+    }
   });
 }

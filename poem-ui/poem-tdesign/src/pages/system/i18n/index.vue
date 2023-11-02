@@ -3,7 +3,7 @@
   <div class="i18nManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'i18n:add'">添加编码</t-button>
+        <t-button @click="onAddHander" v-auth="'i18n:add'">{{ $t('button.submit') }}</t-button>
       </div>
       <t-table stripe :data="i18nData" :columns="columns" row-key="dictTypeId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />

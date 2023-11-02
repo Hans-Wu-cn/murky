@@ -12,8 +12,8 @@
           </t-option>
         </t-select>
       </t-form-item>
-      <t-form-item v-for="(item, index) in formData.i18nInputs" :label="item.i18n" :name="item.i18n">
-        <t-input v-model="item.i18nValue" :placeholder='`请输入${item.i18n}对应值`'></t-input>
+      <t-form-item v-for="(item, index) in formData.i18nInputs" :label="item.language" :name="item.language">
+        <t-input v-model="item.i18nValue" :placeholder='`请输入${item.language}对应值`'></t-input>
       </t-form-item>
       <t-form-item>
         <t-space size="small">
@@ -124,7 +124,7 @@ const loadI18n = async () => {
   const i18nInputs: Array<I18nInputs> = [];
   i18ns.forEach(item => {
     i18nInputs.push({
-      i18n: item.dictValue,
+      language: item.dictValue,
       i18nValue: undefined
     })
   })
