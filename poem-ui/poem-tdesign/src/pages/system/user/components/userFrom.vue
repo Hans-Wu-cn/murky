@@ -8,7 +8,7 @@
             <t-form-item label="账号" name="account">
                 <t-input v-model="formData.account" placeholder="请输入账号"></t-input>
             </t-form-item>
-            <t-form-item label="密码" name="password">
+            <t-form-item v-if="!userFromId" label="密码" name="password">
                 <t-input v-model="formData.password" type="password" placeholder="请输入密码"></t-input>
             </t-form-item>
             <t-form-item label="性别" name="sex">
@@ -60,32 +60,32 @@ const formData = ref<PoemUser>({
     roleIds: []
 });
 
-const roleFromId = ref('');
+const userFromId = ref('');
 const loading = ref(false);
 /**
  * 重置表单
  */
 const onReset = () => {
-    if (roleFromId.value) {
-        initFromData(roleFromId.value)
+    if (userFromId.value) {
+        initFromData(userFromId.value)
     }
 
 };
 
 /**
  * 初始化表单
- * @param roleId 角色id
+ * @param userId 用户id
  */
 const resetValue = ref({})// 记录重置表单数据
-const initFromData = async (roleId: string) => {
-    if (!roleId) {
+const initFromData = async (userId: string) => {
+    if (!userId) {
         formData.value = {}
-        roleFromId.value = undefined
+        userFromId.value = undefined
         return
     }
-    roleFromId.value = roleId;
+    userFromId.value = userId;
     loading.value = true
-    const { code, result } = await queryUserInfo(roleId)
+    const { code, result } = await queryUserInfo(userId)
     if (ResultEnum.SUCCESS === code) {
         formData.value = result
         resetValue.value = JSON.parse(JSON.stringify(result))

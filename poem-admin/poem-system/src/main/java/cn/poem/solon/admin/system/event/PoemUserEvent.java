@@ -13,7 +13,6 @@ import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMapper;
-import cn.poem.solon.admin.system.mapper.PoemUserMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.admin.system.service.IPoemUserService;
 import cn.poem.solon.admin.utils.SecurityUtils;
@@ -42,10 +41,10 @@ public class PoemUserEvent {
     @Inject
     private PoemMenuMapper poemMenuMapper;
 
-    public PoemUser getOne(String account,String password){
+    public PoemUser getOneByAccount(String account){
        return iPoemUserService.getOne(QueryWrapper.create().where(
                 PoemUserTableDef.POEM_USER.ACCOUNT.eq(account)
-        ).and(PoemUserTableDef.POEM_USER.PASSWORD.eq(password)));
+        ));
     }
 
     public SecurityUserInfo userInfo() {

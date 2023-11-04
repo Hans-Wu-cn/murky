@@ -25,6 +25,7 @@ import org.noear.solon.data.annotation.Tran;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -122,9 +123,20 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
         return true;
     }
 
+    /**
+     * 重置用户密码
+     * @param userId 用户id
+     * @param password 密码
+     * @return 重置成功状态
+     */
     @Override
     public boolean resetPassword(Long userId, String password) {
-        int count = mapper.resetPassword(userId, password);
+        PoemUser poemUser = mapper.selectOneById(userId);
+        // 校验账号是否正确
+        Optional.ofNullable(poemUser).orElseThrow(() -> new ServiceException("该用户不存在"));
+        // 加密获取新的密码和盐值
+        PasswordRecord passwordRecord = EncryptionUtil.userEncryption(password);
+        int count = mapper.resetPassword(userId, passwordRecord.password(),passwordRecord.salt());
         return count > 0;
     }
 

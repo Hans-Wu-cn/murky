@@ -20,3 +20,13 @@ export interface PageUser extends PageRequest {
   deptId?: string,
   userName?: string,
 }
+
+/**
+ * @param roleId 所属部门
+ * @param userName 用户名称
+ */
+export interface RestPassword {
+  userId: string,
+  password: string,
+  confirmPassword: string,
+}

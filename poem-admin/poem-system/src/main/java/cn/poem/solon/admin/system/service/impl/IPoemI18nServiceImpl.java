@@ -123,7 +123,6 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
             if (i18nInput.getLanguage().equals(defaultI18n.getDictValue())) {
                 Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
             }
-//            PoemI18n poemI18nData = mapper.selectByKeyAndTagAndi18n(poemI18nFromDTO.getI18nKey(), poemI18nFromDTO.getI18nTag(), i18nInput.getI18n());
             PoemI18n poemI18n = new PoemI18n()
                     .setId(i18nInput.getId())
                     .setI18nTag(poemI18nFromDTO.getI18nTag())
@@ -131,8 +130,6 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
                     .setI18nValue(i18nInput.getI18nValue())
                     .setLanguage(i18nInput.getLanguage());
             list.add(poemI18n);
-//            iPoemI18nService.saveOrUpdateBatch()
-//            count+=mapper.updateI18nValue(poemI18nOne.getI18nKey(),poemI18n);
         }
         return iPoemI18nService.saveOrUpdateBatch(list);
     }

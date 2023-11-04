@@ -1,12 +1,13 @@
 import { request } from "@/utils/request";
-import { PageResponse } from "../types";
-import { PageUser, PoemUser } from "./types";
+import { PageResponse } from "@/api/types";
+import { PageUser, PoemUser, RestPassword } from "./types";
 
 
 
 const Api = {
   role: '/poemUser',
   rolePage: '/poemUser/page',
+  restPassword: '/poemUser/restPassword',
 };
 
 /**
@@ -48,6 +49,7 @@ export function queryUserInfo(userId: string) {
     url: `/poemUser/${userId}`,
   });
 }
+
 /**
  * 删除用户信息
  * @returns Route
@@ -55,5 +57,17 @@ export function queryUserInfo(userId: string) {
 export function delUserInfo(userId: string) {
   return request.delete({
     url: `/poemUser/${userId}`,
+  });
+}
+
+
+/**
+ * 重置密码
+ * @returns
+ */
+export function restPassword(data: RestPassword) {
+  return request.put({
+    url: Api.restPassword,
+    data
   });
 }

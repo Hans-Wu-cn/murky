@@ -13,7 +13,7 @@ import java.util.List;
  */
 @DamiTopic("event.user")
 public interface UserEvent {
-    PoemUser getOne(String account,String password);
+    PoemUser getOneByAccount(String account);
 
     /**
      * 获取用户详情事件

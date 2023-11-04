@@ -10,6 +10,7 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
+import org.noear.solon.core.handle.Result;
 import org.noear.solon.validation.ValidatorException;
 
 
@@ -31,7 +32,7 @@ public class ExceptionFilter implements Filter {
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
         }catch (ValidatorException ex){
             log.error("表单验证异常:{}",ex.getMessage());
-            ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
+            ctx.render(ApiResult.fail(ex.getCode(), "参数错误"));
         }catch (RuntimeException ex){
             // 其他异常
             ex.printStackTrace();

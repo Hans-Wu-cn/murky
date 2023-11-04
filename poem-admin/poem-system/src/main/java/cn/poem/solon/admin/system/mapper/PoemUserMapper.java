@@ -37,8 +37,8 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
      * @param password 密码
      * @return 受影响行数
      */
-    default int resetPassword(Long userId, String password) {
-        return this.updateByQuery(new PoemUser().setPassword(password)
+    default int resetPassword(Long userId, String password, String salt) {
+        return this.updateByQuery(new PoemUser().setPassword(password).setSalt(salt)
                 , true, QueryWrapper.create().where(
                         POEM_USER.USER_ID.eq(userId)
                 ));

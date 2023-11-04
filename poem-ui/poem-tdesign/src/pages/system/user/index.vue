@@ -12,9 +12,13 @@
       <t-table stripe :data="userData" :columns="columns" row-key="userId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="userVisible" v-if="userVisible" :footer="false" width="500px" top="20px">
+    <t-dialog v-model:visible="userVisible" :footer="false" width="500px" top="20px">
       <template #header>{{ userDialogTitle }}</template>
-      <userFrom ref="roleFromRef" @submit-hook="onSubmit"></userFrom>
+      <userFrom ref="userFromRef" @submit-hook="onUserSubmit"></userFrom>
+    </t-dialog>
+    <t-dialog v-model:visible="restPasswdVisible" :footer="false" width="500px" top="20px">
+      <template #header>重置密码</template>
+      <restPasswdFrom ref="restPasswdFromRef" @submit-hook="onRestPasswdSubmit"></restPasswdFrom>
     </t-dialog>
   </div>
 </template>
@@ -28,6 +32,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { userPage, delUserInfo } from '@/api/system/user'
 import { PageUser } from '@/api/system/user/types'
 import userFrom from './components/userFrom.vue'
+import restPasswdFrom from './components/restPasswdFrom.vue'
 import { useAuth } from '@/hooks/auth';
 import { gender } from './constants';
 import search, { SearchOption } from '@/components/search/index.vue';
@@ -36,6 +41,14 @@ const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
   return settingStore.showBreadcrumb ? '46px' : '0px'
 })
+// 用户列表条件
+const userQuery = ref<PageUser>({
+  userName: '',
+  deptId: '',
+  pageNumber: 1,
+  pageSize: 10
+})
+
 // 部门数据
 const deptData = ref<PoemDeptTree[]>([]);
 // 用户列表
@@ -101,6 +114,12 @@ const columns: Array<PrimaryTableCol> = [
             </t-link>)
           }
           {
+
+            useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onRestPasswdHander(row)}>
+              重置密码
+            </t-link>)
+          }
+          {
             useAuth('user:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 删除
@@ -113,13 +132,41 @@ const columns: Array<PrimaryTableCol> = [
   },
 ];
 const userVisible = ref(false);
+const restPasswdVisible = ref(false);
 const userDialogTitle = ref('用户信息');
-const roleFromRef = ref();
+const userFromRef = ref();
+const restPasswdFromRef = ref();
+
+
+/**
+ * 添加事件弹窗适配
+ */
+const onAddHander = async (row: any) => {
+  userDialogTitle.value = '添加用户'
+  userVisible.value = true;
+}
+
+/**
+ * 修改事件弹窗适配
+ */
 const onEditHander = async (row: any) => {
+  userDialogTitle.value = '修改用户'
   userVisible.value = true;
   await nextTick();
-  roleFromRef.value.initFromData(row.userId);
+  userFromRef.value.initFromData(row.userId);
 }
+
+/**
+ * 重置密码事件
+ */
+const onRestPasswdHander = async (row: any) => {
+  restPasswdVisible.value = true;
+  restPasswdFromRef.value.initFromData(row.userId);
+}
+
+/**
+ * 删除事件
+ */
 const onDelHander = async (row: any) => {
   const { code } = await delUserInfo(row.userId);
   if (ResultEnum.SUCCESS === code) {
@@ -127,17 +174,20 @@ const onDelHander = async (row: any) => {
     loadUserData();
   }
 }
-const onSubmit = () => {
-  userVisible.value = false;
+/**
+ * 用户表单提交事件
+ */
+const onUserSubmit = () => {
+  restPasswdVisible.value = false;
   loadUserData();
 }
-// 用户列表条件
-const userQuery = ref<PageUser>({
-  userName: '',
-  deptId: '',
-  pageNumber: 1,
-  pageSize: 10
-})
+
+/**
+ * 重置密码提交事件
+ */
+const onRestPasswdSubmit = () => {
+  restPasswdVisible.value = false;
+}
 
 /**
 * 加载列表数据
