@@ -8,6 +8,8 @@ import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.event.system.UserEvent;
+import org.noear.solon.Solon;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 

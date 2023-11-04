@@ -56,4 +56,10 @@ public class PoemUser extends BaseEntity {
      * 语言
      */
     private String language;
+
+    /**
+     * 密码加密盐值
+     */
+    private String salt;
+
 }

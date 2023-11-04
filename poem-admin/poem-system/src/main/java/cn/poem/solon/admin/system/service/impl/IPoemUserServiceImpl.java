@@ -2,6 +2,8 @@ package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.solon.admin.PoemServiceImpl;
 import cn.poem.solon.admin.core.exception.ServiceException;
+import cn.poem.solon.admin.core.record.PasswordRecord;
+import cn.poem.solon.admin.core.utils.EncryptionUtil;
 import cn.poem.solon.admin.domin.PoemDeptAncestors;
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.system.domain.convert.PoemUserConvert;
@@ -61,9 +63,13 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     public boolean save(PoemUserFromDTO poemUserFromDTO) {
         PoemUser entity = poemUserFromDTO.toEntity();
         Long countByAccount = mapper.getCountByAccount(entity.getAccount());
-        if(countByAccount>0){
+        if (countByAccount > 0) {
             throw new ServiceException("添加失败:账号已存在");
         }
+        PasswordRecord poemPassword = EncryptionUtil.userEncryption(poemUserFromDTO.getPassword());
+        entity.setSalt(poemPassword.salt())
+                .setPassword(poemPassword.password());
+
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             throw new ServiceException("添加失败");
@@ -126,7 +132,7 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     public Page<PoemUserPageVo> page(PoemUserPageDTO poemUserPageDTO) {
         Set<Long> deptIds = poemDeptAncestorsMapper.getListByAncestors(poemUserPageDTO.getDeptId()).stream().map(PoemDeptAncestors::getDeptId).collect(Collectors.toSet());
         deptIds.add(poemUserPageDTO.getDeptId());
-        return mapper.page(poemUserPageDTO,deptIds);
+        return mapper.page(poemUserPageDTO, deptIds);
     }
 
     /**
@@ -139,6 +145,6 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     @Override
     public Page<PoemUser> page(Page<PoemUser> page, QueryWrapper query) {
         QueryWrapper queryWrapper = super.dataScope(query, SecurityUtils.getUserInfo());
-        return super.page(page,queryWrapper);
+        return super.page(page, queryWrapper);
     }
 }
