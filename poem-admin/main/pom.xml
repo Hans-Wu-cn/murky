@@ -43,16 +43,22 @@
             <groupId>org.noear</groupId>
             <artifactId>solon-api</artifactId>
         </dependency>
-        <!--poem核心依赖包-->
-        <dependency>
-            <groupId>cn.poem.solon</groupId>
-            <artifactId>poem-core</artifactId>
-        </dependency>
         <!--配置读取yml-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
+        <!--poem-system 系统模块-->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-system</artifactId>
+        </dependency>
+        <!--poem-auth 权限模块-->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-auth</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

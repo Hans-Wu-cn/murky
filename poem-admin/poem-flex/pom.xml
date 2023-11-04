@@ -12,7 +12,6 @@
 
     <properties>
         <HikariCP.verion>5.0.1</HikariCP.verion>
-        <dami.version>0.26</dami.version>
     </properties>
 
     <dependencies>
@@ -36,11 +35,9 @@
             <version>${HikariCP.verion}</version>
         </dependency>
 
-        <!--https://gitee.com/noear/dami -->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>dami</artifactId>
-            <version>${dami.version}</version>
+            <artifactId>dami-solon-plugin</artifactId>
         </dependency>
     </dependencies>
 

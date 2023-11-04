@@ -44,7 +44,7 @@ public abstract class PoemServiceImpl<M extends BaseMapper<T>, T> extends Servic
     }
 
     private SecurityUserInfo getUserInfo(){
-        return Dami.<String, SecurityUserInfo>bus().sendAndResponse(BusTopicConstant.USER_INFO_TOPIC,null);
+        return Dami.<String, SecurityUserInfo>bus().sendAndRequest(BusTopicConstant.USER_INFO_TOPIC,null);
     }
 
 

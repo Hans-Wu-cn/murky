@@ -18,9 +18,14 @@
         <module>poem-security</module>
         <module>poem-flex</module>
         <module>poem-common</module>
+        <module>poem-system</module>
+        <module>poem-auth</module>
+        <module>poem-event</module>
     </modules>
 
     <properties>
+        <dami.version>0.54</dami.version>
+
     </properties>
 
     <dependencyManagement>
@@ -49,6 +54,31 @@
                 <artifactId>poem-common</artifactId>
                 <version>${version}</version>
             </dependency>
+            <!--poem-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-system</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-auth</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-event</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--dami 依赖-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>dami-solon-plugin</artifactId>
+                <version>${dami.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

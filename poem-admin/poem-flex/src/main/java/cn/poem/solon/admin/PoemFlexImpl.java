@@ -50,6 +50,6 @@ public class PoemFlexImpl extends CommonsDialectImpl implements InsertListener, 
     }
 
     private Long getUserId(){
-        return Dami.<String, Long>bus().sendAndResponse(BusTopicConstant.USER_ID_TOPIC,null);
+        return Dami.<String, Long>bus().sendAndRequest(BusTopicConstant.USER_ID_TOPIC,null);
     }
 }

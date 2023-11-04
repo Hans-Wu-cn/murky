@@ -74,7 +74,7 @@ public class DataScopeUtils {
     }
 
     private static SecurityUserInfo getUserInfo(){
-        return Dami.<String, SecurityUserInfo>bus().sendAndResponse(BusTopicConstant.USER_INFO_TOPIC,null);
+        return Dami.<String, SecurityUserInfo>bus().sendAndRequest(BusTopicConstant.USER_INFO_TOPIC,null);
     }
 
     private DataScopeUtils(){}
