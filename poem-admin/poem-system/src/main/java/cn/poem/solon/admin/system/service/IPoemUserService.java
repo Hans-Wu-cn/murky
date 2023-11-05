@@ -44,5 +44,8 @@ public interface IPoemUserService extends IService<PoemUser> {
      */
     boolean resetPassword(Long userId,String password);
 
+    /**
+     * 重写分页方法
+     */
     Page<PoemUserPageVo> page(PoemUserPageDTO poemUserPageDTO);
 }

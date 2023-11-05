@@ -13,6 +13,11 @@ import java.util.List;
  */
 @DamiTopic("event.user")
 public interface UserEvent {
+    /**
+     * 根据账号查询用户
+     * @param account
+     * @return
+     */
     PoemUser getOneByAccount(String account);
 
     /**

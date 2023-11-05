@@ -47,5 +47,11 @@ public interface IPoemI18nService extends IService<PoemI18n> {
      */
     boolean remove(String i18nKey);
 
+    /**
+     * 获取语言包
+     * @param i18nTag 标签
+     * @param laguage 语言
+     * @return 语言包数据
+     */
     Map<String,String> language(String i18nTag,String laguage);
 }

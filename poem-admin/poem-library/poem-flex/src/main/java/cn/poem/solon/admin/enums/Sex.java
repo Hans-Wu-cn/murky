@@ -1,6 +1,5 @@
 package cn.poem.solon.admin.enums;
 
-import cn.poem.solon.admin.common.BaseEnum;
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import org.noear.snack.annotation.ONodeAttr;
  */
 @AllArgsConstructor
 @Getter
-public enum Sex implements BaseEnum {
+public enum Sex {
     MAN(0,"男性"),
     WOMAN(1,"女性"),
     OTHER(2,"其他"),;
