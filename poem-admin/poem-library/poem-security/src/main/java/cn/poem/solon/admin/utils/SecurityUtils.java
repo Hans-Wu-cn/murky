@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.utils;
 
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.poem.solon.admin.SecurityCache;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import org.noear.solon.Solon;
@@ -45,7 +46,7 @@ public class SecurityUtils {
         securityCache.delUserInfo();
     }
 
-    public static Boolean isAdmin(){
+    public static Boolean isAdmin() throws NotLoginException {
         return securityCache.admin();
     }
 }

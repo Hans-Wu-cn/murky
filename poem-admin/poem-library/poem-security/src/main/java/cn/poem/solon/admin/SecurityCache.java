@@ -9,6 +9,7 @@ import org.noear.redisx.RedisClient;
 import org.noear.snack.ONode;
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.bean.InitializingBean;
 
@@ -20,7 +21,7 @@ import java.util.Collections;
  * @author hans
  */
 @Component
-public class SecurityCache implements InitializingBean {
+public class SecurityCache  {
     @Inject
     private RedisClient redisClient;
 
@@ -83,7 +84,8 @@ public class SecurityCache implements InitializingBean {
      * 2.挂在damiBus事件
      *
      */
-    public void afterInjection(){
+    @Init
+    public void init(){
         String s = Solon.cfg().get("sa-token.timeout");
         expire = Integer.parseInt(s);
         //挂载获取用户i事件

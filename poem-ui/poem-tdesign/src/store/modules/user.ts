@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 
-import { getUserInfo, login } from '@/api/auth';
+import { getUserInfo, login, logout } from '@/api/auth';
 import { ResultEnum } from '@/enums/httpEnum';
 import { usePermissionStore } from '@/store';
 import type { UserInfo } from '@/types/interface';
+import { useRoute, useRouter } from 'vue-router';
 
 const InitUserInfo: UserInfo = {
   userName: '',

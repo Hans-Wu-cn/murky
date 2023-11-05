@@ -10,6 +10,7 @@ import { useUserStore } from '@/store';
 import { VAxios } from './Axios';
 import type { AxiosTransform, CreateAxiosOptions } from './AxiosTransform';
 import { formatRequestDate, joinTimestamp, setObjToUrlParams } from './utils';
+import { MessagePlugin } from 'tdesign-vue-next';
 
 const env = import.meta.env.MODE || 'development';
 
@@ -127,11 +128,27 @@ const transform: AxiosTransform = {
 
   // 响应拦截器处理
   responseInterceptors: (res) => {
-    const {code} = res.data
-    if(code === ResultEnum.NOT_LOGIN){
-      // token过期清空store中的存储的token和user信息
-      const userStore = useUserStore();
-      userStore.logout();
+    const { code, message } = res.data
+    switch (res.data.code) {
+      case ResultEnum.NOT_LOGIN:
+        console.log('跳转登录页');
+        // token过期清空store中的存储的token和user信息
+        MessagePlugin.error('登录状态已过期');
+        const userStore = useUserStore();
+        userStore.logout();
+        // 过500毫秒调用
+        setTimeout(() => {
+          location.reload()
+        }, 500);
+        break;
+      case ResultEnum.TIMEOUT:
+        console.debug('请求超时');
+        MessagePlugin.error('请求超时');
+        break;
+      case ResultEnum.ERROR:
+        console.debug('弹出错误信息');
+        MessagePlugin.error(message);
+      default: console.log(' default letter Checked');
     }
     return res;
   },
@@ -169,7 +186,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 携带Cookie
         withCredentials: true,
         // 头信息
-        headers: { 'Content-Type': ContentTypeEnum.Json,'ngrok-skip-browser-warning':ContentTypeEnum.ngrok },
+        headers: { 'Content-Type': ContentTypeEnum.Json, 'ngrok-skip-browser-warning': ContentTypeEnum.ngrok },
         // 数据处理方式
         transform,
         // 接口前缀

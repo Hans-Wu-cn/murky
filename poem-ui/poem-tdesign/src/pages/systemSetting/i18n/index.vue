@@ -19,7 +19,7 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
 import { i18nPage, removeI18n } from '@/api/systemSetting/i18n';
 import { PoemDictData } from '@/api/system/dict/types';
-import { I18nPageParams } from '@/api/systemParameter/i18n/types';
+import { I18nPageParams } from '@/api/systemSetting/i18n/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';

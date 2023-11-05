@@ -119,7 +119,8 @@ const systemParameteFromVisible = ref(false)
 const settingStore = useSettingStore();
 
 const refresh = async () => {
-  await refreshCache()
+  const { code } = await refreshCache()
+  MessagePlugin.success('刷新成功')
 }
 
 /**
