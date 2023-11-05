@@ -28,9 +28,8 @@
 
 1.  部署数据库运行sql脚本
 2.  根据需求选择引入redis或者使用单体
-3.  根据需求选择minio或者本地文件系统
-4.  前端运行yarn install ,yarn dev 运行
-5.  后端直接运行即可
+3.  前端运行npm install ,npm run dev运行
+4.  后端修改main中的配置文件即可直接运行
 
 ### 页面展示
 ![img.png](img.png)
