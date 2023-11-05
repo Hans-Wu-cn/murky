@@ -142,7 +142,7 @@ const onSubmit = async (ctx: SubmitContext) => {
       router.push(redirectUrl);
     } catch (e) {
       console.log(e);
-      MessagePlugin.error(e.message);
+      MessagePlugin.error(e);
     }
   }
 };
