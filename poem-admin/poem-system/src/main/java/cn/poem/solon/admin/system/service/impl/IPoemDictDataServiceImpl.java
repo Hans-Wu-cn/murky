@@ -45,7 +45,7 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
         boolean bool = SqlUtil.toBool(this.getMapper().insert(poemDictData, true));
 
         if (bool) {
-            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(), (new ArrayList<PoemDictData>(){}).getClass());
             dictList = Optional.ofNullable(dictList).orElseGet(ArrayList::new);
             dictList.add(poemDictData);
@@ -68,7 +68,7 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
         poemDictData.setDictType(null);
         boolean bool = this.updateById(poemDictData, true);
         if (bool) {
-            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>(){}).getClass());
             dictList.forEach(item->{
                 if (item.getDictCode().equals(poemDictData.getDictCode())){
@@ -88,7 +88,7 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
         PoemDictData poemDictData = mapper.selectOneById(id);
         boolean bool = SqlUtil.toBool(this.getMapper().deleteById(id));
         if(bool){
-            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+            RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
             List<PoemDictData> dictList = redisHash.getAndDeserialize(poemDictData.getDictType(),  (new ArrayList<PoemDictData>(){}).getClass());
             dictList = dictList.stream().filter(item -> !item.getDictCode().equals(id)).collect(Collectors.toList());
             redisHash.putAndSerialize(poemDictData.getDictType(),dictList);
@@ -99,14 +99,14 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
 
     @Override
     public List<PoemDictData> getI18nDict() {
-        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
-        return redisHash.getAndDeserialize(DictContant.I18N_LANGUAGE_DICT, (new ArrayList<PoemDictData>() {
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
+        return redisHash.getAndDeserialize(DictContant.I18N_LANGUAGE_DICT_KEY, (new ArrayList<PoemDictData>() {
         }).getClass());
     }
 
     @Override
     public List<PoemDictData> getDict(String dictType) {
-        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
 
         return redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>() {
         }).getClass());

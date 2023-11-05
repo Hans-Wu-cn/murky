@@ -1,4 +1,4 @@
-import { PageResponse } from "../types";
+import { PageResponse } from "@/api/types";
 import { PagePoemDictData, PagePoemDictType, PoemDictData, PoemDictType } from "./types";
 import { request } from '@/utils/request';
 
@@ -8,6 +8,7 @@ const Api = {
   dictTypePage: '/poemDictType/page',
   dictDataPage: '/poemDictData/page',
   dict: '/poemDictData/dict',
+  refresh: '/poemDictType/refresh',
 };
 
 
@@ -125,5 +126,15 @@ export function PoemDictTypeRemove(dictTypeId: string) {
 export function PoemDictDataRemove(dictDataId: string) {
   return request.delete({
     url: `${Api.dictData}/${dictDataId}`,
+  });
+}
+
+/**
+ * 刷新字典
+ * @returns Route
+ */
+export function refershDict() {
+  return request.post({
+    url: Api.refresh,
   });
 }

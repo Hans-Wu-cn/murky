@@ -16,6 +16,7 @@ import cn.poem.solon.admin.system.mapper.PoemDeptAncestorsMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.admin.system.service.IPoemUserService;
+import cn.poem.solon.admin.system.service.ISystemParameterService;
 import cn.poem.solon.admin.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -40,6 +41,9 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
 
     @Inject
     private PoemDeptAncestorsMapper poemDeptAncestorsMapper;
+
+    @Inject
+    private ISystemParameterService iSystemParameterService;
 
     /**
      * 根据用户id查询用户详细信息，包含角色信息
@@ -71,7 +75,8 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
         if (countByAccount > 0) {
             throw new ServiceException("添加失败:账号已存在");
         }
-        PasswordRecord poemPassword = EncryptionUtil.userEncryption(poemUserFromDTO.getPassword());
+        String defaultUserPassword = iSystemParameterService.getDefaultUserPassword();
+        PasswordRecord poemPassword = EncryptionUtil.userEncryption(defaultUserPassword);
         entity.setSalt(poemPassword.salt())
                 .setPassword(poemPassword.password());
 
@@ -104,7 +109,6 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     @Override
     @Tran
     public boolean update(PoemUserFromDTO poemUserFromDTO) {
-        poemUserFromDTO.setPassword(null);
         PoemUser entity = poemUserFromDTO.toEntity();
         int update = mapper.update(entity);
         if (update <= 0) {

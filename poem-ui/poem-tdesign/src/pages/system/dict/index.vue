@@ -5,6 +5,9 @@
     <t-card :bordered="false">
       <div>
         <t-button @click="onAddHander" v-auth="'dict:add'">添加字典</t-button>
+        <t-button @click="refershDict" v-auth="['dict:add', 'dict:edit', 'dict:remove']">
+          <template #icon><Refresh-icon /></template>
+          刷新缓存</t-button>
       </div>
       <t-table stripe :data="dictTypeData" :columns="columns" row-key="dictTypeId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -18,7 +21,7 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictTypePage, PoemDictTypeRemove } from '@/api/system/dict';
+import { dictTypePage, PoemDictTypeRemove, refershDict } from '@/api/system/dict';
 import { PoemDictType, PagePoemDictType } from '@/api/system/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
@@ -30,7 +33,9 @@ import { status } from './constants';
 import dictTypeFrom from './components/dictTypeFrom.vue'
 import { dictConfig } from './config';
 import { useRoute, useRouter } from 'vue-router';
-
+import {
+  RefreshIcon,
+} from 'tdesign-icons-vue-next';
 const route = useRoute();
 const router = useRouter();
 const PagePoemDictTypeParams = ref<PagePoemDictType>({

@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n';
-import { getLanguage } from '@/api/system/i18n';
+import { getLanguage } from '@/api/systemSetting/i18n';
 import axios from 'axios';
 
 const i18n = createI18n({

@@ -55,7 +55,7 @@ public class PoemUserEvent {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Long loginId = StpUtil.getLoginIdAsLong();
             PoemUser poemUser = iPoemUserService.getById(loginId);
-            SecurityUserInfo userInfo = (SecurityUserInfo) new SecurityUserInfo().setUserId(loginId)
+            SecurityUserInfo userInfo = new SecurityUserInfo().setUserId(loginId)
                     .setUserName(poemUser.getUserName())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表

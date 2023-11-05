@@ -27,8 +27,8 @@
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { I18nData, I18nInputs } from '@/api/system/i18n/types';
-import { saveI18n, i18nInfo, updateI18n } from '@/api/system/i18n';
+import { I18nData, I18nInputs } from '@/api/systemSetting/i18n/types';
+import { saveI18n, i18nInfo, updateI18n } from '@/api/systemSetting/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
 import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import { PoemDictData } from '@/api/system/dict/types';
@@ -155,4 +155,4 @@ defineExpose({
   height: 300px;
   width: 100%;
 }
-</style>
+</style>@/api/systemSetting/i18n/types@/api/systemSetting/i18n

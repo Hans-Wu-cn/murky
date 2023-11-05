@@ -11,6 +11,9 @@ import cn.poem.solon.admin.common.entity.SecurityUserInfo;
  */
 public interface IPoemLoginService {
 
+    /**
+     * 登录
+     */
     SaTokenInfo login(LoginDto loginDto);
 
     /**

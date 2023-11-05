@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaMode;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
@@ -81,8 +82,10 @@ public class PoemDictTypeController extends BaseController<IPoemDictTypeService>
     }
 
     @ApiOperation("刷新字典")
-    @Get
-    @SaCheckPermission("dict:refresh")
+    @Post
+    @Mapping("refresh")
+    @SaCheckPermission(mode = SaMode.OR,value=
+            {"dict:add","dict:edit","dict:remove"})
     public ApiResult<?> refresh() {
         baseService.refreshDict();
         return ApiResult.ok();

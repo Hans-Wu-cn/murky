@@ -8,9 +8,6 @@
             <t-form-item label="账号" name="account">
                 <t-input v-model="formData.account" placeholder="请输入账号"></t-input>
             </t-form-item>
-            <t-form-item v-if="!userFromId" label="密码" name="password">
-                <t-input v-model="formData.password" type="password" placeholder="请输入密码"></t-input>
-            </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
                     <t-radio v-for="(value, key) in gender" :key="key" :value="key">{{ value }}</t-radio>
@@ -49,7 +46,6 @@ const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
     userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
     account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     sex: [{ required: true, message: '请输入性别', trigger: 'change' }],
     email: [{ email: { ignore_max_length: true }, message: '请输入正确的邮箱地址' }]
 })

@@ -39,3 +39,6 @@ target/
 ### Mac OS ###
 .DS_Store
 **/rebel.xml
+
+### config ###
+**/app*.yml

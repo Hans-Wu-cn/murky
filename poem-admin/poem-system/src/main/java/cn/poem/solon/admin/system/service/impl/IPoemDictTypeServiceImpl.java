@@ -41,7 +41,7 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
     @Override
     public void refreshDict() {
         List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
-        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE);
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
         for (PoemDictBo poemDictBo : poemDictBos) {
             redisHash.putAndSerialize(poemDictBo.getDictType(),poemDictBo.getPoemDictDatas());
         }

@@ -54,6 +54,9 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
             return ApiResult.fail("query参数格式不正确");
         }
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
+        if(MenuType.DIRECTORY==poemMenu.getType()){
+            poemMenu.setComponent("LAYOUT");
+        }
         return toResult(baseService.save(poemMenu));
     }
 
@@ -65,6 +68,9 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
             return ApiResult.fail("query参数格式不正确");
         }
         PoemMenu poemMenu = poemMenuFromDTO.toEntity();
+        if(MenuType.DIRECTORY==poemMenu.getType()){
+            poemMenu.setComponent("LAYOUT");
+        }
         boolean result = baseService.updateById(poemMenu);
         return toResult(result);
     }

@@ -36,9 +36,6 @@ public class PoemUserFromDTO {
     @NotBlank
     private String account;
 
-    @ApiModelProperty(value = "密码",required = true)
-    @NotBlank(groups = Insert.class)
-    private String password;
 
     @ApiModelProperty(value = "性别 0:男性 1:女性 2:其他",required = true)
     @NotNull
