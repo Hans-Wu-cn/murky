@@ -1,7 +1,7 @@
 <template>
     <div class="searchParams">
         <t-form colon reset-type="initial" :layout="'inline'" @reset="onReset" @submit="onSubmit">
-            <t-form-item v-for="item in props.options" :label="item.label" :name="item.name">
+            <t-form-item v-for="item in props.options" :label="item.label" :name="item.name" v-bind="item">
                 <InputContent v-model:value="item.value" :type="item.type" :radio-options="item.radioOptions"
                     :placeholder="item.placeholder" :dictOptions="item.dictOptions">
                 </InputContent>
@@ -24,6 +24,7 @@ export interface SearchOption {
     placeholder?: string,
     radioOptions?: { [key: string]: string },// 单选项搜索
     dictOptions?: Array<PoemDictData>,// 单选项字典
+    labelWidth?:string|number
 }
 
 const props = withDefaults(defineProps<{
