@@ -29,6 +29,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * userService
+ * @author hans
+ */
 @Component
 public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUser> implements IPoemUserService {
     @Inject
@@ -140,6 +144,9 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
         return count > 0;
     }
 
+    /**
+     * 重写分页方法
+     */
     @Override
     public Page<PoemUserPageVo> page(PoemUserPageDTO poemUserPageDTO) {
         Set<Long> deptIds = poemDeptAncestorsMapper.getListByAncestors(poemUserPageDTO.getDeptId()).stream().map(PoemDeptAncestors::getDeptId).collect(Collectors.toSet());

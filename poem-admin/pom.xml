@@ -14,13 +14,9 @@
 
     <modules>
         <module>main</module>
-        <module>poem-core</module>
-        <module>poem-security</module>
-        <module>poem-flex</module>
-        <module>poem-common</module>
         <module>poem-system</module>
         <module>poem-auth</module>
-        <module>poem-event</module>
+        <module>poem-library</module>
     </modules>
 
     <properties>

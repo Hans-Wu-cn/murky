@@ -117,7 +117,6 @@ public class IPoemI18nServiceImpl extends ServiceImpl<PoemI18nMapper, PoemI18n> 
         Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(PoemDictData::getDictValue, PoemDictData::getDictValue));
         PoemDictData defaultI18n = i18nDict.get(0);
         List<PoemI18n> list = new ArrayList<>();
-        int count = 0;
         for (PoemI18nFromDTO.I18nInput i18nInput : poemI18nFromDTO.getI18nInputs()) {
             Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException("非法的i18n语言"));
             if (i18nInput.getLanguage().equals(defaultI18n.getDictValue())) {
