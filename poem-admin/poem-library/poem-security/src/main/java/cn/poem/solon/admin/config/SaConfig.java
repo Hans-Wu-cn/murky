@@ -18,7 +18,7 @@ public class SaConfig {
         return new SaTokenInterceptor()
                 .addInclude("/**")
                 .addExclude("/swagger-resources")
-                .addExclude("/auth/login","/auth/logout");
+                .addExclude("/auth/login","/auth/logout","/poemI18n/language");
     }
 
     @Bean

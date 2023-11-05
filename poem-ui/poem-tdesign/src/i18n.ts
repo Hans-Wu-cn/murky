@@ -5,7 +5,7 @@ import { ResultEnum } from './enums/httpEnum';
 import { useUserStore } from '@/store';
 
 const i18n = createI18n({
-  locale: 'zh-CN', // 默认语言
+  locale: 'en', // 默认语言
   fallbackLocale: 'en', // 如果找不到当前语言的翻译，就使用默认语言
   messages: {}, // 空对象，稍后会通过接口获取数据并填充这里
 });
