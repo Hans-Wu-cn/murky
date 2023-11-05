@@ -138,7 +138,7 @@ const onSubmit = async (ctx: SubmitContext) => {
 
       MessagePlugin.success('登陆成功');
       const redirect = route.query.redirect as string;
-      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/dashboard';
+      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/system/menu';
       router.push(redirectUrl);
     } catch (e) {
       console.log(e);
