@@ -8,10 +8,10 @@ export interface MenuRoute {
   title?: string;
   name?: string;
   icon?:
-    | string
-    | {
-        render: () => void;
-      };
+  | string
+  | {
+    render: () => void;
+  };
   redirect?: string;
   children: MenuRoute[];
   meta: any;
@@ -30,6 +30,7 @@ export type CommonObjType = {
 export interface UserInfo {
   userId: string;
   userName: string;
+  language: string;
   token: string;
   roleIds: string[];
   roleCodes: string[];

@@ -57,6 +57,7 @@ public class PoemUserEvent {
             PoemUser poemUser = iPoemUserService.getById(loginId);
             SecurityUserInfo userInfo = new SecurityUserInfo().setUserId(loginId)
                     .setUserName(poemUser.getUserName())
+                    .setLanguage(poemUser.getLanguage())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
             Set<Long> roleIds = poemUserRoleMapper.selectByUserId(poemUser.getUserId())

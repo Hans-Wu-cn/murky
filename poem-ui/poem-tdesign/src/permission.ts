@@ -7,6 +7,7 @@ import { RouteRecordRaw } from 'vue-router';
 import router from '@/router';
 import { getPermissionStore, useUserStore } from '@/store';
 import { PAGE_NOT_FOUND_ROUTE } from '@/utils/route/constant';
+import { initLanguage } from './i18n';
 
 NProgress.configure({ showSpinner: false });
 
@@ -26,9 +27,9 @@ router.beforeEach(async (to, from, next) => {
     try {
       const { userInfo } = userStore
       userInfo.userId ? '' : await userStore.getUserInfo();
-
       const { asyncRoutes } = permissionStore;
-
+      // 初始化语言包
+      await initLanguage();
       if (asyncRoutes && asyncRoutes.length === 0) {
         const routeList = await permissionStore.buildAsyncRoutes();
         routeList.forEach((item: RouteRecordRaw) => {

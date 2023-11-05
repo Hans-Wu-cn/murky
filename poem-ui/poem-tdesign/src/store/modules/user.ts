@@ -13,6 +13,7 @@ const InitUserInfo: UserInfo = {
   roleCodes: [],
   permissions: [],
   userId: '',
+  language: ''
 };
 
 export const useUserStore = defineStore('user', {
@@ -38,6 +39,7 @@ export const useUserStore = defineStore('user', {
       const { result, code } = await getUserInfo();
       // const res = await mockRemoteUserInfo(this.token);
       if (ResultEnum.SUCCESS === code) {
+        console.log('info', result)
         this.userInfo = result;
       }
     },
