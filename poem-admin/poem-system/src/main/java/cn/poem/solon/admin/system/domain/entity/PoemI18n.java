@@ -28,7 +28,7 @@ public class PoemI18n extends BaseEntity {
     @ApiModelProperty("i18n值")
     private String i18nValue;
 
-    @ApiModelProperty("地区编码(字典:i18n)")
+    @ApiModelProperty("地区编码(字典:i18n:language)")
     private String language;
 
     @ApiModelProperty("标签(字典:i18n:tag)")
