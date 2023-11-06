@@ -20,11 +20,11 @@ export const usePermissionStore = defineStore('permission', {
       const accessedRouters = this.asyncRoutes;
 
       // 在菜单展示全部路由
-      // this.routers = [...homepageRouterList, ...accessedRouters, ...fixedRouterList];
+      this.routers = [...homepageRouterList, ...accessedRouters, ...fixedRouterList];
       // 在菜单只展示动态路由和首页
       // this.routers = [...homepageRouterList, ...accessedRouters];
       // 在菜单只展示动态路由
-      this.routers = [...accessedRouters];
+      // this.routers = [...accessedRouters];
     },
     async buildAsyncRoutes() {
       try {
