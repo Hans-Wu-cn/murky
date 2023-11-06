@@ -9,7 +9,7 @@ import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.system.domain.convert.PoemUserConvert;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemUserPageDTO;
-import cn.poem.solon.admin.event.system.entity.PoemUserRole;
+import cn.poem.solon.admin.system.domain.entity.PoemUserRole;
 import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
 import cn.poem.solon.admin.system.mapper.PoemDeptAncestorsMapper;
@@ -75,7 +75,9 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
         if (countByAccount > 0) {
             throw new ServiceException("添加失败:账号已存在");
         }
+        // 获取系统默认密码
         String defaultUserPassword = iSystemParameterService.getDefaultUserPassword();
+        // 加密
         PasswordRecord poemPassword = EncryptionUtil.userEncryption(defaultUserPassword);
         entity.setSalt(poemPassword.salt())
                 .setPassword(poemPassword.password());
@@ -103,7 +105,6 @@ public class IPoemUserServiceImpl extends PoemServiceImpl<PoemUserMapper, PoemUs
     /**
      * 修改用户并绑定对应的角色关系
      *
-     * @param poemUserFromDTO
      * @return 保存成功状态
      */
     @Override

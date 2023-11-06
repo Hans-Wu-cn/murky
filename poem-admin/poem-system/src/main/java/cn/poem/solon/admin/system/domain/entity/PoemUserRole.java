@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.event.system.entity;
+package cn.poem.solon.admin.system.domain.entity;
 
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

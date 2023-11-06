@@ -24,14 +24,12 @@ public interface IPoemUserService extends IService<PoemUser> {
 
     /**
      * 添加用户并绑定对应的角色关系
-     * @param poemUserFromDTO
      * @return 保存成功状态
      */
     boolean save(PoemUserFromDTO poemUserFromDTO);
 
     /**
      * 修改用户并绑定对应的角色关系
-     * @param poemUserFromDTO
      * @return 保存成功状态
      */
     boolean update(PoemUserFromDTO poemUserFromDTO);

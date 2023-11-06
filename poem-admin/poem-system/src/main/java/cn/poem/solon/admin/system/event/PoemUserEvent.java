@@ -6,7 +6,7 @@ import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.domin.tab.PoemUserTableDef;
-import cn.poem.solon.admin.event.system.entity.PoemUserRole;
+import cn.poem.solon.admin.system.domain.entity.PoemUserRole;
 import cn.poem.solon.admin.event.system.enums.MenuType;
 import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;

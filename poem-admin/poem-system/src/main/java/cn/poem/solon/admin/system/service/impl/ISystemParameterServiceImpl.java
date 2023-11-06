@@ -27,11 +27,12 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
     @Inject
     private RedisClient redisClient;
 
-    private static final String KEY="123456";
+
     /**
      * 刷新缓存
      */
     @Init
+    @Override
     public void refresh(){
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
         List<SystemParameter> systemParameters = mapper.selectAll();
@@ -51,7 +52,7 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
         }
         SystemParameter systemParameter = mapper.selectByKey(key);
         if(systemParameter==null || Strings.isEmpty(systemParameter.getKey())){
-            return KEY;
+            return SystemParameterContant.DEFAULT_PASSWORD;
         }
         return systemParameter.getValue();
     }

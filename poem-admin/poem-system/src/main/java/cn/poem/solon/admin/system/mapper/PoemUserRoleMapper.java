@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.mapper;
 
-import cn.poem.solon.admin.event.system.entity.PoemUserRole;
+import cn.poem.solon.admin.system.domain.entity.PoemUserRole;
 import cn.poem.solon.admin.event.system.entity.table.PoemUserRoleTableDef;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;

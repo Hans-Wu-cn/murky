@@ -2,8 +2,6 @@ package cn.poem.solon.admin.event.system;
 
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.domin.PoemUser;
-import cn.poem.solon.admin.event.system.entity.PoemUserRole;
-import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.dami.solon.annotation.DamiTopic;
 
 import java.util.List;
