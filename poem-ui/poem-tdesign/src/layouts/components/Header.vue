@@ -24,15 +24,15 @@
           <notice />
 
           <t-tooltip placement="bottom" content="代码仓库">
-            <t-button theme="default" shape="square" variant="text" @click="navToGitHub">
-              <t-icon name="logo-github" />
+            <t-button theme="default" shape="square" variant="text" @click="navToGitee">
+              <t-icon name="git-repository" />
             </t-button>
           </t-tooltip>
-          <t-tooltip placement="bottom" content="帮助文档">
+          <!-- <t-tooltip placement="bottom" content="帮助文档">
             <t-button theme="default" shape="square" variant="text" @click="navToHelper">
               <t-icon name="help-circle" />
             </t-button>
-          </t-tooltip>
+          </t-tooltip> -->
           <t-dropdown :min-column-width="120" trigger="click">
             <template #dropdown>
               <t-dropdown-menu>
@@ -154,8 +154,8 @@ const handleLogout = async () => {
   });
 };
 
-const navToGitHub = () => {
-  window.open('https://github.com/tencent/tdesign-vue-next-starter');
+const navToGitee = () => {
+  window.open('https://gitee.com/wu-zhihao/poem-solon');
 };
 
 const navToHelper = () => {
