@@ -13,6 +13,7 @@ import cn.poem.solon.admin.event.system.UserEvent;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 
+import javax.security.auth.login.LoginException;
 import java.util.*;
 
 @Component
@@ -44,7 +45,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
      * @return 用户信息对象
      */
     @Override
-    public SecurityUserInfo userInfo() {
+    public SecurityUserInfo userInfo() throws LoginException {
         return userEvent.userInfo();
     }
 }

@@ -61,6 +61,10 @@ public class PoemAuthController {
     @ApiOperation("获取用户信息")
     @Mapping("info")
     public ApiResult<SecurityUserInfo> userInfo() {
-        return ApiResult.ok(iPoemLoginService.userInfo());
+        try {
+            return ApiResult.ok(iPoemLoginService.userInfo());
+        } catch (javax.security.auth.login.LoginException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

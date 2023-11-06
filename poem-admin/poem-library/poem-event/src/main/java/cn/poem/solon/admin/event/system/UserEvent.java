@@ -4,6 +4,7 @@ import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.domin.PoemUser;
 import org.noear.dami.solon.annotation.DamiTopic;
 
+import javax.security.auth.login.LoginException;
 import java.util.List;
 
 /**
@@ -22,5 +23,5 @@ public interface UserEvent {
      * 获取用户详情事件
      * @return
      */
-    SecurityUserInfo userInfo();
+    SecurityUserInfo userInfo() throws LoginException;
 }

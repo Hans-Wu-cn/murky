@@ -20,6 +20,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.dami.solon.annotation.DamiTopic;
 import org.noear.solon.annotation.Inject;
 
+import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class PoemUserEvent {
         ));
     }
 
-    public SecurityUserInfo userInfo() {
+    public SecurityUserInfo userInfo() throws LoginException {
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
         SecurityUserInfo userInfoCache = SecurityUtils.getUserInfo();
 
