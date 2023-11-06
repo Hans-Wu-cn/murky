@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <name>poem-solon-admin</name>
+    <name>poem-admin</name>
     <artifactId>main</artifactId>
     <packaging>jar</packaging>
 
