@@ -9,8 +9,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <name>main</name>
-    <artifactId>main</artifactId>
+    <name>poem-solon-admin</name>
+    <artifactId>poem-solon-admin</artifactId>
     <packaging>jar</packaging>
 
     <properties>
