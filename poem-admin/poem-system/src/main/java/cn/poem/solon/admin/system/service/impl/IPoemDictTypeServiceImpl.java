@@ -34,16 +34,17 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
     private IPoemDictTypeService iPoemDictTypeService;
     @Inject
     private IPoemDictDataService iPoemDictDataService;
+
     /**
      * 刷新缓存
      */
-    @Init
     @Override
     public void refreshDict() {
         List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
+        redisHash.clear();
         for (PoemDictBo poemDictBo : poemDictBos) {
-            redisHash.putAndSerialize(poemDictBo.getDictType(),poemDictBo.getPoemDictDatas());
+            redisHash.putAndSerialize(poemDictBo.getDictType(), poemDictBo.getPoemDictDatas());
         }
         log.info("初始化字典缓存");
     }
@@ -53,7 +54,7 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
     public boolean edit(PoemDictType poemDictType) {
         PoemDictType dictType = iPoemDictTypeService.getById(poemDictType.getDictTypeId());
         boolean b = iPoemDictTypeService.updateById(poemDictType);
-        if(b){
+        if (b) {
             List<PoemDictData> dictList = iPoemDictDataService.getDict(dictType.getDictType());
             for (PoemDictData poemDictData : dictList) {
                 poemDictData.setDictType(poemDictType.getDictType());
@@ -61,5 +62,22 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
             return iPoemDictDataService.updateBatch(dictList);
         }
         throw new ServiceException("修改失败");
+    }
+
+    /**
+     * 启动服务时初始化字典换粗
+     */
+    @Init
+    public void initDict() {
+        List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
+        // 如果已经被初始化过则不需要在初始化
+        if(redisHash!=null){
+            return;
+        }
+        for (PoemDictBo poemDictBo : poemDictBos) {
+            redisHash.putAndSerialize(poemDictBo.getDictType(), poemDictBo.getPoemDictDatas());
+        }
+        log.info("初始化字典缓存");
     }
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SolonMain
-@Import(scanPackages = "cn.poem")
+@Import(scanPackages = "cn.poem.solon.admin")
 public class App {
     public static void main(String[] args) {
         Solon.start(App.class, args, app -> {

@@ -31,10 +31,10 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
     /**
      * 刷新缓存
      */
-    @Init
     @Override
     public void refresh(){
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
+        redisHash.clear();
         List<SystemParameter> systemParameters = mapper.selectAll();
         for (SystemParameter systemParameter : systemParameters) {
             redisHash.putAndSerialize(systemParameter.getKey(),systemParameter.getValue());
@@ -55,5 +55,18 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
             return SystemParameterContant.DEFAULT_PASSWORD;
         }
         return systemParameter.getValue();
+    }
+
+    /**
+     * 初始化缓存
+     */
+    @Init
+    public void initParameter(){
+        RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
+        List<SystemParameter> systemParameters = mapper.selectAll();
+        for (SystemParameter systemParameter : systemParameters) {
+            redisHash.putAndSerialize(systemParameter.getKey(),systemParameter.getValue());
+        }
+        log.info("初始化系统配置缓存");
     }
 }

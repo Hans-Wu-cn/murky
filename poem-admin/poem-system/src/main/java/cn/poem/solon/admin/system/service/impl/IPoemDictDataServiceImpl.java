@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.solon.admin.system.contant.DictContant;
+import cn.poem.solon.admin.system.domain.bo.PoemDictBo;
 import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.mapper.PoemDictDataMapper;
 import cn.poem.solon.admin.system.mapper.PoemDictTypeMapper;
@@ -99,16 +100,16 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
 
     @Override
     public List<PoemDictData> getI18nDict() {
-        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
-        return redisHash.getAndDeserialize(DictContant.I18N_LANGUAGE_DICT_KEY, (new ArrayList<PoemDictData>() {
-        }).getClass());
+        return getDict(DictContant.DICT_CACHE_KEY);
     }
 
     @Override
     public List<PoemDictData> getDict(String dictType) {
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
-
-        return redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>() {
-        }).getClass());
+        if(redisHash!=null){
+            return redisHash.getAndDeserialize(dictType, (new ArrayList<PoemDictData>() {
+            }).getClass());
+        }
+        return poemDictTypeMapper.selectPoemDict(dictType).getPoemDictDatas();
     }
 }
