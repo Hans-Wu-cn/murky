@@ -27,7 +27,7 @@ public class SecurityUtils {
      * 获取当前登录用户信息
      * @return  当前登录用户信息
      */
-    public static SecurityUserInfo getUserInfo(){
+    public static SecurityUserInfo getUserInfo() throws NotLoginException {
         return securityCache.getUserInfo();
     }
 

@@ -110,9 +110,4 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
             poemMenuTreeVO.setChildren(treePoemMenu);
         }
     }
-
-//    @Override
-//    public BaseMapper<PoemMenu> getPoemMapper() {
-//        return baseMapper;
-//    }
 }
