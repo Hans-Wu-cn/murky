@@ -100,7 +100,7 @@ public class IPoemDictDataServiceImpl extends ServiceImpl<PoemDictDataMapper, Po
 
     @Override
     public List<PoemDictData> getI18nDict() {
-        return getDict(DictContant.DICT_CACHE_KEY);
+        return getDict(DictContant.I18N_LANGUAGE_DICT_KEY);
     }
 
     @Override
