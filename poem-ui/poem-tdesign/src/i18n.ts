@@ -17,7 +17,6 @@ const i18n = createI18n({
  */
 export const initLanguage = async () => {
   const i18ns = await i18nDictHook()
-
   const defaultLanguage = i18ns[0].dictValue;
   // 加载默认语言
   const { code, result } = await getLanguage("admin", defaultLanguage);
@@ -33,6 +32,7 @@ export const initLanguage = async () => {
     const { code, result } = await getLanguage("admin", lang);
     if (ResultEnum.SUCCESS === code) {
       i18n.global.setLocaleMessage(lang, result);
+      i18n.global.locale = lang
     }
   } else {
     // 获取用户语言
@@ -40,6 +40,7 @@ export const initLanguage = async () => {
     const { code, result } = await getLanguage("admin", lang);
     if (ResultEnum.SUCCESS === code) {
       i18n.global.setLocaleMessage(lang, result);
+      i18n.global.locale = lang
     }
   }
 }
