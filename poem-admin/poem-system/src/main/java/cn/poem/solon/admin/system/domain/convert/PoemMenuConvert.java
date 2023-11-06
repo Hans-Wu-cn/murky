@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.domain.convert;
 
-import cn.poem.solon.admin.event.domain.vo.PoemMenuTreeVO;
+import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import org.mapstruct.Mapper;

@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.event.domain.vo;
+package cn.poem.solon.admin.event.system.vo;
 
 import cn.poem.solon.admin.event.system.enums.*;
 import lombok.Data;

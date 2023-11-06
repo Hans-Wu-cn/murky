@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.event.system;
 
-import cn.poem.solon.admin.event.domain.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.event.system.enums.MenuType;
+import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
 import org.noear.dami.solon.annotation.DamiTopic;
 
 import java.util.List;
