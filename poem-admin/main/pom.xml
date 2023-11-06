@@ -10,7 +10,7 @@
     </parent>
 
     <name>poem-solon-admin</name>
-    <artifactId>poem-solon-admin</artifactId>
+    <artifactId>main</artifactId>
     <packaging>jar</packaging>
 
     <properties>
