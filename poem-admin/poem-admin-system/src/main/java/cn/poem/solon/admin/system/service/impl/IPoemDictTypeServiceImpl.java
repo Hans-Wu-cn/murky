@@ -49,12 +49,16 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
         log.info("初始化字典缓存");
     }
 
+
+    /**
+     * 重写修改方法
+     */
     @Tran
     @Override
     public boolean edit(PoemDictType poemDictType) {
-        PoemDictType dictType = iPoemDictTypeService.getById(poemDictType.getDictTypeId());
         boolean b = iPoemDictTypeService.updateById(poemDictType);
         if (b) {
+            PoemDictType dictType = iPoemDictTypeService.getById(poemDictType.getDictTypeId());
             List<PoemDictData> dictList = iPoemDictDataService.getDict(dictType.getDictType());
             for (PoemDictData poemDictData : dictList) {
                 poemDictData.setDictType(poemDictType.getDictType());
