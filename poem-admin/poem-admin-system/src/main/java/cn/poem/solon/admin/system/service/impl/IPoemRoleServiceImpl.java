@@ -3,7 +3,6 @@ package cn.poem.solon.admin.system.service.impl;
 import cn.poem.solon.admin.PoemServiceImpl;
 import cn.poem.solon.admin.common.enums.DataScope;
 import cn.poem.solon.admin.core.exception.ServiceException;
-import cn.poem.solon.admin.core.utils.CollectionUtils;
 import cn.poem.solon.admin.domin.PoemRoleDept;
 import cn.poem.solon.admin.system.domain.convert.PoemRoleConvert;
 import cn.poem.solon.admin.system.domain.dto.PoemRoleFromDTO;
@@ -17,6 +16,7 @@ import cn.poem.solon.admin.system.mapper.PoemRoleMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.admin.system.service.IPoemRoleService;
 import cn.poem.solon.admin.utils.SecurityUtils;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
@@ -94,7 +94,7 @@ public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRo
             return false;
         }
         //如果有配置菜单则添加菜单信息
-        if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
+        if (Utils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
             //补充不完全一定存在的父级元素
             List<Long> parentMenuIds = poemMenuMapper.selectByListByIds(poemRoleFromDTO.getMenuIds()).stream().map(PoemMenu::getParentMenuId).toList();
             HashSet<Long> menuIds = new HashSet<>(poemRoleFromDTO.getMenuIds());
@@ -147,7 +147,7 @@ public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRo
 
         //先删除在新增，覆盖原本的权限
         poemRoleMenuMapper.deleteByRoleId(poemRoleFromDTO.getRoleId());
-        if (CollectionUtils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
+        if (Utils.isNotEmpty(poemRoleFromDTO.getMenuIds())) {
             //补充不完全一定存在的父级元素
             List<Long> parentMenuIds = poemMenuMapper.selectByListByIds(poemRoleFromDTO.getMenuIds()).stream().map(PoemMenu::getParentMenuId).toList();
             HashSet<Long> menuIds = new HashSet<>(poemRoleFromDTO.getMenuIds());

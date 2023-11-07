@@ -1,5 +1,9 @@
 server:
   port: 8080
+  request:
+    maxBodySize: 2mb
+    maxFileSize: 2mb
+    maxHeaderSize: 8b
 solon:
   stop:
     safe: 0

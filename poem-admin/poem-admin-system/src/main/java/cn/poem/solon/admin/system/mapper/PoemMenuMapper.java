@@ -1,12 +1,13 @@
 package cn.poem.solon.admin.system.mapper;
 
-import cn.poem.solon.admin.core.utils.CollectionUtils;
+
 import cn.poem.solon.admin.event.system.enums.MenuType;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleMenuTableDef;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
+import org.noear.solon.Utils;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +32,7 @@ public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
                                                         .from(POEM_ROLE_MENU)
                                                         .where(POEM_ROLE_MENU.ROLE_ID.in(roleids))
                                                         .and(POEM_MENU.MENU_ID.eq(POEM_ROLE_MENU.MENU_ID))
-                                        ).when(CollectionUtils.isNotEmpty(roleids))
+                                        ).when(Utils.isNotEmpty(roleids))
                         )
                         .orderBy(POEM_MENU.SORT.asc(), POEM_MENU.LABEL.asc())
         );
