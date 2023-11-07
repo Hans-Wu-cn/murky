@@ -65,7 +65,7 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
     public void initParameter(){
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
         // 如果已经被初始化过则不需要在初始化
-        if(redisHash.isEmpty()){
+        if(!redisHash.isEmpty()){
             return;
         }
         List<SystemParameter> systemParameters = mapper.selectAll();

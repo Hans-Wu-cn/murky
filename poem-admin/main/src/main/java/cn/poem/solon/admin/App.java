@@ -7,7 +7,7 @@ import org.noear.solon.boot.http.HttpServerConfigure;
 import java.util.concurrent.Executors;
 
 @SolonMain
-@Import(scanPackages = "cn.poem.solon.admin")
+@Import(scanPackages = "cn.poem.solon")
 public class App {
     public static void main(String[] args) {
         Solon.start(App.class, args, app -> {

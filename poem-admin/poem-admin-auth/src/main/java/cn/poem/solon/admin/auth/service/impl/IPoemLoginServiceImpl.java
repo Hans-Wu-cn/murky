@@ -34,9 +34,7 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
         // 第1步，先登录
         StpUtil.login(user.getUserId());
         // 第2步，获取 Token  相关参数
-        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        // 第3步，返回给前端
-        return tokenInfo;
+        return StpUtil.getTokenInfo();
     }
 
     /**
