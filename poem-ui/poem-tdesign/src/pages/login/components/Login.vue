@@ -1,12 +1,6 @@
 <template>
-  <t-form
-    ref="form"
-    :class="['item-container', `login-${type}`]"
-    :data="formData"
-    :rules="FORM_RULES"
-    label-width="0"
-    @submit="onSubmit"
-  >
+  <t-form ref="form" :class="['item-container', `login-${type}`]" :data="formData" :rules="FORM_RULES" label-width="0"
+    @submit="onSubmit">
     <template v-if="type == 'password'">
       <t-form-item name="account">
         <t-input v-model="formData.account" size="large" placeholder="请输入账号：admin">
@@ -17,13 +11,8 @@
       </t-form-item>
 
       <t-form-item name="password">
-        <t-input
-          v-model="formData.password"
-          size="large"
-          :type="showPsw ? 'text' : 'password'"
-          clearable
-          placeholder="请输入登录密码：admin"
-        >
+        <t-input v-model="formData.password" size="large" :type="showPsw ? 'text' : 'password'" clearable
+          placeholder="请输入登录密码：admin">
           <template #prefix-icon>
             <t-icon name="lock-on" />
           </template>
@@ -133,17 +122,11 @@ const sendCode = () => {
 
 const onSubmit = async (ctx: SubmitContext) => {
   if (ctx.validateResult === true) {
-    try {
-      await userStore.login(formData.value);
-
-      MessagePlugin.success('登陆成功');
-      const redirect = route.query.redirect as string;
-      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/system/menu';
-      router.push(redirectUrl);
-    } catch (e) {
-      console.log(e);
-      MessagePlugin.error(e);
-    }
+    await userStore.login(formData.value);
+    MessagePlugin.success('登陆成功');
+    const redirect = route.query.redirect as string;
+    const redirectUrl = redirect ? decodeURIComponent(redirect) : '/system/menu';
+    router.push(redirectUrl);
   }
 };
 </script>
