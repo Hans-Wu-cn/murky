@@ -1,4 +1,4 @@
-package cn.poem.solon.file.service;
+package cn.poem.solon.file;
 
 /**
  * 文件前缀service

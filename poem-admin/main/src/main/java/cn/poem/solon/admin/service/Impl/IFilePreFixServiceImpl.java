@@ -1,8 +1,11 @@
 package cn.poem.solon.admin.service.Impl;
 
-import cn.poem.solon.file.service.IFilePreFixService;
+import cn.poem.solon.file.IFilePreFixService;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
+
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
 
 
 /**
@@ -20,6 +23,16 @@ public class IFilePreFixServiceImpl implements IFilePreFixService {
      */
     @Override
     public String getPreFix(){
-        return prefix;
+        LocalDateTime now = LocalDateTime.now();
+        StringBuilder path=new StringBuilder(prefix);
+        path.append("/");
+        path.append(now.getYear());
+        path.append("/");
+        path.append(now.getMonthValue());
+        path.append("/");
+        path.append(now.getDayOfMonth());
+
+        return path.toString();
     }
+
 }

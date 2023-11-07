@@ -44,25 +44,25 @@
                 <artifactId>poem-admin-flex</artifactId>
                 <version>${version}</version>
             </dependency>
-            <!--poem-common 公共配置模块-->
+            <!--poem-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-common</artifactId>
                 <version>${version}</version>
             </dependency>
-            <!--poem-common 公共配置模块-->
+            <!--poem-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-system</artifactId>
                 <version>${version}</version>
             </dependency>
-            <!--poem-common 公共配置模块-->
+            <!--poem-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-auth</artifactId>
                 <version>${version}</version>
             </dependency>
-            <!--poem-common 公共配置模块-->
+            <!--poem-admin-event 事件模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-event</artifactId>
@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>cn.poem.solon.file</groupId>
                 <artifactId>poem-file</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${version}</version>
             </dependency>
 
 

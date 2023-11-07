@@ -1,6 +1,6 @@
 package cn.poem.solon.file.service.impl;
 
-import cn.poem.solon.file.service.IFilePreFixService;
+import cn.poem.solon.file.IFilePreFixService;
 import cn.poem.solon.file.service.IFileService;
 import cn.poem.solon.utils.ApiResult;
 import org.noear.solon.Utils;

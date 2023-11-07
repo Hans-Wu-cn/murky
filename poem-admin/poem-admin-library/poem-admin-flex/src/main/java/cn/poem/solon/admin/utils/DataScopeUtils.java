@@ -38,7 +38,7 @@ public class DataScopeUtils {
             if (DataScope.ALL.equals(dataScope)) {
                 break;
             }
-            StringBuffer sql=new StringBuffer();
+            StringBuilder sql=new StringBuilder();
             if (DataScope.CUSTOMIZE.equals(dataScope)) {
                 sql.append(MessageFormat.format(" dept_id in (select dept_id from poem_role_dept where role_id in ({0}))",userInfo.getRoleIds()));
 //                query.and(MessageFormat.format("dept_id in (select dept_id from poem_role_dept where role_id in ({0}))",userInfo.getRoleIds()));
