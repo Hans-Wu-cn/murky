@@ -13,6 +13,11 @@ public class IFilePreFixServiceImpl implements IFilePreFixService {
 
     @Inject("${solon.cloud.minio.file.prefix}")
     private String prefix;
+
+    /**
+     * 获取文件前缀方法
+     * @return 前缀路径
+     */
     @Override
     public String getPreFix(){
         return prefix;

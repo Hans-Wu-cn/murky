@@ -28,8 +28,9 @@ public class IFileServiceImpl implements IFileService {
      */
     @Override
     public ApiResult<?> upload(UploadedFile file) {
+        // 文件路径获取方式
         String key = iFilePreFixService.getPreFix() + Utils.guid();
-        //上传媒体
+        // 上传媒体
         Result<?> result = CloudClient.file().put(key, new Media(file.getContent()));
         return toApiResult(result);
     }
