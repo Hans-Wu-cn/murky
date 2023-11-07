@@ -56,9 +56,10 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
     @Tran
     @Override
     public boolean edit(PoemDictType poemDictType) {
+        PoemDictType dictType = iPoemDictTypeService.getById(poemDictType.getDictTypeId());
         boolean b = iPoemDictTypeService.updateById(poemDictType);
         if (b) {
-            PoemDictType dictType = iPoemDictTypeService.getById(poemDictType.getDictTypeId());
+            // 修改对应的data
             List<PoemDictData> dictList = iPoemDictDataService.getDict(dictType.getDictType());
             for (PoemDictData poemDictData : dictList) {
                 poemDictData.setDictType(poemDictType.getDictType());
