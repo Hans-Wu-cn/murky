@@ -12,6 +12,7 @@ import org.noear.solon.core.handle.UploadedFile;
  * 文件上传接口
  */
 @Controller
+@Mapping("file")
 public class FileController {
 
     @Inject
