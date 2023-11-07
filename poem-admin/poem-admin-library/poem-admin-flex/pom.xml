@@ -5,36 +5,41 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.poem.solon.admin</groupId>
-        <artifactId>poem-admin</artifactId>
+        <artifactId>poem-admin-library</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>poem-security</artifactId>
+    <artifactId>poem-admin-flex</artifactId>
 
     <properties>
-        <redisx.verion>1.6.0</redisx.verion>
+        <HikariCP.verion>5.0.1</HikariCP.verion>
     </properties>
 
     <dependencies>
-        <!--sa-token-->
+        <!--mybatis-flex 依赖-->
         <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>sa-token-solon-plugin</artifactId>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-solon-plugin</artifactId>
+            <version>1.7.2</version>
         </dependency>
-        <!--poem-common-->
+
+        <!--poem-common 公共依赖-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-common</artifactId>
+            <artifactId>poem-admin-common</artifactId>
         </dependency>
-        <!--redisx 依赖-->
+
+        <!-- HikariCP连接池 -->
         <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>redisx</artifactId>
-            <version>${redisx.verion}</version>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${HikariCP.verion}</version>
         </dependency>
+
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>dami-solon-plugin</artifactId>
         </dependency>
     </dependencies>
+
 </project>

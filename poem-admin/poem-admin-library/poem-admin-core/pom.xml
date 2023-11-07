@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.poem.solon.admin</groupId>
-        <artifactId>poem-library</artifactId>
+        <artifactId>poem-admin-library</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>poem-core</artifactId>
+    <artifactId>poem-admin-core</artifactId>
     <packaging>jar</packaging>
     <properties>
         <mybatis-flex.version>1.6.5</mybatis-flex.version>
@@ -47,14 +47,17 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.validation</artifactId>
         </dependency>
+
+        <!-- poem-admin-security 安全公共依赖-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-security</artifactId>
+            <artifactId>poem-admin-security</artifactId>
         </dependency>
+
         <!--mybatis-flex 依赖-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-flex</artifactId>
+            <artifactId>poem-admin-flex</artifactId>
         </dependency>
 
         <!--pgsql驱动-->
@@ -63,12 +66,14 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.verion}</version>
         </dependency>
+
         <!--redisx 依赖-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>redisx</artifactId>
             <version>${redisx.verion}</version>
         </dependency>
+
         <!--单元测试 依赖-->
         <dependency>
             <groupId>org.noear</groupId>

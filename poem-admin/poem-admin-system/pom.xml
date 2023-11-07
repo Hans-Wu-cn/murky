@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>poem-system</artifactId>
+    <artifactId>poem-admin-system</artifactId>
 
     <properties>
     </properties>
@@ -18,12 +18,12 @@
         <!--poem核心依赖包-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-core</artifactId>
+            <artifactId>poem-admin-core</artifactId>
         </dependency>
         <!--poem 事件包-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-event</artifactId>
+            <artifactId>poem-admin-event</artifactId>
         </dependency>
     </dependencies>
     <build>

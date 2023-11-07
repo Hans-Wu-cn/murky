@@ -5,29 +5,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.poem.solon.admin</groupId>
-        <artifactId>poem-library</artifactId>
+        <artifactId>poem-admin-library</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>poem-common</artifactId>
+    <artifactId>poem-admin-event</artifactId>
 
     <properties>
-        <mybatis-flex.version>1.6.5</mybatis-flex.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>dami-solon-plugin</artifactId>
+        </dependency>
         <!--序列化框架-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.serialization.snack3</artifactId>
         </dependency>
-
-        <!--mybatis-flex 依赖-->
+        <!--poem核心依赖包-->
         <dependency>
-            <groupId>com.mybatis-flex</groupId>
-            <artifactId>mybatis-flex-solon-plugin</artifactId>
-            <version>${mybatis-flex.version}</version>
+            <groupId>cn.poem.solon.admin</groupId>
+            <artifactId>poem-admin-core</artifactId>
         </dependency>
     </dependencies>
-
 </project>
