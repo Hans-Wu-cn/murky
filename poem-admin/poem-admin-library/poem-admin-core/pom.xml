@@ -80,6 +80,12 @@
             <artifactId>solon-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- 公共包 -->
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

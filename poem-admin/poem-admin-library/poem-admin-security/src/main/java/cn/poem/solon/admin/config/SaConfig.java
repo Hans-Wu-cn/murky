@@ -12,16 +12,19 @@ import org.noear.solon.annotation.Inject;
  * @author hans
  */
 @Configuration
-public class SaConfig {
-    @Bean(index = -100) //-100，是顺序位（低值优先）
-    public SaTokenInterceptor saTokenInterceptor() {
-        return new SaTokenInterceptor()
-                .addInclude("/**")
-                .addExclude("/swagger-resources")
-                .addExclude("/auth/login","/auth/logout","/poemI18n/language");
-    }
+    public class SaConfig {
+        @Bean(index = -100) //-100，是顺序位（低值优先）
+        public SaTokenInterceptor saTokenInterceptor() {
+            return new SaTokenInterceptor()
+                    .addInclude("/**")
+                    .addExclude("/swagger-resources")
+                    .addExclude("/auth/login"
+                            ,"/auth/logout"
+                            ,"/poemI18n/language"
+                    );
+        }
 
-    @Bean
+        @Bean
     public SaTokenDao saTokenDaoInit(@Inject("${redis}") SaTokenDaoOfRedis saTokenDao) {
         return saTokenDao;
     }

@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.core.extension;
 
-import cn.poem.solon.admin.core.utils.ApiResult;
+import cn.poem.solon.utils.ApiResult;
 import com.mybatisflex.core.service.IService;
 import org.noear.solon.annotation.Inject;
 

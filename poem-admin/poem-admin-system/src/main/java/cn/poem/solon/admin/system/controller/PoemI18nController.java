@@ -2,7 +2,7 @@ package cn.poem.solon.admin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
-import cn.poem.solon.admin.core.utils.ApiResult;
+import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Info;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;

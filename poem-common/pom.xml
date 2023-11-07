@@ -9,20 +9,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.poem.solon.file</groupId>
-    <artifactId>poem-file</artifactId>
-
-    <dependencies>
-        <!--minio 依赖库-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>minio-solon-cloud-plugin</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.poem.solon</groupId>
-            <artifactId>poem-common</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>poem-common</artifactId>
 
 </project>

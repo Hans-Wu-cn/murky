@@ -1,9 +1,9 @@
 package cn.poem.solon.admin.core.config;
 
 
-import cn.poem.solon.admin.core.utils.ApiResult;
-import cn.poem.solon.admin.core.enums.ApiResultEnum;
 //import com.github.xiaoymin.knife4j.solon.extension.OpenApiExtensionResolver;
+import cn.poem.solon.enums.ApiResultEnum;
+import cn.poem.solon.utils.ApiResult;
 import io.swagger.models.Scheme;
 import org.noear.solon.annotation.*;
 import org.noear.solon.core.handle.Context;

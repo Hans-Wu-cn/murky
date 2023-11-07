@@ -1,7 +1,8 @@
-package cn.poem.solon.admin.core.utils;
+package cn.poem.solon.utils;
 
-import cn.poem.solon.admin.core.enums.ApiResultEnum;
+import cn.poem.solon.enums.ApiResultEnum;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  *
  * @author hans
  */
+@Accessors(chain = true)
 @Data
 public class ApiResult<T> implements Serializable {
     @Serial

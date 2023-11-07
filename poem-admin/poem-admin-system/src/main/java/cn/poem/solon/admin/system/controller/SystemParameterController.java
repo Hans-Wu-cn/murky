@@ -3,7 +3,7 @@ package cn.poem.solon.admin.system.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaMode;
 import cn.poem.solon.admin.core.extension.BaseController;
-import cn.poem.solon.admin.core.utils.ApiResult;
+import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.system.domain.convert.SystemParameterConvert;
@@ -20,8 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
-
-import java.util.Map;
 
 /***
  * 系统参数Controller

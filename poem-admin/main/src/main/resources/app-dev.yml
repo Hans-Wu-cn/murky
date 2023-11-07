@@ -9,6 +9,14 @@ solon:
     group: 'demo'
   validation:
     validateAll: true
+  cloud:
+    minio:
+      file:
+        prefix: /file
+        endpoint: 119.29.203.51:9000
+        bucket: file-dev
+        accessKey: minioadmin
+        secretKey: minioadmin
 
 
 # 记录器级别的配置示例

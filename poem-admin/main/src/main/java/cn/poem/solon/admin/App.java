@@ -4,8 +4,6 @@ import org.noear.solon.Solon;
 import org.noear.solon.annotation.Import;
 import org.noear.solon.annotation.SolonMain;
 import org.noear.solon.boot.http.HttpServerConfigure;
-
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SolonMain

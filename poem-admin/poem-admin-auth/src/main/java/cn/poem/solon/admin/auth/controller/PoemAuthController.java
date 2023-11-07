@@ -5,7 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.auth.service.IPoemLoginService;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
-import cn.poem.solon.admin.core.utils.ApiResult;
+import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.event.system.MenuEvent;
 import cn.poem.solon.admin.event.system.enums.MenuType;
 import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;

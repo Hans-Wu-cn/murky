@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>solon-parent</artifactId>
-        <version>2.5.10</version>
+        <version>2.5.12</version>
     </parent>
     <groupId>cn.poem.solon</groupId>
     <artifactId>poem-solon</artifactId>
@@ -16,6 +16,7 @@
         <module>poem-admin</module>
         <module>poem-saas</module>
         <module>poem-file</module>
+        <module>poem-common</module>
     </modules>
 
     <properties>
@@ -28,6 +29,13 @@
     </properties>
     <dependencyManagement>
 
+        <dependencies>
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-common</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <dependencies>

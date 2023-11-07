@@ -3,14 +3,13 @@ package cn.poem.solon.admin.core.filter;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.poem.solon.admin.core.exception.ServiceException;
-import cn.poem.solon.admin.core.enums.ApiResultEnum;
-import cn.poem.solon.admin.core.utils.ApiResult;
+import cn.poem.solon.enums.ApiResultEnum;
+import cn.poem.solon.utils.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
-import org.noear.solon.core.handle.Result;
 import org.noear.solon.validation.ValidatorException;
 
 

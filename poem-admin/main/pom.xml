@@ -59,6 +59,12 @@
             <artifactId>poem-admin-auth</artifactId>
         </dependency>
 
+        <!--poem-file 文件模块-->
+        <dependency>
+            <groupId>cn.poem.solon.file</groupId>
+            <artifactId>poem-file</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

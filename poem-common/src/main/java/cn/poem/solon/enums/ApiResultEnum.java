@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.core.enums;
+package cn.poem.solon.enums;
 
 import lombok.Getter;
 

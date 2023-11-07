@@ -2,7 +2,6 @@ package cn.poem.solon.admin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
-import cn.poem.solon.admin.core.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.system.domain.dto.PoemUserFromDTO;
@@ -11,6 +10,7 @@ import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
 import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
 import cn.poem.solon.admin.system.domain.vo.PoemUserVo;
 import cn.poem.solon.admin.system.service.IPoemUserService;
+import cn.poem.solon.utils.ApiResult;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
