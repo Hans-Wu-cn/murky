@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.service.impl;
 
+import cn.poem.solon.admin.system.contant.DictContant;
 import cn.poem.solon.admin.system.contant.SystemParameterContant;
 import cn.poem.solon.admin.system.domain.entity.SystemParameter;
 import cn.poem.solon.admin.system.mapper.SystemParameterMapper;
@@ -63,6 +64,10 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
     @Init
     public void initParameter(){
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
+        // 如果已经被初始化过则不需要在初始化
+        if(redisHash.isEmpty()){
+            return;
+        }
         List<SystemParameter> systemParameters = mapper.selectAll();
         for (SystemParameter systemParameter : systemParameters) {
             redisHash.putAndSerialize(systemParameter.getKey(),systemParameter.getValue());

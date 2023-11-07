@@ -15,6 +15,7 @@
     <modules>
         <module>poem-admin</module>
         <module>poem-saas</module>
+        <module>poem-file</module>
     </modules>
 
     <properties>

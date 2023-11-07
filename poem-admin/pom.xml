@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>cn.poem.solon.admin</groupId>
     <artifactId>poem-admin</artifactId>
     <packaging>pom</packaging>
 
@@ -28,43 +29,43 @@
         <dependencies>
             <!--poem-security 安全模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-security</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-core 核心模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-core</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-flex mybatis-flex配置模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-flex</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-common 公共配置模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-common</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-common 公共配置模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-system</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-common 公共配置模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-auth</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-common 公共配置模块-->
             <dependency>
-                <groupId>cn.poem.solon</groupId>
+                <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-event</artifactId>
                 <version>${version}</version>
             </dependency>

@@ -11,5 +11,9 @@ public interface ISystemParameterService extends IService<SystemParameter> {
      */
     void refresh();
 
+    /**
+     * 获取默认密码
+     * @return
+     */
     String getDefaultUserPassword();
 }

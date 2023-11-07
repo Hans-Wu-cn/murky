@@ -69,12 +69,12 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
      */
     @Init
     public void initDict() {
-        List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
         // 如果已经被初始化过则不需要在初始化
-        if(redisHash!=null){
+        if(redisHash.isEmpty()){
             return;
         }
+        List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
         for (PoemDictBo poemDictBo : poemDictBos) {
             redisHash.putAndSerialize(poemDictBo.getDictType(), poemDictBo.getPoemDictDatas());
         }
