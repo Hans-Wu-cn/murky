@@ -3,7 +3,7 @@
   <div class="i18nManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'i18n:add'">{{ $t('button.add') }}</t-button>
+        <t-button @click="onAddHander" v-auth="'i18n:add'">{{ $t('i18n.button.add') }}</t-button>
       </div>
       <t-table stripe :data="i18nData" :columns="columns" row-key="dictTypeId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -28,6 +28,7 @@ import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18nFrom from './components/i18nFrom.vue'
 import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
+import i18n from '@/i18n'
 
 const PagePoemDictTypeParams = ref<I18nPageParams>({
   i18nTag: '',
@@ -179,7 +180,7 @@ const loadColumns = (i18ns: PoemDictData[]) => {
   const columnList: Array<PrimaryTableCol<any>> = [
     {
       colKey: 'serial-number',
-      title: '序号',
+      title: i18n.global.t('common.attribute.serialNumber'),
       minWidth: 50,
     },
     {
@@ -208,13 +209,13 @@ const loadColumns = (i18ns: PoemDictData[]) => {
       <t-space>
         {
           useAuth('i18n:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            编辑
+            {i18n.global.t('common.button.edit')}
           </t-link>)
         }
         {
           useAuth('i18n:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
-              删除
+              {i18n.global.t('common.button.delete')}
             </t-link>
           </t-popconfirm>)
         }

@@ -36,7 +36,7 @@
           <t-dropdown :options="languages" trigger="click" @click="languageClickHandler">
             <t-space>
               <t-button variant="text">
-                语言:{{ languagesSelect }}
+                {{ $t('head.language') + ':' + languagesSelect }}
                 <template #suffix> <t-icon name="chevron-down" size="16" /></template>
               </t-button>
             </t-space>

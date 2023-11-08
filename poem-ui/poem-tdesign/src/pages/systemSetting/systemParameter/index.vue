@@ -3,10 +3,10 @@
   <div class="systemParameterManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'systemParameter:add'">添加配置</t-button>
+        <t-button @click="onAddHander" v-auth="'systemParameter:add'">{{ $t('systemParameter.button.add') }}</t-button>
         <t-button @click="refresh" v-auth="['systemParameter:add', 'systemParameter:edit', 'systemParameter:remove']">
           <template #icon><Refresh-icon /></template>
-          刷新缓存</t-button>
+          {{ $t('common.button.refreshCache') }}</t-button>
       </div>
       <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -32,6 +32,7 @@ import {
 } from 'tdesign-icons-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
+import i18n from '@/i18n';
 
 const page = ref<SystemParameterPageParams>({
   pageNumber: 1,
@@ -45,17 +46,17 @@ const pagination: PaginationProps = reactive({
 const columns: Array<PrimaryTableCol<SystemParameter>> = [
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'key',
-    title: '标签',
+    title: i18n.global.t('systemParameter.attribute.key'),
     minWidth: 100,
   },
   {
     colKey: 'value',
-    title: '值',
+    title: i18n.global.t('systemParameter.attribute.value'),
     minWidth: 100,
     ellipsis: {
       theme: 'light',
@@ -64,7 +65,7 @@ const columns: Array<PrimaryTableCol<SystemParameter>> = [
   },
   {
     colKey: 'describe',
-    title: '描述',
+    title: i18n.global.t('common.attribute.describe'),
     minWidth: 100,
     ellipsis: {
       theme: 'light',
@@ -73,31 +74,31 @@ const columns: Array<PrimaryTableCol<SystemParameter>> = [
   },
   {
     colKey: 'createTime',
-    title: '创建时间',
+    title: i18n.global.t('common.attribute.createTime'),
     minWidth: 100,
   },
   {
     colKey: 'updateTime',
-    title: '修改时间',
+    title: i18n.global.t('common.attribute.updateTime'),
     minWidth: 100,
   },
   {
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
         <t-space>
           {
             useAuth('systemParameter:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              编辑
+              {i18n.global.t('common.button.edit')}
             </t-link>)
           }
           {
             useAuth('systemParameter:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
-                删除
+                {i18n.global.t('common.button.delete')}
               </t-link>
             </t-popconfirm>)
           }

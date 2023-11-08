@@ -34,8 +34,8 @@ export const initLanguage = async () => {
     const { code, result } = await getLanguage("admin", lang);
     if (ResultEnum.SUCCESS === code) {
       i18n.global.setLocaleMessage(lang, result);
+      // await setI18nLanguage(lang, result);
       i18n.global.locale = lang
-      await setI18nLanguage(lang, result);
     }
   } else {
     // 获取用户语言

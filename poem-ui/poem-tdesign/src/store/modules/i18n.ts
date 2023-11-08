@@ -26,20 +26,18 @@ export const useI18nStore = defineStore('i18n', {
      * @param lang 语言编码
      */
     async changeLanguage(lang: string) {
-      debugger
       const language = await this.getI18nLanguage(lang);
       i18n.global.locale = lang
       i18n.global.setLocaleMessage(lang, language)
+      this.lang = lang;
     },
     /**
      * 设置并缓存语言包
      * @param lang 语言编码
      */
-    async setI18nLanguage(lang: string, language: any) {
+    async setI18nLanguage(lang: string, language: any,) {
       Reflect.set(this.getLanguages, lang, language)
       i18n.global.setLocaleMessage(lang, language);
-      i18n.global.locale = lang;
-      this.lang = lang;
     },
     /**
      * 获取语言包
