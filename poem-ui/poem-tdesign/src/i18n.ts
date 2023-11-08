@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n';
 import { getLanguage } from '@/api/systemSetting/i18n';
 import { i18nDictHook } from './hooks/dict';
 import { ResultEnum } from './enums/httpEnum';
-import { useUserStore } from '@/store';
+import { useUserStore, useI18nStore } from '@/store';
 
 
 
@@ -16,6 +16,7 @@ const i18n = createI18n({
  * 初始化语言包
  */
 export const initLanguage = async () => {
+  const { setI18nLanguage } = useI18nStore()
   const i18ns = await i18nDictHook()
   const defaultLanguage = i18ns[0].dictValue;
   // 加载默认语言
@@ -23,6 +24,7 @@ export const initLanguage = async () => {
   if (ResultEnum.SUCCESS === code) {
     i18n.global.setLocaleMessage(defaultLanguage, result);
     i18n.global.fallbackLocale = defaultLanguage
+    await setI18nLanguage(defaultLanguage, result);
   }
   const userStore = useUserStore();
   // 如果用户有设置自己的语言则优先使用,否则使用浏览器语言
@@ -33,6 +35,7 @@ export const initLanguage = async () => {
     if (ResultEnum.SUCCESS === code) {
       i18n.global.setLocaleMessage(lang, result);
       i18n.global.locale = lang
+      await setI18nLanguage(lang, result);
     }
   } else {
     // 获取用户语言
@@ -41,6 +44,7 @@ export const initLanguage = async () => {
     if (ResultEnum.SUCCESS === code) {
       i18n.global.setLocaleMessage(lang, result);
       i18n.global.locale = lang
+      await setI18nLanguage(lang, result);
     }
   }
 }

@@ -148,7 +148,7 @@ const transform: AxiosTransform = {
       case ResultEnum.ERROR:
         console.debug('弹出错误信息');
         MessagePlugin.error(message);
-      default: console.log(' default letter Checked');
+      default: ;
     }
     return res;
   },

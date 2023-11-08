@@ -7,7 +7,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 /**
  * 缓存字典
  */
-let dictCache = new Map<string, Array<PoemDictData>>;
+let dictCache = new Map<string, Array<PoemDictData>>();
 
 const dictKey = {
   i18n: 'i18n:language',

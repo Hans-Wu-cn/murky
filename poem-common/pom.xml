@@ -11,4 +11,12 @@
 
     <artifactId>poem-common</artifactId>
 
+    <dependencies>
+        <!--redisx 依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>redisx</artifactId>
+            <version>${redisx.version}</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -33,6 +33,14 @@
               <t-icon name="help-circle" />
             </t-button>
           </t-tooltip> -->
+          <t-dropdown :options="languages" trigger="click" @click="languageClickHandler">
+            <t-space>
+              <t-button variant="text">
+                语言:{{ languagesSelect }}
+                <template #suffix> <t-icon name="chevron-down" size="16" /></template>
+              </t-button>
+            </t-space>
+          </t-dropdown>
           <t-dropdown :min-column-width="120" trigger="click">
             <template #dropdown>
               <t-dropdown-menu>
@@ -65,19 +73,22 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import { computed } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import LogoFull from '@/assets/assets-logo-full.svg?component';
 import { prefix } from '@/config/global';
 import { getActive } from '@/router';
-import { useSettingStore, useUserStore } from '@/store';
+import { useSettingStore, useUserStore, useI18nStore } from '@/store';
 import type { MenuRoute } from '@/types/interface';
 
+import { storeToRefs } from "pinia"
 import MenuContent from './MenuContent.vue';
 import Notice from './Notice.vue';
 import Search from './Search.vue';
 import { logout } from '@/api/auth';
+import { i18nDictHook } from '@/hooks/dict';
+import { DropdownOption } from 'tdesign-vue-next';
 
 const props = defineProps({
   theme: {
@@ -109,7 +120,7 @@ const props = defineProps({
     default: 3,
   },
 });
-
+const i18nStore = useI18nStore()
 const router = useRouter();
 const settingStore = useSettingStore();
 const user = useUserStore();
@@ -118,8 +129,11 @@ const toggleSettingPanel = () => {
   settingStore.updateConfig({
     showSettingPanel: true,
   });
-};
-
+}; Reflect
+const lang = ref(i18nStore.getLang)
+const languages = ref([]);
+const i18nDictMap = reactive({})
+const languagesSelect = ref();
 const active = computed(() => getActive());
 
 const layoutCls = computed(() => [`${prefix}-header-layout`]);
@@ -146,6 +160,14 @@ const handleNav = (url: string) => {
   router.push(url);
 };
 
+const languageClickHandler = async (dropdownItem: DropdownOption) => {
+  console.log(dropdownItem)
+  await i18nStore.changeLanguage(dropdownItem.value as string)
+  languagesSelect.value = Reflect.get(i18nDictMap, dropdownItem.value as string);
+
+};
+
+
 const handleLogout = async () => {
   await logout();
   router.push({
@@ -161,6 +183,16 @@ const navToGitee = () => {
 const navToHelper = () => {
   window.open('http://tdesign.tencent.com/starter/docs/get-started');
 };
+
+onMounted(async () => {
+
+  const i18ns = await i18nDictHook();
+  i18ns.forEach(item => {
+    languages.value.push({ content: item.dictLabel, value: item.dictValue })
+    Reflect.set(i18nDictMap, item.dictValue, item.dictLabel)
+  })
+  languagesSelect.value = Reflect.get(i18nDictMap, lang.value);
+});
 </script>
 <style lang="less" scoped>
 .@{starter-prefix}-header {

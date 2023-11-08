@@ -33,7 +33,7 @@ solon.logging.logger:
 redis:
   server: localhost:6379
   db: 1
-  serializer: "org.noear.redisx.utils.SerializerJson"
+  serializer: "cn.poem.solon.config.SerializerJsonTyped"
 
 postgres.db:
   jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon?currentSchema=demo
