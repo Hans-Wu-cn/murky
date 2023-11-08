@@ -12,7 +12,6 @@
     <artifactId>poem-admin-security</artifactId>
 
     <properties>
-        <redisx.verion>1.6.0</redisx.verion>
     </properties>
 
     <dependencies>
@@ -30,7 +29,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>redisx</artifactId>
-            <version>${redisx.verion}</version>
+            <version>${redisx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.noear</groupId>

@@ -23,36 +23,43 @@
             <artifactId>solon-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- http容器 -->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.boot.smarthttp</artifactId>
         </dependency>
+
         <!-- 内核 -->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon</artifactId>
         </dependency>
+
         <!--solon 依赖-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-lib</artifactId>
         </dependency>
+
         <!--solon api-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-api</artifactId>
         </dependency>
+
         <!--配置读取yml-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
+
         <!--poem-admin-system 系统模块-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
             <artifactId>poem-admin-system</artifactId>
         </dependency>
+
         <!--poem-auth 权限模块-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
