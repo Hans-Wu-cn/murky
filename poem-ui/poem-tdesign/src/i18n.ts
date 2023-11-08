@@ -16,13 +16,12 @@ const i18n = createI18n({
  * 初始化语言包
  */
 export const initLanguage = async () => {
-  const { setI18nLanguage } = useI18nStore()
+  const { setI18nLanguage, changeLanguage } = useI18nStore()
   const i18ns = await i18nDictHook()
   const defaultLanguage = i18ns[0].dictValue;
   // 加载默认语言
   const { code, result } = await getLanguage("admin", defaultLanguage);
   if (ResultEnum.SUCCESS === code) {
-    i18n.global.setLocaleMessage(defaultLanguage, result);
     i18n.global.fallbackLocale = defaultLanguage
     await setI18nLanguage(defaultLanguage, result);
   }
@@ -33,18 +32,17 @@ export const initLanguage = async () => {
     const lang = navigator.language
     const { code, result } = await getLanguage("admin", lang);
     if (ResultEnum.SUCCESS === code) {
-      i18n.global.setLocaleMessage(lang, result);
-      // await setI18nLanguage(lang, result);
-      i18n.global.locale = lang
+      await setI18nLanguage(lang, result);
+      await changeLanguage(lang)
     }
   } else {
     // 获取用户语言
     const lang = userStore.userInfo.language
     const { code, result } = await getLanguage("admin", lang);
     if (ResultEnum.SUCCESS === code) {
-      i18n.global.setLocaleMessage(lang, result);
-      i18n.global.locale = lang
       await setI18nLanguage(lang, result);
+      await changeLanguage(lang)
+
     }
   }
 }
