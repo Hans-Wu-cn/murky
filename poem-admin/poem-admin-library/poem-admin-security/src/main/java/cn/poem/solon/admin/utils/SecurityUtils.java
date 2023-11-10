@@ -2,6 +2,7 @@ package cn.poem.solon.admin.utils;
 
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.SecurityCache;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import org.noear.solon.Solon;

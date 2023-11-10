@@ -74,7 +74,7 @@ public class SecurityCache  {
      *
      * @return 返回用户id
      */
-    public Long getUserId() {
+    public Long getUserId() throws NotLoginException{
         return StpUtil.getLoginIdAsLong();
     }
 
