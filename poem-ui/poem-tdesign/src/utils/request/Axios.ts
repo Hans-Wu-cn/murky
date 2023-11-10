@@ -273,6 +273,7 @@ export class VAxios {
           if (transformRequestHook && isFunction(transformRequestHook)) {
             try {
               const ret = transformRequestHook(res, opt);
+              //@ts-ignore
               resolve(ret);
             } catch (err) {
               reject(err || new Error('请求错误!'));
