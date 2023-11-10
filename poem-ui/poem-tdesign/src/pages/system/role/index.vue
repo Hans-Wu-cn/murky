@@ -3,7 +3,7 @@
   <div class="roleManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'role:add'">添加角色</t-button>
+        <t-button @click="onAddHander" v-auth="'role:add'">{{ $t('role.button.add') }}</t-button>
       </div>
       <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -32,6 +32,7 @@ import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
+import i18n from '@/i18n';
 
 const PageRoleParams = ref<PageRole>({
   roleName: '',
@@ -74,18 +75,18 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
         <t-space>
           {
             useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              编辑
+              {i18n.global.t('common.button.edit')}
             </t-link>)
           }
           {
             useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
-              数据权限
+              {i18n.global.t('role.button.power')}
             </t-link>)
           }
           {
             useAuth('role:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
-                删除
+                {i18n.global.t('common.button.delete')}
               </t-link>
             </t-popconfirm>)
           }
@@ -192,13 +193,15 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'roleName',
     value: '',
-    label: '角色名',
+    label: i18n.global.t('role.label.name'),
+    placeholder: i18n.global.t('role.label.pl.name'),
     type: 'input',
   },
   {
     name: 'roleCode',
     value: '',
-    label: '角色码',
+    label: i18n.global.t('role.label.code'),
+    placeholder: i18n.global.t('role.label.pl.code'),
     type: 'input',
   },
 

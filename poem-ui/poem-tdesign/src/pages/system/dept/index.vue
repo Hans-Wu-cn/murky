@@ -2,7 +2,7 @@
   <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
   <t-card class="dept" :bordered="false">
     <div>
-      <t-button @click="onAddHander('0')" v-auth="['dept:add']">添加部门</t-button>
+      <t-button @click="onAddHander('0')" v-auth="['dept:add']">{{ $t('dept.button.add') }}</t-button>
     </div>
     <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
     <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
@@ -31,6 +31,7 @@ import { PoemDept, PoemDeptTree } from '@/api/system/dept/types';
 import { useSettingStore } from '@/store';
 import { hasAuth, useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
+import i18n from '@/i18n';
 
 const router = useRouter();
 const tableData = ref<PoemDeptTree[]>();
@@ -73,18 +74,18 @@ const columns: Array<PrimaryTableCol<any>> = [
         <t-space>
           {
             useAuth('dept:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddHander(row.deptId)}>
-              新增子部门
+              {i18n.global.t('dept.button.addsub')}
             </t-link>)
           }
           {
             useAuth('dept:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHandler(row)}>
-              编辑
+              {i18n.global.t('common.button.edit')}
             </t-link>)
           }
           {
             (hasAuth('dept:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteHandler(row)}>
               <t-link variant="text" hover="color" theme="danger">
-                删除
+                {i18n.global.t('common.button.delete')}
               </t-link>
             </t-popconfirm> : null
           }
@@ -99,9 +100,9 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'deptName',
     value: '',
-    label: '部门名称',
+    label: i18n.global.t('dept.label.name'),
     type: 'input',
-    placeholder: '请输入部门名称'
+    placeholder: i18n.global.t('dept.label.pl.name'),
   }
 ])
 const visible = ref(false);

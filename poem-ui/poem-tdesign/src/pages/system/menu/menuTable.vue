@@ -31,6 +31,7 @@ import { useRouter } from 'vue-router';
 import menuFrom from './menuFrom.vue';
 import { hasAuth, useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
+import i18n from '@/i18n';
 
 const router = useRouter();
 const tableRef = ref();
@@ -93,21 +94,21 @@ const columns: Array<PrimaryTableCol<any>> = [
                 <t-space>
                     {
                         useAuth('menu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
-                            新增子菜单
+                            {i18n.global.t('menu.button.addSub')}
                         </t-link>)
                     }
                     {
                         useAuth('menu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
-                            编辑
+                            {i18n.global.t('common.button.edit')}
                         </t-link>)
                     }
                     <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
-                        查看
+                        {i18n.global.t('common.button.view')}
                     </t-link>
                     {
                         (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
                             <t-link variant="text" hover="color" theme="danger">
-                                删除
+                                {i18n.global.t('common.button.delete')}
                             </t-link>
                         </t-popconfirm> : null
                     }
@@ -123,30 +124,30 @@ const searchOptions = ref<SearchOption[]>([
     {
         name: 'label',
         value: '',
-        label: '标题',
+        label: i18n.global.t('menu.label.title'),
         type: 'input',
-        placeholder: "请输入菜单标题"
+        placeholder: i18n.global.t('menu.label.pl.title')
     },
     {
         name: 'name',
         value: '',
-        label: '菜单名',
+        label: i18n.global.t('menu.label.name'),
         type: 'input',
-        placeholder: "请输入菜单名"
+        placeholder: i18n.global.t('menu.label.pl.name'),
     },
     {
         name: 'path',
         value: '',
-        label: '路径',
+        label: i18n.global.t('menu.label.path'),
         type: 'input',
-        placeholder: "请输入菜单路径"
+        placeholder: i18n.global.t('menu.label.pl.path'),
     },
     {
         name: 'auth',
         value: '',
-        label: '权限',
+        label: i18n.global.t('menu.label.auth'),
         type: 'input',
-        placeholder: "请输入菜单权限"
+        placeholder: i18n.global.t('menu.label.pl.auth'),
     },
 
 ])

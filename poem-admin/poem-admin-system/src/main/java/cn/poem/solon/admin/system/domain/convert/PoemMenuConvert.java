@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.domain.convert;
 
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import org.mapstruct.Mapper;
@@ -30,5 +30,5 @@ public interface PoemMenuConvert {
     /**
      * PoemMenu 菜单实体转树形菜单vo
      */
-    List<PoemMenuTreeVO> toEntity(List<PoemMenu> poemMenu);
+    List<PoemMenuTree> toEntity(List<PoemMenu> poemMenu);
 }

@@ -1,6 +1,6 @@
-package cn.poem.solon.admin.event.system.vo;
+package cn.poem.solon.admin.security.entity;
 
-import cn.poem.solon.admin.event.system.enums.*;
+import cn.poem.solon.admin.security.enums.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class PoemMenuTreeVO implements Serializable {
+public class PoemMenuTree implements Serializable {
 
     /**
      * 菜单id
@@ -94,5 +94,5 @@ public class PoemMenuTreeVO implements Serializable {
     /**
      * 下级菜单
      */
-    private List<PoemMenuTreeVO> children;
+    private List<PoemMenuTree> children;
 }

@@ -1,20 +1,17 @@
-package cn.poem.solon.admin.event.system.enums;
+package cn.poem.solon.admin.security.enums;
+
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
-/**
- * 是否显示在菜单  0:显示  1:隐藏
- *
- * @author hans
- */
+
 @AllArgsConstructor
 @Getter
-public enum MenuDisplayType {
-    DISPLAY(0,"显示"),
-    HIDDEN(1,"隐藏"),
+public enum MenuOpenType {
+    CURRENT(1,"当前窗口"),
+    NEW(2,"新窗口"),
     ;
     @EnumValue
     @ONodeAttr

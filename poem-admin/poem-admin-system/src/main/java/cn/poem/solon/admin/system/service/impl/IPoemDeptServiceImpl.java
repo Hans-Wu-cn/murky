@@ -10,7 +10,7 @@ import cn.poem.solon.admin.system.mapper.PoemDeptAncestorsMapper;
 import cn.poem.solon.admin.system.mapper.PoemDeptMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserMapper;
 import cn.poem.solon.admin.system.service.IPoemDeptService;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;

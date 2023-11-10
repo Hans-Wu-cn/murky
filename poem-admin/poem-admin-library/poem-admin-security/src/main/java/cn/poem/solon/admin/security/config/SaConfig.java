@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.config;
+package cn.poem.solon.admin.security.config;
 
 import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.solon.dao.SaTokenDaoOfRedis;

@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.service;
 
-import cn.poem.solon.admin.event.system.enums.MenuType;
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
+import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import com.mybatisflex.core.service.IService;
@@ -28,7 +28,7 @@ public interface IPoemMenuService extends IService<PoemMenu> {
      *
      * @return 菜单树视图对象
      */
-    List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes);
+    List<PoemMenuTree> treePoemMenu(List<MenuType> menuTypes);
 
     /**
      * 删除菜单业务

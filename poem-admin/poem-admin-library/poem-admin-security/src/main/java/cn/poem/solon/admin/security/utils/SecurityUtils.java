@@ -1,11 +1,13 @@
-package cn.poem.solon.admin.utils;
+package cn.poem.solon.admin.security.utils;
 
 
 import cn.dev33.satoken.exception.NotLoginException;
-import cn.dev33.satoken.stp.StpUtil;
-import cn.poem.solon.admin.SecurityCache;
+import cn.poem.solon.admin.security.SecurityCache;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
 import org.noear.solon.Solon;
+
+import java.util.List;
 
 public class SecurityUtils {
     static SecurityCache securityCache;
@@ -50,4 +52,17 @@ public class SecurityUtils {
     public static Boolean isAdmin() throws NotLoginException {
         return securityCache.admin();
     }
+
+    public static List<PoemMenuTree> getUserMenu() throws NotLoginException {
+        return securityCache.getUserMenu();
+    }
+
+    public static void setUserMenu(List<PoemMenuTree> menus) throws NotLoginException {
+        securityCache.setUserMenu(menus);
+    }
+
+    public static void delUserMenu() throws NotLoginException {
+        securityCache.delUserMenu();
+    }
+
 }

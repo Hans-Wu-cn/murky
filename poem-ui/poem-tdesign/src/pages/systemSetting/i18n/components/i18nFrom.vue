@@ -112,8 +112,6 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success('提交成功');
       emit('submit-hook');
-    } else {
-      MessagePlugin.error(res.message);
     }
     loading.value = false
   }

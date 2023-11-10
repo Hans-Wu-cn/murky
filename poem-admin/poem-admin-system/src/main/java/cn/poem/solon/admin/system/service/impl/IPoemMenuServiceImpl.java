@@ -1,8 +1,8 @@
 package cn.poem.solon.admin.system.service.impl;
 
 import cn.poem.solon.admin.core.exception.ServiceException;
-import cn.poem.solon.admin.event.system.enums.MenuType;
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
+import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
@@ -11,7 +11,7 @@ import cn.poem.solon.admin.system.domain.entity.table.PoemRoleMenuTableDef;
 import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.admin.system.service.IPoemMenuService;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
@@ -22,6 +22,7 @@ import org.noear.solon.data.annotation.Tran;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 菜单service实现
@@ -60,10 +61,10 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      * @return 菜单树视图对象
      */
     @Override
-    public List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes) {
+    public List<PoemMenuTree> treePoemMenu(List<MenuType> menuTypes) {
         List<PoemMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes, SecurityUtils.isAdmin() ? null : SecurityUtils.getUserInfo().getRoleIds());
-        List<PoemMenuTreeVO> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
-        List<PoemMenuTreeVO> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
+        List<PoemMenuTree> poemMenuTreeVOS = PoemMenuConvert.INSTANCES.toEntity(allPoemMenuList);
+        List<PoemMenuTree> list = poemMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
         buildTreePoemMenu(list, poemMenuTreeVOS);
         return list;
     }
@@ -98,10 +99,10 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
      * @param parentMenuList 父级菜单
      * @param poemMenuList   菜单资源池
      */
-    private void buildTreePoemMenu(List<PoemMenuTreeVO> parentMenuList, List<PoemMenuTreeVO> poemMenuList) {
-        for (PoemMenuTreeVO poemMenuTreeVO : parentMenuList) {
-            List<PoemMenuTreeVO> treePoemMenu = new ArrayList<>();
-            for (PoemMenuTreeVO poemMenu : poemMenuList) {
+    private void buildTreePoemMenu(List<PoemMenuTree> parentMenuList, List<PoemMenuTree> poemMenuList) {
+        for (PoemMenuTree poemMenuTreeVO : parentMenuList) {
+            List<PoemMenuTree> treePoemMenu = new ArrayList<>();
+            for (PoemMenuTree poemMenu : poemMenuList) {
                 if (poemMenu.getParentMenuId().equals(poemMenuTreeVO.getMenuId())) {
                     treePoemMenu.add(poemMenu);
                 }

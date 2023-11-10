@@ -15,7 +15,7 @@ import cn.poem.solon.admin.system.mapper.PoemRoleDeptMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMenuMapper;
 import cn.poem.solon.admin.system.service.IPoemRoleService;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;

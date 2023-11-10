@@ -1,11 +1,11 @@
 package cn.poem.solon.admin.system.controller;
 
 import cn.poem.solon.admin.core.extension.BaseController;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
+import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
-import cn.poem.solon.admin.event.system.enums.MenuType;
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.system.domain.dto.PoemMenuFromDTO;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
@@ -34,8 +34,8 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("获取用户菜单")
     @Get
     @Mapping("list")
-    public ApiResult<List<PoemMenuTreeVO>> list(){
-        List<PoemMenuTreeVO> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
+    public ApiResult<List<PoemMenuTree>> list(){
+        List<PoemMenuTree> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
         return ApiResult.ok(result);
     }
 

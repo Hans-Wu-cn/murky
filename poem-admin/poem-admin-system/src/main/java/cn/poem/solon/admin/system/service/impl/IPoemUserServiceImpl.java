@@ -17,7 +17,7 @@ import cn.poem.solon.admin.system.mapper.PoemUserMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserRoleMapper;
 import cn.poem.solon.admin.system.service.IPoemUserService;
 import cn.poem.solon.admin.system.service.ISystemParameterService;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.annotation.Component;

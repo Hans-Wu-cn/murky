@@ -5,11 +5,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.auth.service.IPoemLoginService;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
+import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.event.system.MenuEvent;
-import cn.poem.solon.admin.event.system.enums.MenuType;
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
@@ -45,6 +45,7 @@ public class PoemAuthController {
     @ApiOperation("登出")
     @Mapping("logout")
     public ApiResult<?> logout() {
+//        SecurityUtils.delUserMenu();
         SecurityUtils.delUserInfo();
         StpUtil.logout();
         return ApiResult.ok();
@@ -53,7 +54,7 @@ public class PoemAuthController {
     @Get
     @ApiOperation("获取菜单")
     @Mapping("menu")
-    public ApiResult<List<PoemMenuTreeVO>> menu() {
+    public ApiResult<List<PoemMenuTree>> menu() {
         return ApiResult.ok(menuEvent.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY)));
     }
 

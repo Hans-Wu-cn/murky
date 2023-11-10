@@ -13,7 +13,7 @@ import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleTableDef;
 import cn.poem.solon.admin.system.domain.vo.PoemRoleVo;
 import cn.poem.solon.admin.system.service.IPoemRoleService;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;

@@ -3,7 +3,7 @@
   <div v-else class="menuManage" :bordered="false">
     <!-- 菜单表格组件 -->
     <MenuTable>
-        <t-button @click="handleAdd" v-auth="['menu:add']">添加根菜单</t-button>
+      <t-button @click="handleAdd" v-auth="['menu:add']">{{ $t('menu.button.add') }}</t-button>
     </MenuTable>
   </div>
   <t-dialog v-model:visible="menuVisible" :footer="false" width="600px" top="10">

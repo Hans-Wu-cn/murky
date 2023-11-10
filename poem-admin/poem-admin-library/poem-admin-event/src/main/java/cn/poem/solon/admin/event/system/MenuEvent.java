@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.event.system;
 
-import cn.poem.solon.admin.event.system.enums.MenuType;
-import cn.poem.solon.admin.event.system.vo.PoemMenuTreeVO;
+import cn.poem.solon.admin.security.entity.PoemMenuTree;
+import cn.poem.solon.admin.security.enums.MenuType;
 import org.noear.dami.solon.annotation.DamiTopic;
 
 import java.util.List;
@@ -17,5 +17,5 @@ public interface MenuEvent {
      *
      * @return 菜单树视图对象
      */
-    List<PoemMenuTreeVO> treePoemMenu(List<MenuType> menuTypes);
+    List<PoemMenuTree> treePoemMenu(List<MenuType> menuTypes);
 }

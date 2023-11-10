@@ -208,7 +208,8 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'key',
     value: '',
-    label: '配置',
+    label: i18n.global.t('systemParameter.label.key'),
+    placeholder: i18n.global.t('systemParameter.label.pl.key'),
     type: 'input',
   },
 ])

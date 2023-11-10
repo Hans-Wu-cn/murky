@@ -1,7 +1,7 @@
-package cn.poem.solon.admin;
+package cn.poem.solon.admin.security;
 
 import cn.dev33.satoken.stp.StpInterface;
-import cn.poem.solon.admin.utils.SecurityUtils;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
 import org.noear.solon.annotation.Component;
 
 import java.util.List;

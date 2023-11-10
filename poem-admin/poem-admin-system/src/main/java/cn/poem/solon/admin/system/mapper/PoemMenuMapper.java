@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.mapper;
 
 
-import cn.poem.solon.admin.event.system.enums.MenuType;
+import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.domain.entity.table.PoemMenuTableDef;
 import cn.poem.solon.admin.system.domain.entity.table.PoemRoleMenuTableDef;

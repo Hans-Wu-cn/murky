@@ -158,16 +158,16 @@ const getI18nTagdict = async () => {
       {
         name: 'i18nKey',
         value: '',
-        label: 'i18n编码',
+        label: i18n.global.t('i18n.label.code'),
         type: 'input',
-        placeholder: '请输入i18n编码',
+        placeholder: i18n.global.t('i18n.label.pl.code'),
       },
       {
         name: 'i18nTag',
         value: i18nTags[0].dictValue,
-        label: 'i18n标签',
+        label: i18n.global.t('i18n.label.tag'),
         type: 'dict',
-        placeholder: '请选择i18n标签',
+        placeholder: i18n.global.t('i18n.label.pl.tag'),
         dictOptions: i18nTags
       },
     ];
