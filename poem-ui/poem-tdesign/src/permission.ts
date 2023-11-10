@@ -31,6 +31,7 @@ router.beforeEach(async (to, from, next) => {
       // 初始化语言包
       await initLanguage();
       if (asyncRoutes && asyncRoutes.length === 0) {
+        debugger
         const routeList = await permissionStore.buildAsyncRoutes();
         routeList.forEach((item: RouteRecordRaw) => {
           router.addRoute(item);
