@@ -15,10 +15,11 @@
 import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
 import { PoemDictData } from '@/api/system/dict/types';
+import { ComputedRef } from 'vue';
 
 export interface SearchOption {
     name: string,
-    label: string,
+    label: string|ComputedRef<string>|any,
     value: string,
     type: string,// 输入框类型
     placeholder?: string,
