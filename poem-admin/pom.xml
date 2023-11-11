@@ -18,6 +18,7 @@
         <module>poem-admin-system</module>
         <module>poem-admin-auth</module>
         <module>poem-admin-library</module>
+        <module>poem-admin-saas</module>
     </modules>
 
     <properties>
@@ -76,11 +77,10 @@
             </dependency>
             <!--文件上传 依赖-->
             <dependency>
-                <groupId>cn.poem.solon.file</groupId>
-                <artifactId>poem-file</artifactId>
+                <groupId>cn.poem.solon.admin</groupId>
+                <artifactId>poem-admin-saas</artifactId>
                 <version>${version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>

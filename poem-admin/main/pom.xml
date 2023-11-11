@@ -60,11 +60,18 @@
             <artifactId>poem-admin-system</artifactId>
         </dependency>
 
-        <!--poem-auth 权限模块-->
+        <!--poem-admin-auth 权限模块-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
             <artifactId>poem-admin-auth</artifactId>
         </dependency>
+
+        <!--poem-admin-saas 多租户管理模块-->
+        <dependency>
+            <groupId>cn.poem.solon.admin</groupId>
+            <artifactId>poem-admin-saas</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>
@@ -75,8 +82,8 @@
                 <version>3.11.0</version>
                 <configuration>
                     <compilerArgument>-parameters</compilerArgument>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                     <annotationProcessorPaths>
                         <path>

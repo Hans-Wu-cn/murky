@@ -34,6 +34,8 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
 
     @Inject
     private PoemRoleMenuMapper poemRoleMenuMapper;
+    @Inject
+    private IPoemMenuServiceImpl iPoemMenuService;
 
     /**
      * 菜单排序接口,设置菜单排序并统一设定父级菜单
@@ -44,7 +46,6 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     @Tran
     @Override
     public Boolean drop(PoemMenuDropDTO poemMenuDropDTO) {
-        IPoemMenuServiceImpl bean = Solon.context().getBean(this.getClass());
         List<PoemMenu> poemMenuList = new ArrayList<>();
         List<Long> menuIds = poemMenuDropDTO.getMenuIds();
         for (int i = 0; i < menuIds.size(); i++) {
@@ -52,7 +53,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
                     .setSort(Short.parseShort(String.valueOf(i)))
                     .setParentMenuId(poemMenuDropDTO.getParentMenuId()));
         }
-        return bean.updateBatch(poemMenuList);
+        return iPoemMenuService.updateBatch(poemMenuList);
     }
 
     /**
