@@ -70,7 +70,7 @@ const onReset = () => {
 </script>
 <style scoped lang="less">
 .searchParams {
-    background: #fff;
+    background: var(--td-bg-color-container);
     border-radius: var(--td-radius-medium);
     padding: 20px 0;
     margin-bottom: 10px;
