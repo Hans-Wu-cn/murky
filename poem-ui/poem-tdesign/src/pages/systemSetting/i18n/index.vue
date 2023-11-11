@@ -158,16 +158,16 @@ const getI18nTagdict = async () => {
       {
         name: 'i18nKey',
         value: '',
-        label: i18n.global.t('i18n.label.code'),
+        label: computed(() => i18n.global.t('i18n.label.code')),
         type: 'input',
-        placeholder: i18n.global.t('i18n.label.pl.code'),
+        placeholder: computed(() => i18n.global.t('i18n.label.pl.code')),
       },
       {
         name: 'i18nTag',
         value: i18nTags[0].dictValue,
-        label: i18n.global.t('i18n.label.tag'),
+        label: computed(() => i18n.global.t('i18n.label.tag')),
         type: 'dict',
-        placeholder: i18n.global.t('i18n.label.pl.tag'),
+        placeholder: computed(() => i18n.global.t('i18n.label.pl.tag')),
         dictOptions: i18nTags
       },
     ];

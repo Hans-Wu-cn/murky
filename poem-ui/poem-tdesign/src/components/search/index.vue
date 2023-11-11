@@ -19,10 +19,10 @@ import { ComputedRef } from 'vue';
 
 export interface SearchOption {
     name: string,
-    label: string|ComputedRef<string>|any,
+    label: string | ComputedRef<string> | any,
     value: string,
     type: string,// 输入框类型
-    placeholder?: string,
+    placeholder?: string | ComputedRef<string> | any,
     radioOptions?: { [key: string]: string },// 单选项搜索
     dictOptions?: Array<PoemDictData>,// 单选项字典
     labelWidth?: string | number
