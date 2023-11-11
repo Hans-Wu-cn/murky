@@ -10,7 +10,7 @@
             </t-form-item>
             <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
-                    <t-radio v-for="(value, key) in gender" :key="key" :value="key">{{ value }}</t-radio>
+                    <t-radio v-for="(value, key) in gender" :key="key" :value="Number(key)">{{ value }}</t-radio>
                 </t-radio-group>
             </t-form-item>
             <t-form-item label="邮箱" name="email">
