@@ -78,7 +78,7 @@ public class IPoemMenuServiceImpl extends ServiceImpl<PoemMenuMapper, PoemMenu> 
     @Override
     @Tran
     public boolean removeById(Serializable id) {
-        Long count = mapper.selectCountByQuery(
+        long count = mapper.selectCountByQuery(
                 QueryWrapper.create().from(PoemMenuTableDef.POEM_MENU).where(PoemMenuTableDef.POEM_MENU.PARENT_MENU_ID.eq(id))
         );
         if (count > 0) {

@@ -56,9 +56,12 @@ public class PoemRoleController extends BaseController<IPoemRoleService> {
     @Get
     @Mapping("list")
     public ApiResult<List<PoemRole>> list(PoemRolePageDTO poemRolePageDTO) {
+        PoemRoleTableDef POEM_ROLE = PoemRoleTableDef.POEM_ROLE;
         List<PoemRole> result = baseService.list(
-                QueryWrapper.create().
-                        orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
+                QueryWrapper.create()
+                .and(POEM_ROLE.ROLE_CODE.ne(SystemContant.ADMIN_ROLE_CODE))
+                .and(POEM_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                        .orderBy(PoemRoleTableDef.POEM_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
     }
