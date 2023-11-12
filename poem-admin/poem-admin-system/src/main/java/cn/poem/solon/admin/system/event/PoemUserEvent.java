@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.event;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
@@ -19,8 +20,6 @@ import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.dami.solon.annotation.DamiTopic;
 import org.noear.solon.annotation.Inject;
-
-import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public class PoemUserEvent {
      * 获取用户详情事件
      * @return
      */
-    public SecurityUserInfo userInfo() throws LoginException {
+    public SecurityUserInfo userInfo(){
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
         SecurityUserInfo userInfoCache = SecurityUtils.getUserInfo();
 

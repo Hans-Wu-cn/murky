@@ -4,7 +4,6 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 
-import javax.security.auth.login.LoginException;
 
 /**
  * 登录service
@@ -23,6 +22,6 @@ public interface IPoemLoginService {
      *
      * @return 用户信息对象
      */
-    SecurityUserInfo userInfo() throws LoginException;
+    SecurityUserInfo userInfo();
 
 }

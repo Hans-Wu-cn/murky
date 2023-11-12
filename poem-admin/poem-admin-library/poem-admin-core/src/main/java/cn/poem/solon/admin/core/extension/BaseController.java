@@ -11,7 +11,7 @@ import org.noear.solon.annotation.Inject;
  */
 public class BaseController<T extends IService<?>> {
 
-    @Inject
+    @Inject(required = false)
     protected T baseService;
     protected ApiResult<?> toResult(Boolean b) {
         return b ? ApiResult.ok() : ApiResult.fail();

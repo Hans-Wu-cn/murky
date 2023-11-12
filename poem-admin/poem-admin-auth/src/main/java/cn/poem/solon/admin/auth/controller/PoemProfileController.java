@@ -1,7 +1,5 @@
 package cn.poem.solon.admin.auth.controller;
 
-import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.event.system.UserEvent;
 import cn.poem.solon.utils.ApiResult;
@@ -28,8 +26,7 @@ public class PoemProfileController extends BaseController {
     @Post
     @ApiOperation("修改语言偏好")
     @Mapping("language/{language}")
-    public ApiResult<String> setLanguage(@Validated @NotBlank String language) {
-        ;
+    public ApiResult<?> setLanguage(@Validated @NotBlank String language) {
         return toResult(userEvent.setLanguage(language));
     }
 }

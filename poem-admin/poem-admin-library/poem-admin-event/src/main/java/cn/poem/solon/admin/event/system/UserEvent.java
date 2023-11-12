@@ -1,12 +1,9 @@
 package cn.poem.solon.admin.event.system;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.domin.PoemUser;
-import cn.poem.solon.admin.security.utils.SecurityUtils;
 import org.noear.dami.solon.annotation.DamiTopic;
-
-import javax.security.auth.login.LoginException;
-import java.util.List;
 
 /**
  * 用户事件
@@ -24,7 +21,7 @@ public interface UserEvent {
      * 获取用户详情事件
      * @return
      */
-    SecurityUserInfo userInfo() throws LoginException;
+    SecurityUserInfo userInfo();
 
     /**
      * 设置用户语言偏好

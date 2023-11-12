@@ -9,8 +9,8 @@ import java.io.Serializable;
 
 /**
  * 统一响应体数据结构
- * @param <T> 任意类型
  *
+ * @param <T> 任意类型
  * @author hans
  */
 @Accessors(chain = true)
@@ -30,15 +30,16 @@ public class ApiResult<T> implements Serializable {
         return restResult(ApiResultEnum.SUCCESS, "成功");
     }
 
-    public static <T> ApiResult<T> fail(int code,String msg) {
-        return restResult(code,msg,null);
+    public static <T> ApiResult<T> fail(int code, String msg) {
+        return restResult(code, msg, null);
     }
-    public static <T> ApiResult<T> fail(ApiResultEnum apiResult,String msg) {
-        return restResult(apiResult,msg);
+
+    public static <T> ApiResult<T> fail(ApiResultEnum apiResult, String msg) {
+        return restResult(apiResult, msg);
     }
 
     public static <T> ApiResult<T> fail() {
-        return restResult(ApiResultEnum.FAil, null);
+        return restResult(ApiResultEnum.FAil);
     }
 
     public static <T> ApiResult<T> fail(String msg) {

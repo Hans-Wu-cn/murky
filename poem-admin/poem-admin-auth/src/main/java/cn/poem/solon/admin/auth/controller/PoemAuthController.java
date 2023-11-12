@@ -33,6 +33,7 @@ public class PoemAuthController {
     private IPoemLoginService iPoemLoginService;
     @Inject
     private MenuEvent menuEvent;
+
     @Post
     @ApiOperation("登录")
     @Mapping("login")
@@ -55,17 +56,13 @@ public class PoemAuthController {
     @ApiOperation("获取菜单")
     @Mapping("menu")
     public ApiResult<List<PoemMenuTree>> menu() {
-        return ApiResult.ok(menuEvent.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY)));
+        return ApiResult.ok(menuEvent.treePoemMenu(Arrays.asList(MenuType.MENU, MenuType.DIRECTORY)));
     }
 
     @Get
     @ApiOperation("获取用户信息")
     @Mapping("info")
     public ApiResult<SecurityUserInfo> userInfo() {
-        try {
-            return ApiResult.ok(iPoemLoginService.userInfo());
-        } catch (javax.security.auth.login.LoginException e) {
-            throw new RuntimeException(e);
-        }
+        return ApiResult.ok(iPoemLoginService.userInfo());
     }
 }

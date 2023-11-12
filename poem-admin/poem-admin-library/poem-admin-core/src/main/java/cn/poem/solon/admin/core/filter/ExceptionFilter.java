@@ -6,6 +6,7 @@ import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.enums.ApiResultEnum;
 import cn.poem.solon.utils.ApiResult;
 import lombok.extern.slf4j.Slf4j;
+import org.noear.dami.exception.DamiException;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
@@ -23,6 +24,9 @@ public class ExceptionFilter implements Filter {
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         try {
             chain.doFilter(ctx);
+        }catch (DamiException ex){
+            // 解包damiBus异常
+            throw ex.getCause();
         }catch (NotLoginException ex){
             // 未登录异常处理
             log.debug("登录状态过期:{},{}",ex.getCode(),ex.getMessage());
@@ -38,7 +42,8 @@ public class ExceptionFilter implements Filter {
             // 表单验证异常处理
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(), "参数错误"));
-        }catch (RuntimeException ex){
+        }
+        catch (RuntimeException ex){
             // 其他异常
             ex.printStackTrace();
             ctx.render(ApiResult.fail(500,ex.getMessage()));
