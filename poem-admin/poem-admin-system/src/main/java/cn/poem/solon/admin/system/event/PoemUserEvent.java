@@ -42,12 +42,21 @@ public class PoemUserEvent {
     @Inject
     private PoemMenuMapper poemMenuMapper;
 
+    /**
+     * 根据账号查询用户
+     * @param account
+     * @return
+     */
     public PoemUser getOneByAccount(String account){
        return iPoemUserService.getOne(QueryWrapper.create().where(
                 PoemUserTableDef.POEM_USER.ACCOUNT.eq(account)
         ));
     }
 
+    /**
+     * 获取用户详情事件
+     * @return
+     */
     public SecurityUserInfo userInfo() throws LoginException {
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
         SecurityUserInfo userInfoCache = SecurityUtils.getUserInfo();
@@ -90,4 +99,12 @@ public class PoemUserEvent {
         });
     }
 
+    /**
+     * 设置用户语言偏好
+     * @return
+     */
+    public boolean setLanguage(String language){
+        PoemUser poemUser = new PoemUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
+        return iPoemUserService.updateById(poemUser);
+    }
 }

@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.noear.solon.validation.annotation.NotBlank;
 
+/**
+ * 登录DTO
+ */
 @Data
 @ApiModel
 public class LoginDto {
