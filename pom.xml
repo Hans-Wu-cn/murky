@@ -17,7 +17,6 @@
     <modules>
         <module>poem-admin</module>
         <module>poem-saas</module>
-        <module>poem-file</module>
         <module>poem-common</module>
     </modules>
 
