@@ -2,6 +2,7 @@ package cn.poem.solon.admin.core.config;
 
 
 //import com.github.xiaoymin.knife4j.solon.extension.OpenApiExtensionResolver;
+
 import cn.poem.solon.enums.ApiResultEnum;
 import cn.poem.solon.utils.ApiResult;
 import io.swagger.models.Scheme;
@@ -15,6 +16,7 @@ import org.noear.solon.docs.openapi2.OpenApi2Utils;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /***
@@ -22,9 +24,37 @@ import java.util.Map;
  *
  * @author hans
  */
+@Condition(onProperty = "${doc}") //有属性值
 @Controller
 @Configuration
-public class DocConfig{
+public class DocConfig {
+
+    @Inject("${doc.groupName}")
+    private String groupName;
+
+    @Inject("${doc.title}")
+    private String title;
+
+    @Inject("${doc.description}")
+    private String description;
+
+    @Inject("${doc.termsOfService}")
+    private String termsOfService;
+
+    @Inject("${doc.name}")
+    private String name;
+
+    @Inject("${doc.url}")
+    private String url;
+
+    @Inject("${doc.email}")
+    private String email;
+
+    @Inject("${doc.version}")
+    private String version;
+
+    @Inject("${doc.apis}")
+    private List<String> apis;
     /**
      * swagger 获取分组信息
      */
@@ -42,51 +72,34 @@ public class DocConfig{
     public String api(Context ctx, String group) throws IOException {
         return OpenApi2Utils.getApiJson(ctx, group);
     }
-    // knife4j 的配置，由它承载
-//    @Inject
-//    OpenApiExtensionResolver openApiExtensionResolver;
-//
-//    /**
-//     * 简单点的
-//     */
-//    @Bean("appApi")
-//    public DocDocket appApi() {
-//        //根据情况增加 "knife4j.setting" （可选）
-//        return new DocDocket()
-//                .basicAuth(openApiExtensionResolver.getSetting().getBasic())
-//                .vendorExtensions(openApiExtensionResolver.buildExtensions())
-//                .groupName("app端接口")
-//                .schemes(Scheme.HTTP.toValue())
-//                .apis("com.swagger.demo.controller.app");
-//
-//    }
 
     /**
-     * 丰富点的
+     * 生成 dockDocket bean
      */
     @Bean("adminApi")
+    @Condition(onProperty = "${doc.enable}=true") //有属性值
     public DocDocket adminApi() {
         Map<Integer, String> responseCodes = new HashMap<>();
         Arrays.stream(ApiResultEnum.values()).forEach(enums -> {
-            responseCodes.put(enums.getCode(),enums.getMessage()+"->"+enums.getDescribe());
+            responseCodes.put(enums.getCode(), enums.getMessage() + "->" + enums.getDescribe());
         });
 
-        return new DocDocket()
-                .groupName("admin端接口")
-                .info(new ApiInfo().title("在线文档")
-                        .description("在线API文档")
-                        .termsOfService("https://gitee.com/wu-zhihao/poem-solon")
-                        .contact(new ApiContact().name("poem-solon")
-                                .url("https://gitee.com/wu-zhihao/poem-solon")
-                                .email("837713748@qq.com"))
-                        .version("1.0"))
+        DocDocket docDocket = new DocDocket()
+                .groupName(groupName)
+                .info(new ApiInfo().title(title)
+                        .description(description)
+                        .termsOfService(termsOfService)
+                        .contact(new ApiContact().name(name)
+                                .url(url)
+                                .email(email))
+                        .version(version))
                 .schemes(Scheme.HTTP.toValue(), Scheme.HTTPS.toValue())
                 .globalResponseInData(true)
                 .globalResult(ApiResult.class)
-                .globalResponseCodes(responseCodes)
-                .apis("cn.poem.solon.admin.auth.controller") //可以加多条，以包名为单位
-                .apis("cn.poem.solon.admin.system.controller") //可以加多条，以包名为单位
-                ;//.securityDefinitionInHeader("tok en");
-
+                .globalResponseCodes(responseCodes);
+        for (String api : apis) {
+            docDocket.apis(api);
+        }
+        return docDocket;
     }
 }
