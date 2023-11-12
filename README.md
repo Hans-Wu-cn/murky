@@ -46,7 +46,7 @@ cn.poem.solon
 │       └── poem-admin-saas                           // 租户管理模块
 │       └── poem-admin-system                         // 系统管理模块
 ├── poem-saas          // 商户端服务端模块
-├──pom.xml             // 公共依赖管理声明
+├── pom.xml             // 公共依赖管理声明
 ~~~
 
 ### 开发计划
