@@ -12,7 +12,9 @@ import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
 import org.noear.solon.validation.ValidatorException;
 
-
+/**
+ * 系统异常统一处理拦截
+ */
 @Component(index = 0)
 @Slf4j
 public class ExceptionFilter implements Filter {
@@ -22,14 +24,18 @@ public class ExceptionFilter implements Filter {
         try {
             chain.doFilter(ctx);
         }catch (NotLoginException ex){
+            // 未登录异常处理
             log.debug("登录状态过期:{},{}",ex.getCode(),ex.getMessage());
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN,ex.getMessage()));
         }catch (NotPermissionException ex){
+            // 没有权限异常处理
             ex.printStackTrace();
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_PREMISSION));
         }catch (ServiceException ex){
+            // 业务异常处理
             ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
         }catch (ValidatorException ex){
+            // 表单验证异常处理
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(), "参数错误"));
         }catch (RuntimeException ex){
