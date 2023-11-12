@@ -6,9 +6,7 @@ import cn.poem.solon.utils.ApiResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
-import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.Valid;
-import org.noear.solon.validation.annotation.Validated;
 
 /***
  * 个人信息Controller
@@ -26,7 +24,7 @@ public class PoemProfileController extends BaseController {
     @Post
     @ApiOperation("修改语言偏好")
     @Mapping("language/{language}")
-    public ApiResult<?> setLanguage(@Validated @NotBlank String language) {
+    public ApiResult<?> setLanguage(String language) {
         return toResult(userEvent.setLanguage(language));
     }
 }

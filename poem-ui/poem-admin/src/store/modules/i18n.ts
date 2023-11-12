@@ -3,6 +3,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import i18n from '@/i18n'
 import { getLanguage } from '@/api/systemSetting/i18n';
 import { MessagePlugin } from 'tdesign-vue-next';
+import { useUserStore } from '@/store/modules/user'
 const langed: Object = {
   en: Object,
   zh_CN: Object,
@@ -10,14 +11,10 @@ const langed: Object = {
 export const useI18nStore = defineStore('i18n', {
   state: () => ({
     languages: {},
-    lang: ''
   }),
   getters: {
     getLanguages: (state) => {
       return state.languages;
-    },
-    getLang: (state) => {
-      return state.lang;
     },
   },
   actions: {
@@ -29,7 +26,7 @@ export const useI18nStore = defineStore('i18n', {
       const language = await this.getI18nLanguage(lang);
       i18n.global.locale = lang
       i18n.global.setLocaleMessage(lang, language)
-      this.lang = lang;
+      useUserStore().setLanguage(lang)
     },
     /**
      * 设置并缓存语言包
@@ -38,6 +35,7 @@ export const useI18nStore = defineStore('i18n', {
     async setI18nLanguage(lang: string, language: any,) {
       Reflect.set(this.getLanguages, lang, language)
       i18n.global.setLocaleMessage(lang, language);
+      useUserStore().setLanguage(lang)
     },
     /**
      * 获取语言包

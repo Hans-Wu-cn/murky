@@ -25,7 +25,7 @@ export const initLanguage = async () => {
     i18n.global.fallbackLocale = defaultLanguage
     await setI18nLanguage(defaultLanguage, result);
   }
-  const userStore = useUserStore();
+  const userStore = await useUserStore();
   // 如果用户有设置自己的语言则优先使用,否则使用浏览器语言
   if (!userStore.userInfo.language) {
     // 获取浏览器语言
@@ -46,4 +46,5 @@ export const initLanguage = async () => {
     }
   }
 }
+
 export default i18n;

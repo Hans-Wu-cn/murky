@@ -30,7 +30,7 @@ export type CommonObjType = {
 export interface UserInfo {
   userId: string;
   userName: string;
-  language: string;
+  language?: string;
   token: string;
   roleIds: string[];
   roleCodes: string[];

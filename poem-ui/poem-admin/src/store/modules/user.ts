@@ -5,6 +5,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { usePermissionStore } from '@/store';
 import type { UserInfo } from '@/types/interface';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18nStore } from '@/store/modules/i18n'
 
 const InitUserInfo: UserInfo = {
   userName: '',
@@ -25,8 +26,14 @@ export const useUserStore = defineStore('user', {
     roles: (state) => {
       return state.userInfo?.roleIds;
     },
+    language: (state) => {
+      return state.userInfo?.language;
+    },
   },
   actions: {
+    async setLanguage(lang: string) {
+      this.state.userInfo.language = lang
+    },
     async login(userInfo: Record<string, unknown>) {
       const { code, message, result } = await login(userInfo);
       if (code === ResultEnum.SUCCESS) {
@@ -37,10 +44,13 @@ export const useUserStore = defineStore('user', {
     },
     async getUserInfo() {
       const { result, code } = await getUserInfo();
-      // const res = await mockRemoteUserInfo(this.token);
       if (ResultEnum.SUCCESS === code) {
         console.log('info', result)
         this.userInfo = result;
+        debugger
+        if (result.language) {
+          useI18nStore().changeLanguage(result.language)
+        }
       }
     },
     async logout() {

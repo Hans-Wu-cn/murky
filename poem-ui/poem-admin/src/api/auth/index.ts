@@ -7,6 +7,7 @@ const Api = {
   login: '/auth/login',
   logout: '/auth/logout',
   userInfo: '/auth/info',
+  languagePreference: '/profile/language',
 };
 
 /**
@@ -48,5 +49,15 @@ export function getUserInfo() {
 export function getMenuList() {
   return request.get<Array<Route>>({
     url: Api.menuList,
+  });
+}
+
+/**
+ * 获取用户菜单
+ * @returns Route
+ */
+export function setLanguagePreference(lang: string) {
+  return request.post<Array<Route>>({
+    url: `${Api.languagePreference}/${lang}`,
   });
 }

@@ -86,9 +86,10 @@ import { storeToRefs } from "pinia"
 import MenuContent from './MenuContent.vue';
 import Notice from './Notice.vue';
 import Search from './Search.vue';
-import { logout } from '@/api/auth';
+import { logout, setLanguagePreference } from '@/api/auth';
 import { i18nDictHook } from '@/hooks/dict';
 import { DropdownOption } from 'tdesign-vue-next';
+import { ResultEnum } from '@/enums/httpEnum';
 
 const props = defineProps({
   theme: {
@@ -130,7 +131,7 @@ const toggleSettingPanel = () => {
     showSettingPanel: true,
   });
 }; Reflect
-const lang = ref(i18nStore.getLang)
+const lang = ref(user.userInfo.language)
 const languages = ref([]);
 const i18nDictMap = reactive({})
 const languagesSelect = ref();
@@ -161,9 +162,11 @@ const handleNav = (url: string) => {
 };
 
 const languageClickHandler = async (dropdownItem: DropdownOption) => {
-  console.log(dropdownItem)
-  await i18nStore.changeLanguage(dropdownItem.value as string)
-  languagesSelect.value = Reflect.get(i18nDictMap, dropdownItem.value as string);
+  const { code, result } = await setLanguagePreference(dropdownItem.value as string);
+  if (ResultEnum.SUCCESS === code) {
+    await i18nStore.changeLanguage(dropdownItem.value as string)
+    languagesSelect.value = Reflect.get(i18nDictMap, dropdownItem.value as string);
+  }
 
 };
 

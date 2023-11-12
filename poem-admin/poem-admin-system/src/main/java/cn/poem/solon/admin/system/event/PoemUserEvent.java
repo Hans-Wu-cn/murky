@@ -1,13 +1,14 @@
 package cn.poem.solon.admin.system.event;
 
-import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
+import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.domin.tab.PoemUserTableDef;
 import cn.poem.solon.admin.security.enums.MenuType;
+import cn.poem.solon.admin.system.domain.entity.PoemDictData;
 import cn.poem.solon.admin.system.domain.entity.PoemUserRole;
 import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
@@ -15,10 +16,12 @@ import cn.poem.solon.admin.system.domain.entity.PoemRole;
 import cn.poem.solon.admin.system.mapper.PoemMenuMapper;
 import cn.poem.solon.admin.system.mapper.PoemRoleMapper;
 import cn.poem.solon.admin.system.mapper.PoemUserRoleMapper;
+import cn.poem.solon.admin.system.service.IPoemDictDataService;
 import cn.poem.solon.admin.system.service.IPoemUserService;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.dami.solon.annotation.DamiTopic;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Inject;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +43,8 @@ public class PoemUserEvent {
     private PoemRoleMapper poemRoleMapper;
     @Inject
     private PoemMenuMapper poemMenuMapper;
+    @Inject
+    private IPoemDictDataService iPoemDictDataService;
 
     /**
      * 根据账号查询用户
@@ -67,14 +72,13 @@ public class PoemUserEvent {
             SecurityUserInfo userInfo = new SecurityUserInfo().setUserId(loginId)
                     .setUserName(poemUser.getUserName())
                     .setLanguage(poemUser.getLanguage())
+                    .setDeptId(poemUser.getDeptId())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
             Set<Long> roleIds = poemUserRoleMapper.selectByUserId(poemUser.getUserId())
                     .stream().map(PoemUserRole::getRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
-            //设置部门信息
-            userInfo.setDeptId(poemUser.getDeptId());
             //查询角色code列表
             List<PoemRole> poemRoles = poemRoleMapper.selectListByIds(roleIds);
             List<String> roleCodes = poemRoles.stream().map(item -> {
@@ -87,7 +91,6 @@ public class PoemUserEvent {
             //查询数据权限信息
             Set<DataScope> dataScopes = poemRoles.stream().map(PoemRole::getDataScope).collect(Collectors.toSet());
             dataScopes.forEach(userInfo::addDataScope);
-//            userInfo.setDeptIds(getDeptIdByDataScope(dataScopes, userInfo.getDeptId()));
             //查询权限列表
             List<String> permissions = poemMenuMapper.selectByMenuType(
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
@@ -103,7 +106,18 @@ public class PoemUserEvent {
      * @return
      */
     public boolean setLanguage(String language){
+        List<PoemDictData> list = iPoemDictDataService.getI18nDict().stream().filter(item -> item.getDictValue().equals(language)).toList();
+        if(Utils.isEmpty(list)){
+            throw new ServiceException("系统暂不支持该语言");
+        }
         PoemUser poemUser = new PoemUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
-        return iPoemUserService.updateById(poemUser);
+        boolean b = iPoemUserService.updateById(poemUser);
+        if(b){
+            SecurityUserInfo userInfo = SecurityUtils.getUserInfo();
+            userInfo.setLanguage(language);
+            SecurityUtils.setUserInfo(userInfo);
+            return true;
+        }
+        return false;
     }
 }

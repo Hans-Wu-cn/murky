@@ -10,7 +10,7 @@ import plugins from './plugins/index'
 import 'tdesign-vue-next/es/style/index.css';
 import '@/style/index.less';
 import './permission';
-import i18n from './i18n';
+import i18n, { initLanguage } from './i18n';
 
 const app = createApp(App);
 
@@ -21,3 +21,4 @@ app.use(plugins)
 app.use(i18n)
 
 app.mount('#app');
+await initLanguage()
