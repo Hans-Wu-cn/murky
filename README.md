@@ -9,7 +9,7 @@
 ### 系统简介
 
 1. 基于MIT协议完整开源
-2. 前端采用tdesign模板适配
+2. 前端采用[tdesign](https://tdesign.tencent.com/vue-next/overview)模板适配
 3. 前端技术栈:vue3 + vite + pina
 4. 后端技术栈:solon + mybaits-flex + satoken + DamiBus
 5. 数据库使用postgresql,redis
