@@ -237,6 +237,7 @@ onMounted(async () => {
 
 const searchSubmit = (params: any) => {
   searchi18nTag.value = params.dictValue
+  console.log('params:', params)
   loadData(params)
 }
 </script>

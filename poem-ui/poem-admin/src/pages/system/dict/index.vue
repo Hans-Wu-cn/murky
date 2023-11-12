@@ -4,10 +4,10 @@
   <div class="dictManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'dict:add'">添加字典</t-button>
+        <t-button @click="onAddHander" v-auth="'dict:add'">{{ $t('dict.button.add') }}</t-button>
         <t-button @click="refershDict" v-auth="['dict:add', 'dict:edit', 'dict:remove']">
           <template #icon><Refresh-icon /></template>
-          刷新缓存</t-button>
+          {{ $t('common.button.refreshCache') }}</t-button>
       </div>
       <t-table stripe :data="dictTypeData" :columns="columns" row-key="dictTypeId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -36,6 +36,7 @@ import { useRoute, useRouter } from 'vue-router';
 import {
   RefreshIcon,
 } from 'tdesign-icons-vue-next';
+import i18n from '@/i18n';
 const route = useRoute();
 const router = useRouter();
 const PagePoemDictTypeParams = ref<PagePoemDictType>({
@@ -100,13 +101,13 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
       <t-space>
         {
           useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            编辑
+            {i18n.global.t('common.button.edit')}
           </t-link>)
         }
         {
           useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
-              删除
+              {i18n.global.t('common.button.delete')}
             </t-link>
           </t-popconfirm>)
         }
@@ -215,23 +216,23 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'dictName',
     value: '',
-    label: '字典名称',
+    label: computed(() => i18n.global.t('dict.label.dictName')),
     type: 'input',
-    placeholder: '请输入字典名称',
+    placeholder: computed(() => i18n.global.t('dict.label.pl.dictName')),
   },
   {
     name: 'dictType',
     value: '',
-    label: '字典类型',
+    label: computed(() => i18n.global.t('dict.label.dictType')),
     type: 'input',
-    placeholder: '请输入字典类型',
+    placeholder: computed(() => i18n.global.t('dict.label.pl.dictType')),
   },
   {
     name: 'status',
     value: '',
-    label: '状态',
+    label: computed(() => i18n.global.t('common.label.status')),
     type: 'select',
-    placeholder: '请选择字典状态',
+    placeholder: computed(() => i18n.global.t('dict.label.pl.status')),
     radioOptions: status
   },
 ])

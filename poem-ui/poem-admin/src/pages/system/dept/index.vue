@@ -100,9 +100,9 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'deptName',
     value: '',
-    label: i18n.global.t('dept.label.name'),
+    label: computed(() => i18n.global.t('dept.label.name')),
     type: 'input',
-    placeholder: i18n.global.t('dept.label.pl.name'),
+    placeholder: computed(() => i18n.global.t('dept.label.pl.name')),
   }
 ])
 const visible = ref(false);

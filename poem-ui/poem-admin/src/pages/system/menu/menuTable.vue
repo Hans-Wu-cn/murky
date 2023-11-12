@@ -124,30 +124,30 @@ const searchOptions = ref<SearchOption[]>([
     {
         name: 'label',
         value: '',
-        label: i18n.global.t('menu.label.title'),
+        label: computed(() => i18n.global.t('menu.label.title')),
         type: 'input',
-        placeholder: i18n.global.t('menu.label.pl.title')
+        placeholder: computed(() => i18n.global.t('menu.label.pl.title'))
     },
     {
         name: 'name',
         value: '',
-        label: i18n.global.t('menu.label.name'),
+        label: computed(() => i18n.global.t('menu.label.name')),
         type: 'input',
-        placeholder: i18n.global.t('menu.label.pl.name'),
+        placeholder: computed(() => i18n.global.t('menu.label.pl.name')),
     },
     {
         name: 'path',
         value: '',
-        label: i18n.global.t('menu.label.path'),
+        label: computed(() => i18n.global.t('menu.label.path')),
         type: 'input',
-        placeholder: i18n.global.t('menu.label.pl.path'),
+        placeholder: computed(() => i18n.global.t('menu.label.pl.path')),
     },
     {
         name: 'auth',
         value: '',
-        label: i18n.global.t('menu.label.auth'),
+        label: computed(() => i18n.global.t('menu.label.auth')),
         type: 'input',
-        placeholder: i18n.global.t('menu.label.pl.auth'),
+        placeholder: computed(() => i18n.global.t('menu.label.pl.auth')),
     },
 
 ])

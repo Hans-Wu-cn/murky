@@ -1,13 +1,13 @@
 <template>
   <search v-model:options="searchOptions" @submit="searchSubmit"></search>
   <div class="user">
-    <t-card :bordered="false" title="部门树">
+    <t-card :bordered="false" :title="$t('user.label.deptTree')">
       <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys"
         @click="deptTreeNodeClick" />
     </t-card>
-    <t-card :bordered="false" title="用户列表">
+    <t-card :bordered="false" :title="$t('user.label.userList')">
       <div>
-        <t-button @click="userVisible = true" v-auth="'user:add'">添加用户</t-button>
+        <t-button @click="userVisible = true" v-auth="'user:add'">{{ $t('user.button.add') }}</t-button>
       </div>
       <t-table stripe :data="userData" :columns="columns" row-key="userId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
@@ -17,7 +17,7 @@
       <userFrom ref="userFromRef" @submit-hook="onUserSubmit"></userFrom>
     </t-dialog>
     <t-dialog v-model:visible="restPasswdVisible" :footer="false" width="500px" top="20px">
-      <template #header>重置密码</template>
+      <template #header>{{ $t('user.button.resetPassword') }}</template>
       <restPasswdFrom ref="restPasswdFromRef" @submit-hook="onRestPasswdSubmit"></restPasswdFrom>
     </t-dialog>
   </div>
@@ -36,6 +36,7 @@ import restPasswdFrom from './components/restPasswdFrom.vue'
 import { useAuth } from '@/hooks/auth';
 import { gender } from './constants';
 import search, { SearchOption } from '@/components/search/index.vue';
+import i18n from '@/i18n';
 
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {
@@ -110,19 +111,19 @@ const columns: Array<PrimaryTableCol> = [
           {
 
             useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              编辑
+              {i18n.global.t('common.button.edit')}
             </t-link>)
           }
           {
 
             useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onRestPasswdHander(row)}>
-              重置密码
+              {i18n.global.t('user.button.resetPassword')}
             </t-link>)
           }
           {
             useAuth('user:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
-                删除
+                {i18n.global.t('common.button.delete')}
               </t-link>
             </t-popconfirm>)
           }
@@ -245,23 +246,23 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'userName',
     value: '',
-    label: '用户名',
+    label: computed(() => i18n.global.t('user.label.userName')),
     type: 'input',
-    placeholder: '请输入用户名'
+    placeholder: computed(() => i18n.global.t('user.label.pl.userName')),
   },
   {
     name: 'email',
     value: '',
-    label: '邮箱',
+    label: computed(() => i18n.global.t('user.label.email')),
     type: 'input',
-    placeholder: '请输入邮箱'
+    placeholder: computed(() => i18n.global.t('user.label.pl.email')),
   },
   {
     name: 'sex',
     value: '',
-    label: '性别',
+    label: computed(() => i18n.global.t('user.label.sex')),
     type: 'select',
-    placeholder: '请选择性别',
+    placeholder: computed(() => i18n.global.t('user.label.pl.sex')),
     radioOptions: gender
   },
 ])

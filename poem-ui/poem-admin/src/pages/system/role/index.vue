@@ -193,15 +193,15 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'roleName',
     value: '',
-    label: i18n.global.t('role.label.name'),
-    placeholder: i18n.global.t('role.label.pl.name'),
+    label: computed(() => i18n.global.t('role.label.name')),
+    placeholder: computed(() => i18n.global.t('role.label.pl.name')),
     type: 'input',
   },
   {
     name: 'roleCode',
     value: '',
-    label: i18n.global.t('role.label.code'),
-    placeholder: i18n.global.t('role.label.pl.code'),
+    label: computed(() => i18n.global.t('role.label.code')),
+    placeholder: computed(() => i18n.global.t('role.label.pl.code')),
     type: 'input',
   },
 
