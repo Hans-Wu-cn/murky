@@ -2,16 +2,17 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="部门名" name="deptName">
-        <t-input v-model="formData.deptName" placeholder="请输入部门名称"></t-input>
+      <t-form-item :label="$t('dept.label.name')" name="deptName">
+        <t-input v-model="formData.deptName" :placeholder="$t('dept.label.pl.name')"></t-input>
       </t-form-item>
-      <t-form-item label="排序" name="sort">
-        <t-input-number placeholder="请输入内容" v-model="formData.sort" />
+      <t-form-item :label="$t('common.attribute.sort')" name="sort">
+        <t-input-number :placeholder="$t('common.attribute.pl.sort')" v-model="formData.sort" />
       </t-form-item>
       <t-form-item>
         <t-space size="small">
-          <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
-          <t-button theme="default" variant="base" type="reset" :loading="loading">重置</t-button>
+          <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+          <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
+          }}</t-button>
         </t-space>
       </t-form-item>
     </t-form>
@@ -23,11 +24,12 @@ import { PoemDeptTree, PoemDept } from '@/api/system/dept/types'
 import { FormRules, MessagePlugin, SubmitContext, } from 'tdesign-vue-next';
 import { addDept, deptInfo, editDept } from '@/api/system/dept';
 import { ResultEnum } from '@/enums/httpEnum';
+import i18n from '@/i18n';
 const emit = defineEmits(['submit-hook'])
 
 const FORM_RULES = ref<FormRules>({
-  deptName: [{ required: true, message: '请输入部门名称', trigger: 'blur' }],
-  sort: [{ required: true, message: '请输入排序', trigger: 'blur' }],
+  deptName: [{ required: true, message: i18n.global.t('dept.label.name'), trigger: 'blur' }],
+  sort: [{ required: true, message: i18n.global.t('common.attribute.pl.sort'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PoemDeptTree>({
@@ -55,7 +57,6 @@ const onReset = () => {
  */
 const historyFormValue = ref({})
 const initFromData = async (deptId: string, parentDept: string) => {
-  console.log(111111111111, formData, parentDept, parentFromDept);
   if (!deptId) {
     formData.value = {
       deptId: '',
@@ -87,7 +88,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemDept>) => {
     const res = await api(formData.value);
     loading.value = false
     if (res.code === ResultEnum.SUCCESS) {
-      MessagePlugin.success('提交成功');
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');
     } else {
       MessagePlugin.error(res.message);

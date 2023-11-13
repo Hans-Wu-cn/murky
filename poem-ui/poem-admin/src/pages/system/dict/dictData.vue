@@ -3,7 +3,7 @@
   <div class="dictDataManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'dict:add'">添加字典数据</t-button>
+        <t-button @click="onAddHander" v-auth="'dict:add'">{{ $t('dictData.button.add') }}</t-button>
       </div>
       <t-table stripe :data="dictData" :columns="columns" row-key="dictCode" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -28,6 +28,7 @@ import search, { SearchOption } from '@/components/search/index.vue';
 import { status } from './constants';
 import dictDataFrom from './components/dictDataFrom.vue'
 import { useRoute } from 'vue-router';
+import i18n from '@/i18n';
 
 const route = useRoute();
 const PagePoemDictDataParams = ref<PagePoemDictData>({
@@ -45,22 +46,22 @@ const pagination: PaginationProps = reactive({
 const columns: Array<PrimaryTableCol<PoemDictData>> = [
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'dictLabel',
-    title: '字典标签',
+    title: () => i18n.global.t('dictData.attribute.dictLabel'),
     minWidth: 100,
   },
   {
     colKey: 'dictValue',
-    title: '字典值',
+    title: () => i18n.global.t('dictData.attribute.dictValue'),
     minWidth: 100,
   },
   {
     colKey: 'status',
-    title: '状态',
+    title: () => i18n.global.t('common.label.status'),
     minWidth: 100,
     cell: (h, { col, row }) => (
       <div>
@@ -72,7 +73,7 @@ const columns: Array<PrimaryTableCol<PoemDictData>> = [
   },
   {
     colKey: 'remark',
-    title: '描述',
+    title: () => i18n.global.t('common.attribute.describe'),
     ellipsis: {
       theme: 'light',
       placement: 'bottom',
@@ -85,19 +86,19 @@ const columns: Array<PrimaryTableCol<PoemDictData>> = [
   {
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <t-space>
         {
           useAuth('dict:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            编辑
+            {i18n.global.t('common.button.edit')}
           </t-link>)
         }
         {
-          useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+          useAuth('dict:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
-              删除
+              {i18n.global.t('common.button.delete')}
             </t-link>
           </t-popconfirm>)
         }
@@ -120,7 +121,7 @@ const settingStore = useSettingStore();
  * 添加字典数据表单适配器
  */
 const onAddHander = () => {
-  dictDataFromTitle.value = '添加字典'
+  dictDataFromTitle.value = i18n.global.t('dict.label.add')
   dictDataFromRef.value.initFromData(undefined, PagePoemDictDataParams.value.dictType)
   dictDataFromVisible.value = true
 }
@@ -130,7 +131,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemDictData) => {
-  dictDataFromTitle.value = '编辑字典'
+  dictDataFromTitle.value = i18n.global.t('dict.label.edit')
   dictDataFromRef.value.initFromData(row.dictCode, row.dictType)
   dictDataFromVisible.value = true
 }
@@ -142,14 +143,14 @@ const onEditHander = (row: PoemDictData) => {
 const onDelHander = async (row: PoemDictData) => {
   const { code } = await PoemDictDataRemove(row.dictCode)
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
   }
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
@@ -191,23 +192,23 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'dictName',
     value: '',
-    label: '字典名称',
+    label: () => i18n.global.t('dictData.attribute.dictLabel'),
     type: 'input',
-    placeholder: '请输入字典名称',
+    placeholder: computed(() => i18n.global.t('dictData.label.pl.dictLabel')),
   },
   {
     name: 'dictType',
     value: '',
-    label: '字典类型',
+    label: () => i18n.global.t('dict.label.dictType'),
     type: 'input',
-    placeholder: '请输入字典类型',
+    placeholder: computed(() => i18n.global.t('dict.label.pl.dictType')),
   },
   {
     name: 'status',
     value: '',
-    label: '状态',
+    label: () => i18n.global.t('common.label.status'),
     type: 'select',
-    placeholder: '请选择字典状态',
+    placeholder: computed(() => i18n.global.t('dict.label.pl.status')),
     radioOptions: status
   },
 ])

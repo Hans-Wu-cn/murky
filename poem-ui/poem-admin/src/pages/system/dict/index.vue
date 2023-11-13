@@ -132,7 +132,7 @@ const settingStore = useSettingStore();
  * 添加字典数据表单适配器
  */
 const onAddHander = () => {
-  dictTypeFromTitle.value = '添加字典'
+  dictTypeFromTitle.value = i18n.global.t('dict.label.add')
   dictTypeFromRef.value.initFromData()
   dictTypeFromVisible.value = true
 }
@@ -142,7 +142,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemDictType) => {
-  dictTypeFromTitle.value = '编辑字典'
+  dictTypeFromTitle.value = i18n.global.t('dict.label.edit')
   dictTypeFromRef.value.initFromData(row.dictTypeId)
   dictTypeFromVisible.value = true
 }
@@ -154,7 +154,7 @@ const onEditHander = (row: PoemDictType) => {
 const onDelHander = async (row: PoemDictType) => {
   const { code } = await PoemDictTypeRemove(row.dictTypeId)
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
   }
 }
@@ -176,7 +176,7 @@ const onDictData = (row: PoemDictType) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
