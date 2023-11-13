@@ -68,7 +68,7 @@ const searchi18nTag = ref('')
  * 添加字典数据表单适配器
  */
 const onAddHander = () => {
-  i18nFromTitle.value = '添加数据'
+  i18nFromTitle.value = i18n.global.t('i18n.button.add')
   i18nFromRef.value.initFromData()
   i18nFromVisible.value = true
 }
@@ -79,7 +79,7 @@ const onAddHander = () => {
  */
 const onEditHander = (row: any) => {
   console.log(row['i18nKey']);
-  i18nFromTitle.value = '编辑数据'
+  i18nFromTitle.value = i18n.global.t('i18n.label.editData')
   i18nFromRef.value.initFromData(row['i18nKey'], row['i18nTag'])
   i18nFromVisible.value = true
 }
@@ -91,7 +91,7 @@ const onEditHander = (row: any) => {
 const onDelHander = async (row: any) => {
   const { code } = await removeI18n(row['i18nKey'])
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData({ i18nTag: searchi18nTag.value });
   }
 }
@@ -99,7 +99,7 @@ const onDelHander = async (row: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
@@ -203,7 +203,7 @@ const loadColumns = (i18ns: PoemDictData[]) => {
   columnList.push({
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <t-space>

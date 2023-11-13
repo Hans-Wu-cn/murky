@@ -2,19 +2,20 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="配置key" name="key">
-        <t-input v-model="formData.key" placeholder="请输入配置key"></t-input>
+      <t-form-item :label="$t('systemParameter.label.key')" name="key">
+        <t-input v-model="formData.key" :placeholder="$t('systemParameter.label.pl.key')"></t-input>
       </t-form-item>
-      <t-form-item label="配置值" name="value">
-        <t-input v-model="formData.value" placeholder="请输入配置值"></t-input>
+      <t-form-item :label="$t('systemParameter.attribute.value')" name="value">
+        <t-input v-model="formData.value" :placeholder="$t('systemParameter.attribute.pl.value')"></t-input>
       </t-form-item>
-      <t-form-item label="描述" name="describe">
-        <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
+      <t-form-item :label="$t('common.attribute.describe')" name="describe">
+        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')"></t-textarea>
       </t-form-item>
       <t-form-item>
         <t-space size="small">
-          <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
-          <t-button theme="default" variant="base" type="reset" :loading="loading">重置</t-button>
+          <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+          <t-button theme="default" variant="base" type="reset" :loading="loading">{{
+            $t('common.button.reset1') }}</t-button>
         </t-space>
       </t-form-item>
     </t-form>
@@ -26,11 +27,12 @@ import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, 
 import { saveSystemParameter, updateSystemParameter, systemParameterInfo } from '@/api/systemSetting/systemParameter';
 import { SystemParameter } from '@/api/systemSetting/systemParameter/types';
 import { ResultEnum } from '@/enums/httpEnum';
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
-  key: [{ required: true, message: '请输入配置key', trigger: 'blur' }],
-  value: [{ required: true, message: '请输入配置值', trigger: 'blur' }],
+  key: [{ required: true, message: i18n.global.t('systemParameter.label.pl.key'), trigger: 'blur' }],
+  value: [{ required: true, message: i18n.global.t('systemParameter.attribute.pl.value'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<SystemParameter>({
@@ -90,7 +92,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<SystemParameter>) => {
     const api = formData.value.id ? updateSystemParameter : saveSystemParameter
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
-      MessagePlugin.success('提交成功');
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');
     } else {
       MessagePlugin.error(res.message);

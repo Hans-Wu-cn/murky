@@ -121,14 +121,14 @@ const settingStore = useSettingStore();
 
 const refresh = async () => {
   const { code } = await refreshCache()
-  MessagePlugin.success('刷新成功')
+  MessagePlugin.success(i18n.global.t('common.message.refreshSuccess'))
 }
 
 /**
  * 添加角色表单适配器
  */
 const onAddHander = () => {
-  systemParameteFromTitle.value = '添加角色'
+  systemParameteFromTitle.value = i18n.global.t('systemParameter.button.add')
   systemParameteFromRef.value.initFromData()
   systemParameteFromVisible.value = true
 }
@@ -138,7 +138,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: SystemParameter) => {
-  systemParameteFromTitle.value = '编辑角色'
+  systemParameteFromTitle.value = i18n.global.t('systemParameter.label.edit')
   systemParameteFromRef.value.initFromData(row.id)
   systemParameteFromVisible.value = true
 }
@@ -159,14 +159,14 @@ const onDatascopeHander = (row: SystemParameter) => {
 const onDelHander = async (row: SystemParameter) => {
   const { code } = await removeSystemParameter(row.id)
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
   }
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件

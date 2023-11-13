@@ -1,10 +1,10 @@
 <template>
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_I18N" :data="formData" @reset="onReset" @submit="onSubmit">
-      <t-form-item label="i18n编码" name="i18nKey">
-        <t-input v-model="formData.i18nKey" placeholder="请输入i18n编码"></t-input>
+      <t-form-item :label="$t('i18n.label.code')" name="i18nKey">
+        <t-input v-model="formData.i18nKey" :placeholder="$t('i18n.label.pl.code')"></t-input>
       </t-form-item>
-      <t-form-item label="i18n标签" name="college">
+      <t-form-item :label="$t('i18n.label.tag')" name="i18nTag">
         <t-select v-model="formData.i18nTag">
           <t-option v-for="(item, index) in i18nTagSelectOption" :key="index" :value="item.dictValue"
             :label="item.dictLabel">
@@ -13,12 +13,13 @@
         </t-select>
       </t-form-item>
       <t-form-item v-for="(item, index) in formData.i18nInputs" :label="item.language" :name="item.language">
-        <t-input v-model="item.i18nValue" :placeholder='`请输入${item.language}对应值`'></t-input>
+        <t-input v-model="item.i18nValue" :placeholder="$t('i18n.pl.trends', [item.language])"></t-input>
       </t-form-item>
       <t-form-item>
-        <t-space size="small">
-          <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
-          <t-button theme="default" variant="base" type="reset" :loading="loading">重置</t-button>
+        <t-space size=" small">
+          <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+          <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
+          }}</t-button>
         </t-space>
       </t-form-item>
     </t-form>
@@ -32,13 +33,13 @@ import { saveI18n, i18nInfo, updateI18n } from '@/api/systemSetting/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
 import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import { PoemDictData } from '@/api/system/dict/types';
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 
 
 const FORM_I18N = ref<FormRules>({
-  dictLabel: [{ required: true, message: '请输入字典标签', trigger: 'blur' }],
-  dictValue: [{ required: true, message: '请输入字典值', trigger: 'blur' }],
+  dictLabel: [{ required: true, message: i18n.global.t('i18n.label.pl.code'), trigger: 'blur' }],
 })
 
 
@@ -110,7 +111,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
     loading.value = true
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
-      MessagePlugin.success('提交成功');
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');
     }
     loading.value = false
@@ -153,4 +154,4 @@ defineExpose({
   height: 300px;
   width: 100%;
 }
-</style>@/api/systemSetting/i18n/types@/api/systemSetting/i18n
+</style>
