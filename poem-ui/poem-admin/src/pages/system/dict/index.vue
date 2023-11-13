@@ -53,17 +53,17 @@ const pagination: PaginationProps = reactive({
 const columns: Array<PrimaryTableCol<PoemDictType>> = [
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'dictName',
-    title: '字典名称',
+    title: () => i18n.global.t('dict.label.dictName'),
     minWidth: 100,
   },
   {
     colKey: 'dictType',
-    title: '字典类型',
+    title: () => i18n.global.t('dict.label.dictType'),
     minWidth: 100,
     cell: (h, { col, row }) => (
       <t-space>
@@ -77,7 +77,7 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
   },
   {
     colKey: 'status',
-    title: '状态',
+    title: () => i18n.global.t('common.label.status'),
     minWidth: 100,
     cell: (h, { col, row }) => (
       <div>
@@ -89,13 +89,13 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
   },
   {
     colKey: 'remark',
-    title: '描述',
+    title: () => i18n.global.t('common.attribute.describe'),
     minWidth: 100,
   },
   {
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <t-space>
@@ -105,7 +105,7 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
           </t-link>)
         }
         {
-          useAuth('dict:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+          useAuth('dict:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               {i18n.global.t('common.button.delete')}
             </t-link>

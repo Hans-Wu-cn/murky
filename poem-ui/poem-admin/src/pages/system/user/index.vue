@@ -65,27 +65,27 @@ const deptTreeKeys = ref({ value: 'deptId', label: 'deptName', children: 'childr
 const columns: Array<PrimaryTableCol> = [
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'userName',
-    title: '用户名',
+    title: () => i18n.global.t('user.label.userName'),
     minWidth: 100,
   },
   {
     colKey: 'account',
-    title: '账号',
+    title: () => i18n.global.t('user.label.account'),
     minWidth: 100,
   },
   {
     colKey: 'deptName',
-    title: '部门',
+    title: () => i18n.global.t('user.label.deptName'),
     minWidth: 100,
   },
   {
     colKey: 'sex',
-    title: '性别',
+    title: () => i18n.global.t('user.label.sex'),
     minWidth: 100,
     cell: (h, { col, row }) => (
       <div>
@@ -97,38 +97,36 @@ const columns: Array<PrimaryTableCol> = [
   },
   {
     colKey: 'email',
-    title: '邮箱',
+    title: () => i18n.global.t('user.label.email'),
     minWidth: 100,
   },
   {
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
-      <div class="tdesign-table-demo__table-operations">
-        <t-space>
-          {
+      <t-space>
+        {
 
-            useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              {i18n.global.t('common.button.edit')}
-            </t-link>)
-          }
-          {
+          useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            {i18n.global.t('common.button.edit')}
+          </t-link>)
+        }
+        {
 
-            useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onRestPasswdHander(row)}>
-              {i18n.global.t('user.button.resetPassword')}
-            </t-link>)
-          }
-          {
-            useAuth('user:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
-              <t-link variant="text" hover="color" theme="danger">
-                {i18n.global.t('common.button.delete')}
-              </t-link>
-            </t-popconfirm>)
-          }
-        </t-space>
-      </div>
+          useAuth('user:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onRestPasswdHander(row)}>
+            {i18n.global.t('user.button.resetPassword')}
+          </t-link>)
+        }
+        {
+          useAuth('user:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              {i18n.global.t('common.button.delete')}
+            </t-link>
+          </t-popconfirm>)
+        }
+      </t-space>
     ),
   },
 ];

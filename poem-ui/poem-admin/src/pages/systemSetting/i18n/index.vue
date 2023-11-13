@@ -213,7 +213,7 @@ const loadColumns = (i18ns: PoemDictData[]) => {
           </t-link>)
         }
         {
-          useAuth('i18n:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+          useAuth('i18n:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               {i18n.global.t('common.button.delete')}
             </t-link>

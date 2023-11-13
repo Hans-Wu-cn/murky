@@ -105,7 +105,7 @@ const columns: Array<PrimaryTableCol<any>> = [
                     {i18n.global.t('common.button.view')}
                 </t-link>
                 {
-                    (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
+                    (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDeleteClick(row)}>
                         <t-link variant="text" hover="color" theme="danger">
                             {i18n.global.t('common.button.delete')}
                         </t-link>

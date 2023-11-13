@@ -47,51 +47,49 @@ const pagination: PaginationProps = reactive({
 const columns: Array<PrimaryTableCol<PoemRole>> = [
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'roleName',
-    title: '角色名',
+    title: () => i18n.global.t('role.label.name'),
     minWidth: 100,
   },
   {
     colKey: 'roleCode',
-    title: '角色码',
+    title: () => i18n.global.t('role.label.code'),
     minWidth: 100,
   },
   {
     colKey: 'describe',
-    title: '描述',
+    title: () => i18n.global.t('common.attribute.describe'),
     minWidth: 100,
   },
   {
     colKey: 'operate',
     minWidth: 340,
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
-      <div class="tdesign-table-demo__table-operations">
-        <t-space>
-          {
-            useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-              {i18n.global.t('common.button.edit')}
-            </t-link>)
-          }
-          {
-            useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
-              {i18n.global.t('role.button.power')}
-            </t-link>)
-          }
-          {
-            useAuth('role:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
-              <t-link variant="text" hover="color" theme="danger">
-                {i18n.global.t('common.button.delete')}
-              </t-link>
-            </t-popconfirm>)
-          }
-        </t-space>
-      </div>
+      <t-space>
+        {
+          useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            {i18n.global.t('common.button.edit')}
+          </t-link>)
+        }
+        {
+          useAuth('role:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDatascopeHander(row)}>
+            {i18n.global.t('role.button.power')}
+          </t-link>)
+        }
+        {
+          useAuth('role:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
+            <t-link variant="text" hover="color" theme="danger">
+              {i18n.global.t('common.button.delete')}
+            </t-link>
+          </t-popconfirm>)
+        }
+      </t-space>
     ),
   },
 ];

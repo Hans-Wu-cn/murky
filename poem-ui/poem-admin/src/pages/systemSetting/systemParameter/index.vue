@@ -96,7 +96,7 @@ const columns: Array<PrimaryTableCol<SystemParameter>> = [
             </t-link>)
           }
           {
-            useAuth('systemParameter:remove', <t-popconfirm content="确认删除吗？" onConfirm={() => onDelHander(row)}>
+            useAuth('systemParameter:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
               <t-link variant="text" hover="color" theme="danger">
                 {i18n.global.t('common.button.delete')}
               </t-link>
