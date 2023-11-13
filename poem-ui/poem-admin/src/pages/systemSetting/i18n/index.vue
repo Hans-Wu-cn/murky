@@ -45,12 +45,12 @@ const pagination: PaginationProps = reactive({
 const columns = ref<Array<PrimaryTableCol<any>>>([
   {
     colKey: 'serial-number',
-    title: '序号',
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'i18nKey',
-    title: '编码',
+    title: () => i18n.global.t('i18n.label.code'),
     minWidth: 100,
   },
 ]);
@@ -148,6 +148,8 @@ const getI18ndict = async () => {
     // i18nDict.value = i18ns
     searchOptions.value[1].value = i18nTagDict.value[0].dictValue
     loadColumns(i18ns);
+    loadData({ i18nTag: i18nTagDict.value[0].dictValue });
+
   }
 }
 
