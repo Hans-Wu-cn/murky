@@ -259,7 +259,7 @@ const onDeleteClick = async (row: PoemMenu) => {
     const { code } = await delMenu(row.menuId);
     if (ResultEnum.SUCCESS === code) {
         tableRef.value.remove(row.menuId);
-        MessagePlugin.success('删除成功');
+        MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     }
 };
 
