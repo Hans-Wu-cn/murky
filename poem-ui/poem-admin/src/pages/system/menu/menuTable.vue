@@ -44,6 +44,15 @@ const lazyLoadingData = ref(null);
 const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 1, indent: 50 });
 //表格字段
 const columns: Array<PrimaryTableCol<any>> = [
+    useAuth('menu:edit', {
+        // 列拖拽排序必要参数
+        colKey: 'drag',
+        title: () => i18n.global.t('common.attribute.sort'),
+        fixed: 'left',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        cell: (_h: any) => <MoveIcon />,
+        minWidth: 60,
+    }),
     {
         // 列拖拽排序必要参数
         colKey: 'drag',

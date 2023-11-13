@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.extension.BaseController;
 import cn.poem.solon.admin.security.entity.PoemMenuTree;
 import cn.poem.solon.admin.security.enums.MenuType;
@@ -34,6 +35,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("获取用户菜单")
     @Get
     @Mapping("list")
+    @SaCheckPermission("menu")
     public ApiResult<List<PoemMenuTree>> list(){
         List<PoemMenuTree> result = baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON));
         return ApiResult.ok(result);
@@ -42,6 +44,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("菜单详情")
     @Get
     @Mapping("{menuId}")
+    @SaCheckPermission("menu")
     public ApiResult<PoemMenu> info(Long menuId){
         return ApiResult.ok(baseService.getById(menuId));
     }
@@ -49,6 +52,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("新增菜单")
     @Post
     @Mapping
+    @SaCheckPermission("menu:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemMenuFromDTO poemMenuFromDTO){
         if(!ONode.loadStr(poemMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemMenuFromDTO.getQuery()).isObject()){
             return ApiResult.fail("query参数格式不正确");
@@ -63,6 +67,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("修改菜单")
     @Put
     @Mapping
+    @SaCheckPermission("menu:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemMenuFromDTO poemMenuFromDTO){
         if(!ONode.loadStr(poemMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemMenuFromDTO.getQuery()).isObject()){
             return ApiResult.fail("query参数格式不正确");
@@ -78,6 +83,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("菜单拖动")
     @Put
     @Mapping("drop")
+    @SaCheckPermission("menu:edit")
     public ApiResult<?> drop(@Body @Validated PoemMenuDropDTO poemMenuDropDTO){
         return toResult(baseService.drop(poemMenuDropDTO));
     }
@@ -85,6 +91,7 @@ public class PoemMenuController extends BaseController<IPoemMenuService> {
     @ApiOperation("删除菜单")
     @Delete
     @Mapping("/{menuId}")
+    @SaCheckPermission("menu:remove")
     public ApiResult<?> remove(Long menuId){
         boolean result = baseService.removeById(menuId);
         return toResult(result);
