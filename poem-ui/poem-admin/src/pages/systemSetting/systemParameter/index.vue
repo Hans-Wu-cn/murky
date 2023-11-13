@@ -46,17 +46,17 @@ const pagination: PaginationProps = reactive({
 const columns: Array<PrimaryTableCol<SystemParameter>> = [
   {
     colKey: 'serial-number',
-    title: i18n.global.t('common.attribute.serialNumber'),
+    title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
     colKey: 'key',
-    title: i18n.global.t('systemParameter.attribute.key'),
+    title: () => i18n.global.t('systemParameter.attribute.key'),
     minWidth: 100,
   },
   {
     colKey: 'value',
-    title: i18n.global.t('systemParameter.attribute.value'),
+    title: () => i18n.global.t('systemParameter.attribute.value'),
     minWidth: 100,
     ellipsis: {
       theme: 'light',
@@ -65,7 +65,7 @@ const columns: Array<PrimaryTableCol<SystemParameter>> = [
   },
   {
     colKey: 'describe',
-    title: i18n.global.t('common.attribute.describe'),
+    title: () => i18n.global.t('common.attribute.describe'),
     minWidth: 100,
     ellipsis: {
       theme: 'light',
@@ -74,18 +74,18 @@ const columns: Array<PrimaryTableCol<SystemParameter>> = [
   },
   {
     colKey: 'createTime',
-    title: i18n.global.t('common.attribute.createTime'),
+    title: () => i18n.global.t('common.attribute.createTime'),
     minWidth: 100,
   },
   {
     colKey: 'updateTime',
-    title: i18n.global.t('common.attribute.updateTime'),
+    title: () => i18n.global.t('common.attribute.updateTime'),
     minWidth: 100,
   },
   {
     colKey: 'operate',
     minWidth: 340,
-    title: i18n.global.t('common.operate'),
+    title: () => i18n.global.t('common.operate'),
     // 增、删、改、查 等操作
     cell: (h, { row }) => (
       <div class="tdesign-table-demo__table-operations">
@@ -208,7 +208,7 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'key',
     value: '',
-    label: computed(() => i18n.global.t('systemParameter.label.key')),
+    label: () => i18n.global.t('systemParameter.label.key'),
     placeholder: computed(() => i18n.global.t('systemParameter.label.pl.key')),
     type: 'input',
   },

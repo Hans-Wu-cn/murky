@@ -18,11 +18,12 @@
 <script setup lang="ts">
 import { PoemDictData } from '@/api/system/dict/types';
 import { useVModels } from '@vueuse/core';
+import { ComputedRef } from 'vue';
 
 const props = defineProps<{
     type: string,
     value: any,
-    placeholder?: string,
+    placeholder?: string | ComputedRef<string> | any,
     radioOptions?: { [key: string]: string }
     dictOptions: Array<PoemDictData>,// 单选项字典
 }>()

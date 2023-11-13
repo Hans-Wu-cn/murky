@@ -47,7 +47,7 @@ const columns: Array<PrimaryTableCol<any>> = [
     {
         // 列拖拽排序必要参数
         colKey: 'drag',
-        title: '排序',
+        title: () => i18n.global.t('common.attribute.sort'),
         fixed: 'left',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         cell: (_h) => <MoveIcon />,
@@ -55,66 +55,64 @@ const columns: Array<PrimaryTableCol<any>> = [
     },
     {
         colKey: 'label',
-        title: '标题',
+        title: () => i18n.global.t('menu.label.title'),
         minWidth: 200,
     },
     {
         colKey: 'name',
-        title: '菜单名',
+        title: () => i18n.global.t('menu.label.name'),
         minWidth: 200,
     },
     {
         colKey: 'icon',
-        title: '图标',
+        title: () => i18n.global.t('common.icon'),
         minWidth: 80,
     },
     {
         colKey: 'path',
-        title: '路径',
+        title: () => i18n.global.t('menu.attribute.path'),
         minWidth: 100,
     },
     {
         colKey: 'component',
-        title: '组件',
+        title: () => i18n.global.t('menu.attribute.component'),
         minWidth: 100,
     },
     {
         colKey: 'auth',
-        title: '权限码',
+        title: () => i18n.global.t('menu.attribute.auth'),
         minWidth: 100,
     },
     {
         colKey: 'operate',
-        title: '操作',
+        title: i18n.global.t('common.operate'),
         fixed: 'right',
         minWidth: 250,
         // 增、删、改、查 等操作
         cell: (h, { row, rowIndex }) => (
-            <div class="tdesign-table-demo__table-operations">
-                <t-space>
-                    {
-                        useAuth('menu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
-                            {i18n.global.t('menu.button.addSub')}
-                        </t-link>)
-                    }
-                    {
-                        useAuth('menu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
-                            {i18n.global.t('common.button.edit')}
-                        </t-link>)
-                    }
-                    <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
-                        {i18n.global.t('common.button.view')}
-                    </t-link>
-                    {
-                        (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
-                            <t-link variant="text" hover="color" theme="danger">
-                                {i18n.global.t('common.button.delete')}
-                            </t-link>
-                        </t-popconfirm> : null
-                    }
+            <t-space>
+                {
+                    useAuth('menu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
+                        {i18n.global.t('menu.button.addSub')}
+                    </t-link>)
+                }
+                {
+                    useAuth('menu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                        {i18n.global.t('common.button.edit')}
+                    </t-link>)
+                }
+                <t-link theme="primary" variant="text" hover="color" onClick={() => onLookUp(row)}>
+                    {i18n.global.t('common.button.view')}
+                </t-link>
+                {
+                    (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content="确认删除吗" onConfirm={() => onDeleteClick(row)}>
+                        <t-link variant="text" hover="color" theme="danger">
+                            {i18n.global.t('common.button.delete')}
+                        </t-link>
+                    </t-popconfirm> : null
+                }
 
-                </t-space>
-            </div>
+            </t-space>
         ),
     }
 ];

@@ -158,14 +158,14 @@ const getI18nTagdict = async () => {
       {
         name: 'i18nKey',
         value: '',
-        label: computed(() => i18n.global.t('i18n.label.code')),
+        label: () => i18n.global.t('i18n.label.code'),
         type: 'input',
         placeholder: computed(() => i18n.global.t('i18n.label.pl.code')),
       },
       {
         name: 'i18nTag',
         value: i18nTags[0].dictValue,
-        label: computed(() => i18n.global.t('i18n.label.tag')),
+        label: () => i18n.global.t('i18n.label.tag'),
         type: 'dict',
         placeholder: computed(() => i18n.global.t('i18n.label.pl.tag')),
         dictOptions: i18nTags
@@ -180,12 +180,12 @@ const loadColumns = (i18ns: PoemDictData[]) => {
   const columnList: Array<PrimaryTableCol<any>> = [
     {
       colKey: 'serial-number',
-      title: i18n.global.t('common.attribute.serialNumber'),
+      title: () => i18n.global.t('common.attribute.serialNumber'),
       minWidth: 50,
     },
     {
       colKey: 'i18nKey',
-      title: '编码',
+      title: () => i18n.global.t('i18n.attribute.key'),
       minWidth: 100,
     },
   ]

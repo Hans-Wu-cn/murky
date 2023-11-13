@@ -47,25 +47,24 @@ const columns: Array<PrimaryTableCol<any>> = [
   {
     // 列拖拽排序必要参数
     colKey: 'drag',
-    title: '排序',
+    title: () => i18n.global.t('common.attribute.sort'),
     fixed: 'left',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cell: (_h) => <MoveIcon />,
     minWidth: 60,
   },
   {
     colKey: 'deptName',
-    title: '部门名称',
+    title: () => i18n.global.t('dept.attribute.deptName'),
     minWidth: 200,
   },
   {
     colKey: 'sort',
-    title: '排序',
+    title: () => i18n.global.t('common.attribute.sort'),
     minWidth: 80,
   },
   {
     colKey: 'operate',
-    title: '操作',
+    title: () => i18n.global.t('common.operate'),
     fixed: 'right',
     minWidth: 250,
     // 增、删、改、查 等操作
@@ -100,7 +99,7 @@ const searchOptions = ref<SearchOption[]>([
   {
     name: 'deptName',
     value: '',
-    label: computed(() => i18n.global.t('dept.label.name')),
+    label: () => i18n.global.t('dept.label.name'),
     type: 'input',
     placeholder: computed(() => i18n.global.t('dept.label.pl.name')),
   }
