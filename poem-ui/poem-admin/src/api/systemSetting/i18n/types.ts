@@ -7,6 +7,7 @@ import { BaseApiType, PageRequest } from '@/api/types';
 export interface I18nPageParams extends PageRequest {
   i18nTag: string,
   i18nKey?: string,
+  i18nValue?: string,
 }
 
 

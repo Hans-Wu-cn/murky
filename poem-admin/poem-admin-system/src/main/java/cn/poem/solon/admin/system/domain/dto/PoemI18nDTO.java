@@ -17,6 +17,9 @@ public class PoemI18nDTO extends Page<PoemI18n> {
     @NotBlank
     private String i18nTag;
 
+    @ApiModelProperty(value = "i18nValue")
+    private String i18nValue;
+
     @ApiModelProperty("i18nKey")
     @NotBlank(groups = Info.class)
     private String i18nKey;

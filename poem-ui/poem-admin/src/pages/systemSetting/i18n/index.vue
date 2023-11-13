@@ -32,6 +32,7 @@ import i18n from '@/i18n'
 
 const PagePoemDictTypeParams = ref<I18nPageParams>({
   i18nTag: '',
+  i18nValue: '',
   i18nKey: '',
   pageNumber: 1,
   pageSize: 10
@@ -165,6 +166,13 @@ const getI18nTagdict = async () => {
         label: () => i18n.global.t('i18n.label.code'),
         type: 'input',
         placeholder: computed(() => i18n.global.t('i18n.label.pl.code')),
+      },
+      {
+        name: 'i18nValue',
+        value: '',
+        label: () => i18n.global.t('i18n.label.i18nValue'),
+        type: 'input',
+        placeholder: computed(() => i18n.global.t('i18n.label.pl.i18nValue')),
       },
       {
         name: 'i18nTag',

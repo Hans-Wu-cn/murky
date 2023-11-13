@@ -28,6 +28,7 @@ public interface PoemI18nMapper extends BaseMapper<PoemI18n> {
         QueryWrapper queryWrapper = QueryWrapper.create().from(POEM_I18N)
                 .where(POEM_I18N.I18N_TAG.eq(poemI18NDTO.getI18nTag()))
                 .and(POEM_I18N.I18N_KEY.like(poemI18NDTO.getI18nKey(), If::hasText))
+                .and(POEM_I18N.I18N_VALUE.like(poemI18NDTO.getI18nValue(), If::hasText))
                 .groupBy(POEM_I18N.I18N_KEY, POEM_I18N.I18N_TAG).orderBy(POEM_I18N.I18N_KEY.desc())
                 .select(POEM_I18N.I18N_KEY, POEM_I18N.I18N_TAG);
         for (String i18nKey : poemI18nPageQuery.getI18nKeys()) {
