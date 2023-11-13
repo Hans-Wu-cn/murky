@@ -190,7 +190,7 @@ const showBreadcrumbHeight = computed(() => {
 // 查询组件配置
 const searchOptions = ref<SearchOption[]>([
   {
-    name: 'dictName',
+    name: 'dictLabel',
     value: '',
     label: () => i18n.global.t('dictData.attribute.dictLabel'),
     type: 'input',

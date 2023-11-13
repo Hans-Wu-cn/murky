@@ -2,28 +2,29 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="字典标签" name="dictLabel">
-        <t-input v-model="formData.dictLabel" placeholder="请输入字典标签"></t-input>
+      <t-form-item :label="$t('dictData.attribute.dictLabel')" name="dictLabel">
+        <t-input v-model="formData.dictLabel" :placeholder="$t('dictData.label.pl.dictLabel')"></t-input>
       </t-form-item>
-      <t-form-item label="字典值" name="dictValue">
-        <t-input v-model="formData.dictValue" placeholder="请输入字典值"></t-input>
+      <t-form-item :label="$t('dictData.attribute.dictValue')" name="dictValue">
+        <t-input v-model="formData.dictValue" :placeholder="$t('dictData.label.pl.dictValue')"></t-input>
       </t-form-item>
-      <t-form-item label="字典状态" name="status">
+      <t-form-item :label="$t('common.label.status')" name="status">
         <t-radio-group v-model="formData.status">
-          <t-radio :value="0">正常</t-radio>
-          <t-radio :value="1">停用</t-radio>
+          <t-radio :value="0">{{ $t('common.label.status.0') }}</t-radio>
+          <t-radio :value="1">{{ $t('common.label.status.1') }}</t-radio>
         </t-radio-group>
       </t-form-item>
-      <t-form-item label="字典排序" name="dictSort">
+      <t-form-item :label="$t('dictData.label.sort')" name="dictSort">
         <t-input-number v-model="formData.dictSort" autoWidth />
       </t-form-item>
-      <t-form-item label="备注" name="remark">
-        <t-textarea v-model="formData.remark" placeholder="请输入备注"></t-textarea>
+      <t-form-item :label="$t('common.attribute.describe')" name="remark">
+        <t-textarea v-model="formData.remark" :placeholder="$t('common.attribute.pl.describe')"></t-textarea>
       </t-form-item>
       <t-form-item>
-        <t-space size="small">
-          <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
-          <t-button theme="default" variant="base" type="reset" :loading="loading">重置</t-button>
+        <t-space size=" small">
+          <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+          <t-button theme="default" variant="base" type="reset" :loading="loading">{{
+            $t('common.button.reset1') }}</t-button>
         </t-space>
       </t-form-item>
     </t-form>
@@ -36,6 +37,7 @@ import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { addPoemDictData, editPoemDictData, PoemDictDataInfo } from '@/api/system/dict';
 import { ResultEnum } from '@/enums/httpEnum';
 import { fromPairs } from 'lodash';
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 // const props = defineProps<{
@@ -43,8 +45,8 @@ const emit = defineEmits(['submit-hook'])
 // }>()
 
 const FORM_RULES = ref<FormRules>({
-  dictLabel: [{ required: true, message: '请输入字典标签', trigger: 'blur' }],
-  dictValue: [{ required: true, message: '请输入字典值', trigger: 'blur' }],
+  dictLabel: [{ required: true, message: i18n.global.t('dictData.label.pl.dictLabel'), trigger: 'blur' }],
+  dictValue: [{ required: true, message: i18n.global.t('dictData.label.pl.dictValue'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PoemDictData>({
@@ -112,7 +114,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
     const api = formData.value.dictCode ? editPoemDictData : addPoemDictData
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
-      MessagePlugin.success('提交成功');
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');
     } else {
       MessagePlugin.error(res.message);
