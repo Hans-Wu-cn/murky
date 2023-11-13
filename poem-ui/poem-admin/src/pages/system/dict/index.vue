@@ -47,7 +47,9 @@ const PagePoemDictTypeParams = ref<PagePoemDictType>({
   pageSize: 10
 })
 const pagination: PaginationProps = reactive({
-  total: 0
+  total: 0,
+  pageEllipsisMode: 'mid',
+  maxPageBtn: 5
 })
 // 表格字段
 const columns: Array<PrimaryTableCol<PoemDictType>> = [

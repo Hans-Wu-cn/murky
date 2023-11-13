@@ -57,7 +57,9 @@ const userData = ref([])
 // 表格loading标记
 const tableLoading = ref(false);
 const pagination: PaginationProps = reactive({
-  total: 0
+  total: 0,
+  pageEllipsisMode: 'mid',
+  maxPageBtn: 5
 })
 // 部门树配置
 const deptTreeKeys = ref({ value: 'deptId', label: 'deptName', children: 'children' })
