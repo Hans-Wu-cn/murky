@@ -2,6 +2,8 @@ package cn.poem.solon.admin.system.mapper;
 
 import cn.poem.solon.admin.domin.PoemUser;
 import cn.poem.solon.admin.domin.table.PoemUserTableDef;
+import cn.poem.solon.admin.security.utils.SecurityUtils;
+import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.dto.PoemUserPageDTO;
 import cn.poem.solon.admin.system.domain.entity.table.PoemDeptTableDef;
 import cn.poem.solon.admin.system.domain.vo.PoemUserPageVo;
@@ -71,6 +73,8 @@ public interface PoemUserMapper extends BaseMapper<PoemUser> {
                 .and(POEM_USER.SEX.eq(poemUserPageDTO.getSex(), If::notNull))
                 .and(POEM_USER.USER_NAME.like(poemUserPageDTO.getUserName(), If::hasText))
                 .and(POEM_USER.DEPT_ID.in(deptIds, If::notNull))
+                .and(POEM_USER.USER_ID.ne(SecurityUtils.getUserId()))
+                .and(POEM_USER.USER_ID.ne(SystemContant.ADMIN_USER_ID))
                 .orderBy(POEM_USER.CREATE_TIME.asc());
         return paginateAs(poemUserPageDTO.getPageNumber(), poemUserPageDTO.getPageSize(), DataScopeUtils.dataScope(queryWrapper), PoemUserPageVo.class);
     }

@@ -7,4 +7,5 @@ public class SystemContant {
      */
     public static final String ADMIN_ROLE_CODE="admin";
 
+    public static final Long ADMIN_USER_ID=43511453924630528L;
 }
