@@ -11,6 +11,7 @@ import cn.poem.solon.admin.saas.service.IPoemSaasMenuService;
 import cn.poem.solon.admin.security.entity.PoemMenuTree;
 import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
+import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
@@ -25,7 +26,7 @@ import java.util.List;
  * @author hans
  */
 @Component
-public class IPoemSaasMenuServiceImpl extends PoemServiceImpl<PoemSaasMenuMapper, PoemSaasMenu> implements IPoemSaasMenuService {
+public class IPoemSaasMenuServiceImpl extends ServiceImpl<PoemSaasMenuMapper, PoemSaasMenu> implements IPoemSaasMenuService {
 
     @Inject
     private IPoemSaasMenuService iPoemSaasMenuService;

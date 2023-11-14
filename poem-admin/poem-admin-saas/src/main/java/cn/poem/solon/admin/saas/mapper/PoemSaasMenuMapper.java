@@ -31,9 +31,7 @@ public interface PoemSaasMenuMapper extends BaseMapper<PoemSaasMenu> {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .select().from(POEM_SAAS_MENU)
                 .where(POEM_SAAS_MENU.TYPE.in(menuTypes))
-
                 .orderBy(POEM_SAAS_MENU.SORT.asc(), POEM_SAAS_MENU.LABEL.asc());
-        DataScopeUtils.dataScope(queryWrapper);
 
         return this.selectListByQuery(queryWrapper);
     }
