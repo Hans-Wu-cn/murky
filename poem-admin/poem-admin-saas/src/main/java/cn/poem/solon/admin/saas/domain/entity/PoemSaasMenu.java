@@ -68,7 +68,4 @@ public class PoemSaasMenu extends BaseEntity implements Serializable {
     @ApiModelProperty("路由参数")
     private String query;
 
-    @ApiModelProperty("部门id")
-    private Long deptId;
-
 }

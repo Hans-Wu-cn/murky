@@ -32,7 +32,7 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async setLanguage(lang: string) {
-      this.state.userInfo.language = lang
+      this.userInfo.language = lang
     },
     async login(userInfo: Record<string, unknown>) {
       const { code, message, result } = await login(userInfo);
@@ -47,7 +47,6 @@ export const useUserStore = defineStore('user', {
       if (ResultEnum.SUCCESS === code) {
         console.log('info', result)
         this.userInfo = result;
-        debugger
         if (result.language) {
           useI18nStore().changeLanguage(result.language)
         }

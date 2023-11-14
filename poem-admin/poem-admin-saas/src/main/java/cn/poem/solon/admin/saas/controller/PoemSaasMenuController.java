@@ -36,9 +36,9 @@ import java.util.List;
 public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService> {
     @ApiOperation("商户菜单列表查询")
     @Get
-    @Mapping("page")
+    @Mapping("list")
     @SaCheckPermission("saasMenu")
-    public ApiResult<List<PoemSaasMenuTreeVo>> page() {
+    public ApiResult<List<PoemSaasMenuTreeVo>> list() {
         return ApiResult.ok(baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON)));
     }
 
@@ -57,7 +57,6 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
             return ApiResult.fail("query参数格式不正确");
         }
         PoemSaasMenu poemMenu = PoemSaasMenuConvert.INSTANCES.toEntity(poemSaasMenuFromDTO);
-        poemMenu.setDeptId(SecurityUtils.getUserInfo().getDeptId());
         if(MenuType.DIRECTORY==poemMenu.getType()){
             poemMenu.setComponent("LAYOUT");
         }
@@ -90,8 +89,8 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
     @ApiOperation("删除商户菜单")
     @Delete
     @Mapping("/{saasMenuId}")
-    public ApiResult<?> remove(Long menuId){
-        boolean result = baseService.removeById(menuId);
+    public ApiResult<?> remove(Long saasMenuId){
+        boolean result = baseService.removeById(saasMenuId);
         return toResult(result);
     }
 }
