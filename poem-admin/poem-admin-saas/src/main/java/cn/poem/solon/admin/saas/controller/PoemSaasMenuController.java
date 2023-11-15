@@ -71,7 +71,6 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
             return ApiResult.fail("query参数格式不正确");
         }
         PoemSaasMenu poemMenu = PoemSaasMenuConvert.INSTANCES.toEntity(poemSaasMenuFromDTO);
-//        poemMenu.setDeptId(SecurityUtils.getUserInfo().getDeptId());
         if(MenuType.DIRECTORY==poemMenu.getType()){
             poemMenu.setComponent("LAYOUT");
         }
