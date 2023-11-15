@@ -5,14 +5,14 @@
         <slot></slot>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
+        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="saasMenuId" drag-sort="row-handler"
             :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
             v-model:expandedTreeNodes="expandedTableTreeNodes" @abnormal-drag-sort="onAbnormalDragSort"
             @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange" />
     </t-card>
     <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
-        <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" @submit="submit"></menuFrom>
+        <saasMenuFrom :poemId="poemId" :parentSaasMenuId="parentSaasMenuId" @submit="submit"></saasMenuFrom>
     </t-dialog>
 </template>
 <script setup lang="tsx">
@@ -23,19 +23,19 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { delMenu, dragMenu, getMenuList } from '@/api/system/menu';
+import { delMenu, dragMenu, getMenuList } from '@/api/saas/menu';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/system/menu/types';
-import { menuConfig } from './config';
+import { PoemSaasMenu } from '@/api/saas/menu/types';
+import { menuConfig } from '../config';
 import { useRouter } from 'vue-router';
-import menuFrom from './menuFrom.vue';
+import saasMenuFrom from './saasMenuFrom.vue';
 import { hasAuth, useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 
 const router = useRouter();
 const tableRef = ref();
-const tableData = ref<PoemMenu[]>();
+const tableData = ref<PoemSaasMenu[]>();
 //菜单loading标记
 const tableLoading = ref(false);
 //菜单列表数据
@@ -49,19 +49,9 @@ const columns: Array<PrimaryTableCol<any>> = [
         colKey: 'drag',
         title: () => i18n.global.t('common.attribute.sort'),
         fixed: 'left',
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         cell: (_h: any) => <MoveIcon />,
         minWidth: 60,
     }),
-    {
-        // 列拖拽排序必要参数
-        colKey: 'drag',
-        title: () => i18n.global.t('common.attribute.sort'),
-        fixed: 'left',
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        cell: (_h) => <MoveIcon />,
-        minWidth: 60,
-    },
     {
         colKey: 'label',
         title: () => i18n.global.t('menu.label.title'),
@@ -181,7 +171,7 @@ const searchSubmit = (params: any) => {
  * @param path 菜单路径
  * @param auth 菜单权限码
  */
-const recursion = (data: PoemMenu[], label: string, name: string, path: string, auth: string): PoemMenu[] => {
+const recursion = (data: PoemSaasMenu[], label: string, name: string, path: string, auth: string): PoemSaasMenu[] => {
     function searchStr(source: string, target: string) {
         if (target && source) {
             debugger
@@ -212,7 +202,7 @@ const searchReset = () => {
  * 加载列表数据
  */
 const getData = async () => {
-    let data: PoemMenu[] = [];
+    let data: PoemSaasMenu[] = [];
     const { code, result } = await getMenuList();
 
     if (ResultEnum.SUCCESS === code) {
@@ -237,10 +227,10 @@ const resetData = async () => {
  * @param row 当前行的菜单对象
  */
 const menuVisible = ref(false);
-const parentMenuId = ref('');
-const onAddClick = async (row: PoemMenu) => {
+const parentSaasMenuId = ref('');
+const onAddClick = async (row: PoemSaasMenu) => {
     menuVisible.value = true;
-    parentMenuId.value = row.menuId;
+    parentSaasMenuId.value = row.saasMenuId;
     poemId.value = ''
 };
 
@@ -249,10 +239,10 @@ const onAddClick = async (row: PoemMenu) => {
  * @param row 当前行的菜单对象
  */
 const poemId = ref('')
-const onEditClick = async (row: PoemMenu) => {
+const onEditClick = async (row: PoemSaasMenu) => {
     menuVisible.value = true;
-    parentMenuId.value = '';
-    poemId.value = row.menuId
+    parentSaasMenuId.value = '';
+    poemId.value = row.saasMenuId
 };
 
 // 表单提交成功页面
@@ -264,10 +254,10 @@ const submit = () => {
  * 删除菜单
  * @param row 当前行的菜单对象
  */
-const onDeleteClick = async (row: PoemMenu) => {
-    const { code } = await delMenu(row.menuId);
+const onDeleteClick = async (row: PoemSaasMenu) => {
+    const { code } = await delMenu(row.saasMenuId);
     if (ResultEnum.SUCCESS === code) {
-        tableRef.value.remove(row.menuId);
+        tableRef.value.remove(row.saasMenuId);
         MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     }
 };
@@ -276,8 +266,8 @@ const onDeleteClick = async (row: PoemMenu) => {
  * 菜单详情
  * @param row 当前行的菜单对象
  */
-const onLookUp = (row: PoemMenu) => {
-    router.push(menuConfig.detailUrl + '?poemId=' + row.menuId)
+const onLookUp = (row: PoemSaasMenu) => {
+    router.push(menuConfig.detailUrl + '?poemId=' + row.saasMenuId)
 };
 const expandedTableTreeNodes = ref<Array<string | number>>(['1']); // 存储展开的数据
 const onExpandedTreeNodesChange = (expandedTreeNodes: Array<string | number>, context: any) => {
@@ -308,13 +298,13 @@ const onDragSort = async (params: DragSortContext<T>) => {
         errDragCode.value = ''
         return false
     }
-    const currentRowParentId = params.target.parentMenuId
-    const menuIds: string[] = params.newData.filter(val => {
-        return val.parentMenuId === currentRowParentId
+    const currentRowParentId = params.target.parentSaasMenuId
+    const saasMenuIds: string[] = params.newData.filter(val => {
+        return val.parentSaasMenuId === currentRowParentId
     }).map(val => val.menuId)
     const { code } = await dragMenu({
-        parentMenuId: currentRowParentId,
-        menuIds
+        parentSaasMenuId: currentRowParentId,
+        saasMenuIds
     })
     if (code === 200) {
         MessagePlugin.success('调整顺序成功！');

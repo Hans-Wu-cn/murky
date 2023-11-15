@@ -16,7 +16,7 @@ import { BaseApiType } from '@/api/types';
  * @param icon icon
  * @param children 子菜单
  */
-export interface PoemMenu {
+export interface PoemSaasMenu {
   saasMenuId?: string;
   label?: string;
   name?: string;
@@ -32,5 +32,5 @@ export interface PoemMenu {
   isDisplay?: number;
   isOutside?: number;
   query?: string;
-  children?: Array<PoemMenu>;
+  children?: Array<PoemSaasMenu>;
 }

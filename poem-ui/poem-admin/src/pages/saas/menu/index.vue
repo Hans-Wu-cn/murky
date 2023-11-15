@@ -2,20 +2,20 @@
   <RouterView v-if="route.meta.hidden"></RouterView>
   <div v-else class="menuManage" :bordered="false">
     <!-- 菜单表格组件 -->
-    <MenuTable>
+    <SaasMenuTable>
       <t-button @click="handleAdd" v-auth="['menu:add']">{{ $t('menu.button.add') }}</t-button>
-    </MenuTable>
+    </SaasMenuTable>
   </div>
   <t-dialog v-model:visible="menuVisible" :footer="false" width="600px" top="10">
-    <menuFrom></menuFrom>
+    <SaasMenuFrom></SaasMenuFrom>
   </t-dialog>
 </template>
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
-import MenuTable from './menuTable.vue';
+import SaasMenuTable from './components/saasMenuTable.vue';
 import { useSettingStore } from '@/store';
 import { useRoute } from 'vue-router';
-import menuFrom from './menuFrom.vue';
+import SaasMenuFrom from './components/saasMenuFrom.vue';
 const route = useRoute();
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {

@@ -71,7 +71,7 @@
 </template>
 <script setup lang="tsx">
 import { addMenu, getMenu, updateMenu } from '@/api/saas/menu';
-import { PoemMenu } from '@/api/saas/menu/types';
+import { PoemSaasMenu } from '@/api/saas/menu/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { ComputedRef, computed, ref } from 'vue';
@@ -86,7 +86,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'submit'): void
 }>()
-const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
+const menuFormData = ref<PoemSaasMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
     // name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
     name: [{ required: true, message: '请输入菜单名' }],
@@ -110,7 +110,7 @@ const onReset = () => {
  * 表单提交方法
  * 
  **/
-const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemMenu>) => {
+const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemSaasMenu>) => {
     if (validateResult === true) {
         const api = menuFormData.value.saasMenuId ? updateMenu : addMenu
         menuFormData.value.icon = menuFormData.value.icon || ''

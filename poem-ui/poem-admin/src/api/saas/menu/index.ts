@@ -1,10 +1,10 @@
 import { request } from '@/utils/request';
 
-import { PoemMenu } from './types';
+import { PoemSaasMenu } from './types';
 
 const Api = {
   saasMenu: '/poemSaasMenu',
-  saasMenuDrop: `/poemMenu/drop`,
+  saasMenuDrop: `/poemSaasMenu/drop`,
   menuList: '/poemSaasMenu/list',
 };
 /**
@@ -12,7 +12,7 @@ const Api = {
  * @returns Route
  */
 export function getMenuList() {
-  return request.get<Array<PoemMenu>>({
+  return request.get<Array<PoemSaasMenu>>({
     url: Api.menuList,
   });
 }
@@ -21,7 +21,7 @@ export function getMenuList() {
  * 添加菜单
  * @returns Route
  */
-export function addMenu(data: PoemMenu) {
+export function addMenu(data: PoemSaasMenu) {
   return request.post({
     url: Api.saasMenu,
     data
@@ -31,7 +31,7 @@ export function addMenu(data: PoemMenu) {
  * 修改菜单
  * @returns Route
  */
-export function updateMenu(data: PoemMenu) {
+export function updateMenu(data: PoemSaasMenu) {
   return request.put({
     url: Api.saasMenu,
     data

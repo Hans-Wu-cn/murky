@@ -12,10 +12,10 @@
 </template>
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
-import MenuTable from './menuTable.vue';
+import MenuTable from './components/menuTable.vue';
 import { useSettingStore } from '@/store';
 import { useRoute } from 'vue-router';
-import menuFrom from './menuFrom.vue';
+import menuFrom from './components/menuFrom.vue';
 const route = useRoute();
 const settingStore = useSettingStore();
 const showBreadcrumbHeight = computed(() => {

@@ -19,7 +19,6 @@ public interface PoemSaasMenuConvert {
     PoemSaasMenuConvert INSTANCES = Mappers.getMapper(PoemSaasMenuConvert.class);
 
 
-    @Mapping(target = "deptId", ignore = true)
     @Mapping(target = "updateUser", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createUser", ignore = true)
