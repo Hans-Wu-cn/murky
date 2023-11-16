@@ -107,7 +107,7 @@ public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRo
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            if (i != menuIds.size()) {
+            if (i <= 0) {
                 throw new ServiceException("添加失败");
             }
 
@@ -160,7 +160,7 @@ public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRo
                 );
             }
             int i = poemRoleMenuMapper.insertBatch(poemRoleMenuList);
-            if (i != menuIds.size()) {
+            if (i <= 0) {
                 throw new ServiceException("修改失败");
             }
         }

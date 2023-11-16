@@ -35,4 +35,14 @@ public interface PoemSaasMenuMapper extends BaseMapper<PoemSaasMenu> {
 
         return this.selectListByQuery(queryWrapper);
     }
+
+    default List<PoemSaasMenu> selectByListByIds(List<Long> saasMenuIds) {
+
+        return this.selectListByQuery(
+                QueryWrapper.create()
+                        .select().from(POEM_SAAS_MENU)
+                        .where(POEM_SAAS_MENU.SAAS_MENU_ID.in(saasMenuIds))
+                        .orderBy(POEM_SAAS_MENU.SORT.asc(), POEM_SAAS_MENU.LABEL.asc())
+        );
+    }
 }

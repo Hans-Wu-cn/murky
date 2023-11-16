@@ -75,7 +75,7 @@
                 <artifactId>dami-solon-plugin</artifactId>
                 <version>${dami.version}</version>
             </dependency>
-            <!--文件上传 依赖-->
+            <!--saas管理模块 依赖-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-saas</artifactId>
