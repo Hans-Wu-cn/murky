@@ -12,7 +12,6 @@ NProgress.configure({ showSpinner: false });
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
-
   const permissionStore = getPermissionStore();
   const { whiteListRouters } = permissionStore;
 

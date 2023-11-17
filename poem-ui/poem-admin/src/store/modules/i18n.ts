@@ -4,6 +4,7 @@ import i18n from '@/i18n'
 import { getLanguage } from '@/api/systemSetting/i18n';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useUserStore } from '@/store/modules/user'
+const I18N_TAG = import.meta.env.VITE_I18N_TAG
 const langed: Object = {
   en: Object,
   zh_CN: Object,
@@ -45,7 +46,7 @@ export const useI18nStore = defineStore('i18n', {
     async getI18nLanguage(lang: string): Promise<any> {
       const languages = this.getLanguages;
       if (!languages) {
-        const { code, result } = await getLanguage("admin", lang);
+        const { code, result } = await getLanguage(I18N_TAG, lang);
         if (ResultEnum.SUCCESS === code) {
           await this.setI18nLanguage(lang, result)
           return result
@@ -53,7 +54,7 @@ export const useI18nStore = defineStore('i18n', {
       }
       const language = languages[lang];
       if (!language) {
-        const { code, result } = await getLanguage("admin", lang);
+        const { code, result } = await getLanguage(I18N_TAG, lang);
         if (ResultEnum.SUCCESS === code) {
           await this.setI18nLanguage(lang, result)
           return result;

@@ -4,7 +4,7 @@ import { i18nDictHook } from './hooks/dict';
 import { ResultEnum } from './enums/httpEnum';
 import { useUserStore, useI18nStore } from '@/store';
 
-
+const I18N_TAG = import.meta.env.VITE_I18N_TAG
 
 const i18n = createI18n({
   locale: 'en', // 默认语言
@@ -20,7 +20,7 @@ export const initLanguage = async () => {
   const i18ns = await i18nDictHook()
   const defaultLanguage = i18ns[0].dictValue;
   // 加载默认语言
-  const { code, result } = await getLanguage("admin", defaultLanguage);
+  const { code, result } = await getLanguage(I18N_TAG, defaultLanguage);
   if (ResultEnum.SUCCESS === code) {
     i18n.global.fallbackLocale = defaultLanguage
     await setI18nLanguage(defaultLanguage, result);
@@ -30,7 +30,7 @@ export const initLanguage = async () => {
   if (!userStore.userInfo.language) {
     // 获取浏览器语言
     const lang = navigator.language
-    const { code, result } = await getLanguage("admin", lang);
+    const { code, result } = await getLanguage(I18N_TAG, lang);
     if (ResultEnum.SUCCESS === code) {
       await setI18nLanguage(lang, result);
       await changeLanguage(lang)
@@ -38,7 +38,7 @@ export const initLanguage = async () => {
   } else {
     // 获取用户语言
     const lang = userStore.userInfo.language
-    const { code, result } = await getLanguage("admin", lang);
+    const { code, result } = await getLanguage(I18N_TAG, lang);
     if (ResultEnum.SUCCESS === code) {
       await setI18nLanguage(lang, result);
       await changeLanguage(lang)
