@@ -13,7 +13,7 @@
       <roleFrom ref="roleFromRef" @submit-hook="onSubmitHook"></roleFrom>
     </t-dialog>
     <t-dialog v-model:visible="datascopeVisible" :footer="false" width="500px">
-      <template #header>数据权限</template>
+      <template #header>{{ $t('role.button.power') }}</template>
       <datascope ref="datascopeRef" @submit-hook="onSubmitHook">
       </datascope>
     </t-dialog>
@@ -142,7 +142,7 @@ const onDatascopeHander = (row: PoemRole) => {
  * @param row 
  */
 const onDelHander = async (row: PoemRole) => {
-  const { code } = await delPoemRole(row)
+  const { code } = await delPoemRole(row.roleId)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success('删除成功');
     loadData();

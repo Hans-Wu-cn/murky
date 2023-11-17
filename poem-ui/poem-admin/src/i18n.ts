@@ -19,6 +19,7 @@ export const initLanguage = async () => {
   const { setI18nLanguage, changeLanguage } = useI18nStore()
   const i18ns = await i18nDictHook()
   const defaultLanguage = i18ns[0].dictValue;
+  let localeLang = 'en';
   // 加载默认语言
   const { code, result } = await getLanguage(I18N_TAG, defaultLanguage);
   if (ResultEnum.SUCCESS === code) {
@@ -33,7 +34,7 @@ export const initLanguage = async () => {
     const { code, result } = await getLanguage(I18N_TAG, lang);
     if (ResultEnum.SUCCESS === code) {
       await setI18nLanguage(lang, result);
-      await changeLanguage(lang)
+      localeLang = lang;
     }
   } else {
     // 获取用户语言
@@ -41,10 +42,11 @@ export const initLanguage = async () => {
     const { code, result } = await getLanguage(I18N_TAG, lang);
     if (ResultEnum.SUCCESS === code) {
       await setI18nLanguage(lang, result);
-      await changeLanguage(lang)
-
+      localeLang = lang;
     }
   }
+  await changeLanguage(localeLang)
+
 }
 
 export default i18n;

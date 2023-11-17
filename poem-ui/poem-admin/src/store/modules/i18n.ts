@@ -36,7 +36,6 @@ export const useI18nStore = defineStore('i18n', {
     async setI18nLanguage(lang: string, language: any,) {
       Reflect.set(this.getLanguages, lang, language)
       i18n.global.setLocaleMessage(lang, language);
-      useUserStore().setLanguage(lang)
     },
     /**
      * 获取语言包

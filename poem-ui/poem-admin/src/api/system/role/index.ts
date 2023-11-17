@@ -1,4 +1,4 @@
-import { PageResponse } from "../types";
+import { PageResponse } from "@/api/types";
 import { PageRole, PoemRole } from "./types";
 import { request } from '@/utils/request';
 
@@ -62,9 +62,8 @@ export function addPoemRole(data: PoemRole) {
  * 删除
  * @returns Route
  */
-export function delPoemRole(data: PoemRole) {
+export function delPoemRole(roleId: string) {
   return request.delete({
-    url: `/${Api.role}/${data.roleId}`,
-    data
+    url: `/${Api.role}/${roleId}`,
   });
 }

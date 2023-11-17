@@ -1,5 +1,5 @@
 <template>
-  <search v-model:options="searchOptions" @submit="searchSubmit" @reset="getI18ndict"></search>
+  <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
   <div class="i18nManage">
     <t-card :bordered="false">
       <div>
@@ -143,14 +143,17 @@ const showBreadcrumbHeight = computed(() => {
 // 查询组件配置 该配置从字典加载
 const searchOptions = ref<SearchOption[]>()
 
+const searchReset = async () => {
+  await getI18ndict();
+  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
+}
+
 const getI18ndict = async () => {
   const i18ns = await i18nDictHook();
   if (i18ns) {
     // i18nDict.value = i18ns
-    searchOptions.value[1].value = i18nTagDict.value[0].dictValue
+    searchOptions.value[2].value = i18nTagDict.value[0].dictValue
     loadColumns(i18ns);
-    loadData({ i18nTag: i18nTagDict.value[0].dictValue });
-
   }
 }
 
@@ -184,7 +187,6 @@ const getI18nTagdict = async () => {
       },
     ];
   }
-  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
 }
 
 // 加载动态字段
@@ -249,7 +251,6 @@ onMounted(async () => {
 
 const searchSubmit = (params: any) => {
   searchi18nTag.value = params.dictValue
-  console.log('params:', params)
   loadData(params)
 }
 </script>
