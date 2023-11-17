@@ -91,12 +91,12 @@ const columns: Array<PrimaryTableCol<any>> = [
         cell: (h, { row, rowIndex }) => (
             <t-space>
                 {
-                    useAuth('menu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
+                    useAuth('saasMenu:add', <t-link theme="primary" variant="text" hover="color" onClick={() => onAddClick(row)}>
                         {i18n.global.t('menu.button.addSub')}
                     </t-link>)
                 }
                 {
-                    useAuth('menu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
+                    useAuth('saasMenu:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditClick(row)}>
                         {i18n.global.t('common.button.edit')}
                     </t-link>)
                 }
@@ -104,7 +104,7 @@ const columns: Array<PrimaryTableCol<any>> = [
                     {i18n.global.t('common.button.view')}
                 </t-link>
                 {
-                    (hasAuth('menu:remove') && !row.children?.length) ? <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDeleteClick(row)}>
+                    (hasAuth('saasMenu:remove') && !row.children?.length) ? <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDeleteClick(row)}>
                         <t-link variant="text" hover="color" theme="danger">
                             {i18n.global.t('common.button.delete')}
                         </t-link>

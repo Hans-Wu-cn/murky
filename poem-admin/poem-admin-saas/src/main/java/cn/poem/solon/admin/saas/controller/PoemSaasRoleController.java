@@ -53,6 +53,7 @@ public class PoemSaasRoleController extends BaseController<IPoemSaasRoleService>
     @ApiOperation("商户角色列表查询")
     @Get
     @Mapping("list")
+    @SaCheckPermission("saasRole")
     public ApiResult<List<PoemSaasRole>> list(PoemSaasRolePageDTO poemRolePageDTO) {
         List<PoemSaasRole> result = baseService.list(
                 QueryWrapper.create()

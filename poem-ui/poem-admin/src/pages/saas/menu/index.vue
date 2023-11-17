@@ -3,7 +3,7 @@
   <div v-else class="menuManage" :bordered="false">
     <!-- 菜单表格组件 -->
     <SaasMenuTable>
-      <t-button @click="handleAdd" v-auth="['menu:add']">{{ $t('menu.button.add') }}</t-button>
+      <t-button @click="handleAdd" v-auth="['saasMenu:add']">{{ $t('menu.button.add') }}</t-button>
     </SaasMenuTable>
   </div>
   <t-dialog v-model:visible="menuVisible" :footer="false" width="600px" top="10">

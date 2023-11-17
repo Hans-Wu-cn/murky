@@ -52,6 +52,7 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
     @ApiOperation("新增菜单")
     @Post
     @Mapping
+    @SaCheckPermission("saasMenu:add")
     public ApiResult<?> add(@Body @Validated(Insert.class) PoemSaasMenuFromDTO poemSaasMenuFromDTO){
         if(!ONode.loadStr(poemSaasMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemSaasMenuFromDTO.getQuery()).isObject()){
             return ApiResult.fail("query参数格式不正确");
@@ -66,6 +67,7 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
     @ApiOperation("修改菜单")
     @Put
     @Mapping
+    @SaCheckPermission("saasMenu:edit")
     public ApiResult<?> edit(@Body @Validated(Update.class) PoemSaasMenuFromDTO poemSaasMenuFromDTO){
         if(!ONode.loadStr(poemSaasMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemSaasMenuFromDTO.getQuery()).isObject()){
             return ApiResult.fail("query参数格式不正确");
@@ -81,6 +83,7 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
     @ApiOperation("菜单拖动")
     @Put
     @Mapping("drop")
+    @SaCheckPermission("saasMenu:edit")
     public ApiResult<?> drop(@Body @Validated PoemMenuDropDTO poemMenuDropDTO){
         return toResult(baseService.drop(poemMenuDropDTO));
     }
@@ -88,6 +91,7 @@ public class PoemSaasMenuController extends BaseController<IPoemSaasMenuService>
     @ApiOperation("删除商户菜单")
     @Delete
     @Mapping("/{saasMenuId}")
+    @SaCheckPermission("saasMenu:remove")
     public ApiResult<?> remove(Long saasMenuId){
         boolean result = baseService.removeById(saasMenuId);
         return toResult(result);
