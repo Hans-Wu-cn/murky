@@ -2,7 +2,7 @@
   <div v-if="layout === 'side'" class="header-menu-search">
     <t-input
       :class="['header-search', { 'hover-active': isSearchFocus }]"
-      placeholder="请输入搜索内容"
+      :placeholder="$t('common.attribute.pl.describe')"
       @blur="changeSearchFocus(false)"
       @focus="changeSearchFocus(true)"
     >
@@ -25,7 +25,7 @@
     <t-input
       v-model="searchData"
       :class="['header-search', { 'width-zero': !isSearchFocus }]"
-      placeholder="输入要搜索内容"
+      :placeholder="$t('common.attribute.pl.describe')"
       :autofocus="isSearchFocus"
       @blur="changeSearchFocus(false)"
     >
