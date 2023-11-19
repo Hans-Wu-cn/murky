@@ -5,12 +5,12 @@
       <div>
         <t-button @click="onAddHander" v-auth="'saasRole:add'">{{ $t('role.button.add') }}</t-button>
       </div>
-      <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="saasRoleData" :columns="columns" row-key="roleId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="roleFromVisible" :footer="false" width="500px" top="20px">
-      <template #header>{{ roleFromTitle }}</template>
-      <roleFrom ref="roleFromRef" @submit-hook="onSubmitHook"></roleFrom>
+    <t-dialog v-model:visible="saasRoleFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ saasRoleFromTitle }}</template>
+      <saasRoleFrom ref="saasRoleFromRef" @submit-hook="onSubmitHook"></saasRoleFrom>
     </t-dialog>
     <t-dialog v-model:visible="datascopeVisible" :footer="false" width="500px">
       <template #header>{{ $t('role.button.power') }}</template>
@@ -22,18 +22,18 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { delPoemRole, rolePage } from '@/api/saas/role';
+import { delPoemSaasRole, saasRolePage } from '@/api/saas/role';
 import { PageSaasRole, PoemSaasRole } from '@/api/saas/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
-import roleFrom from './components/roleFrom.vue'
+import saasRoleFrom from './components/saasRoleFrom.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 
-const PageRoleParams = ref<PageSaasRole>({
+const PageSaasRoleParams = ref<PageSaasRole>({
   saasRoleName: '',
   saasRoleCode: '',
   pageNumber: 1,
@@ -90,14 +90,14 @@ const columns: Array<PrimaryTableCol<PoemSaasRole>> = [
   },
 ];
 
-const roleData = ref<PoemSaasRole[]>([]);
+const saasRoleData = ref<PoemSaasRole[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
-const roleFromTitle = ref('');
-const roleFromRef = ref();
+const saasRoleFromTitle = ref('');
+const saasRoleFromRef = ref();
 const datascopeRef = ref()
 //控制角色表单dialog是否显示
-const roleFromVisible = ref(false)
+const saasRoleFromVisible = ref(false)
 //控制数据权限dialog是否显示
 const datascopeVisible = ref(false)
 
@@ -107,9 +107,9 @@ const settingStore = useSettingStore();
  * 添加角色表单适配器
  */
 const onAddHander = () => {
-  roleFromTitle.value = '添加角色'
-  roleFromRef.value.initFromData()
-  roleFromVisible.value = true
+  saasRoleFromTitle.value = '添加角色'
+  saasRoleFromRef.value.initFromData()
+  saasRoleFromVisible.value = true
 }
 
 /**
@@ -117,9 +117,9 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemSaasRole) => {
-  roleFromTitle.value = '编辑角色'
-  roleFromRef.value.initFromData(row.saasRoleId)
-  roleFromVisible.value = true
+  saasRoleFromTitle.value = '编辑角色'
+  saasRoleFromRef.value.initFromData(row.saasRoleId)
+  saasRoleFromVisible.value = true
 }
 
 /**
@@ -136,7 +136,7 @@ const onDatascopeHander = (row: PoemSaasRole) => {
  * @param row 
  */
 const onDelHander = async (row: PoemSaasRole) => {
-  const { code } = await delPoemRole(row.saasRoleId)
+  const { code } = await delPoemSaasRole(row.saasRoleId)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success('删除成功');
     loadData();
@@ -150,8 +150,8 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const onPageChange = async (pageInfo: PaginationProps) => {
-  PageRoleParams.value.pageNumber = pageInfo.current;
-  PageRoleParams.value.pageSize = pageInfo.pageSize;
+  PageSaasRoleParams.value.pageNumber = pageInfo.current;
+  PageSaasRoleParams.value.pageSize = pageInfo.pageSize;
   loadData()
 };
 
@@ -160,9 +160,9 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async (params?: {}) => {
   tableLoading.value = true;
-  const { code, result, message } = await rolePage({ ...PageRoleParams.value, ...params })
+  const { code, result, message } = await saasRolePage({ ...PageSaasRoleParams.value, ...params })
   if (code === ResultEnum.SUCCESS) {
-    roleData.value = result.records
+    saasRoleData.value = result.records
     pagination.total = +result.totalRow
   } else {
     MessagePlugin.error(message);
@@ -174,7 +174,7 @@ const loadData = async (params?: {}) => {
  * 新增/修改成功后的回调事件
  */
 const onSubmitHook = () => {
-  roleFromVisible.value = false
+  saasRoleFromVisible.value = false
   loadData();
 }
 

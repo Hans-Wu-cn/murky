@@ -12,7 +12,7 @@ const Api = {
  * 获取角色分页列表
  * @returns Route
  */
-export function rolePage(params: PageSaasRole) {
+export function saasRolePage(params: PageSaasRole) {
   return request.get<PageResponse<Array<PoemSaasRole>>>({
     url: Api.saasRolePage,
     params
@@ -33,7 +33,7 @@ export function roleList(params?: PageSaasRole) {
  * 获取角色详情信息
  * @returns Route
  */
-export function roleInfo(roleId: string) {
+export function saasRoleInfo(roleId: string) {
   return request.get<PoemSaasRole>({
     url: `${Api.saasRole}/${roleId}`,
   });
@@ -43,7 +43,7 @@ export function roleInfo(roleId: string) {
  * 修改
  * @returns Route
  */
-export function updatePoemRole(data: PoemSaasRole) {
+export function updatePoemSaasRole(data: PoemSaasRole) {
   return request.put({
     url: Api.saasRole,
     data
@@ -53,7 +53,7 @@ export function updatePoemRole(data: PoemSaasRole) {
  * 新增
  * @returns Route
  */
-export function addPoemRole(data: PoemSaasRole) {
+export function addPoemSaasRole(data: PoemSaasRole) {
   return request.post({
     url: Api.saasRole,
     data
@@ -63,7 +63,7 @@ export function addPoemRole(data: PoemSaasRole) {
  * 删除
  * @returns Route
  */
-export function delPoemRole(saasRoleId: string) {
+export function delPoemSaasRole(saasRoleId: string) {
   return request.delete({
     url: `/${Api.saasRole}/${saasRoleId}`,
   });

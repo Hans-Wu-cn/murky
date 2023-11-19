@@ -23,7 +23,7 @@ import {
 } from 'tdesign-icons-vue-next';
 import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCol, DragSortContext, TableTreeExpandChangeContext, TableAbnormalDragSortContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { delMenu, dragMenu, getMenuList } from '@/api/saas/menu';
+import { delMenu, dragMenu, getSaasMenuList } from '@/api/saas/menu';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemSaasMenu } from '@/api/saas/menu/types';
 import { menuConfig } from '../config';
@@ -203,7 +203,7 @@ const searchReset = () => {
  */
 const getData = async () => {
     let data: PoemSaasMenu[] = [];
-    const { code, result } = await getMenuList();
+    const { code, result } = await getSaasMenuList();
 
     if (ResultEnum.SUCCESS === code) {
         data = result

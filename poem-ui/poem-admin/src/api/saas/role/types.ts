@@ -17,5 +17,5 @@ export interface PoemSaasRole extends BaseApiType {
   saasRoleName: string,
   saasRoleCode: string,
   describe?: string,
-  saasMnuIds?: string[],
+  saasMenuIds?: string[],
 }

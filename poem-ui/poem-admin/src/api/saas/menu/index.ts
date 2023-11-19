@@ -11,7 +11,7 @@ const Api = {
  * 获取菜单列表
  * @returns Route
  */
-export function getMenuList() {
+export function getSaasMenuList() {
   return request.get<Array<PoemSaasMenu>>({
     url: Api.menuList,
   });
