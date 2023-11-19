@@ -13,8 +13,8 @@
       </t-form-item>
       <t-form-item label="菜单权限" name="menuIds">
         <div class="treeBox">
-          <t-tree ref="menuTreeRef" hover expand-all v-model="formData.saasMenuIds" :data="menuTree" :keys="menuTreeKeys"
-            checkable value-mode="all" @change="treeOnChange" checkStrictly />
+          <t-tree ref="saasMenuTreeRef" hover expand-all v-model="formData.saasMenuIds" :data="menuTree"
+            :keys="menuTreeKeys" checkable value-mode="all" @change="treeOnChange" />
         </div>
       </t-form-item>
       <t-form-item>
@@ -37,7 +37,7 @@ import { getSaasMenuList } from '@/api/saas/menu';
 
 const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemSaasMenu>>();
-const menuTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
+const menuTreeKeys = { value: 'saasMenuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   saasRoleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
   saasRoleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
@@ -49,7 +49,6 @@ const formData = ref<PoemSaasRole>({
   describe: '',
   saasMenuIds: []
 });
-
 const saasRoleFromId = ref('');
 const loading = ref(false);
 /**

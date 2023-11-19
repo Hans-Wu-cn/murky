@@ -48,4 +48,19 @@ public interface PoemMenuMapper extends BaseMapper<PoemMenu> {
         );
     }
 
+    /**
+     * 根据roleId查询菜单
+     * @param roleId 角色id
+     * @return 菜单实体对象
+     */
+    default List<PoemMenu> selectByRoleId(Long roleId) {
+
+        return this.selectListByQuery(
+                QueryWrapper.create()
+                        .select().from(POEM_MENU).leftJoin(POEM_ROLE_MENU)
+                        .on(POEM_ROLE_MENU.MENU_ID.eq(POEM_MENU.MENU_ID))
+                        .where(POEM_ROLE_MENU.ROLE_ID.eq(roleId))
+                        .orderBy(POEM_MENU.SORT.asc(), POEM_MENU.LABEL.asc())
+        );
+    }
 }

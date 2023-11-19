@@ -56,7 +56,21 @@ public class IPoemRoleServiceImpl extends PoemServiceImpl<PoemRoleMapper, PoemRo
             return null;
         }
         PoemRoleVo vo = PoemRoleConvert.INSTANCES.toVo(poemRole);
-        List<Long> menuIds = poemRoleMenuMapper.selectByRoleId(roleId).stream().map(PoemRoleMenu::getMenuId).toList();
+        List<PoemMenu> poemRoleMenus = poemMenuMapper.selectByRoleId(roleId);
+        List<Long> menuIds=new ArrayList<>();
+        for (PoemMenu poemMenu : poemRoleMenus) {
+            Long menuId = poemMenu.getMenuId();
+            boolean notHasChild=true;
+            for (PoemMenu saasMenu : poemRoleMenus) {
+                if(menuId.equals(saasMenu.getParentMenuId())){
+                    notHasChild=false;
+                    break;
+                }
+            }
+            if(notHasChild){
+                menuIds.add(menuId);
+            }
+        }
         vo.setMenuIds(menuIds);
         if (DataScope.CUSTOMIZE == poemRole.getDataScope()) {
             List<Long> deptIds = PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(roleId).list().stream().map(PoemRoleDept::getDeptId).toList();

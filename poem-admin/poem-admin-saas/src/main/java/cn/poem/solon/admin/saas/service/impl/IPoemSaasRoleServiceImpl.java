@@ -50,13 +50,22 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
             return null;
         }
         PoemSaasRoleVo vo = PoemSaasRoleConvert.INSTANCES.toVo(poemSaasRole);
-        List<Long> saasMenuIds = PoemSaasRoleMenu.create()
-                .where(PoemSaasRoleMenu::getSaasRoleId)
-                .eq(saasRoleId)
-                .list()
-                .stream()
-                .map(PoemSaasRoleMenu::getSaasMenuId).toList();
-        vo.setMenuIds(saasMenuIds);
+        List<PoemSaasMenu> poemSaasMenus = poemSaasMenuMapper.selectBySaasRoleId(saasRoleId);
+        List<Long> saasMenuIds=new ArrayList<>();
+        for (PoemSaasMenu poemSaasMenu : poemSaasMenus) {
+            Long saasMenuId = poemSaasMenu.getSaasMenuId();
+            boolean notHasChild=true;
+            for (PoemSaasMenu saasMenu : poemSaasMenus) {
+                if(saasMenuId.equals(saasMenu.getParentSaasMenuId())){
+                    notHasChild=false;
+                    break;
+                }
+            }
+            if(notHasChild){
+                saasMenuIds.add(saasMenuId);
+            }
+        }
+        vo.setSaasMenuIds(saasMenuIds);
         return vo;
     }
 
@@ -167,4 +176,5 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
         PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(poemSaasRoleFromDTO.getSaasRoleId()).remove();
         return true;
     }
+
 }

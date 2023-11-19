@@ -16,7 +16,7 @@
       <t-form-item v-if="formData.dataScope === 1" label="数据权限" name="menuIds">
         <div class="treeBox">
           <t-tree hover expand-all v-model="formData.menuIds" :data="deptTree" :keys="deptTreeKeys" checkable
-            value-mode="all" @change="treeOnChange" />
+            value-mode="all" @change="treeOnChange" checkStrictly />
         </div>
       </t-form-item>
       <t-form-item>

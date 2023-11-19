@@ -52,12 +52,12 @@ const columns: Array<PrimaryTableCol<PoemSaasRole>> = [
     minWidth: 50,
   },
   {
-    colKey: 'roleName',
+    colKey: 'saasRoleName',
     title: () => i18n.global.t('role.label.name'),
     minWidth: 100,
   },
   {
-    colKey: 'roleCode',
+    colKey: 'saasRoleCode',
     title: () => i18n.global.t('role.label.code'),
     minWidth: 100,
   },

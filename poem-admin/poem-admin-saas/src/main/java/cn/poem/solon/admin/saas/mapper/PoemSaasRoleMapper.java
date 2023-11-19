@@ -39,4 +39,6 @@ public interface PoemSaasRoleMapper extends BaseMapper<PoemSaasRole> {
                 POEM_SAAS_ROLE.SAAS_ROLE_ID.ne(saasRoleId, If::notNull)
         ).and(POEM_SAAS_ROLE.SAAS_ROLE_CODE.eq(saasCode).or(POEM_SAAS_ROLE.SAAS_ROLE_NAME.eq(saasName))).limit(1));
     }
+
+
 }
