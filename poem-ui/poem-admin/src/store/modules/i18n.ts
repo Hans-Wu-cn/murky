@@ -4,6 +4,8 @@ import i18n from '@/i18n'
 import { getLanguage } from '@/api/systemSetting/i18n';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useUserStore } from '@/store/modules/user'
+import { useTDesignLanguageStore } from '@/store/modules/tDesignI18n';
+
 const I18N_TAG = import.meta.env.VITE_I18N_TAG
 const langed: Object = {
   en: Object,
@@ -28,6 +30,7 @@ export const useI18nStore = defineStore('i18n', {
       i18n.global.locale = lang
       i18n.global.setLocaleMessage(lang, language)
       useUserStore().setLanguage(lang)
+      useTDesignLanguageStore().setLanguage(lang)
     },
     /**
      * 设置并缓存语言包
@@ -36,6 +39,7 @@ export const useI18nStore = defineStore('i18n', {
     async setI18nLanguage(lang: string, language: any,) {
       Reflect.set(this.getLanguages, lang, language)
       i18n.global.setLocaleMessage(lang, language);
+      useTDesignLanguageStore().setLanguage(lang)
     },
     /**
      * 获取语言包
@@ -44,6 +48,7 @@ export const useI18nStore = defineStore('i18n', {
      */
     async getI18nLanguage(lang: string): Promise<any> {
       const languages = this.getLanguages;
+      useTDesignLanguageStore().setLanguage(lang)
       if (!languages) {
         const { code, result } = await getLanguage(I18N_TAG, lang);
         if (ResultEnum.SUCCESS === code) {
