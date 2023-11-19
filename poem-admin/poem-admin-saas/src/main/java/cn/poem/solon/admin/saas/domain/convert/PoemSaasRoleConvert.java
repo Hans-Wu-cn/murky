@@ -28,6 +28,6 @@ public interface PoemSaasRoleConvert {
     /**
      * 将PoemRole entity对象转化为PoemRoleVo对象
      */
-    @Mapping(target = "menuIds", ignore = true)
+    @Mapping(target = "saasMenuIds", ignore = true)
     PoemSaasRoleVo toVo(PoemSaasRole poemRole);
 }

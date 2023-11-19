@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.system.enums;
+package cn.poem.solon.admin.core.enums;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
@@ -6,13 +6,13 @@ import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
 /**
- * 字典状态（0正常 1停用）
+ * 通用状态（0正常 1停用）
  *
  * @author hans
  */
 @AllArgsConstructor
 @Getter
-public enum DictStatus {
+public enum CommonStatus {
     NORMAL(0,"正常"),
     STOP(1,"停用")
     ;

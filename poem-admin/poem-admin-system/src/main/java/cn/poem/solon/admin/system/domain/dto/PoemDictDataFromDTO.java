@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.domain.dto;
 
+import cn.poem.solon.admin.core.enums.CommonStatus;
 import cn.poem.solon.admin.core.validat.Update;
-import cn.poem.solon.admin.system.enums.DictStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,7 +39,7 @@ public class PoemDictDataFromDTO {
     private String dictValue;
 
     @ApiModelProperty("状态")
-    private DictStatus status;
+    private CommonStatus status;
 
     @ApiModelProperty("备注")
     private String remark;

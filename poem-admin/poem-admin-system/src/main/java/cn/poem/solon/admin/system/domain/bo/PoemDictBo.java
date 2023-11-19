@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.domain.bo;
 
+import cn.poem.solon.admin.core.enums.CommonStatus;
 import cn.poem.solon.admin.system.domain.entity.PoemDictData;
-import cn.poem.solon.admin.system.enums.DictStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -31,7 +31,7 @@ public class PoemDictBo {
     /**
      * 字典状态
      */
-    private DictStatus status;
+    private CommonStatus status;
 
     /**
      * 备注

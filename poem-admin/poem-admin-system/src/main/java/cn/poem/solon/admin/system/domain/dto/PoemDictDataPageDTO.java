@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.domain.dto;
 
+import cn.poem.solon.admin.core.enums.CommonStatus;
 import cn.poem.solon.admin.system.domain.entity.PoemDictData;
-import cn.poem.solon.admin.system.enums.DictStatus;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,5 +21,5 @@ public class PoemDictDataPageDTO extends Page<PoemDictData> {
     private String dictType;
 
     @ApiModelProperty("字典状态")
-    private DictStatus status;
+    private CommonStatus status;
 }
