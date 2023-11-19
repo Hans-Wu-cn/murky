@@ -11,11 +11,14 @@ import org.mapstruct.ap.internal.util.Strings;
 import org.mapstruct.ap.shaded.freemarker.template.utility.StringUtil;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
+import org.noear.snack.ONode;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * SystemParameterService
@@ -69,9 +72,11 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
             return;
         }
         List<SystemParameter> systemParameters = mapper.selectAll();
+        Map<String, String> map = new HashMap<>();
         for (SystemParameter systemParameter : systemParameters) {
-            redisHash.putAndSerialize(systemParameter.getKey(),systemParameter.getValue());
+            map.put(systemParameter.getKey(), systemParameter.getValue());
         }
+        redisHash.putAll(map);
         log.info("初始化系统配置缓存");
     }
 }

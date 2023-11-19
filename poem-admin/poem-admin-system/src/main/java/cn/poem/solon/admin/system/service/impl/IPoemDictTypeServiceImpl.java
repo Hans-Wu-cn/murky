@@ -12,12 +12,15 @@ import com.mybatisflex.solon.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
+import org.noear.snack.ONode;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 字典类型service
@@ -80,9 +83,11 @@ public class IPoemDictTypeServiceImpl extends ServiceImpl<PoemDictTypeMapper, Po
             return;
         }
         List<PoemDictBo> poemDictBos = mapper.selectPoemDict();
+        Map<String,String> hashMap = new HashMap<>();
         for (PoemDictBo poemDictBo : poemDictBos) {
-            redisHash.putAndSerialize(poemDictBo.getDictType(), poemDictBo.getPoemDictDatas());
+            hashMap.put(poemDictBo.getDictType(), ONode.serialize(poemDictBo.getPoemDictDatas()));
         }
+        redisHash.putAll(hashMap);
         log.info("初始化字典缓存");
     }
 }
