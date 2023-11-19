@@ -67,6 +67,10 @@ const columns: Array<PrimaryTableCol<any>> = [
         colKey: 'name',
         title: () => i18n.global.t('menu.label.name'),
         minWidth: 200,
+        ellipsis: {
+            theme: 'light',
+            placement: 'bottom',
+        },
     },
     {
         colKey: 'icon',

@@ -66,12 +66,16 @@ const columns: Array<PrimaryTableCol<any>> = [
         colKey: 'name',
         title: () => i18n.global.t('menu.label.name'),
         minWidth: 200,
+        ellipsis: {
+            theme: 'light',
+            placement: 'bottom',
+        },
     },
     {
         colKey: 'icon',
         cell: 'icon-slot',
         title: () => i18n.global.t('common.icon'),
-        minWidth: 80,
+        minWidth: 60,
     },
     {
         colKey: 'path',
