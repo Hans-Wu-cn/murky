@@ -5,6 +5,7 @@ import { getLanguage } from '@/api/systemSetting/i18n';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useUserStore } from '@/store/modules/user'
 import { useTDesignLanguageStore } from '@/store/modules/tDesignI18n';
+import { request } from '@/utils/request';
 
 const I18N_TAG = import.meta.env.VITE_I18N_TAG
 const langed: Object = {
@@ -31,6 +32,8 @@ export const useI18nStore = defineStore('i18n', {
       i18n.global.setLocaleMessage(lang, language)
       useUserStore().setLanguage(lang)
       useTDesignLanguageStore().setLanguage(lang)
+      request.setHeader({ "Accept-Language": lang })
+
     },
     /**
      * 设置并缓存语言包

@@ -3,7 +3,7 @@ import { getLanguage } from '@/api/systemSetting/i18n';
 import { i18nDictHook } from './hooks/dict';
 import { ResultEnum } from './enums/httpEnum';
 import { useUserStore, useI18nStore } from '@/store';
-
+import { request } from './utils/request';
 const I18N_TAG = import.meta.env.VITE_I18N_TAG
 
 const i18n = createI18n({
@@ -46,7 +46,9 @@ export const initLanguage = async () => {
     }
   }
   await changeLanguage(localeLang)
-
+  request.setHeader({ "Accept-Language": localeLang })
 }
+
+
 
 export default i18n;
