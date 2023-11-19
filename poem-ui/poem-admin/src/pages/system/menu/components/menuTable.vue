@@ -9,10 +9,10 @@
             :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
             v-model:expandedTreeNodes="expandedTableTreeNodes" @abnormal-drag-sort="onAbnormalDragSort"
-            @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange" >
-            <template #icon-slot="{row}">
+            @drag-sort="onDragSort" @expanded-tree-nodes-change="onExpandedTreeNodesChange">
+            <template #icon-slot="{ row }">
                 <t-icon v-if="row.iconType" :name="row.icon" />
-                <img class="icon-options" v-else @error="row.iconType=true" :src="row.icon" alt="icon">
+                <img class="icon-options" v-else @error="row.iconType = true" :src="row.icon" alt="icon">
             </template>
         </t-enhanced-table>
     </t-card>
@@ -70,7 +70,7 @@ const columns: Array<PrimaryTableCol<any>> = [
     },
     {
         colKey: 'icon',
-        cell:'icon-slot',
+        cell: 'icon-slot',
         title: () => i18n.global.t('common.icon'),
         minWidth: 80,
     },
@@ -344,7 +344,8 @@ onMounted(async () => {
 .menuTable {
     margin-top: 20px;
 }
-img.icon-options{
+
+img.icon-options {
     width: 14px;
     height: 14px;
     vertical-align: middle;
