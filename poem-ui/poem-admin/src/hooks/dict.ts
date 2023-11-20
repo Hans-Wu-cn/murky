@@ -9,7 +9,7 @@ import { ResultEnum } from '@/enums/httpEnum';
  */
 let dictCache = new Map<string, Array<PoemDictData>>();
 
-const dictKey = {
+export const dictKey = {
   i18n: 'i18n:language',
   i18nTag: 'i18n:tag',
 };
@@ -36,7 +36,7 @@ export const i18nTagDictHook = async (): Promise<PoemDictData[]> => {
  * @param key 对应字典的字典key
  * @returns 字典集合
  */
-const dictFunction = async (key: string): Promise<PoemDictData[]> => {
+export const dictFunction = async (key: string): Promise<PoemDictData[]> => {
   const cache = dictCache.get(key);
   if (cache) {
     console.debug("cache")

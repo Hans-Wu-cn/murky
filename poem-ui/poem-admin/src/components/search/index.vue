@@ -15,16 +15,17 @@
 import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
 import { PoemDictData } from '@/api/system/dict/types';
-import { ComputedRef } from 'vue';
-
+import { ComputedRef, onMounted, watch } from 'vue';
+import { dictFunction } from '@/hooks/dict'
 export interface SearchOption {
     name: string,
     label: string | ComputedRef<string> | any,
-    value: string,
+    value?: string,
     type: string,// 输入框类型
     placeholder?: string | ComputedRef<string> | any,
     radioOptions?: { [key: string]: string },// 单选项搜索
     dictOptions?: Array<PoemDictData>,// 单选项字典
+    dictType?: string,// 单选项字典类型
     labelWidth?: string | number
 }
 
@@ -38,6 +39,25 @@ const props = withDefaults(defineProps<{
         type: 'input',
         placeholder: '请输入'
     }],
+})
+
+const initDictOptions = () => {
+    console.log(11111)
+    props.options.forEach(async item => {
+        console.log(item)
+        if (item.dictType) {
+            const dict = await dictFunction(item.dictType);
+            console.log('dict', dict)
+            if (dict) {
+                item.dictOptions = dict
+                item.value = dict[0].dictValue
+            }
+        }
+    })
+}
+
+watch(() => props.options, function (value, oldvalue) {
+    initDictOptions()
 })
 
 const emit = defineEmits<{
@@ -68,6 +88,8 @@ const onReset = () => {
     })
     emit('reset');
 }
+
+
 </script>
 <style scoped lang="less">
 .searchParams {

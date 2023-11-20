@@ -27,7 +27,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18nFrom from './components/i18nFrom.vue'
-import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
+import { dictKey, i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import i18n from '@/i18n'
 
 const PagePoemDictTypeParams = ref<I18nPageParams>({
@@ -179,11 +179,10 @@ const getI18nTagdict = async () => {
       },
       {
         name: 'i18nTag',
-        value: i18nTags[0].dictValue,
         label: () => i18n.global.t('i18n.label.tag'),
         type: 'dict',
         placeholder: computed(() => i18n.global.t('i18n.label.pl.tag')),
-        dictOptions: i18nTags
+        dictType: dictKey.i18nTag
       },
     ];
   }

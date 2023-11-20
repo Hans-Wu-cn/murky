@@ -12,7 +12,7 @@ public class EncryptionUtil {
         return new PasswordRecord(salt,ps);
     }
 
-    public static String userEncryption(PasswordRecord poemPassword){
-        return Utils.md5(Utils.md5(poemPassword.password()) + poemPassword.salt());
+    public static String userEncryption(PasswordRecord passwordRecord){
+        return Utils.md5(Utils.md5(passwordRecord.password()) + passwordRecord.salt());
     }
 }
