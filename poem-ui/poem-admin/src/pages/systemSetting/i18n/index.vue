@@ -221,6 +221,14 @@ const loadColumns = (i18ns: PoemDictData[]) => {
     cell: (h, { row }) => (
       <t-space>
         {
+          <t-link theme="primary" variant="text" hover="color" onClick={() => navigator.clipboard.writeText(`i18n.global.t('${row.i18nKey}'')`).then(() => {
+            MessagePlugin.success(i18n.global.t('i18n.label.copySuccess'))
+          }).catch(err => MessagePlugin.error(err))
+
+          }>
+            {i18n.global.t('i18n.button.copyScript')}
+          </t-link>
+        }{
           useAuth('i18n:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             {i18n.global.t('common.button.edit')}
           </t-link>)

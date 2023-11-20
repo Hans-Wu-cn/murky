@@ -45,7 +45,7 @@ const initDictOptions = () => {
     console.log(11111)
     props.options.forEach(async item => {
         console.log(item)
-        if (item.dictType) {
+        if (item.type === 'dict' && item.dictType) {
             const dict = await dictFunction(item.dictType);
             console.log('dict', dict)
             if (dict) {
@@ -86,8 +86,13 @@ const onReset = () => {
     props.options.forEach(val => {
         val.value = ''
     })
+    initDictOptions()
     emit('reset');
 }
+
+onMounted(() => {
+    initDictOptions()
+})
 
 
 </script>

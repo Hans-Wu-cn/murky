@@ -25,7 +25,7 @@ import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
-import { status } from './constants';
+import { status } from '@/constants';
 import dictDataFrom from './components/dictDataFrom.vue'
 import { useRoute } from 'vue-router';
 import i18n from '@/i18n';

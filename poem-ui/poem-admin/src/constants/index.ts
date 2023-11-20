@@ -1,3 +1,5 @@
+import i18n from "@/i18n";
+
 // 合同状态枚举
 export const CONTRACT_STATUS = {
   FAIL: 0,
@@ -49,4 +51,9 @@ export enum ContentTypeEnum {
   FormURLEncoded = 'application/x-www-form-urlencoded;charset=UTF-8',
   FormData = 'multipart/form-data;charset=UTF-8',
   ngrok = 'ngrok'
+}
+
+export const status: { [key: string]: string } = {
+  0: i18n.global.t('common.label.status.0'),
+  1: i18n.global.t('common.label.status.1'),
 }

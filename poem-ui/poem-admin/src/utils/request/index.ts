@@ -145,8 +145,7 @@ const transform: AxiosTransform = {
         console.debug('请求超时');
         MessagePlugin.error('请求超时');
         break;
-      case ResultEnum.ERROR:
-        console.debug('弹出错误信息');
+      case ResultEnum.NOT_PERMISSION:
         MessagePlugin.error(message);
       default: ;
     }

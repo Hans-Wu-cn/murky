@@ -12,7 +12,16 @@ let dictCache = new Map<string, Array<PoemDictData>>();
 export const dictKey = {
   i18n: 'i18n:language',
   i18nTag: 'i18n:tag',
+  saasScriptTag: 'saas:script:tag',
 };
+
+/**
+ * 	商户脚本标签字典数据
+ * @returns 
+ */
+export const saasScriptTagDictHook = async (): Promise<PoemDictData[]> => {
+  return await dictFunction(dictKey.saasScriptTag)
+}
 
 /**
  * 国际化地区字典数据
