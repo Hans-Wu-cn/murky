@@ -1,6 +1,5 @@
 package cn.poem.solon.admin.event.system;
 
-import cn.dev33.satoken.exception.NotLoginException;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.domin.PoemUser;
 import org.noear.dami.solon.annotation.DamiTopic;

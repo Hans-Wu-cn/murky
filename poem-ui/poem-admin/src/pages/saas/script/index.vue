@@ -12,6 +12,10 @@
       <template #header>{{ tabelScriptFromTitle }}</template>
       <tabelScriptFrom ref="tabelScriptFromRef" @submit-hook="onSubmitHook"></tabelScriptFrom>
     </t-dialog>
+    <t-dialog v-model:visible="editColumsFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ $t('script.table.label.edit.script') }}</template>
+      <editColumFrom ref="editColumFromRef" @submit-hook="onSubmitHook"></editColumFrom>
+    </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
@@ -22,6 +26,7 @@ import { PoemSaasScriptTable, PoemSaasScriptTablePage } from '@/api/saas/script/
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import tabelScriptFrom from './components/tabelScriptFrom.vue'
+import editColumFrom from './components/editColumFrom.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
@@ -29,7 +34,7 @@ import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 import { status } from '@/constants'
 import { dictKey, saasScriptTagDictHook } from '@/hooks/dict';
-import { PoemDictData } from '@/api/system/dict/types';
+
 const queryParams = ref<PoemSaasScriptTablePage>({
   tableName: '',
   tag: '',
@@ -101,6 +106,11 @@ const columns: Array<PrimaryTableCol<PoemSaasScriptTable>> = [
           </t-link>)
         }
         {
+          useAuth('saasRole:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditColumsHander(row)}>
+            {i18n.global.t('script.table.label.edit.script')}
+          </t-link>)
+        }
+        {
           useAuth('saasRole:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               {i18n.global.t('common.button.delete')}
@@ -117,8 +127,10 @@ const tableData = ref<PoemSaasScriptTable[]>([]);
 const tableLoading = ref(false);
 const tabelScriptFromTitle = ref('');
 const tabelScriptFromRef = ref();
+const editColumFromRef = ref();
 //控制角色表单dialog是否显示
 const tabelScriptFromVisible = ref(false)
+const editColumsFromVisible = ref(false)
 const settingStore = useSettingStore();
 
 /**
@@ -138,6 +150,14 @@ const onEditHander = (row: PoemSaasScriptTable) => {
   tabelScriptFromTitle.value = i18n.global.t('script.table.label.edit')
   tabelScriptFromRef.value.initFromData(row.tableId)
   tabelScriptFromVisible.value = true
+}
+
+/**
+ * 修改
+ * @param row 当前行数据
+ */
+const onEditColumsHander = (row: PoemSaasScriptTable) => {
+  editColumsFromVisible.value = true
 }
 
 /**
