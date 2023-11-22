@@ -61,14 +61,14 @@ const i18nData = ref<any[]>([]);
 const tableLoading = ref(false);
 const i18nFromTitle = ref('');
 const i18nFromRef = ref();
-//控制字典数据表单dialog是否显示
+//控制语言包数据表单dialog是否显示
 const i18nFromVisible = ref(false)
 // const i18nDict = ref<PoemDictData[]>();
 const i18nTagDict = ref<PoemDictData[]>();
 const settingStore = useSettingStore();
 const searchi18nTag = ref('')
 /**
- * 添加字典数据表单适配器
+ * 添加语言包数据表单适配器
  */
 const onAddHander = () => {
   i18nFromTitle.value = i18n.global.t('i18n.button.add')
@@ -77,7 +77,7 @@ const onAddHander = () => {
 }
 
 /**
- * 修改字典数据表单适配器
+ * 修改语言包数据表单适配器
  * @param row 当前行数据
  */
 const onEditHander = (row: any) => {
@@ -88,14 +88,15 @@ const onEditHander = (row: any) => {
 }
 
 /**
- * 删除字典数据
+ * 删除语言包数据
  * @param row 
  */
 const onDelHander = async (row: any) => {
   const { code } = await removeI18n(row['i18nKey'])
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
-    loadData({ i18nTag: searchi18nTag.value });
+    PagePoemDictTypeParams.value.i18nTag = searchi18nTag.value
+    loadData();
   }
 }
 
@@ -109,16 +110,16 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 const onPageChange = async (pageInfo: PaginationProps) => {
   PagePoemDictTypeParams.value.pageNumber = pageInfo.current;
   PagePoemDictTypeParams.value.pageSize = pageInfo.pageSize;
-  loadData({ i18nTag: searchi18nTag.value });
+  loadData();
 
 };
 
 /**
  * 加载表格数据
  */
-const loadData = async (params?: {}) => {
+const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await i18nPage({ ...PagePoemDictTypeParams.value, ...params })
+  const { code, result, message } = await i18nPage({ ...PagePoemDictTypeParams.value })
   if (code === ResultEnum.SUCCESS) {
     i18nData.value = result.records
     pagination.total = +result.totalRow
@@ -133,7 +134,8 @@ const loadData = async (params?: {}) => {
  */
 const onSubmitHook = () => {
   i18nFromVisible.value = false
-  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
+  PagePoemDictTypeParams.value.i18nTag = i18nTagDict.value[0].dictValue
+  loadData();
 }
 
 const showBreadcrumbHeight = computed(() => {
@@ -145,7 +147,8 @@ const searchOptions = ref<SearchOption[]>()
 
 const searchReset = async () => {
   await getI18ndict();
-  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
+  PagePoemDictTypeParams.value.i18nTag = i18nTagDict.value[0].dictValue
+  loadData();
 }
 
 const getI18ndict = async () => {
@@ -161,7 +164,7 @@ const getI18nTagdict = async () => {
   const i18nTags = await i18nTagDictHook();
   if (i18nTags) {
     i18nTagDict.value = i18nTags
-    searchi18nTag.value = i18nTags[0].dictValue
+    PagePoemDictTypeParams.value.i18nTag = i18nTags[0].dictValue
     searchOptions.value = [
       {
         name: 'i18nKey',
@@ -252,13 +255,16 @@ onMounted(async () => {
   // 加载	i18n地区编码
   await getI18ndict();
   //加载数据
-  searchi18nTag.value = i18nTagDict.value[0].dictValue
-  loadData({ i18nTag: i18nTagDict.value[0].dictValue });
+  PagePoemDictTypeParams.value.i18nTag = i18nTagDict.value[0].dictValue
+  loadData();
 });
 
 const searchSubmit = (params: any) => {
-  searchi18nTag.value = params.dictValue
-  loadData(params)
+  console.log(params)
+  PagePoemDictTypeParams.value.i18nTag = params.dictValue
+  PagePoemDictTypeParams.value.i18nKey = params.i18nKey
+  PagePoemDictTypeParams.value.i18nValue = params.i18nValue
+  loadData()
 }
 </script>
 <style scoped lang="less">
