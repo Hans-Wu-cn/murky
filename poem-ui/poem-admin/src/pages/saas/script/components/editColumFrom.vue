@@ -1,33 +1,23 @@
 <template>
   <div>
-    <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
-      @submit="onSubmit">
-      <t-form-item :label="$t('script.table.attribute.tableName')" name="tableName">
-        <t-input v-model="formData.tableName" :placeholder="$t('script.table.attribute.pl.tableName')"></t-input>
-      </t-form-item>
-      <t-form-item :label="$t('script.table.label.tag')" name="tag">
-        <t-select v-model="formData.tag">
-          <t-option v-for="item in scriptTag" :key="item.dictValue" :label="item.dictLabel"
-            :value="Number(item.dictValue)" />
-        </t-select>
-      </t-form-item>
-      <t-form-item :label="$t('common.attribute.describe')" name="describe">
-        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')"></t-textarea>
-      </t-form-item>
-      <t-form-item :label="$t('common.label.status')" name="status">
-        <t-radio-group v-model="formData.status">
-          <t-radio :value="0">{{ $t('common.label.status.0') }}</t-radio>
-          <t-radio :value="1">{{ $t('common.label.status.1') }}</t-radio>
-        </t-radio-group>
-      </t-form-item>
-      <t-form-item>
-        <t-space size="small">
-          <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
-          <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
-          }}</t-button>
-        </t-space>
-      </t-form-item>
-    </t-form>
+    <t-tabs :default-value="1">
+      <t-tab-panel :value="1" :label="$t('script.table.attribute.ddl')">
+        <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
+          @submit="onSubmit">
+
+          <t-form-item>
+            <t-space size="small">
+              <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+              <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
+              }}</t-button>
+            </t-space>
+          </t-form-item>
+        </t-form>
+      </t-tab-panel>
+      <t-tab-panel :value="2" :label="$t('script.table.attribute.data')">
+        <p style="margin: 20px">选项卡2内容区</p>
+      </t-tab-panel>
+    </t-tabs>
   </div>
 </template>
 <script setup lang="tsx">
