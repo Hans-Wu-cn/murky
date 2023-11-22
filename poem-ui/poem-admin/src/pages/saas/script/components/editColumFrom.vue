@@ -7,6 +7,8 @@
 
           <t-form-item>
             <t-space size="small">
+              <t-button theme="primary" @click="" :loading="loading">{{ $t('script.table.label.addAttribute')
+              }}</t-button>
               <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
               <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
               }}</t-button>
@@ -47,6 +49,9 @@ const scriptTag = ref<PoemDictData[]>()
 
 const tableFromId = ref('');
 const loading = ref(false);
+
+const listFrom = ref([]);
+
 /**
  * 重置表单
  */
@@ -81,6 +86,13 @@ const initFromData = async (tableId: string) => {
     formData.value = result
     resetValue.value = result
   }
+}
+
+/**
+ * 添加字段
+ */
+const addAttribute = () => {
+
 }
 
 /**

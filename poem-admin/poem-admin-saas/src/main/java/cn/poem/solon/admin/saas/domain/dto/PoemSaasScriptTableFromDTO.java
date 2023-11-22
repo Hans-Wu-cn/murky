@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
 @Data
@@ -18,7 +19,7 @@ public class PoemSaasScriptTableFromDTO {
     private Long tableId;
 
     @ApiModelProperty("表名")
-    @NotNull
+    @NotBlank
     private String tableName;
 
     @ApiModelProperty("描述")
