@@ -25,7 +25,6 @@ public class PoemSaasScriptTableFromDTO {
     @ApiModelProperty("描述")
     private String describe;
 
-
     @ApiModelProperty("标签")
     @NotNull
     private Integer tag;
