@@ -107,7 +107,7 @@ const settingStore = useSettingStore();
  * 添加角色表单适配器
  */
 const onAddHander = () => {
-  saasRoleFromTitle.value = '添加角色'
+  saasRoleFromTitle.value = i18n.global.t('role.button.add')
   saasRoleFromRef.value.initFromData()
   saasRoleFromVisible.value = true
 }
@@ -117,18 +117,9 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemSaasRole) => {
-  saasRoleFromTitle.value = '编辑角色'
+  saasRoleFromTitle.value = i18n.global.t('role.label.edit')
   saasRoleFromRef.value.initFromData(row.saasRoleId)
   saasRoleFromVisible.value = true
-}
-
-/**
- * 数据权限表单适配器
- * @param row 当前行数据
- */
-const onDatascopeHander = (row: PoemSaasRole) => {
-  datascopeRef.value.initFromData(row.saasRoleId)
-  datascopeVisible.value = true
 }
 
 /**
@@ -138,14 +129,14 @@ const onDatascopeHander = (row: PoemSaasRole) => {
 const onDelHander = async (row: PoemSaasRole) => {
   const { code } = await delPoemSaasRole(row.saasRoleId)
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
   }
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
@@ -158,14 +149,12 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = async (params?: {}) => {
+const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await saasRolePage({ ...PageSaasRoleParams.value, ...params })
+  const { code, result, message } = await saasRolePage({ ...PageSaasRoleParams.value })
   if (code === ResultEnum.SUCCESS) {
     saasRoleData.value = result.records
     pagination.total = +result.totalRow
-  } else {
-    MessagePlugin.error(message);
   }
   tableLoading.value = false;
 }
@@ -206,8 +195,9 @@ onMounted(async () => {
 });
 
 const searchSubmit = (params: any) => {
-  console.log(params)
-  loadData(params)
+  PageSaasRoleParams.value.saasRoleCode = params.roleCode
+  PageSaasRoleParams.value.saasRoleName = params.roleName
+  loadData()
 }
 </script>
 <style scoped lang="less">

@@ -7,7 +7,7 @@
     </t-card>
     <t-card :bordered="false" :title="$t('user.label.userList')">
       <div>
-        <t-button @click="userVisible = true" v-auth="'user:add'">{{ $t('user.button.add') }}</t-button>
+        <t-button @click="onAddHander" v-auth="'user:add'">{{ $t('user.button.add') }}</t-button>
       </div>
       <t-table stripe :data="userData" :columns="columns" row-key="userId" :loading="tableLoading"
         :pagination="pagination" @page-change="onPageChange" />
@@ -142,9 +142,11 @@ const restPasswdFromRef = ref();
 /**
  * 添加事件弹窗适配
  */
-const onAddHander = async (row: any) => {
+const onAddHander = async () => {
   userDialogTitle.value = '添加用户'
   userVisible.value = true;
+  await nextTick();
+  userFromRef.value.initFromData();
 }
 
 /**
@@ -206,10 +208,10 @@ const getdeptTreeData = async () => {
 /**
 * load tree data
 */
-const loadUserData = async (query?: {}) => {
+const loadUserData = async () => {
   // 需要更新数据地址空间
   tableLoading.value = true;
-  const { code, result } = await userPage({ ...userQuery.value, ...query });
+  const { code, result } = await userPage({ ...userQuery.value });
   if (ResultEnum.SUCCESS === code) {
     userData.value = result.records
     pagination.total = +result.totalRow
@@ -268,7 +270,10 @@ const searchOptions = ref<SearchOption[]>([
 ])
 const searchSubmit = (params: any) => {
   console.log(params)
-  loadUserData(params)
+  userQuery.value.userName = params.userName
+  userQuery.value.email = params.email
+  userQuery.value.sex = params.sex
+  loadUserData()
 }
 </script>
 <style scoped lang="less">

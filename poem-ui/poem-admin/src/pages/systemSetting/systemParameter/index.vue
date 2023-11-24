@@ -123,7 +123,9 @@ const settingStore = useSettingStore();
 
 const refresh = async () => {
   const { code } = await refreshCache()
-  MessagePlugin.success(i18n.global.t('common.message.refreshSuccess'))
+  if (ResultEnum.SUCCESS === code) {
+    MessagePlugin.success(i18n.global.t('common.message.refreshSuccess'))
+  }
 }
 
 /**
@@ -181,14 +183,12 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = async (params?: {}) => {
+const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await systemParameterPage({ ...page.value, ...params })
+  const { code, result, message } = await systemParameterPage({ ...page.value })
   if (code === ResultEnum.SUCCESS) {
     roleData.value = result.records
     pagination.total = +result.totalRow
-  } else {
-    MessagePlugin.error(message);
   }
   tableLoading.value = false;
 }
@@ -222,7 +222,8 @@ onMounted(async () => {
 
 const searchSubmit = (params: any) => {
   console.log(params)
-  loadData(params)
+  page.value.key = params.key
+  loadData()
 }
 </script>
 <style scoped lang="less">

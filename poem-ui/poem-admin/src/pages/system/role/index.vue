@@ -113,7 +113,7 @@ const settingStore = useSettingStore();
  * 添加角色表单适配器
  */
 const onAddHander = () => {
-  roleFromTitle.value = '添加角色'
+  roleFromTitle.value = i18n.global.t('role.button.add')
   roleFromRef.value.initFromData()
   roleFromVisible.value = true
 }
@@ -123,7 +123,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onEditHander = (row: PoemRole) => {
-  roleFromTitle.value = '编辑角色'
+  roleFromTitle.value = i18n.global.t('role.label.edit')
   roleFromRef.value.initFromData(row.roleId)
   roleFromVisible.value = true
 }
@@ -144,14 +144,14 @@ const onDatascopeHander = (row: PoemRole) => {
 const onDelHander = async (row: PoemRole) => {
   const { code } = await delPoemRole(row.roleId)
   if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
   }
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const rehandleChange = (changeParams: any, triggerAndData: any) => {
-  console.log('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
+  console.debug('分页、排序、过滤等发生变化时会触发 change 事件：', changeParams, triggerAndData);
 };
 
 // BaseTable 中只有 page-change 事件，没有 change 事件

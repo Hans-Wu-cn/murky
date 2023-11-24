@@ -166,10 +166,7 @@ const searchOptions = ref<SearchOption[]>([
 const searchSubmit = (params: any) => {
     tableLoading.value = true;
     const { label, name, path, auth } = params;
-    console.log(params)
-    console.log(label, name, path, auth)
     const data = recursion(tableData.value, label, name, path, auth)
-    console.log(data)
     tableRef.value.resetData(data)
     tableLoading.value = false;
 }

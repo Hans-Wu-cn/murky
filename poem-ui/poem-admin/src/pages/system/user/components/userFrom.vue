@@ -75,7 +75,11 @@ const onReset = () => {
 const resetValue = ref({})// 记录重置表单数据
 const initFromData = async (userId: string) => {
     if (!userId) {
-        formData.value = {}
+        formData.value = {
+            sex: 0,
+            deptId: '',
+            roleIds: []
+        }
         userFromId.value = undefined
         return
     }

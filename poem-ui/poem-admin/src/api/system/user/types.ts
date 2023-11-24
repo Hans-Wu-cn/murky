@@ -19,6 +19,8 @@ export interface PoemUser extends BaseApiType {
 export interface PageUser extends PageRequest {
   deptId?: string,
   userName?: string,
+  email?: string,
+  sex?: string,
 }
 
 /**

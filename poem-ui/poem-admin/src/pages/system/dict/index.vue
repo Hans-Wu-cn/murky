@@ -189,9 +189,9 @@ const onPageChange = async (pageInfo: PaginationProps) => {
 /**
  * 加载表格数据
  */
-const loadData = async (params?: {}) => {
+const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await dictTypePage({ ...PagePoemDictTypeParams.value, ...params })
+  const { code, result, message } = await dictTypePage({ ...PagePoemDictTypeParams.value })
   if (code === ResultEnum.SUCCESS) {
     dictTypeData.value = result.records
     pagination.total = +result.totalRow
@@ -244,8 +244,11 @@ onMounted(async () => {
 });
 
 const searchSubmit = (params: any) => {
-  console.log(params)
-  loadData(params)
+  console.debug(params)
+  PagePoemDictTypeParams.value.dictName = params.dictName
+  PagePoemDictTypeParams.value.dictType = params.dictType
+  PagePoemDictTypeParams.value.status = params.status
+  loadData()
 }
 </script>
 <style scoped lang="less">
