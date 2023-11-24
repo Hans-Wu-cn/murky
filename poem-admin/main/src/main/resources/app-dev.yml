@@ -65,6 +65,9 @@ mybatis.db:
       keyType: "Generator"
       value: "snowFlakeId"
 
+sqltoy:
+  unifyFieldsHandler: cn.poem.solon.admin.handler.UnifyFieldsHandler
+
 # sa-token配置
 sa-token:
   # token名称 (同时也是cookie名称)

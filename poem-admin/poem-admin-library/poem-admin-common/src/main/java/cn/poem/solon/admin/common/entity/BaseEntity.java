@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.domin;
+package cn.poem.solon.admin.common.entity;
 
 import lombok.Getter;
 import lombok.Setter;

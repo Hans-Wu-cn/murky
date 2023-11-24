@@ -1,8 +1,7 @@
 package cn.poem.solon.admin.saas.domain.entity;
 
 import cn.poem.solon.admin.core.enums.CommonStatus;
-import cn.poem.solon.admin.domin.BaseEntity;
-import cn.poem.solon.admin.saas.enums.ColumnIndex;
+import cn.poem.solon.admin.common.entity.BaseEntity;
 import cn.poem.solon.admin.saas.enums.ColumnIndexType;
 import cn.poem.solon.admin.saas.enums.ColumnPrimary;
 import com.mybatisflex.annotation.Id;

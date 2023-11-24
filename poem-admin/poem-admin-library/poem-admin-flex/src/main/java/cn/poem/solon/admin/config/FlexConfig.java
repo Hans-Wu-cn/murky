@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.config;
 
 import cn.poem.solon.admin.PoemFlexImpl;
-import cn.poem.solon.admin.domin.BaseEntity;
+import cn.poem.solon.admin.common.entity.BaseEntity;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.zaxxer.hikari.HikariDataSource;

@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.system.domain.entity;
 
 import cn.poem.solon.admin.core.enums.CommonStatus;
-import cn.poem.solon.admin.domin.BaseEntity;
+import cn.poem.solon.admin.common.entity.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

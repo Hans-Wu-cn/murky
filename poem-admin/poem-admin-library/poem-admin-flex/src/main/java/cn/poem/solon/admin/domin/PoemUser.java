@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.domin;
 
+import cn.poem.solon.admin.common.entity.BaseEntity;
 import cn.poem.solon.admin.enums.Sex;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

@@ -1,7 +1,7 @@
 package cn.poem.solon.admin;
 
 import cn.poem.solon.admin.common.constant.BusTopicConstant;
-import cn.poem.solon.admin.domin.BaseEntity;
+import cn.poem.solon.admin.common.entity.BaseEntity;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
 import com.mybatisflex.core.dialect.KeywordWrap;
