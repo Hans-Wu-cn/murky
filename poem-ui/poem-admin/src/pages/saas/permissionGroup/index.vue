@@ -1,16 +1,16 @@
 <template>
   <search v-model:options="searchOptions" @submit="searchSubmit"></search>
-  <div class="saasRoleManage">
+  <div class="permissionGroupManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'saasRole:add'">{{ $t('role.button.add') }}</t-button>
+        <t-button @click="onAddHander" v-auth="'permissionGroup:add'">{{ $t('permissionGroup.button.add') }}</t-button>
       </div>
-      <t-table stripe :data="saasRoleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="permissionGroupData" :columns="columns" row-key="groupId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="saasRoleFromVisible" :footer="false" width="500px" top="20px">
-      <template #header>{{ saasRoleFromTitle }}</template>
-      <saasRoleFrom ref="saasRoleFromRef" @submit-hook="onSubmitHook"></saasRoleFrom>
+    <t-dialog v-model:visible="permissionGroupFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ permissionGroupFromTitle }}</template>
+      <permissionGroupFrom ref="permissionGroupFromRef" @submit-hook="onSubmitHook"></permissionGroupFrom>
     </t-dialog>
     <t-dialog v-model:visible="datascopeVisible" :footer="false" width="500px">
       <template #header>{{ $t('role.button.power') }}</template>
@@ -22,20 +22,19 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { delPoemSaasRole, saasRolePage } from '@/api/saas/role';
-import { PageSaasRole, PoemSaasRole } from '@/api/saas/role/types';
+import { delPermissionGroup, permissionGroupPage } from '@/api/saas/permissionGroup';
+import { PagePermissionGroup, PermissionGroup } from '@/api/saas/permissionGroup/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
-import saasRoleFrom from './components/saasRoleFrom.vue'
+import permissionGroupFrom from './components/permissionGroupFrom.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 
-const PageSaasRoleParams = ref<PageSaasRole>({
-  saasRoleName: '',
-  saasRoleCode: '',
+const PageSaasRoleParams = ref<PagePermissionGroup>({
+  groupName: '',
   pageNumber: 1,
   pageSize: 10,
 })
@@ -45,20 +44,15 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemSaasRole>> = [
+const columns: Array<PrimaryTableCol<PermissionGroup>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
     minWidth: 50,
   },
   {
-    colKey: 'saasRoleName',
-    title: () => i18n.global.t('role.label.name'),
-    minWidth: 100,
-  },
-  {
-    colKey: 'saasRoleCode',
-    title: () => i18n.global.t('role.label.code'),
+    colKey: 'groupName',
+    title: () => i18n.global.t('permissionGroup.label.name'),
     minWidth: 100,
   },
   {
@@ -74,12 +68,12 @@ const columns: Array<PrimaryTableCol<PoemSaasRole>> = [
     cell: (h, { row }) => (
       <t-space>
         {
-          useAuth('saasRole:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+          useAuth('permissionGroup:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
             {i18n.global.t('common.button.edit')}
           </t-link>)
         }
         {
-          useAuth('saasRole:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
+          useAuth('permissionGroup:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
               {i18n.global.t('common.button.delete')}
             </t-link>
@@ -90,44 +84,44 @@ const columns: Array<PrimaryTableCol<PoemSaasRole>> = [
   },
 ];
 
-const saasRoleData = ref<PoemSaasRole[]>([]);
+const permissionGroupData = ref<PermissionGroup[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
-const saasRoleFromTitle = ref('');
-const saasRoleFromRef = ref();
+const permissionGroupFromTitle = ref('');
+const permissionGroupFromRef = ref();
 const datascopeRef = ref()
-//控制角色表单dialog是否显示
-const saasRoleFromVisible = ref(false)
+//控制权限组表单dialog是否显示
+const permissionGroupFromVisible = ref(false)
 //控制数据权限dialog是否显示
 const datascopeVisible = ref(false)
 
 const settingStore = useSettingStore();
 
 /**
- * 添加角色表单适配器
+ * 添加权限组表单适配器
  */
 const onAddHander = () => {
-  saasRoleFromTitle.value = i18n.global.t('role.button.add')
-  saasRoleFromRef.value.initFromData()
-  saasRoleFromVisible.value = true
+  permissionGroupFromTitle.value = i18n.global.t('permissionGroup.button.add')
+  permissionGroupFromRef.value.initFromData()
+  permissionGroupFromVisible.value = true
 }
 
 /**
- * 修改角色表单适配器
+ * 修改权限组表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemSaasRole) => {
-  saasRoleFromTitle.value = i18n.global.t('role.label.edit')
-  saasRoleFromRef.value.initFromData(row.saasRoleId)
-  saasRoleFromVisible.value = true
+const onEditHander = (row: PermissionGroup) => {
+  permissionGroupFromTitle.value = i18n.global.t('permissionGroup.label.edit')
+  permissionGroupFromRef.value.initFromData(row.groupId)
+  permissionGroupFromVisible.value = true
 }
 
 /**
- * 删除角色
+ * 删除权限组
  * @param row 
  */
-const onDelHander = async (row: PoemSaasRole) => {
-  const { code } = await delPoemSaasRole(row.saasRoleId)
+const onDelHander = async (row: PermissionGroup) => {
+  const { code } = await delPermissionGroup(row.groupId)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
@@ -151,9 +145,9 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await saasRolePage({ ...PageSaasRoleParams.value })
+  const { code, result, message } = await permissionGroupPage({ ...PageSaasRoleParams.value })
   if (code === ResultEnum.SUCCESS) {
-    saasRoleData.value = result.records
+    permissionGroupData.value = result.records
     pagination.total = +result.totalRow
   }
   tableLoading.value = false;
@@ -163,7 +157,7 @@ const loadData = async () => {
  * 新增/修改成功后的回调事件
  */
 const onSubmitHook = () => {
-  saasRoleFromVisible.value = false
+  permissionGroupFromVisible.value = false
   loadData();
 }
 
@@ -174,20 +168,12 @@ const showBreadcrumbHeight = computed(() => {
 // 查询组件配置
 const searchOptions = ref<SearchOption[]>([
   {
-    name: 'roleName',
+    name: 'groupName',
     value: '',
-    label: computed(() => i18n.global.t('role.label.name')),
-    placeholder: computed(() => i18n.global.t('role.label.pl.name')),
+    label: computed(() => i18n.global.t('permissionGroup.label.name')),
+    placeholder: computed(() => i18n.global.t('permissionGroup.label.pl.name')),
     type: 'input',
   },
-  {
-    name: 'roleCode',
-    value: '',
-    label: computed(() => i18n.global.t('role.label.code')),
-    placeholder: computed(() => i18n.global.t('role.label.pl.code')),
-    type: 'input',
-  },
-
 ])
 
 onMounted(async () => {
@@ -195,13 +181,12 @@ onMounted(async () => {
 });
 
 const searchSubmit = (params: any) => {
-  PageSaasRoleParams.value.saasRoleCode = params.roleCode
-  PageSaasRoleParams.value.saasRoleName = params.roleName
+  PageSaasRoleParams.value.groupName = params.roleName
   loadData()
 }
 </script>
 <style scoped lang="less">
-.saasRoleManage {
+.permissionGroupManage {
   // background: #fff;
   min-height: calc(100% - v-bind(showBreadcrumbHeight));
   display: flex;

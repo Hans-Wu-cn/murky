@@ -59,8 +59,9 @@
                     </t-form-item>
                     <t-form-item>
                         <t-space size="small">
-                            <t-button theme="primary" type="submit">提交</t-button>
-                            <t-button theme="default" variant="base" @click="onReset">重置</t-button>
+                            <t-button theme="primary" type="submit">{{ $t('common.button.submit') }}</t-button>
+                            <t-button theme="default" variant="base" @click="onReset">{{ $t('common.button.reset1')
+                            }}</t-button>
                         </t-space>
                     </t-form-item>
                 </t-form>
@@ -77,6 +78,7 @@ import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { ComputedRef, computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import IconSelect from '@/components/iconSelect/index.vue'
+import i18n from '@/i18n';
 const route = useRoute();
 const router = useRouter()
 const props = defineProps<{
@@ -116,7 +118,7 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemSaasMe
         menuFormData.value.icon = menuFormData.value.icon || ''
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
-            MessagePlugin.success('提交成功');
+            MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
             emit('submit');
             // router.go(-1);
         } else {

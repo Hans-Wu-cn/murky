@@ -1,18 +1,16 @@
 package cn.poem.solon.admin.saas.service.impl;
 
-import cn.poem.solon.admin.common.enums.DataScope;
 import cn.poem.solon.admin.core.exception.ServiceException;
-import cn.poem.solon.admin.domin.PoemRoleDept;
-import cn.poem.solon.admin.saas.domain.convert.PoemSaasRoleConvert;
-import cn.poem.solon.admin.saas.domain.dto.PoemSaasRoleFromDTO;
+import cn.poem.solon.admin.saas.domain.convert.PoemSaasPermissionGroupConvert;
+import cn.poem.solon.admin.saas.domain.dto.PoemSaasPermissionGroupFromDTO;
+import cn.poem.solon.admin.saas.domain.entity.PoemSaasGroupMenu;
 import cn.poem.solon.admin.saas.domain.entity.PoemSaasMenu;
-import cn.poem.solon.admin.saas.domain.entity.PoemSaasRole;
-import cn.poem.solon.admin.saas.domain.entity.PoemSaasRoleMenu;
-import cn.poem.solon.admin.saas.domain.vo.PoemSaasRoleVo;
+import cn.poem.solon.admin.saas.domain.entity.PoemSaasPermissionGroup;
+import cn.poem.solon.admin.saas.domain.vo.PoemSaasPermissionGroupVo;
 import cn.poem.solon.admin.saas.mapper.PoemSaasMenuMapper;
-import cn.poem.solon.admin.saas.mapper.PoemSaasRoleMapper;
+import cn.poem.solon.admin.saas.mapper.PoemSaasPermissionGroupMapper;
 import cn.poem.solon.admin.saas.mapper.PoemSaasRoleMenuMapper;
-import cn.poem.solon.admin.saas.service.IPoemSaasRoleService;
+import cn.poem.solon.admin.saas.service.IPoemSaasPermissionGroupService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
@@ -25,12 +23,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 商户角色service
+ * 商户权限组service
  *
  * @author hans
  */
 @Component
-public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, PoemSaasRole> implements IPoemSaasRoleService {
+public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasPermissionGroupMapper, PoemSaasPermissionGroup> implements IPoemSaasPermissionGroupService {
 
     @Inject
     private PoemSaasMenuMapper poemSaasMenuMapper;
@@ -38,19 +36,19 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
     private PoemSaasRoleMenuMapper poemSaasRoleMenuMapper;
 
     /**
-     * 修改商户角色以及商户角色菜单关系
+     * 修改商户权限组以及商户权限组菜单关系
      *
-     * @param saasRoleId 商户角色id
-     * @return 商户角色视图对象，包含菜单信息
+     * @param groupId 商户权限组id
+     * @return 商户权限组视图对象，包含菜单信息
      */
     @Override
-    public PoemSaasRoleVo info(Long saasRoleId) {
-        PoemSaasRole poemSaasRole = mapper.selectOneById(saasRoleId);
+    public PoemSaasPermissionGroupVo info(Long groupId) {
+        PoemSaasPermissionGroup poemSaasRole = mapper.selectOneById(groupId);
         if (poemSaasRole == null) {
             return null;
         }
-        PoemSaasRoleVo vo = PoemSaasRoleConvert.INSTANCES.toVo(poemSaasRole);
-        List<PoemSaasMenu> poemSaasMenus = poemSaasMenuMapper.selectBySaasRoleId(saasRoleId);
+        PoemSaasPermissionGroupVo vo = PoemSaasPermissionGroupConvert.INSTANCES.toVo(poemSaasRole);
+        List<PoemSaasMenu> poemSaasMenus = poemSaasMenuMapper.selectBySaasRoleId(groupId);
         List<Long> saasMenuIds=new ArrayList<>();
         for (PoemSaasMenu poemSaasMenu : poemSaasMenus) {
             Long saasMenuId = poemSaasMenu.getSaasMenuId();
@@ -70,23 +68,20 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
     }
 
     /**
-     * 保存商户角色以及商户角色菜单关系
+     * 保存商户权限组以及商户权限组菜单关系
      *
-     * @param poemSaasRoleFromDTO 商户角色表单对象
+     * @param poemSaasPermissionGroupFromDTO 商户权限组表单对象
      * @return 保存成功状态
      */
     @Tran
     @Override
-    public boolean save(PoemSaasRoleFromDTO poemSaasRoleFromDTO) {
-        PoemSaasRole entity = poemSaasRoleFromDTO.toEntity();
-        //防止角色code重复
-        PoemSaasRole poemRole = mapper.selectByRoleNameAndRoleCode(entity.getSaasRoleName(), entity.getSaasRoleCode());
+    public boolean save(PoemSaasPermissionGroupFromDTO poemSaasPermissionGroupFromDTO) {
+        PoemSaasPermissionGroup entity = poemSaasPermissionGroupFromDTO.toEntity();
+        //防止权限组code重复
+        PoemSaasPermissionGroup poemRole = mapper.selectByRoleNameAndRoleCode(entity.getGroupName());
         Optional.ofNullable(poemRole).map(item -> {
-            if (item.getSaasRoleCode().equals(entity.getSaasRoleCode())) {
-                throw new ServiceException("角色码已存在");
-            }
-            if (item.getSaasRoleName().equals(entity.getSaasRoleName())) {
-                throw new ServiceException("角色名已存在");
+            if (item.getGroupName().equals(entity.getGroupName())) {
+                throw new ServiceException("权限组名已存在");
             }
             return null;
         });
@@ -95,18 +90,18 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
             return false;
         }
         //如果有配置菜单则添加菜单信息
-        if (Utils.isNotEmpty(poemSaasRoleFromDTO.getSaasMenuIds())) {
+        if (Utils.isNotEmpty(poemSaasPermissionGroupFromDTO.getSaasMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = poemSaasMenuMapper.selectByListByIds(poemSaasRoleFromDTO.getSaasMenuIds())
+            List<Long> parentMenuIds = poemSaasMenuMapper.selectByListByIds(poemSaasPermissionGroupFromDTO.getSaasMenuIds())
                     .stream()
                     .map(PoemSaasMenu::getParentSaasMenuId)
                     .toList();
-            HashSet<Long> saasMenuIds = new HashSet<>(poemSaasRoleFromDTO.getSaasMenuIds());
+            HashSet<Long> saasMenuIds = new HashSet<>(poemSaasPermissionGroupFromDTO.getSaasMenuIds());
             saasMenuIds.addAll(parentMenuIds);
-            List<PoemSaasRoleMenu> poemSaasRoleMenuList = new ArrayList<>();
+            List<PoemSaasGroupMenu> poemSaasRoleMenuList = new ArrayList<>();
             for (Long saasMenuId : saasMenuIds) {
-                poemSaasRoleMenuList.add(PoemSaasRoleMenu.create()
-                        .setSaasRoleId(entity.getSaasRoleId())
+                poemSaasRoleMenuList.add(PoemSaasGroupMenu.create()
+                        .setGroupId(entity.getGroupId())
                         .setSaasMenuId(saasMenuId)
                 );
             }
@@ -120,50 +115,46 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
     }
 
     /**
-     * 修改商户角色以及商户角色菜单关系
+     * 修改商户权限组以及商户权限组菜单关系
      *
-     * @param poemSaasRoleFromDTO 商户角色表单对象
+     * @param poemSaasPermissionGroupFromDTO 商户权限组表单对象
      * @return 保存成功状态
      */
     @Tran
     @Override
-    public boolean update(PoemSaasRoleFromDTO poemSaasRoleFromDTO) {
-        PoemSaasRole entity = poemSaasRoleFromDTO.toEntity();
-        poemSaasRoleFromDTO.setSaasRoleCode(null);
-        //判断角色名称与角色码是否重复
-        PoemSaasRole poemRole = mapper.selectByNameOrCode(entity.getSaasRoleId()
-                , entity.getSaasRoleName(), entity.getSaasRoleCode());
+    public boolean update(PoemSaasPermissionGroupFromDTO poemSaasPermissionGroupFromDTO) {
+        PoemSaasPermissionGroup entity = poemSaasPermissionGroupFromDTO.toEntity();
+        //判断权限组名称与权限组码是否重复
+        PoemSaasPermissionGroup poemRole = mapper.selectByNameOrCode(entity.getGroupId()
+                , entity.getGroupName());
         Optional.ofNullable(poemRole).map(item -> {
-            if (poemRole.getSaasRoleCode().equals(entity.getSaasRoleCode())) {
-                throw new ServiceException("角色码已存在");
-            }
-            if (poemRole.getSaasRoleName().equals(entity.getSaasRoleName())) {
-                throw new ServiceException("角色名已存在");
+            if (poemRole.getGroupName().equals(entity.getGroupName())) {
+                throw new ServiceException("权限组名已存在");
             }
             return null;
         });
 
-        //修改角色对象
+        //修改权限组对象
         int insert = mapper.update(entity);
         if (insert <= 0) {
             return false;
         }
 
         //先删除在新增，覆盖原本的权限
-        PoemSaasRoleMenu.create()
-                .where(PoemSaasRoleMenu::getSaasRoleId)
-                .eq(poemSaasRoleFromDTO.getSaasRoleId())
+        PoemSaasGroupMenu.create()
+                .where(PoemSaasGroupMenu::getGroupId)
+                .eq(poemSaasPermissionGroupFromDTO.getGroupId())
                 .remove();
-        if (Utils.isNotEmpty(poemSaasRoleFromDTO.getSaasMenuIds())) {
+        if (Utils.isNotEmpty(poemSaasPermissionGroupFromDTO.getSaasMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = poemSaasMenuMapper.selectByListByIds(poemSaasRoleFromDTO.getSaasMenuIds())
+            List<Long> parentMenuIds = poemSaasMenuMapper.selectByListByIds(poemSaasPermissionGroupFromDTO.getSaasMenuIds())
                     .stream().map(PoemSaasMenu::getParentSaasMenuId).toList();
-            HashSet<Long> saasMenuIds = new HashSet<>(poemSaasRoleFromDTO.getSaasMenuIds());
-            List<PoemSaasRoleMenu> poemRoleMenuList = new ArrayList<>();
+            HashSet<Long> saasMenuIds = new HashSet<>(poemSaasPermissionGroupFromDTO.getSaasMenuIds());
+            List<PoemSaasGroupMenu> poemRoleMenuList = new ArrayList<>();
             saasMenuIds.addAll(parentMenuIds);
             for (Long saasMenuId : saasMenuIds) {
-                poemRoleMenuList.add(PoemSaasRoleMenu.create()
-                        .setSaasRoleId(entity.getSaasRoleId())
+                poemRoleMenuList.add(PoemSaasGroupMenu.create()
+                        .setGroupId(entity.getGroupId())
                         .setSaasMenuId(saasMenuId)
                 );
             }
@@ -172,8 +163,6 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasRoleMapper, Po
                 throw new ServiceException("修改失败");
             }
         }
-        //删除角色部门关系数据,准备重载
-        PoemRoleDept.create().where(PoemRoleDept::getRoleId).eq(poemSaasRoleFromDTO.getSaasRoleId()).remove();
         return true;
     }
 

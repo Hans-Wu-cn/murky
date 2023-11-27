@@ -1,0 +1,41 @@
+package cn.poem.solon.admin.saas.mapper;
+
+import cn.poem.solon.admin.saas.domain.entity.PoemSaasPermissionGroup;
+import cn.poem.solon.admin.saas.domain.entity.table.PoemSaasPermissionGroupTableDef;
+import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.query.If;
+import com.mybatisflex.core.query.QueryWrapper;
+
+/**
+ * 商户权限组mapper
+ */
+public interface PoemSaasPermissionGroupMapper extends BaseMapper<PoemSaasPermissionGroup> {
+    PoemSaasPermissionGroupTableDef POEM_SAAS_PERMISSION_GROUP = PoemSaasPermissionGroupTableDef.POEM_SAAS_PERMISSION_GROUP;
+
+
+    /**
+     * 根据商户商户权限组名查询数量
+     *
+     * @return 返回数量
+     */
+    default PoemSaasPermissionGroup selectByRoleNameAndRoleCode(String name) {
+        return this.selectOneByQuery(QueryWrapper.create()
+                .from(POEM_SAAS_PERMISSION_GROUP).where(POEM_SAAS_PERMISSION_GROUP.GROUP_NAME.eq(name)).limit(1)
+        );
+    }
+
+    /**
+     * 根据权限组名称查询权限组信息
+     *
+     * @param groupId 权限组id
+     * @param groupName   权限组名称
+     * @return 符合条件的权限组集合
+     */
+    default PoemSaasPermissionGroup selectByNameOrCode(Long groupId, String groupName) {
+        return this.selectOneByQuery(QueryWrapper.create().where(
+                POEM_SAAS_PERMISSION_GROUP.GROUP_ID.ne(groupId, If::notNull)
+        ).or(POEM_SAAS_PERMISSION_GROUP.GROUP_NAME.eq(groupName)).limit(1));
+    }
+
+
+}

@@ -15,10 +15,10 @@ import lombok.experimental.Accessors;
 @Data(staticConstructor = "create")
 @Accessors(chain = true)
 @ApiModel("商户角色菜单关系实体类")
-@Table("poem_saas_role_menu")
-public class PoemSaasRoleMenu extends Model<PoemSaasRoleMenu> {
+@Table("poem_saas_group_menu")
+public class PoemSaasGroupMenu extends Model<PoemSaasGroupMenu> {
     @ApiModelProperty("角色id")
-    private Long saasRoleId;
+    private Long groupId;
 
     @ApiModelProperty("菜单id")
     private Long saasMenuId;

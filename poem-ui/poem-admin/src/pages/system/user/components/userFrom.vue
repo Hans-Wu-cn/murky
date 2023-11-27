@@ -24,8 +24,9 @@
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
-                    <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
-                    <t-button theme="default" variant="base" type="reset" :loading="loading">重置</t-button>
+                    <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
+                    <t-button theme="default" variant="base" type="reset" :loading="loading">{{ $t('common.button.reset1')
+                    }}</t-button>
                 </t-space>
             </t-form-item>
         </t-form>
@@ -41,6 +42,7 @@ import { PoemUser } from '@/api/system/user/types';
 import { gender } from '../constants';
 import deptTreeSelect from './deptTreeSelect.vue';
 import userSelect from './userSelect.vue';
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
@@ -104,7 +106,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
         const api = formData.value.userId ? editUser : addUser
         const res = await api(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
-            MessagePlugin.success('提交成功');
+            MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
             emit('submit-hook');
         } else {
             MessagePlugin.error(res.message);

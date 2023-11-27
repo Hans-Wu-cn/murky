@@ -10,7 +10,7 @@
 
             <t-form-item>
                 <t-space size="small">
-                    <t-button theme="primary" type="submit" :loading="loading">提交</t-button>
+                    <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
                 </t-space>
             </t-form-item>
         </t-form>
@@ -22,6 +22,7 @@ import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, 
 import { restPassword } from '@/api/system/user';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemUser, RestPassword } from '@/api/system/user/types';
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
@@ -55,7 +56,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
         console.log(formData.value)
         const res = await restPassword(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
-            MessagePlugin.success('提交成功');
+            MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
             emit('submit-hook');
         } else {
             MessagePlugin.error(res.message);

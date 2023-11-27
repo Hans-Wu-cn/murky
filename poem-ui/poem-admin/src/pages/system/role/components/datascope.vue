@@ -21,8 +21,9 @@
       </t-form-item>
       <t-form-item>
         <t-space size="small">
-          <t-button theme="primary" type="submit">提交</t-button>
-          <t-button theme="default" variant="base" type="reset">重置</t-button>
+          <t-button theme="primary" type="submit">{{ $t('common.button.submit') }}</t-button>
+          <t-button theme="default" variant="base" type="reset">{{ $t('common.button.reset1')
+          }}</t-button>
         </t-space>
       </t-form-item>
     </t-form>
@@ -37,6 +38,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { PoemDeptTree } from '@/api/system/dept/types';
 import { getDeptList } from '@/api/system/dept';
 import { dataScopeDict } from '../constants'
+import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const deptTree = ref<Array<PoemDeptTree>>();
@@ -108,7 +110,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
     const api = formData.value.roleId ? updatePoemRole : addPoemRole
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
-      MessagePlugin.success('提交成功');
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');
     } else {
       MessagePlugin.error(res.message);

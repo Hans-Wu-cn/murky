@@ -1,6 +1,5 @@
 package cn.poem.solon.admin.saas.domain.vo;
 
-import cn.poem.solon.admin.common.enums.DataScope;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,15 +16,12 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @ApiModel("商户角色视图类")
-public class PoemSaasRoleVo implements Serializable {
+public class PoemSaasPermissionGroupVo implements Serializable {
     @ApiModelProperty("主键")
-    private Long saasRoleId;
+    private Long groupId;
 
     @ApiModelProperty("角色名")
-    private String saasRoleName;
-
-    @ApiModelProperty("角色码")
-    private String saasRoleCode;
+    private String groupName;
 
     @ApiModelProperty("描述")
     private String describe;
