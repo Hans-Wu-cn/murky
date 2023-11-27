@@ -2,7 +2,7 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="权限组名" name="saasRoleName">
+      <t-form-item label="权限组名" name="groupName">
         <t-input v-model="formData.groupName" placeholder="请输入权限组名"></t-input>
       </t-form-item>
       <t-form-item label="描述" name="describe">
@@ -38,7 +38,7 @@ const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemSaasMenu>>();
 const menuTreeKeys = { value: 'saasMenuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
-  saasRoleName: [{ required: true, message: '请输入权限组名', trigger: 'blur' }],
+  groupName: [{ required: true, message: '请输入权限组名', trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PermissionGroup>({

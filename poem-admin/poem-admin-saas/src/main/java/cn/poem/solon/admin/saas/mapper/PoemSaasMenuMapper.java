@@ -48,7 +48,7 @@ public interface PoemSaasMenuMapper extends BaseMapper<PoemSaasMenu> {
      * @param groupId 商户角色id
      * @return 商户菜单实体对象
      */
-    default List<PoemSaasMenu> selectBySaasRoleId(Long groupId) {
+    default List<PoemSaasMenu> selectByGroupId(Long groupId) {
 
         return this.selectListByQuery(
                 QueryWrapper.create()

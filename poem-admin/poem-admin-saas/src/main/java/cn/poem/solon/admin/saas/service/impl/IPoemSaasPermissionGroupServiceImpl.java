@@ -9,7 +9,7 @@ import cn.poem.solon.admin.saas.domain.entity.PoemSaasPermissionGroup;
 import cn.poem.solon.admin.saas.domain.vo.PoemSaasPermissionGroupVo;
 import cn.poem.solon.admin.saas.mapper.PoemSaasMenuMapper;
 import cn.poem.solon.admin.saas.mapper.PoemSaasPermissionGroupMapper;
-import cn.poem.solon.admin.saas.mapper.PoemSaasRoleMenuMapper;
+import cn.poem.solon.admin.saas.mapper.PoemSaasGroupMenuMapper;
 import cn.poem.solon.admin.saas.service.IPoemSaasPermissionGroupService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Utils;
@@ -28,12 +28,12 @@ import java.util.Optional;
  * @author hans
  */
 @Component
-public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasPermissionGroupMapper, PoemSaasPermissionGroup> implements IPoemSaasPermissionGroupService {
+public class IPoemSaasPermissionGroupServiceImpl extends ServiceImpl<PoemSaasPermissionGroupMapper, PoemSaasPermissionGroup> implements IPoemSaasPermissionGroupService {
 
     @Inject
     private PoemSaasMenuMapper poemSaasMenuMapper;
     @Inject
-    private PoemSaasRoleMenuMapper poemSaasRoleMenuMapper;
+    private PoemSaasGroupMenuMapper poemSaasGroupMenuMapper;
 
     /**
      * 修改商户权限组以及商户权限组菜单关系
@@ -43,12 +43,12 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasPermissionGrou
      */
     @Override
     public PoemSaasPermissionGroupVo info(Long groupId) {
-        PoemSaasPermissionGroup poemSaasRole = mapper.selectOneById(groupId);
-        if (poemSaasRole == null) {
+        PoemSaasPermissionGroup poemSaasPermissionGroup = mapper.selectOneById(groupId);
+        if (poemSaasPermissionGroup == null) {
             return null;
         }
-        PoemSaasPermissionGroupVo vo = PoemSaasPermissionGroupConvert.INSTANCES.toVo(poemSaasRole);
-        List<PoemSaasMenu> poemSaasMenus = poemSaasMenuMapper.selectBySaasRoleId(groupId);
+        PoemSaasPermissionGroupVo vo = PoemSaasPermissionGroupConvert.INSTANCES.toVo(poemSaasPermissionGroup);
+        List<PoemSaasMenu> poemSaasMenus = poemSaasMenuMapper.selectByGroupId(groupId);
         List<Long> saasMenuIds=new ArrayList<>();
         for (PoemSaasMenu poemSaasMenu : poemSaasMenus) {
             Long saasMenuId = poemSaasMenu.getSaasMenuId();
@@ -98,14 +98,14 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasPermissionGrou
                     .toList();
             HashSet<Long> saasMenuIds = new HashSet<>(poemSaasPermissionGroupFromDTO.getSaasMenuIds());
             saasMenuIds.addAll(parentMenuIds);
-            List<PoemSaasGroupMenu> poemSaasRoleMenuList = new ArrayList<>();
+            List<PoemSaasGroupMenu> poemGroupMenuList = new ArrayList<>();
             for (Long saasMenuId : saasMenuIds) {
-                poemSaasRoleMenuList.add(PoemSaasGroupMenu.create()
+                poemGroupMenuList.add(PoemSaasGroupMenu.create()
                         .setGroupId(entity.getGroupId())
                         .setSaasMenuId(saasMenuId)
                 );
             }
-            int i = poemSaasRoleMenuMapper.insertBatch(poemSaasRoleMenuList);
+            int i = poemSaasGroupMenuMapper.insertBatch(poemGroupMenuList);
             if (i != saasMenuIds.size()) {
                 throw new ServiceException("添加失败");
             }
@@ -158,7 +158,7 @@ public class IPoemSaasRoleServiceImpl extends ServiceImpl<PoemSaasPermissionGrou
                         .setSaasMenuId(saasMenuId)
                 );
             }
-            int i = poemSaasRoleMenuMapper.insertBatch(poemRoleMenuList);
+            int i = poemSaasGroupMenuMapper.insertBatch(poemRoleMenuList);
             if (i <= 0) {
                 throw new ServiceException("修改失败");
             }

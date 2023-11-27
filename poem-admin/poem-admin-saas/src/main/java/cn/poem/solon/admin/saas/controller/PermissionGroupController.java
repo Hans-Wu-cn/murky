@@ -40,10 +40,10 @@ public class PermissionGroupController extends BaseController<IPoemSaasPermissio
     @Get
     @Mapping("page")
     @SaCheckPermission("permissionGroup")
-    public ApiResult<Page<PoemSaasPermissionGroup>> page(PoemSaasPermissionGroupPageDTO poemSaasRolePageDTO) {
-        Page<PoemSaasPermissionGroup> result = baseService.page(poemSaasRolePageDTO,
+    public ApiResult<Page<PoemSaasPermissionGroup>> page(PoemSaasPermissionGroupPageDTO poemSaasPermissionGroupPageDTO) {
+        Page<PoemSaasPermissionGroup> result = baseService.page(poemSaasPermissionGroupPageDTO,
                 QueryWrapper.create()
-                        .and(POEM_SAAS_PERMISSION_GROUP.GROUP_NAME.like(poemSaasRolePageDTO.getGroupName(), If::hasText))
+                        .and(POEM_SAAS_PERMISSION_GROUP.GROUP_NAME.like(poemSaasPermissionGroupPageDTO.getGroupName(), If::hasText))
                         .orderBy(POEM_SAAS_PERMISSION_GROUP.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
@@ -53,10 +53,11 @@ public class PermissionGroupController extends BaseController<IPoemSaasPermissio
     @Get
     @Mapping("list")
     @SaCheckPermission("permissionGroup")
-    public ApiResult<List<PoemSaasPermissionGroup>> list(PoemSaasPermissionGroupPageDTO poemRolePageDTO) {
+    public ApiResult<List<PoemSaasPermissionGroup>> list(PoemSaasPermissionGroupPageDTO poemSaasPermissionGroupPageDTO) {
         List<PoemSaasPermissionGroup> result = baseService.list(
                 QueryWrapper.create()
                 .and(POEM_SAAS_PERMISSION_GROUP.GROUP_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                        .and(POEM_SAAS_PERMISSION_GROUP.GROUP_NAME.like(poemSaasPermissionGroupPageDTO.getGroupName()))
                         .orderBy(POEM_SAAS_PERMISSION_GROUP.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);
@@ -89,10 +90,10 @@ public class PermissionGroupController extends BaseController<IPoemSaasPermissio
 
     @ApiOperation("删除商户权限组")
     @Delete
-    @Mapping("/{roleId}")
+    @Mapping("/{groupId}")
     @SaCheckPermission("permissionGroup:remove")
-    public ApiResult<?> remove(Long roleId) {
-        boolean result = baseService.removeById(roleId);
+    public ApiResult<?> remove(Long groupId) {
+        boolean result = baseService.removeById(groupId);
         return toResult(result);
     }
 }

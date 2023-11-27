@@ -12,11 +12,6 @@
       <template #header>{{ permissionGroupFromTitle }}</template>
       <permissionGroupFrom ref="permissionGroupFromRef" @submit-hook="onSubmitHook"></permissionGroupFrom>
     </t-dialog>
-    <t-dialog v-model:visible="datascopeVisible" :footer="false" width="500px">
-      <template #header>{{ $t('role.button.power') }}</template>
-      <datascope ref="datascopeRef" @submit-hook="onSubmitHook">
-      </datascope>
-    </t-dialog>
   </div>
 </template>
 <script setup lang="tsx">
@@ -33,7 +28,7 @@ import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 
-const PageSaasRoleParams = ref<PagePermissionGroup>({
+const pagePermissionGroupParams = ref<PagePermissionGroup>({
   groupName: '',
   pageNumber: 1,
   pageSize: 10,
@@ -89,12 +84,8 @@ const permissionGroupData = ref<PermissionGroup[]>([]);
 const tableLoading = ref(false);
 const permissionGroupFromTitle = ref('');
 const permissionGroupFromRef = ref();
-const datascopeRef = ref()
 //控制权限组表单dialog是否显示
 const permissionGroupFromVisible = ref(false)
-//控制数据权限dialog是否显示
-const datascopeVisible = ref(false)
-
 const settingStore = useSettingStore();
 
 /**
@@ -135,8 +126,8 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const onPageChange = async (pageInfo: PaginationProps) => {
-  PageSaasRoleParams.value.pageNumber = pageInfo.current;
-  PageSaasRoleParams.value.pageSize = pageInfo.pageSize;
+  pagePermissionGroupParams.value.pageNumber = pageInfo.current;
+  pagePermissionGroupParams.value.pageSize = pageInfo.pageSize;
   loadData()
 };
 
@@ -145,7 +136,7 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await permissionGroupPage({ ...PageSaasRoleParams.value })
+  const { code, result, message } = await permissionGroupPage({ ...pagePermissionGroupParams.value })
   if (code === ResultEnum.SUCCESS) {
     permissionGroupData.value = result.records
     pagination.total = +result.totalRow
@@ -181,7 +172,7 @@ onMounted(async () => {
 });
 
 const searchSubmit = (params: any) => {
-  PageSaasRoleParams.value.groupName = params.roleName
+  pagePermissionGroupParams.value.groupName = params.groupName
   loadData()
 }
 </script>
