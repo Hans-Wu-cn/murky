@@ -60,10 +60,10 @@
             <artifactId>poem-admin-auth</artifactId>
         </dependency>
 
-        <!--poem-admin-saas 多租户管理模块-->
+        <!--poem-admin-tenant 多租户管理模块-->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-admin-saas</artifactId>
+            <artifactId>poem-admin-tenant</artifactId>
         </dependency>
 
     </dependencies>

@@ -18,7 +18,7 @@
         <module>poem-admin-system</module>
         <module>poem-admin-auth</module>
         <module>poem-admin-library</module>
-        <module>poem-admin-saas</module>
+        <module>poem-admin-tenant</module>
     </modules>
 
     <properties>
@@ -78,7 +78,7 @@
             <!--saas管理模块 依赖-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
-                <artifactId>poem-admin-saas</artifactId>
+                <artifactId>poem-admin-tenant</artifactId>
                 <version>${version}</version>
             </dependency>
 
