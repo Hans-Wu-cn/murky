@@ -38,4 +38,7 @@ public class PoemTenantVo {
 
     @ApiModelProperty("状态")
     private CommonStatus status;
+
+    @ApiModelProperty("创建时间")
+    private LocalDateTime createTime;
 }
