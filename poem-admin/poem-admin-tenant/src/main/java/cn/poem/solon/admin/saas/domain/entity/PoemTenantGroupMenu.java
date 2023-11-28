@@ -8,16 +8,16 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /***
- * 商户权限码菜单关系实体
+ * 租户权限码菜单关系实体
  *
  * @author hans
  */
 @Data(staticConstructor = "create")
 @Accessors(chain = true)
-@ApiModel("商户权限码菜单关系实体类")
+@ApiModel("租户权限码菜单关系实体类")
 @Table("poem_tenant_group_menu")
 public class PoemTenantGroupMenu extends Model<PoemTenantGroupMenu> {
-    @ApiModelProperty("权限码id")
+    @ApiModelProperty("权限组id")
     private Long groupId;
 
     @ApiModelProperty("菜单id")

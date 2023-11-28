@@ -25,18 +25,18 @@ import org.noear.solon.validation.annotation.Validated;
 import java.util.List;
 
 /***
- * 商户权限组组Controller
+ * 租户权限组组Controller
  *
  * @author hans
  */
 @Controller
 @Valid
 @Mapping("permissionGroup")
-@Api("商户权限组管理")
+@Api("租户权限组管理")
 public class PermissionGroupController extends BaseController<IPoemTenantPermissionGroupService> {
     PoemTenantPermissionGroupTableDef POEM_TENANT_PERMISSION_GROUP = PoemTenantPermissionGroupTableDef.POEM_TENANT_PERMISSION_GROUP;
 
-    @ApiOperation("商户权限组列表分页查询")
+    @ApiOperation("租户权限组列表分页查询")
     @Get
     @Mapping("page")
     @SaCheckPermission("permissionGroup")
@@ -49,7 +49,7 @@ public class PermissionGroupController extends BaseController<IPoemTenantPermiss
         return ApiResult.ok(result);
     }
 
-    @ApiOperation("商户权限组列表查询")
+    @ApiOperation("租户权限组列表查询")
     @Get
     @Mapping("list")
     @SaCheckPermission("permissionGroup")
@@ -63,7 +63,7 @@ public class PermissionGroupController extends BaseController<IPoemTenantPermiss
         return ApiResult.ok(result);
     }
 
-    @ApiOperation("商户权限组详情")
+    @ApiOperation("租户权限组详情")
     @Get
     @Mapping("{roleId}")
     @SaCheckPermission("permissionGroup")
@@ -71,7 +71,7 @@ public class PermissionGroupController extends BaseController<IPoemTenantPermiss
         return ApiResult.ok(baseService.info(roleId));
     }
 
-    @ApiOperation("新增商户权限组")
+    @ApiOperation("新增租户权限组")
     @Post
     @Mapping
     @SaCheckPermission("permissionGroup:add")
@@ -79,7 +79,7 @@ public class PermissionGroupController extends BaseController<IPoemTenantPermiss
         return toResult(baseService.save(poemTenantPermissionGroupFromDTO));
     }
 
-    @ApiOperation("修改商户权限组")
+    @ApiOperation("修改租户权限组")
     @Put
     @Mapping
     @SaCheckPermission("permissionGroup:edit")
@@ -88,7 +88,7 @@ public class PermissionGroupController extends BaseController<IPoemTenantPermiss
         return toResult(result);
     }
 
-    @ApiOperation("删除商户权限组")
+    @ApiOperation("删除租户权限组")
     @Delete
     @Mapping("/{groupId}")
     @SaCheckPermission("permissionGroup:remove")

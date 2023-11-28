@@ -13,13 +13,13 @@ import org.noear.solon.validation.annotation.NotNull;
 import java.util.List;
 
 /**
- * 商户权限组表单类
+ * 租户权限组表单类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("商户权限组表单类")
+@ApiModel("租户权限组表单类")
 public class PoemTenantPermissionGroupFromDTO {
     @ApiModelProperty("权限组id")
     @NotNull(groups = Update.class)

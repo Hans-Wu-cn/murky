@@ -9,13 +9,13 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 商户权限组实体类
+ * 租户权限组实体类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("商户权限组实体类")
+@ApiModel("租户权限组实体类")
 @Table(value = "poem_tenant_permission_group")
 public class PoemTenantPermissionGroup extends BaseEntity {
     @Id

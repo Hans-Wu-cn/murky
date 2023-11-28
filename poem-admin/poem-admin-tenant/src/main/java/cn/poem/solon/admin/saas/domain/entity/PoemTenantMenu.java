@@ -12,13 +12,13 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * 商户菜单实体类
+ * 租户菜单实体类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("商户菜单实体类")
+@ApiModel("租户菜单实体类")
 @Table(value = "poem_tenant_menu")
 public class PoemTenantMenu extends BaseEntity implements Serializable {
     @Id

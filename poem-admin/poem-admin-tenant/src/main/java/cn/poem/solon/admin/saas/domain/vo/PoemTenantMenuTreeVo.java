@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 /**
- * 商户菜单树视图类
+ * 租户菜单树视图类
  *
  * @author hans
  */
@@ -16,7 +16,7 @@ import java.util.List;
 public class PoemTenantMenuTreeVo implements Serializable {
 
     /**
-     * 商户菜单id
+     * 租户菜单id
      */
     private Long tenantMenuId;
 
@@ -71,7 +71,7 @@ public class PoemTenantMenuTreeVo implements Serializable {
     private Short sort;
 
     /**
-     * 上级商户菜单id
+     * 上级租户菜单id
      */
     private Long parentTenantMenuId;
 

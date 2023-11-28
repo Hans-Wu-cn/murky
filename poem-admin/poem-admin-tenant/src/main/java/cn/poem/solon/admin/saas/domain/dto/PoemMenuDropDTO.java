@@ -9,16 +9,16 @@ import org.noear.solon.validation.annotation.NotEmpty;
 import java.util.List;
 
 /**
- * 商户菜单拖动接口参数实体类
+ * 租户菜单拖动接口参数实体类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("商户菜单拖动接口参数实体类")
+@ApiModel("租户菜单拖动接口参数实体类")
 public class PoemMenuDropDTO {
 
-    @ApiModelProperty("商户父级菜单id")
+    @ApiModelProperty("租户父级菜单id")
     private Long parentSaasMenuId;
 
     @ApiModelProperty(value = "菜单id集合,按顺序排列", required = true)

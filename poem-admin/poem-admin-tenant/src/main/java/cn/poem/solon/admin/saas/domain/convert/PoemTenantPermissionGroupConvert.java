@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
- * PoemSaasPermissionGroup实体转化接口
+ * PoemTenantPermission实体转化接口
  *
  * @author hans
  */
@@ -17,7 +17,7 @@ public interface PoemTenantPermissionGroupConvert {
     PoemTenantPermissionGroupConvert INSTANCES = Mappers.getMapper(PoemTenantPermissionGroupConvert.class);
 
     /**
-     * 将PoemSaasPermissionGroupFromDTO转为PoemSaasPermissionGroup
+     * 将PoemTenantPermissionFromDTO转为PoemTenantPermission
      */
     @Mapping(target = "updateUser", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
@@ -26,7 +26,7 @@ public interface PoemTenantPermissionGroupConvert {
     PoemTenantPermissionGroup toEntity(PoemTenantPermissionGroupFromDTO poemRoleFromDTO);
 
     /**
-     * 将PoemSaasPermissionGroup entity对象转化为PoemSaasPermissionGroupVo对象
+     * 将PoemTenantPermission entity对象转化为PoemTenantPermissionVo对象
      */
     @Mapping(target = "tenantMenuIds", ignore = true)
     PoemTenantPermissionGroupVo toVo(PoemTenantPermissionGroup poemRole);

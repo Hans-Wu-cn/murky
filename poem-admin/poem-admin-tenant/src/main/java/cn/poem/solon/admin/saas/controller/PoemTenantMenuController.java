@@ -23,16 +23,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 商户菜单Controller
+ * 租户菜单Controller
  *
  * @author hans
  */
 @Controller
 @Valid
 @Mapping("poemTenantMenu")
-@Api("商户菜单管理")
+@Api("租户菜单管理")
 public class PoemTenantMenuController extends BaseController<IPoemTenantMenuService> {
-    @ApiOperation("商户菜单列表查询")
+    @ApiOperation("租户菜单列表查询")
     @Get
     @Mapping("list")
     @SaCheckPermission("tenantMenu")
@@ -40,7 +40,7 @@ public class PoemTenantMenuController extends BaseController<IPoemTenantMenuServ
         return ApiResult.ok(baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON)));
     }
 
-    @ApiOperation("商户菜单详情")
+    @ApiOperation("租户菜单详情")
     @Get
     @Mapping("{tenantMenuId}")
     public ApiResult<PoemTenantMenu> info(Long tenantMenuId){
@@ -86,7 +86,7 @@ public class PoemTenantMenuController extends BaseController<IPoemTenantMenuServ
         return toResult(baseService.drop(poemMenuDropDTO));
     }
 
-    @ApiOperation("删除商户菜单")
+    @ApiOperation("删除租户菜单")
     @Delete
     @Mapping("/{tenantMenuId}")
     @SaCheckPermission("tenantMenu:remove")

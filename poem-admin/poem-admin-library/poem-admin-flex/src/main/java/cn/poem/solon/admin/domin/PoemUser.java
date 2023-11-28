@@ -49,7 +49,7 @@ public class PoemUser extends BaseEntity {
     private String email;
 
     /**
-     * 邮箱
+     * 部门id
      */
     private Long deptId;
 

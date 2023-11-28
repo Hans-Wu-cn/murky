@@ -11,15 +11,15 @@ import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 /**
- * 商户菜单表单类
+ * 租户菜单表单类
  *
  * @author hans
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("商户菜单表单类")
+@ApiModel("租户菜单表单类")
 public class PoemTenantMenuFromDTO {
-    @ApiModelProperty("商户菜单id")
+    @ApiModelProperty("租户菜单id")
     @NotNull(groups = Update.class)
     private Long tenantMenuId;
 
