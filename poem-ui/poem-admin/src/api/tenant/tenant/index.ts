@@ -35,7 +35,8 @@ export function poemTenantInfo(tenantId: string) {
  */
 export function addPoemTenant(data: PoemTenantFrom) {
   return request.post({
-    url: Api.poemTenant
+    url: Api.poemTenant,
+    data
   });
 }
 

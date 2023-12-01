@@ -17,14 +17,14 @@
         <t-input v-model="formData.account" :placeholder="$t('tenant.label.pl.account')"></t-input>
       </t-form-item>
       <t-form-item :label="$t('tenant.label.password')" name="password" type="password">
-        <t-input v-model="formData.password" :placeholder="$t('tenant.label.pl.password')">
+        <t-input v-model="formData.password" :placeholder="$t('tenant.label.pl.password')" type="password">
           <template #prefix-icon>
             <lock-on-icon />
           </template>
         </t-input>
       </t-form-item>
       <t-form-item :label="$t('tenant.label.confirmPassword')" name="confirmPassword" type="password">
-        <t-input v-model="formData.confirmPassword" :placeholder="$t('tenant.label.pl.confirmPassword')">
+        <t-input v-model="formData.confirmPassword" :placeholder="$t('tenant.label.pl.confirmPassword')" type="password">
           <template #prefix-icon>
             <lock-on-icon />
           </template></t-input>
@@ -64,7 +64,15 @@ const FORM_RULES = ref<FormRules>({
   groupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
   account: [{ required: true, message: i18n.global.t('tenant.label.pl.account'), trigger: 'blur' }],
   password: [{ required: true, message: i18n.global.t('tenant.label.pl.password'), trigger: 'blur' }],
-  confirmPassword: [{ required: true, message: i18n.global.t('tenant.label.pl.confirmPassword'), trigger: 'blur' }],
+  confirmPassword: [{ required: true, message: i18n.global.t('tenant.label.pl.confirmPassword'), trigger: 'blur' }, {
+    validator: (val) => new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        resolve(formData.value.password === val);
+        clearTimeout(timer);
+      });
+    }), message: i18n.global.t('tenant.label.re.confirmPassword')
+    , trigger: 'change'
+  }],
   expires: [{ required: true, message: i18n.global.t('tenant.label.pl.expires'), trigger: 'blur' }],
 })
 // 表单对象
@@ -114,6 +122,7 @@ const initFromData = async () => {
 const onSubmit = async ({ validateResult }: SubmitContext<PermissionGroup>) => {
   if (validateResult === true) {
     loading.value = true
+    console.debug(formData)
     const res = await addPoemTenant(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

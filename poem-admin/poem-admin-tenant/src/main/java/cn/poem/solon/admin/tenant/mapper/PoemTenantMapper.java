@@ -42,4 +42,16 @@ public interface PoemTenantMapper extends BaseMapper<PoemTenant> {
 
         return selectOneByQueryAs(queryWrapper,PoemTenantVo.class);
     }
+
+    /**
+     * 租户名是否存在
+     * @param tenantName 租户名
+     */
+    default long selectCountByTenantName(String tenantName) {
+        QueryWrapper queryWrapper = QueryWrapper.create().from(POEM_TENANT)
+                .innerJoin(POEM_TENANT_PERMISSION_GROUP).on(POEM_TENANT.GROUP_ID.eq(POEM_TENANT_PERMISSION_GROUP.GROUP_ID))
+                .where(POEM_TENANT.TENANT_NAME.eq(tenantName));
+
+        return selectCountByQuery(queryWrapper);
+    }
 }

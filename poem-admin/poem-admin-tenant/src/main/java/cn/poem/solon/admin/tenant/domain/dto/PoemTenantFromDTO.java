@@ -38,9 +38,6 @@ public class PoemTenantFromDTO {
     @ApiModelProperty("描述")
     private String describe;
 
-    @ApiModelProperty("状态")
-    private CommonStatus status;
-
     @ApiModelProperty("账号")
     @NotBlank
     private String account;

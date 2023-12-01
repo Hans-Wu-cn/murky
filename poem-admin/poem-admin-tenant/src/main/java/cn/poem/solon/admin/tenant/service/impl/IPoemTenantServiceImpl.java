@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.tenant.service.impl;
 
+import cn.poem.solon.admin.core.enums.CommonStatus;
 import cn.poem.solon.admin.core.exception.ServiceException;
 import cn.poem.solon.admin.core.record.PasswordRecord;
 import cn.poem.solon.admin.core.utils.EncryptionUtil;
@@ -52,18 +53,27 @@ public class IPoemTenantServiceImpl extends ServiceImpl<PoemTenantMapper, PoemTe
 
     /**
      * 添加租户
-     *  1.校验账号是否重复
-     *  2.添加租户
-     *  3.密码加密
-     *  4.添加租户管理员
-     *  5.绑定租户与租户管理员
+     * 1.检测密码是否一致
+     * 2.检测租户名称是否已存在
+     * 3.校验账号是否重复
+     * 4.添加租户
+     * 5.密码加密
+     * 6.添加租户管理员
+     * 7.绑定租户与租户管理员
+     *
      * @param poemTenantFromDTO 租户表单对象
      */
     @Tran
     @Override
     public Boolean add(PoemTenantFromDTO poemTenantFromDTO) {
+        // 检测密码是否一致
         if (!poemTenantFromDTO.getPassword().equals(poemTenantFromDTO.getConfirmPassword())) {
             throw new ServiceException("两次输入密码不一致");
+        }
+        // 检测租户名称是否已存在
+        long tenantNameCount = mapper.selectCountByTenantName(poemTenantFromDTO.getTenantName());
+        if (tenantNameCount > 0) {
+            throw new ServiceException("该租户名称已存在");
         }
         // 校验账号是否重复
         long accountCount = poemTenantUserMapper.selectCountByAccount(poemTenantFromDTO.getAccount());
@@ -71,7 +81,8 @@ public class IPoemTenantServiceImpl extends ServiceImpl<PoemTenantMapper, PoemTe
             throw new ServiceException("该账号已存在");
         }
         // 添加租户
-        PoemTenant poemTenantEntity = PoemTenantConvert.INSTANCES.toEntity(poemTenantFromDTO);
+        PoemTenant poemTenantEntity = PoemTenantConvert.INSTANCES.toEntity(poemTenantFromDTO)
+                .setStatus(CommonStatus.NORMAL);
         int tenantInsertCount = mapper.insert(poemTenantEntity);
         if (tenantInsertCount <= 0) {
             throw new ServiceException("添加租户失败");
@@ -92,7 +103,7 @@ public class IPoemTenantServiceImpl extends ServiceImpl<PoemTenantMapper, PoemTe
         // 绑定租户与租户管理员
         poemTenantEntity.setAdminUser(poemTenantUser.getTenantUserId());
         int count = mapper.update(poemTenantEntity);
-        if(count>0){
+        if (count <= 0) {
             throw new ServiceException("添加租户失败");
         }
         return true;
