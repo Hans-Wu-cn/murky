@@ -11,6 +11,7 @@ export interface PagePoemTenant extends PageRequest {
 /**
  * @param tenantId 租户id
  * @param tenantName 租户名称
+ * @param groupId 权限组id
  * @param groupName 权限组名称
  * @param adminUser 租户管理员
  * @param expires 到期时间
@@ -20,6 +21,7 @@ export interface PagePoemTenant extends PageRequest {
  */
 export interface PoemTenant extends PageRequest {
   tenantId?: string,
+  groupId: string,
   groupName: string,
   tenantName: string,
   adminUser: string,
@@ -27,4 +29,27 @@ export interface PoemTenant extends PageRequest {
   describe?: string,
   status: number,
   createTime?: string,
+}
+
+/**
+ * @param tenantId 租户id
+ * @param groupId 权限组id
+ * @param tenantName 租户名称
+ * @param account 租户管理员账号
+ * @param password 租户管理员密码
+ * @param confirmPassword 租户管理员确定密码
+ * @param expires 到期时间
+ * @param describe 描述
+ * @param status 状态
+ */
+export interface PoemTenantFrom extends BaseApiType {
+  tenantId?: string,
+  groupId: string,
+  tenantName: string,
+  account: string,
+  password: string,
+  confirmPassword: string,
+  expires: string,
+  describe?: string,
+  status: number,
 }
