@@ -86,8 +86,8 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
     cell: (h, { row }) => (
       <t-space>
         {
-          useAuth('tenant:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            {row.status === 0 ? i18n.global.t('	common.label.status.1') : i18n.global.t('	common.label.status.0')}
+          useAuth('tenant:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDeactivate(row)}>
+            {row.status === 0 ? i18n.global.t('common.label.status.1') : i18n.global.t('common.label.status.0')}
           </t-link>)
         }
         {
@@ -121,13 +121,15 @@ const onAddHander = () => {
 }
 
 /**
- * 修改权限组表单适配器
+ * 停用/启用当前租户
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemTenant) => {
-  permissionGroupFromTitle.value = i18n.global.t('permissionGroup.label.edit')
-  tenantFromRef.value.initFromData(row.tenantId)
-  permissionGroupFromVisible.value = true
+const onDeactivate = async (row: PoemTenant) => {
+  const { code, result } = await deactivatePoemTenant(row.tenantId);
+  if (ResultEnum.SUCCESS === code) {
+    Object.assign(row, result)
+  }
+
 }
 
 /**

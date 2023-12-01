@@ -16,4 +16,5 @@ public class BaseController<T extends IService<?>> {
     protected ApiResult<?> toResult(Boolean b) {
         return b ? ApiResult.ok() : ApiResult.fail();
     }
+
 }

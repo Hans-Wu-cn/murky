@@ -53,10 +53,14 @@ public class PoemTenantController extends BaseController<IPoemTenantService> {
     @Post
     @Mapping("{tenantId}")
     @SaCheckPermission("tenant:edit")
-    public ApiResult<?> edit(Long tenantId) {
+    public ApiResult<PoemTenant> edit(Long tenantId) {
         PoemTenant poemTenant = baseService.getById(tenantId);
         CommonStatus status = poemTenant.getStatus().cut();
         poemTenant.setStatus(status);
-        return toResult(baseService.updateById(poemTenant));
+        boolean b = baseService.updateById(poemTenant);
+        if(b){
+            return ApiResult.ok(poemTenant);
+        }
+        return ApiResult.fail();
     }
 }

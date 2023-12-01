@@ -60,9 +60,9 @@ public interface PoemTenantMenuMapper extends BaseMapper<PoemTenantMenu> {
 
         return this.selectListByQuery(
                 QueryWrapper.create()
-                        .select().from(POEM_TENANT_MENU).leftJoin(POEM_TENANT_PERMISSION_GROUP)
+                        .select().from(POEM_TENANT_MENU).leftJoin(POEM_TENANT_GROUP_MENU)
                         .on(POEM_TENANT_GROUP_MENU.TENANT_MENU_ID.eq(POEM_TENANT_MENU.TENANT_MENU_ID))
-                        .where(POEM_TENANT_PERMISSION_GROUP.GROUP_ID.eq(groupId))
+                        .where(POEM_TENANT_GROUP_MENU.GROUP_ID.eq(groupId))
                         .orderBy(POEM_TENANT_MENU.SORT.asc(), POEM_TENANT_MENU.LABEL.asc())
         );
     }

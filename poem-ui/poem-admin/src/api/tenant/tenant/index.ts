@@ -46,6 +46,6 @@ export function addPoemTenant(data: PoemTenantFrom) {
  */
 export function deactivatePoemTenant(tenantId: string) {
   return request.post({
-    url: `${Api.poemTenant} / ${tenantId}`,
+    url: `${Api.poemTenant}/${tenantId}`,
   });
 }
