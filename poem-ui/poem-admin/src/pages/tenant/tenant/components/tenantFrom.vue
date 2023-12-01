@@ -2,7 +2,41 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-
+      <t-form-item :label="$t('tenant.label.name')" name="tenantName">
+        <t-input v-model="formData.tenantName" :placeholder="$t('tenant.label.pl.name')"></t-input>
+      </t-form-item>
+      <t-form-item :label="$t('permissionGroup.label')" name="groupId">
+        <t-select v-model="formData.groupId" :placeholder="$t('permissionGroup.label.from.pl')" filterable>
+          <t-option v-for="(item, index) in groupSelectOptions" :key="index" :value="item.groupId"
+            :label="item.groupName">
+            {{ item.groupName }}
+          </t-option>
+        </t-select>
+      </t-form-item>
+      <t-form-item :label="$t('tenant.label.account')" name="account">
+        <t-input v-model="formData.account" :placeholder="$t('tenant.label.pl.account')"></t-input>
+      </t-form-item>
+      <t-form-item :label="$t('tenant.label.password')" name="password" type="password">
+        <t-input v-model="formData.password" :placeholder="$t('tenant.label.pl.password')">
+          <template #prefix-icon>
+            <lock-on-icon />
+          </template>
+        </t-input>
+      </t-form-item>
+      <t-form-item :label="$t('tenant.label.confirmPassword')" name="confirmPassword" type="password">
+        <t-input v-model="formData.confirmPassword" :placeholder="$t('tenant.label.pl.confirmPassword')">
+          <template #prefix-icon>
+            <lock-on-icon />
+          </template></t-input>
+      </t-form-item>
+      <t-form-item :label="$t('tenant.label.expires')" name="expires">
+        <t-date-picker v-model="formData.expires" :placeholder="$t('tenant.label.pl.expires')" :disable-date="{
+          before: new Date(),
+        }" enableTimePicker />
+      </t-form-item>
+      <t-form-item :label="$t('common.attribute.describe')" name="describe">
+        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')" autosize />
+      </t-form-item>
       <t-form-item>
         <t-space size="small">
           <t-button theme="primary" type="submit" :loading="loading">{{ $t('common.button.submit') }}</t-button>
@@ -17,14 +51,21 @@
 import { onMounted, ref } from 'vue'
 import { PermissionGroup } from '@/api/tenant/permissionGroup/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
+import { LockOnIcon } from 'tdesign-icons-vue-next';
 import { addPoemTenant } from '@/api/tenant/tenant';
 import { ResultEnum } from '@/enums/httpEnum';
 import { PoemTenantFrom } from '@/api/tenant/tenant/types';
 import i18n from '@/i18n';
+import { permissionGroupList } from '@/api/tenant/permissionGroup';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
-  groupName: [{ required: true, message: '请输入权限组名', trigger: 'blur' }],
+  tenantName: [{ required: true, message: i18n.global.t('tenant.label.pl.name'), trigger: 'blur' }],
+  groupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
+  account: [{ required: true, message: i18n.global.t('tenant.label.pl.account'), trigger: 'blur' }],
+  password: [{ required: true, message: i18n.global.t('tenant.label.pl.password'), trigger: 'blur' }],
+  confirmPassword: [{ required: true, message: i18n.global.t('tenant.label.pl.confirmPassword'), trigger: 'blur' }],
+  expires: [{ required: true, message: i18n.global.t('tenant.label.pl.expires'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PoemTenantFrom>({
@@ -37,16 +78,14 @@ const formData = ref<PoemTenantFrom>({
   describe: '',
   status: 0,
 });
-const tenantFromId = ref('');
+const groupSelectOptions = ref<PermissionGroup[]>()
 const loading = ref(false);
 /**
  * 重置表单
  */
 const onReset = () => {
   loading.value = true
-  if (tenantFromId.value) {
-    initFromData()
-  }
+  initFromData()
   loading.value = false
 
 };
@@ -85,6 +124,10 @@ const onSubmit = async ({ validateResult }: SubmitContext<PermissionGroup>) => {
 };
 
 onMounted(async () => {
+  const { code, result } = await permissionGroupList()
+  if (ResultEnum.SUCCESS === code) {
+    groupSelectOptions.value = result
+  }
 });
 
 defineExpose({

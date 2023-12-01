@@ -27,6 +27,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
+import { status } from '@/constants';
 
 const pagePermissionGroupParams = ref<PagePoemTenant>({
   tenantName: '',
@@ -59,6 +60,13 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
     colKey: 'status',
     title: () => i18n.global.t('common.label.status'),
     minWidth: 100,
+    cell: (h, { col, row }) => (
+      <div>
+        {
+          status[row.status]
+        }
+      </div>
+    ),
   },
   {
     colKey: 'createTime',
