@@ -3,7 +3,7 @@
   <div class="permissionGroupManage">
     <t-card :bordered="false">
       <div>
-        <t-button @click="onAddHander" v-auth="'permissionGroup:add'">{{ $t('permissionGroup.button.add') }}</t-button>
+        <t-button @click="onAddHander" v-auth="'tenant:add'">{{ $t('tenant.label.add') }}</t-button>
       </div>
       <t-table stripe :data="tenantData" :columns="columns" row-key="tenantId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
@@ -47,27 +47,27 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
   },
   {
     colKey: 'tenantName',
-    title: () => i18n.global.t('permissionGroup.label.name'),
+    title: () => i18n.global.t('tenant.label.name'),
     minWidth: 100,
   },
   {
     colKey: 'groupName',
-    title: () => i18n.global.t('common.attribute.describe'),
+    title: () => i18n.global.t('permissionGroup.label.name'),
     minWidth: 100,
   },
   {
     colKey: 'status',
-    title: () => i18n.global.t('common.attribute.describe'),
+    title: () => i18n.global.t('common.label.status'),
     minWidth: 100,
   },
   {
     colKey: 'createTime',
-    title: () => i18n.global.t('common.attribute.describe'),
+    title: () => i18n.global.t('common.attribute.createTime'),
     minWidth: 100,
   },
   {
     colKey: 'expires',
-    title: () => i18n.global.t('common.attribute.describe'),
+    title: () => i18n.global.t('common.attribute.expires'),
     minWidth: 100,
   },
   {
@@ -78,14 +78,14 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
     cell: (h, { row }) => (
       <t-space>
         {
-          useAuth('permissionGroup:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
-            {i18n.global.t('common.button.edit')}
+          useAuth('tenant:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onEditHander(row)}>
+            {row.status === 0 ? i18n.global.t('	common.label.status.1') : i18n.global.t('	common.label.status.0')}
           </t-link>)
         }
         {
           useAuth('permissionGroup:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
             <t-link variant="text" hover="color" theme="danger">
-              {i18n.global.t('common.button.delete')}
+              {i18n.global.t('common.button.view')}
             </t-link>
           </t-popconfirm>)
         }
@@ -174,10 +174,10 @@ const showBreadcrumbHeight = computed(() => {
 // 查询组件配置
 const searchOptions = ref<SearchOption[]>([
   {
-    name: 'groupName',
+    name: 'tenantName',
     value: '',
-    label: computed(() => i18n.global.t('permissionGroup.label.name')),
-    placeholder: computed(() => i18n.global.t('permissionGroup.label.pl.name')),
+    label: computed(() => i18n.global.t('tenant.label.name')),
+    placeholder: computed(() => i18n.global.t('tenant.label.pl.name')),
     type: 'input',
   },
 ])
@@ -201,4 +201,4 @@ const searchSubmit = (params: any) => {
     width: 100%;
   }
 }
-</style>@/api/tenant/permissionGroup@/api/tenant/permissionGroup/types
+</style>

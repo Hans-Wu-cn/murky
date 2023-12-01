@@ -109,7 +109,7 @@ doc:
   url: https://gitee.com/wu-zhihao/poem-solon
   email: 837713748@qq.com
   version: 1.0
-  apis: cn.poem.solon.admin.auth.controller,cn.poem.solon.admin.system.controller
+  apis: cn.poem.solon.admin.auth.controller,cn.poem.solon.admin.system.controller,cn.poem.solon.admin.tenant.controller
   basic:
     enable: true
     username: admin
