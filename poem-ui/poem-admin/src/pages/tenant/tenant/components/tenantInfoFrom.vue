@@ -20,14 +20,14 @@
             before: new Date(),
           }" enableTimePicker />
       </t-form-item>
+      <t-form-item :label="$t('common.attribute.describe')" name="describe">
+        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')" :disabled="disabledFrom"
+          autosize />
+      </t-form-item>
       <t-form-item :label="$t('common.attribute.createTime')" name="createTime">
         <t-date-picker v-model="formData.createTime" disabled :disable-date="{
           before: new Date(),
         }" enableTimePicker />
-      </t-form-item>
-      <t-form-item :label="$t('common.attribute.describe')" name="describe">
-        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')" :disabled="disabledFrom"
-          autosize disabled />
       </t-form-item>
       <t-form-item>
         <t-space size="small">
