@@ -19,6 +19,7 @@
         <module>poem-admin-auth</module>
         <module>poem-admin-library</module>
         <module>poem-admin-tenant</module>
+        <module>poem-admin-gen</module>
     </modules>
 
     <properties>
