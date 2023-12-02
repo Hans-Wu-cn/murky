@@ -186,4 +186,4 @@ const searchSubmit = (params: any) => {
     width: 100%;
   }
 }
-</style>@/api/tenant/permissionGroup@/api/tenant/permissionGroup/types
+</style>

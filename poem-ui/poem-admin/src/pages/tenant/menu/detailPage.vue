@@ -128,4 +128,4 @@ queryMenuDetail()
         }
     }
 }
-</style>@/api/tenant/menu
+</style>

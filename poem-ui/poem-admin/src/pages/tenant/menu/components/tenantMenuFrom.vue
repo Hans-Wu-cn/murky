@@ -152,4 +152,4 @@ onInitFrom()
 .overlay-options {
     display: inline-block;
 }
-</style>@/api/tenant/menu@/api/tenant/menu/types
+</style>

@@ -347,4 +347,3 @@ onMounted(async () => {
     margin-top: 20px;
 }
 </style>
-@/api/tenant/menu@/api/tenant/menu/types
