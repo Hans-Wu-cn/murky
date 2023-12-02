@@ -53,10 +53,10 @@ public interface PoemDeptAncestorsMapper extends BaseMapper<PoemDeptAncestors> {
 
     /**
      * 根绝部门id删除
+     *
      * @param deptId 部门id
-     * @return 影响行
      */
-    default Integer deleteByDeptId(Long deptId){
+    default int deleteByDeptId(Long deptId){
 
         return this.deleteByQuery(QueryWrapper.create()
                 .from(POEM_DEPT_ANCESTORS)
