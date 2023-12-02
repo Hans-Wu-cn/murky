@@ -29,7 +29,7 @@ import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
-import { status } from '@/constants';
+import { status, tableStatus } from '@/constants';
 import dictTypeFrom from './components/dictTypeFrom.vue'
 import { dictConfig } from './config';
 import { useRoute, useRouter } from 'vue-router';
@@ -84,7 +84,7 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
     cell: (h, { col, row }) => (
       <div>
         {
-          status[row.status]
+          tableStatus[row.status]()
         }
       </div>
     ),

@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.tenant.domain.dto;
 
 import cn.poem.solon.admin.core.enums.CommonStatus;
+import cn.poem.solon.admin.core.validat.Insert;
 import cn.poem.solon.admin.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @ApiModel("商户菜单表单类")
 public class PoemTenantFromDTO {
     @ApiModelProperty("租户id")
+    @NotNull(groups = Update.class)
     private Long tenantId;
 
     @ApiModelProperty("权限组id")
@@ -39,14 +41,14 @@ public class PoemTenantFromDTO {
     private String describe;
 
     @ApiModelProperty("账号")
-    @NotBlank
+    @NotBlank(groups = Insert.class)
     private String account;
 
     @ApiModelProperty("密码")
-    @NotBlank
+    @NotBlank(groups = Insert.class)
     private String password;
 
     @ApiModelProperty("二次确认密码")
-    @NotBlank
+    @NotBlank(groups = Insert.class)
     private String confirmPassword;
 }

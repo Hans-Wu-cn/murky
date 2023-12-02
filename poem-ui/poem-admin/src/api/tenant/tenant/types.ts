@@ -19,16 +19,15 @@ export interface PagePoemTenant extends PageRequest {
  * @param status 状态
  * @param createTime 创建时间
  */
-export interface PoemTenant extends PageRequest {
-  tenantId?: string,
+export interface PoemTenant extends BaseApiType {
+  tenantId: string,
   groupId: string,
   groupName: string,
   tenantName: string,
-  adminUser: string,
+  adminUser?: string,
   expires: string,
   describe?: string,
-  status: number,
-  createTime?: string,
+  status?: number,
 }
 
 /**

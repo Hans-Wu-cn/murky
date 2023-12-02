@@ -34,4 +34,11 @@ public interface IPoemTenantService extends IService<PoemTenant> {
      * @param poemTenantFromDTO 租户表单对象
      */
     Boolean add(PoemTenantFromDTO poemTenantFromDTO);
+
+    /**
+     * 修改租户
+     *
+     * @param poemTenantFromDTO 租户表单对象
+     */
+    Boolean edit(PoemTenantFromDTO poemTenantFromDTO);
 }

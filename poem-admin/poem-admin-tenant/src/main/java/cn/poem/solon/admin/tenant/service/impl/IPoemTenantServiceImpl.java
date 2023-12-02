@@ -108,4 +108,24 @@ public class IPoemTenantServiceImpl extends ServiceImpl<PoemTenantMapper, PoemTe
         }
         return true;
     }
+
+    /**
+     * 修改租户
+     *
+     * @param poemTenantFromDTO 租户表单对象
+     */
+    @Tran
+    @Override
+    public Boolean edit(PoemTenantFromDTO poemTenantFromDTO) {
+        // 检测租户名称是否已存在
+        long tenantNameCount = mapper.selectCountByTenantName(poemTenantFromDTO.getTenantName());
+        if (tenantNameCount > 0) {
+            throw new ServiceException("该租户名称已存在");
+        }
+        int i = mapper.updateNameAndExpiresAndGroupByTenantId(poemTenantFromDTO.getTenantId()
+                , poemTenantFromDTO.getTenantName()
+                , poemTenantFromDTO.getExpires()
+                , poemTenantFromDTO.getGroupId());
+        return i > 0;
+    }
 }

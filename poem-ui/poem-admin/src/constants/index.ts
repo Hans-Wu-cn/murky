@@ -53,7 +53,12 @@ export enum ContentTypeEnum {
   ngrok = 'ngrok'
 }
 
-export const status: { [key: string]: string } = {
+export const status: { [key: number]: string } = {
   0: i18n.global.t('common.label.status.0'),
   1: i18n.global.t('common.label.status.1'),
+}
+
+export const tableStatus: { [key: number]: () => {} } = {
+  0: () => i18n.global.t('common.label.status.0'),
+  1: () => i18n.global.t('common.label.status.1'),
 }

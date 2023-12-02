@@ -3,6 +3,8 @@ package cn.poem.solon.admin.tenant.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.poem.solon.admin.core.enums.CommonStatus;
 import cn.poem.solon.admin.core.extension.BaseController;
+import cn.poem.solon.admin.core.validat.Insert;
+import cn.poem.solon.admin.core.validat.Update;
 import cn.poem.solon.admin.tenant.domain.dto.PoemTenantFromDTO;
 import cn.poem.solon.admin.tenant.domain.dto.PoemTenantPageDTO;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenant;
@@ -14,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
+import org.noear.solon.validation.annotation.Validated;
 
 /**
  * 租户 Controller
@@ -45,8 +48,16 @@ public class PoemTenantController extends BaseController<IPoemTenantService> {
     @Post
     @Mapping
     @SaCheckPermission("tenant:add")
-    public ApiResult<Boolean> add(@Body PoemTenantFromDTO poemTenantFromDTO) {
+    public ApiResult<Boolean> add(@Validated(Insert.class) @Body PoemTenantFromDTO poemTenantFromDTO) {
         return ApiResult.ok(baseService.add(poemTenantFromDTO));
+    }
+
+    @ApiOperation("修改租户")
+    @Put
+    @Mapping
+    @SaCheckPermission("tenant:edit")
+    public ApiResult<Boolean> edit(@Validated(Update.class) @Body PoemTenantFromDTO poemTenantFromDTO) {
+        return ApiResult.ok(baseService.edit(poemTenantFromDTO));
     }
 
     @ApiOperation("停用/启用租户")

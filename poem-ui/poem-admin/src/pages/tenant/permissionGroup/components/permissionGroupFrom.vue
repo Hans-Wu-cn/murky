@@ -2,13 +2,13 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="权限组名" name="groupName">
-        <t-input v-model="formData.groupName" placeholder="请输入权限组名"></t-input>
+      <t-form-item :label="$t('permissionGroup.label.name')" name="groupName">
+        <t-input v-model="formData.groupName" :placeholder="$t('permissionGroup.label.pl.name')"></t-input>
       </t-form-item>
-      <t-form-item label="描述" name="describe">
-        <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
+      <t-form-item :label="$t('common.attribute.describe')" name="describe">
+        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')"></t-textarea>
       </t-form-item>
-      <t-form-item label="菜单权限" name="tenantMenuIds">
+      <t-form-item :label="$t('permissionGroup.label.menu')" name="tenantMenuIds">
         <div class="treeBox">
           <t-tree ref="tenantMenuTreeRef" hover expand-all v-model="formData.tenantMenuIds" :data="menuTree"
             :keys="menuTreeKeys" checkable value-mode="all" @change="treeOnChange" />
@@ -38,7 +38,7 @@ const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemTenantMenu>>();
 const menuTreeKeys = { value: 'tenantMenuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
-  groupName: [{ required: true, message: '请输入权限组名', trigger: 'blur' }],
+  groupName: [{ required: true, message: i18n.global.t('permissionGroup.label.pl.name'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PermissionGroup>({
@@ -134,4 +134,4 @@ defineExpose({
   height: 300px;
   width: 100%;
 }
-</style>@/api/tenant/permissionGroup/types@/api/tenant/permissionGroup@/api/tenant/menu/types@/api/tenant/menu
+</style>

@@ -8,9 +8,14 @@
       <t-table stripe :data="tenantData" :columns="columns" row-key="tenantId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="permissionGroupFromVisible" :footer="false" width="500px" top="20px">
-      <template #header>{{ permissionGroupFromTitle }}</template>
+    <t-dialog v-model:visible="tenantFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ $t('tenant.label.add') }}</template>
       <tenantFrom ref="tenantFromRef" @submit-hook="onSubmitHook"></tenantFrom>
+    </t-dialog>
+
+    <t-dialog v-model:visible="tenantInfoFromVisible" :footer="false" width="500px" top="20px">
+      <template #header>{{ $t('tenant.button.info') }}</template>
+      <tenantInfoFrom ref="tenantInfoFromRef" @submit-hook="onSubmitHook"></tenantInfoFrom>
     </t-dialog>
   </div>
 </template>
@@ -22,12 +27,13 @@ import { PagePoemTenant, PoemTenant } from '@/api/tenant/tenant/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import tenantFrom from './components/tenantFrom.vue'
+import tenantInfoFrom from './components/tenantInfoFrom.vue'
 import { useSettingStore } from '@/store';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
-import { status } from '@/constants';
+import { status, tableStatus } from '@/constants';
 
 const pagePermissionGroupParams = ref<PagePoemTenant>({
   tenantName: '',
@@ -63,7 +69,7 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
     cell: (h, { col, row }) => (
       <div>
         {
-          status[row.status]
+          tableStatus[row.status]()
         }
       </div>
     ),
@@ -87,15 +93,13 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
       <t-space>
         {
           useAuth('tenant:edit', <t-link theme="primary" variant="text" hover="color" onClick={() => onDeactivate(row)}>
-            {row.status === 0 ? i18n.global.t('common.label.status.1') : i18n.global.t('common.label.status.0')}
+            {row.status === 0 ? i18n.global.t('common.label.status.1') : i18n.global.t('common.label.status.!0')}
           </t-link>)
         }
         {
-          useAuth('permissionGroup:remove', <t-popconfirm content={() => i18n.global.t('common.label.sureDelete')} onConfirm={() => onDelHander(row)}>
-            <t-link variant="text" hover="color" theme="danger">
-              {i18n.global.t('common.button.view')}
-            </t-link>
-          </t-popconfirm>)
+          useAuth('tenant', <t-link theme="primary" variant="text" hover="color" onClick={() => onInfoHander(row)}>
+            {i18n.global.t('common.button.view')}
+          </t-link>)
         }
       </t-space>
     ),
@@ -103,21 +107,23 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
 ];
 
 const tenantData = ref<PoemTenant[]>([]);
-// 表格loading标记
-const tableLoading = ref(false);
-const permissionGroupFromTitle = ref('');
-const tenantFromRef = ref();
-//控制权限组表单dialog是否显示
-const permissionGroupFromVisible = ref(false)
 const settingStore = useSettingStore();
+const tableLoading = ref(false);
+
+// 控制租户编辑表单标量
+const tenantFromRef = ref();
+const tenantFromVisible = ref(false)
+
+// 控制租户详情表单标量
+const tenantInfoFromRef = ref();
+const tenantInfoFromVisible = ref(false)
 
 /**
- * 添加权限组表单适配器
+ * 添加租户表单适配器
  */
 const onAddHander = () => {
-  permissionGroupFromTitle.value = i18n.global.t('permissionGroup.button.add')
   tenantFromRef.value.initFromData()
-  permissionGroupFromVisible.value = true
+  tenantFromVisible.value = true
 }
 
 /**
@@ -129,19 +135,15 @@ const onDeactivate = async (row: PoemTenant) => {
   if (ResultEnum.SUCCESS === code) {
     Object.assign(row, result)
   }
-
 }
 
 /**
- * 删除权限组
- * @param row 
+ * 租户详情表单
+ * @param row 当前行数据
  */
-const onDelHander = async (row: PoemTenant) => {
-  const { code } = await deactivatePoemTenant(row.tenantId)
-  if (code === ResultEnum.SUCCESS) {
-    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
-    loadData();
-  }
+const onInfoHander = async (row: PoemTenant) => {
+  tenantInfoFromRef.value.initFromData(row.tenantId)
+  tenantInfoFromVisible.value = true
 }
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
@@ -173,7 +175,7 @@ const loadData = async () => {
  * 新增/修改成功后的回调事件
  */
 const onSubmitHook = () => {
-  permissionGroupFromVisible.value = false
+  tenantFromVisible.value = false
   loadData();
 }
 

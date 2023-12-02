@@ -41,6 +41,17 @@ export function addPoemTenant(data: PoemTenantFrom) {
 }
 
 /**
+ * 修改租户
+ * @returns Route
+ */
+export function editPoemTenant(data: PoemTenant) {
+  return request.put({
+    url: Api.poemTenant,
+    data
+  });
+}
+
+/**
  * 停用租户
  * @returns Route
  */
