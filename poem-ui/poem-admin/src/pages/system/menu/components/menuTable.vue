@@ -275,7 +275,7 @@ const onDeleteClick = async (row: PoemMenu) => {
  * @param row 当前行的菜单对象
  */
 const onLookUp = (row: PoemMenu) => {
-    router.push(menuConfig.detailUrl + '?poemId=' + row.menuId)
+    router.push(menuConfig.detailUrl + '?menuId=' + row.menuId)
 };
 const expandedTableTreeNodes = ref<Array<string | number>>(['1']); // 存储展开的数据
 const onExpandedTreeNodesChange = (expandedTreeNodes: Array<string | number>, context: any) => {
@@ -297,7 +297,7 @@ const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
     errDragCode.value = params.code
     // MessagePlugin.warning(params.reason);
     if (params.code === 1001) {
-        MessagePlugin.warning('不同层级的元素，不允许调整顺序');
+        MessagePlugin.warning(i18n.global.t('common.label.dragSort.error'));
     }
 };
 
@@ -315,7 +315,7 @@ const onDragSort = async (params: DragSortContext<T>) => {
         menuIds
     })
     if (code === 200) {
-        MessagePlugin.success('调整顺序成功！');
+        MessagePlugin.success(i18n.global.t('common.label.dragSort.success'));
     }
     console.log('onDragSort:', params);
 };

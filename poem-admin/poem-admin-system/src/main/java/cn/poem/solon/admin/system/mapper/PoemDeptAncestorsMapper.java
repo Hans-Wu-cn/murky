@@ -16,9 +16,9 @@ public interface PoemDeptAncestorsMapper extends BaseMapper<PoemDeptAncestors> {
     PoemDeptAncestorsTableDef POEM_DEPT_ANCESTORS = PoemDeptAncestorsTableDef.POEM_DEPT_ANCESTORS;
 
     /**
-     * 根据deptId查询
-     * @param deptId
-     * @return 数量
+     * 根据部门id查询
+     * @param deptId 部门id
+     * @return 相关数据
      */
     default List<PoemDeptAncestors> getListByDeptId(Long deptId){
 
@@ -28,8 +28,8 @@ public interface PoemDeptAncestorsMapper extends BaseMapper<PoemDeptAncestors> {
     }
 
     /**
-     * 根据deptId查询
-     * @param ancestors
+     * 根据祖先查询
+     * @param ancestors 祖先
      * @return 相关数据
      */
     default List<PoemDeptAncestors> getListByAncestors(Long ancestors){

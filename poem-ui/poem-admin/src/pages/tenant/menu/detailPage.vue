@@ -10,84 +10,85 @@
 <script setup lang="tsx">
 import { getMenu } from '@/api/tenant/menu';
 import descriptions from '@/components/descriptions/index.vue'
-import { ref } from 'vue';
+import i18n from '@/i18n';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 const desc = ref([
     {
-        label: '菜单ID',
+        label: computed(() => i18n.global.t('menu.label.id')),
         value: '',
         code: 'tenantMenuId',
         column: 3
     },
     {
-        label: '菜单标题',
+        label: computed(() => i18n.global.t('menu.label.title')),
         value: '',
         code: 'label',
         column: 3
     },
     {
-        label: '图标',
+        label: computed(() => i18n.global.t('menu.label.icon')),
         value: '',
         code: 'icon',
         column: 3
     },
     {
-        label: '菜单类型',
+        label: computed(() => i18n.global.t('menu.label.type')),
         value: '',
         code: 'type',
         column: 3
     },
     {
-        label: '菜单名称',
+        label: computed(() => i18n.global.t('menu.label.name')),
         value: '',
         code: 'name',
         column: 3
     },
     {
-        label: '组件路径',
+        label: computed(() => i18n.global.t('menu.label.compoment')),
         value: '',
         code: 'component',
         column: 3
     },
     {
-        label: '路由地址',
+        label: computed(() => i18n.global.t('menu.label.router')),
         value: '',
         code: 'path',
         column: 3
     },
     {
-        label: '路由参数',
+        label: computed(() => i18n.global.t('menu.label.query')),
         value: '',
         code: 'query',
         column: 3
     },
     {
-        label: '打开方式',
+        label: computed(() => i18n.global.t('menu.label.title.openType')),
         value: '',
         code: 'openType',
         column: 3
     },
     {
-        label: '权限码',
+        label: computed(() => i18n.global.t('menu.label.auth')),
         value: '',
         code: 'auth',
         column: 3
     },
     {
-        label: '是否显示在菜单',
+        label: computed(() => i18n.global.t('menu.label.isDisplay')),
         value: '',
         code: 'isDisplay',
         column: 3
     },
     {
-        label: '是否开启缓存',
+        label: computed(() => i18n.global.t('menu.label.isCache')),
         value: '',
         code: 'isCache',
         column: 3
     },
     {
-        label: '是否使用外链',
+        label: computed(() => i18n.global.t('menu.label.isOutside')),
         value: '',
         code: 'isOutside',
         column: 3

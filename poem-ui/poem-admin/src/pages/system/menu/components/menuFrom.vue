@@ -3,59 +3,59 @@
         <t-card :bordered="false">
             <t-loading :loading="loading">
                 <t-form ref="form" :rules="FORM_RULES" :data="menuFormData" :colon="true" @submit="onSubmit">
-                    <t-form-item label="菜单类型" name="type">
+                    <t-form-item :label="$t('menu.label.type')" name="type">
                         <t-select v-model="menuFormData.type">
-                            <t-option label="目录" :value="0" />
-                            <t-option label="侧边菜单" :value="1" />
-                            <t-option label="按钮" :value="2" />
+                            <t-option :label="$t('menu.label.type.0')" :value="0" />
+                            <t-option :label="$t('menu.label.type.1')" :value="1" />
+                            <t-option :label="$t('menu.label.type.2')" :value="2" />
                         </t-select>
                     </t-form-item>
-                    <t-form-item label="菜单标题" name="label">
-                        <t-input placeholder="请输入菜单标题" v-model="menuFormData.label" />
+                    <t-form-item :label="$t('menu.label.title')" name="label">
+                        <t-input :placeholder="$t('menu.label.pl.title')" v-model="menuFormData.label" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="菜单名" name="name">
-                        <t-input placeholder="请输入菜单名" v-model="menuFormData.name" />
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.name')" name="name">
+                        <t-input :placeholder="$t('menu.label.pl.name')" v-model="menuFormData.name" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="菜单图标" name="icon">
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.icon')" name="icon">
                         <!-- <t-input placeholder="请选择菜单图标" v-model="menuFormData.icon" /> -->
                         <!-- 图标选择组件 -->
                         <IconSelect v-model:value="menuFormData.icon"></IconSelect>
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="路由地址" name="path">
-                        <t-input placeholder="请输入路由地址" v-model="menuFormData.path" />
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.router')" name="path">
+                        <t-input :placeholder="$t('menu.label.pl.router')" v-model="menuFormData.path" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type === 1" label="组件路径" name="component">
-                        <t-input placeholder="请输入view下组件相对路径例如: system/menu/index.vue" v-model="menuFormData.component" />
+                    <t-form-item v-if="menuFormData.type === 1" :label="$t('menu.label.compoment')" name="component">
+                        <t-input :placeholder="$t('menu.label.pl.compoment')" v-model="menuFormData.component" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 0" label="菜单权限" name="auth">
-                        <t-input placeholder="权限码要求唯一,如果是按钮权限码建议使用父级菜单:权限 例如 menu:add" v-model="menuFormData.auth" />
+                    <t-form-item v-if="menuFormData.type !== 0" :label="$t('menu.label.from.auth')" name="auth">
+                        <t-input :placeholder="$t('menu.label.from.pl.auth')" v-model="menuFormData.auth" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type === 1" label="路由参数" name="query">
-                        <t-input placeholder="请输入路由参数,固定的参数 例如: {'name':'hans'}" v-model="menuFormData.query" />
+                    <t-form-item v-if="menuFormData.type === 1" :label="$t('menu.label.query')" name="query">
+                        <t-input :placeholder="$t('menu.label.pl.query')" v-model="menuFormData.query" />
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type === 1" label="打开方式" name="openType">
+                    <t-form-item v-if="menuFormData.type === 1" :label="$t('menu.label.title.openType')" name="openType">
                         <t-radio-group v-model="menuFormData.openType">
-                            <t-radio :value="1" allow-uncheck>当前窗口</t-radio>
-                            <t-radio :value="2" allow-uncheck>新窗口</t-radio>
+                            <t-radio :value="1" allow-uncheck>{{ $t('menu.label.title.openType.1') }}</t-radio>
+                            <t-radio :value="2" allow-uncheck>{{ $t('menu.label.title.openType.2') }}</t-radio>
                         </t-radio-group>
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="是否显示" name="isDisplay">
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.isDisplay')" name="isDisplay">
                         <t-radio-group v-model="menuFormData.isDisplay">
-                            <t-radio :value="0" allow-uncheck>是</t-radio>
-                            <t-radio :value="1" allow-uncheck>否</t-radio>
+                            <t-radio :value="0" allow-uncheck>{{ $t('menu.label.isDisplay.0') }}</t-radio>
+                            <t-radio :value="1" allow-uncheck>{{ $t('menu.label.isDisplay.1') }}</t-radio>
                         </t-radio-group>
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="是否外链" name="isOutside">
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.isOutside')" name="isOutside">
                         <t-radio-group v-model="menuFormData.isOutside">
-                            <t-radio :value="1" allow-uncheck>是</t-radio>
-                            <t-radio :value="0" allow-uncheck>否</t-radio>
+                            <t-radio :value="1" allow-uncheck>{{ $t('menu.label.isOutside.1') }}</t-radio>
+                            <t-radio :value="0" allow-uncheck>{{ $t('menu.label.isOutside.0') }}</t-radio>
                         </t-radio-group>
                     </t-form-item>
-                    <t-form-item v-if="menuFormData.type !== 2" label="是否缓存" name="isCache">
+                    <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.isCache')" name="isCache">
                         <t-switch v-model="menuFormData.isCache" :customValue="[1, 0, undefined]"></t-switch>
                     </t-form-item>
-                    <t-form-item label="排序" name="sort">
-                        <t-input-number placeholder="请输入内容" v-model="menuFormData.sort" />
+                    <t-form-item :label="$t('common.attribute.sort')" name="sort">
+                        <t-input-number :placeholder="$t('common.attribute.pl.sort')" v-model="menuFormData.sort" />
                     </t-form-item>
                     <t-form-item>
                         <t-space size="small">
@@ -91,10 +91,10 @@ const emit = defineEmits<{
 const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
     // name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
-    name: [{ required: true, message: '请输入菜单名' }],
-    label: [{ required: true, message: '请输入菜单标题' }],
-    type: [{ required: true, message: '请选择菜单类型' }],
-    path: [{ required: true, message: '请输入路由地址' }],
+    name: [{ required: true, message: i18n.global.t('menu.label.pl.name') }],
+    label: [{ required: true, message: i18n.global.t('menu.label.pl.title') }],
+    type: [{ required: true, message: i18n.global.t('menu.label.pl.type') }],
+    path: [{ required: true, message: i18n.global.t('menu.label.pl.router') }],
 });
 /**
  * 重置表单
@@ -105,7 +105,7 @@ const onReset = () => {
     } else {
         menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' }
     }
-    MessagePlugin.success('重置成功');
+    MessagePlugin.success(i18n.global.t('common.button.reset.success'));
 };
 
 /**

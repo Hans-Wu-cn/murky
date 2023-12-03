@@ -5,7 +5,7 @@
 -- Dumped from database version 12.16 (Debian 12.16-1.pgdg120+1)
 -- Dumped by pg_dump version 14.2
 
--- Started on 2023-12-03 17:48:22
+-- Started on 2023-12-03 22:38:30
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2639,6 +2639,8 @@ INSERT INTO demo.poem_i18n VALUES (88855859593367552, 'user.label.pl.dept', 'Ple
 INSERT INTO demo.poem_i18n VALUES (88855859656282112, 'user.label.pl.dept', '请选择部门', 'zh-CN', 'admin', '2023-12-03 17:42:27.805534', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (88856328013238272, 'user.label.valid.email', 'Please enter the correct email address', 'en', 'admin', '2023-12-03 17:44:19.469542', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (88856328059375616, 'user.label.valid.email', '请输入正确的邮箱地址', 'zh-CN', 'admin', '2023-12-03 17:44:19.480531', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88929564302397440, 'menu.label.id', 'Menu Id', 'en', 'admin', '2023-12-03 22:35:20.362475', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88929564369506304, 'menu.label.id', '菜单id', 'zh-CN', 'admin', '2023-12-03 22:35:20.377367', NULL, 43511453924630528, NULL);
 
 
 --
@@ -2918,7 +2920,7 @@ INSERT INTO demo.poem_tenant_user VALUES ('2023-12-02 01:53:29.073879', NULL, 43
 INSERT INTO demo.poem_user VALUES ('2023-09-19 04:38:33.27902', '2023-11-05 00:20:25.254128', 43511453924630528, 43511453924630528, 61479492635906048, 'demo2', 'demo2', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 58737314673807360, NULL, '59efffe60e734b12a8117fc2b653e0a2');
 INSERT INTO demo.poem_user VALUES ('2023-08-10 16:23:55.162084', '2023-08-11 16:13:15.012373', 43511453924630528, 43511453924630528, 47161488860700672, 'aaaa', 'aaaa', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, NULL, '59efffe60e734b12a8117fc2b653e0a2');
 INSERT INTO demo.poem_user VALUES ('2023-09-19 04:32:54.718347', NULL, 43511453924630528, NULL, 61478072612352000, 'demo', 'demo1', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, NULL, '59efffe60e734b12a8117fc2b653e0a2');
-INSERT INTO demo.poem_user VALUES ('2023-07-31 14:39:59.020972', '2023-11-22 18:33:23.649601', NULL, 43511453924630528, 43511453924630528, 'admin', 'admin', '8aead456e79fa8829bf2d2ea177e5445', 0, '', 56925072011030528, 'zh-CN', '59efffe60e734b12a8117fc2b653e0a2');
+INSERT INTO demo.poem_user VALUES ('2023-07-31 14:39:59.020972', '2023-12-03 22:24:33.965326', NULL, 43511453924630528, 43511453924630528, 'admin', 'admin', '8aead456e79fa8829bf2d2ea177e5445', 0, '', 56925072011030528, 'zh-CN', '59efffe60e734b12a8117fc2b653e0a2');
 
 
 --
@@ -3142,7 +3144,7 @@ ALTER TABLE ONLY demo.system_parameter
 CREATE UNIQUE INDEX poem_i18n_unique ON demo.poem_i18n USING btree (i18n_key, i18n_tag, language);
 
 
--- Completed on 2023-12-03 17:48:25
+-- Completed on 2023-12-03 22:38:33
 
 --
 -- PostgreSQL database dump complete
