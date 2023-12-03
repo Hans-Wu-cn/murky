@@ -5,7 +5,7 @@
 -- Dumped from database version 12.16 (Debian 12.16-1.pgdg120+1)
 -- Dumped by pg_dump version 14.2
 
--- Started on 2023-12-02 21:21:36
+-- Started on 2023-12-03 17:48:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2367,8 +2367,6 @@ INSERT INTO demo.poem_i18n VALUES (80622977875947520, 'menu.label.pl.title', 'Pl
 INSERT INTO demo.poem_i18n VALUES (80622977930473472, 'menu.label.pl.title', '请输入菜单标题', 'zh-CN', 'admin', '2023-11-11 00:27:55.841501', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (80623224425525248, 'menu.label.pl.name', 'Please enter a menu name', 'en', 'admin', '2023-11-11 00:28:54.610995', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (80623224471662592, 'menu.label.pl.name', '请输入菜单名', 'zh-CN', 'admin', '2023-11-11 00:28:54.621953', NULL, 43511453924630528, NULL);
-INSERT INTO demo.poem_i18n VALUES (80623285914021888, 'menu.label.name', 'menu name', 'en', 'admin', '2023-11-11 00:29:09.270923', NULL, 43511453924630528, NULL);
-INSERT INTO demo.poem_i18n VALUES (80623285960159232, 'menu.label.name', '菜单名', 'zh-CN', 'admin', '2023-11-11 00:29:09.281788', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (80623535709990912, 'menu.label.path', 'path', 'en', 'admin', '2023-11-11 00:30:08.826111', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (80623535781294080, 'menu.label.path', '路径', 'zh-CN', 'admin', '2023-11-11 00:30:08.843786', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (80623598179954688, 'menu.label.pl.path', 'Please enter the path', 'en', 'admin', '2023-11-11 00:30:23.720639', NULL, 43511453924630528, NULL);
@@ -2399,8 +2397,6 @@ INSERT INTO demo.poem_i18n VALUES (81286619696263168, 'user.label.deptTree', 'de
 INSERT INTO demo.poem_i18n VALUES (81286619746594816, 'user.label.deptTree', '部门树', 'zh-CN', 'admin', '2023-11-12 20:25:00.37973', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81286803268366336, 'user.label.userList', 'user list', 'en', 'admin', '2023-11-12 20:25:44.134547', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81286803348058112, 'user.label.userList', '用户列表', 'zh-CN', 'admin', '2023-11-12 20:25:44.154536', NULL, 43511453924630528, NULL);
-INSERT INTO demo.poem_i18n VALUES (81287060857352192, 'user.label.userName', 'user name', 'en', 'admin', '2023-11-12 20:26:45.548089', NULL, 43511453924630528, NULL);
-INSERT INTO demo.poem_i18n VALUES (81287060958015488, 'user.label.userName', '用户名称', 'zh-CN', 'admin', '2023-11-12 20:26:45.572103', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81287281670680576, 'user.label.pl.userName', 'Please enter the user name', 'en', 'admin', '2023-11-12 20:27:38.194262', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81287281750372352, 'user.label.pl.userName', '请输入用户名称', 'zh-CN', 'admin', '2023-11-12 20:27:38.213113', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81287427145920512, 'user.label.email', 'email', 'en', 'admin', '2023-11-12 20:28:12.878003', NULL, 43511453924630528, NULL);
@@ -2440,6 +2436,8 @@ INSERT INTO demo.poem_i18n VALUES (81624985117757440, 'i18n.label.editData', '�
 INSERT INTO demo.poem_i18n VALUES (81629229677907968, 'common.messages.deleteSuccess', 'delete Success', 'en', 'admin', '2023-11-13 19:06:24.952626', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81629229749211136, 'common.messages.deleteSuccess', '删除成功', 'zh-CN', 'admin', '2023-11-13 19:06:24.970629', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81629642238038016, 'common.message.submitSuccess', 'submit Success', 'en', 'admin', '2023-11-13 19:08:03.31409', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (81287060857352192, 'user.label.userName', 'user name', 'en', 'admin', '2023-11-12 20:26:45.548089', '2023-12-03 17:38:11.819588', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (81287060958015488, 'user.label.userName', '用户名', 'zh-CN', 'admin', '2023-11-12 20:26:45.572103', '2023-12-03 17:38:11.84779', 43511453924630528, 43511453924630528);
 INSERT INTO demo.poem_i18n VALUES (81629642326118400, 'common.message.submitSuccess', '提交成功', 'zh-CN', 'admin', '2023-11-13 19:08:03.33558', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81630295890956288, 'systemParameter.label.edit', 'Edit Configuration', 'en', 'admin', '2023-11-13 19:10:39.157889', NULL, 43511453924630528, NULL);
 INSERT INTO demo.poem_i18n VALUES (81630295974842368, 'systemParameter.label.edit', '编辑配置', 'zh-CN', 'admin', '2023-11-13 19:10:39.177096', NULL, 43511453924630528, NULL);
@@ -2557,6 +2555,90 @@ INSERT INTO demo.poem_i18n VALUES (88261810196983808, 'common.label.status.!0', 
 INSERT INTO demo.poem_i18n VALUES (88261810276675584, 'common.label.status.!0', '启用', 'zh-CN', 'admin', '2023-12-02 02:21:55.395682', '2023-12-02 20:05:14.00089', 43511453924630528, 43511453924630528);
 INSERT INTO demo.poem_i18n VALUES (88543509623492608, 'common.label.sureSubmit', 'Are you Sure to Submit', 'en', 'admin', '2023-12-02 21:01:17.753055', '2023-12-02 21:01:36.017217', 43511453924630528, 43511453924630528);
 INSERT INTO demo.poem_i18n VALUES (88543509690601472, 'common.label.sureSubmit', '确定提交吗', 'zh-CN', 'admin', '2023-12-02 21:01:17.769046', '2023-12-02 21:01:36.043511', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88842182584586240, 'common.label.dragSort.error', 'Elements at different levels are not allowed to be adjusted in order', 'en', 'admin', '2023-12-03 16:48:06.938708', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88842182664278016, 'common.label.dragSort.error', '不同层级的元素，不允许调整顺序', 'zh-CN', 'admin', '2023-12-03 16:48:06.955709', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88842382174736384, 'common.label.dragSort.success', 'Successfully adjusted the order!', 'en', 'admin', '2023-12-03 16:48:54.522858', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88842382229262336, 'common.label.dragSort.success', '调整顺序成功！', 'zh-CN', 'admin', '2023-12-03 16:48:54.535159', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88842740758368256, 'common.button.reset.success', 'Reset successful', 'en', 'admin', '2023-12-03 16:50:20.016656', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88842740812894208, 'common.button.reset.success', '重置成功', 'zh-CN', 'admin', '2023-12-03 16:50:20.028658', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843260420050944, 'menu.label.type', 'Menu Type', 'en', 'admin', '2023-12-03 16:52:23.912331', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843260470382592, 'menu.label.type', '菜单类型', 'zh-CN', 'admin', '2023-12-03 16:52:23.924536', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843393253658624, 'menu.label.type.0', 'directory', 'en', 'admin', '2023-12-03 16:52:55.582456', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843393308184576, 'menu.label.type.0', '目录', 'zh-CN', 'admin', '2023-12-03 16:52:55.595455', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843609428086784, 'menu.label.type.1', 'Side menu', 'en', 'admin', '2023-12-03 16:53:47.122683', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843609482612736, 'menu.label.type.1', '侧边菜单', 'zh-CN', 'admin', '2023-12-03 16:53:47.135679', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843717980868608, 'menu.label.type.2', 'Button', 'en', 'admin', '2023-12-03 16:54:13.003973', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88843718031200256, 'menu.label.type.2', '按钮', 'zh-CN', 'admin', '2023-12-03 16:54:13.015985', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (80623285914021888, 'menu.label.name', 'name', 'en', 'admin', '2023-11-11 00:29:09.270923', '2023-12-03 16:55:41.588804', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (80623285960159232, 'menu.label.name', '菜单名', 'zh-CN', 'admin', '2023-11-11 00:29:09.281788', '2023-12-03 16:55:41.614621', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88845153896648704, 'menu.label.icon', 'Icon', 'en', 'admin', '2023-12-03 16:59:55.352578', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845153959563264, 'menu.label.icon', '菜单图标', 'zh-CN', 'admin', '2023-12-03 16:59:55.367579', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845332435587072, 'menu.label.router', 'Route', 'en', 'admin', '2023-12-03 17:00:37.920549', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845332506890240, 'menu.label.router', '路由地址', 'zh-CN', 'admin', '2023-12-03 17:00:37.936536', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845477562699776, 'menu.label.pl.router', 'Please Input Router Address', 'en', 'admin', '2023-12-03 17:01:12.520439', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845477625614336, 'menu.label.pl.router', '请输入路由地址', 'zh-CN', 'admin', '2023-12-03 17:01:12.535444', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88845740499423232, 'menu.label.compoment', 'Compoment Path', 'en', 'admin', '2023-12-03 17:02:15.209941', '2023-12-03 17:02:59.397774', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88845740558143488, 'menu.label.compoment', '组件路径', 'zh-CN', 'admin', '2023-12-03 17:02:15.224941', '2023-12-03 17:02:59.423078', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88846119995854848, 'menu.label.pl.compoment', 'Please enter the relative path of the component under view, for example: system/menu/index.vue', 'en', 'admin', '2023-12-03 17:03:45.688259', '2023-12-03 17:06:34.268949', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88846120062963712, 'menu.label.pl.compoment', '请输入view下组件相对路径例如: system/menu/index.vue', 'zh-CN', 'admin', '2023-12-03 17:03:45.704297', '2023-12-03 17:06:34.292967', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88847279142096896, 'menu.label.from.auth', 'Auth', 'en', 'admin', '2023-12-03 17:08:22.050004', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88847279209205760, 'menu.label.from.auth', '菜单权限', 'zh-CN', 'admin', '2023-12-03 17:08:22.066238', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88847495190695936, 'menu.label.from.pl.auth', 'The permission code must be unique. If it is a button permission code, it is recommended to use the parent menu: permissions, such as menu: add', 'en', 'admin', '2023-12-03 17:09:13.560289', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88847495249416192, 'menu.label.from.pl.auth', '权限码要求唯一,如果是按钮权限码建议使用父级菜单:权限 例如 menu:add', 'zh-CN', 'admin', '2023-12-03 17:09:13.574279', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848012486791168, 'menu.label.query', 'Routing parameters', 'en', 'admin', '2023-12-03 17:11:16.893814', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848012549705728, 'menu.label.query', '路由参数', 'zh-CN', 'admin', '2023-12-03 17:11:16.9089', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848168082886656, 'menu.label.pl.query', 'Please enter routing parameters, fixed parameters such as {''name '':''hans''}', 'en', 'admin', '2023-12-03 17:11:53.990106', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848168137412608, 'menu.label.pl.query', '请输入路由参数,固定的参数 例如: {''name'':''hans''}', 'zh-CN', 'admin', '2023-12-03 17:11:54.003116', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848325579001856, 'menu.label.title.openType', 'Open Type', 'en', 'admin', '2023-12-03 17:12:31.540954', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848325633527808, 'menu.label.title.openType', '打开方式', 'zh-CN', 'admin', '2023-12-03 17:12:31.553466', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848505686609920, 'menu.label.title.openType.1', 'current window', 'en', 'admin', '2023-12-03 17:13:14.481091', '2023-12-03 17:13:51.191511', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88848505741135872, 'menu.label.title.openType.1', '当前窗口', 'zh-CN', 'admin', '2023-12-03 17:13:14.494084', '2023-12-03 17:13:51.218706', 43511453924630528, 43511453924630528);
+INSERT INTO demo.poem_i18n VALUES (88848743369428992, 'menu.label.title.openType.2', 'New Window', 'en', 'admin', '2023-12-03 17:14:11.149649', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848743423954944, 'menu.label.title.openType.2', '新窗口', 'zh-CN', 'admin', '2023-12-03 17:14:11.162515', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848902526488576, 'menu.label.isDisplay', 'Display', 'en', 'admin', '2023-12-03 17:14:49.096854', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88848902581014528, 'menu.label.isDisplay', '是否显示', 'zh-CN', 'admin', '2023-12-03 17:14:49.108832', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849193112064000, 'menu.label.isDisplay.0', 'true', 'en', 'admin', '2023-12-03 17:15:58.376054', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849193170784256, 'menu.label.isDisplay.0', '是', 'zh-CN', 'admin', '2023-12-03 17:15:58.390056', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849288717029376, 'menu.label.isDisplay.1', 'false', 'en', 'admin', '2023-12-03 17:16:21.170114', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849288771555328, 'menu.label.isDisplay.1', '否', 'zh-CN', 'admin', '2023-12-03 17:16:21.183383', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849390479233024, 'menu.label.isOutside', 'Outside', 'en', 'admin', '2023-12-03 17:16:45.432753', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849390533758976, 'menu.label.isOutside', '是否外链', 'zh-CN', 'admin', '2023-12-03 17:16:45.445763', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849490626629632, 'menu.label.isOutside.0', 'false', 'en', 'admin', '2023-12-03 17:17:09.309205', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849490676961280, 'menu.label.isOutside.0', '否', 'zh-CN', 'admin', '2023-12-03 17:17:09.321287', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849567378198528, 'menu.label.isOutside.1', 'true', 'en', 'admin', '2023-12-03 17:17:27.608716', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849567436918784, 'menu.label.isOutside.1', '是', 'zh-CN', 'admin', '2023-12-03 17:17:27.622728', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849719547547648, 'menu.label.isCache', 'Cache', 'en', 'admin', '2023-12-03 17:18:03.888707', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88849719602073600, 'menu.label.isCache', '是否缓存', 'zh-CN', 'admin', '2023-12-03 17:18:03.901708', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88850855658672128, 'menu.label.pl.type', 'Please Select Menu Type', 'en', 'admin', '2023-12-03 17:22:34.758357', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88850855717392384, 'menu.label.pl.type', '请选择菜单类型', 'zh-CN', 'admin', '2023-12-03 17:22:34.772379', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88851379388829696, 'dept.label.edit', 'Edit Dept', 'en', 'admin', '2023-12-03 17:24:39.625237', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88851379447549952, 'dept.label.edit', '编辑部门', 'zh-CN', 'admin', '2023-12-03 17:24:39.639237', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88852102423924736, 'role.label.dataScope', 'Data Scope', 'en', 'admin', '2023-12-03 17:27:32.010031', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88852102478450688, 'role.label.dataScope', '数据范围', 'zh-CN', 'admin', '2023-12-03 17:27:32.023035', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853227063627776, 'user.label.edit', 'Edit User', 'en', 'admin', '2023-12-03 17:32:00.145241', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853227113959424, 'user.label.edit', '修改用户', 'zh-CN', 'admin', '2023-12-03 17:32:00.157174', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853623626682368, 'user.label.password', 'Password', 'en', 'admin', '2023-12-03 17:33:34.693968', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853623677014016, 'user.label.password', '密码', 'zh-CN', 'admin', '2023-12-03 17:33:34.70597', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853736591872000, 'user.label.pl.password', 'Please Input Password', 'en', 'admin', '2023-12-03 17:34:01.626663', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853736646397952, 'user.label.pl.password', '请输入密码', 'zh-CN', 'admin', '2023-12-03 17:34:01.639964', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853850496585728, 'user.label.confirmPassword', 'Confirm Password', 'en', 'admin', '2023-12-03 17:34:28.783537', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88853850546917376, 'user.label.confirmPassword', '确认密码', 'zh-CN', 'admin', '2023-12-03 17:34:28.795536', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854004205244416, 'user.label.pl.confirmPassword', 'Please re-enter the password again', 'en', 'admin', '2023-12-03 17:35:05.430123', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854004255576064, 'user.label.pl.confirmPassword', '请重复输入密码', 'zh-CN', 'admin', '2023-12-03 17:35:05.44233', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854473405255680, 'common.label.allSelect', 'All Select', 'en', 'admin', '2023-12-03 17:36:57.296532', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854473472364544, 'common.label.allSelect', '全选', 'zh-CN', 'admin', '2023-12-03 17:36:57.312458', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854636366548992, 'user.label.pl.role', 'Please Select Role', 'en', 'admin', '2023-12-03 17:37:36.149905', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88854636429463552, 'user.label.pl.role', '请选择角色', 'zh-CN', 'admin', '2023-12-03 17:37:36.164905', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855064323969024, 'user.label.pl.account', 'Please Input Account', 'en', 'admin', '2023-12-03 17:39:18.182455', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855064382689280, 'user.label.pl.account', '请输入账号', 'zh-CN', 'admin', '2023-12-03 17:39:18.196743', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855542466236416, 'user.label.dept', 'Dept', 'en', 'admin', '2023-12-03 17:41:12.180485', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855542529150976, 'user.label.dept', '部门', 'zh-CN', 'admin', '2023-12-03 17:41:12.195487', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855707818283008, 'user.label.role', 'Role', 'en', 'admin', '2023-12-03 17:41:51.603508', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855707881197568, 'user.label.role', '角色', 'zh-CN', 'admin', '2023-12-03 17:41:51.618337', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855859593367552, 'user.label.pl.dept', 'Please Select Dept', 'en', 'admin', '2023-12-03 17:42:27.789524', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88855859656282112, 'user.label.pl.dept', '请选择部门', 'zh-CN', 'admin', '2023-12-03 17:42:27.805534', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88856328013238272, 'user.label.valid.email', 'Please enter the correct email address', 'en', 'admin', '2023-12-03 17:44:19.469542', NULL, 43511453924630528, NULL);
+INSERT INTO demo.poem_i18n VALUES (88856328059375616, 'user.label.valid.email', '请输入正确的邮箱地址', 'zh-CN', 'admin', '2023-12-03 17:44:19.480531', NULL, 43511453924630528, NULL);
 
 
 --
@@ -3060,7 +3142,7 @@ ALTER TABLE ONLY demo.system_parameter
 CREATE UNIQUE INDEX poem_i18n_unique ON demo.poem_i18n USING btree (i18n_key, i18n_tag, language);
 
 
--- Completed on 2023-12-02 21:21:39
+-- Completed on 2023-12-03 17:48:25
 
 --
 -- PostgreSQL database dump complete
