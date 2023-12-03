@@ -163,7 +163,7 @@ const resetData = async () => {
  * 添加角色表单适配器
  */
 const onAddHander = (parentDept: string) => {
-  deptFromTitle.value = '添加部门'
+  deptFromTitle.value = i18n.global.t('dept.button.add')
   console.log(parentDept)
   deptFromRef.value.initFromData(undefined, parentDept)
   visible.value = true
@@ -174,7 +174,7 @@ const onAddHander = (parentDept: string) => {
 * @param row 当前行的菜单对象
 */
 const onEditHandler = async (row: PoemDept) => {
-  deptFromTitle.value = '编辑部门'
+  deptFromTitle.value = i18n.global.t('dept.label.edit')
   deptFromRef.value.initFromData(row.deptId)
   visible.value = true
 };
@@ -187,7 +187,7 @@ const onDeleteHandler = async (row: PoemDept) => {
   const { code } = await removeDept(row.deptId);
   if (ResultEnum.SUCCESS === code) {
     tableRef.value.remove(row.deptId);
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
   }
 };
 
@@ -223,7 +223,7 @@ const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
   errDragCode.value = params.code
   // MessagePlugin.warning(params.reason);
   if (params.code === 1001) {
-    MessagePlugin.warning('不同层级的元素，不允许调整顺序');
+    MessagePlugin.warning(i18n.global.t('common.label.dragSort.error'));
   }
 };
 
@@ -242,7 +242,7 @@ const onDragSort = async (params: DragSortContext<T>) => {
   }).map(val => val.deptId)
   const { code } = await dropDept(menuIds)
   if (code === 200) {
-    MessagePlugin.success('调整顺序成功！');
+    MessagePlugin.success(i18n.global.t('common.label.dragSort.success'));
     return;
   }
   resetData();

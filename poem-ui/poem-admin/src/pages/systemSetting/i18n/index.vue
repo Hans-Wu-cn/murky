@@ -147,6 +147,13 @@ const searchOptions = ref<SearchOption[]>()
 
 const searchReset = async () => {
   await getI18ndict();
+  PagePoemDictTypeParams.value = {
+    i18nTag: '',
+    i18nValue: '',
+    i18nKey: '',
+    pageNumber: 1,
+    pageSize: 10
+  }
   PagePoemDictTypeParams.value.i18nTag = i18nTagDict.value[0].dictValue
   loadData();
 }

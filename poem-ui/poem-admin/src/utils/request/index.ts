@@ -147,6 +147,8 @@ const transform: AxiosTransform = {
         break;
       case ResultEnum.NOT_PERMISSION:
         MessagePlugin.error(message);
+      case ResultEnum.ERROR:
+        MessagePlugin.error(message);
       default: ;
     }
     return res;

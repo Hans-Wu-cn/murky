@@ -2,24 +2,24 @@
     <div>
         <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
             @submit="onSubmit">
-            <t-form-item label="用户名" name="userName">
-                <t-input v-model="formData.userName" placeholder="请输入用户名"></t-input>
+            <t-form-item :label="$t('user.label.userName')" name="userName">
+                <t-input v-model="formData.userName" :placeholder="$t('user.label.pl.userName')"></t-input>
             </t-form-item>
-            <t-form-item label="账号" name="account">
-                <t-input v-model="formData.account" placeholder="请输入账号"></t-input>
+            <t-form-item :label="$t('user.label.account')" name="account">
+                <t-input v-model="formData.account" :placeholder="$t('user.label.pl.account')"></t-input>
             </t-form-item>
-            <t-form-item label="性别" name="sex">
+            <t-form-item :label="$t('user.label.sex')" name="sex">
                 <t-radio-group v-model="formData.sex">
                     <t-radio v-for="(value, key) in gender" :key="key" :value="Number(key)">{{ value }}</t-radio>
                 </t-radio-group>
             </t-form-item>
-            <t-form-item label="邮箱" name="email">
-                <t-input v-model="formData.email" placeholder="请输入邮箱"></t-input>
+            <t-form-item :label="$t('user.label.email')" name="email">
+                <t-input v-model="formData.email" :placeholder="$t('user.label.pl.email')"></t-input>
             </t-form-item>
-            <t-form-item label="部门" name="deptId">
+            <t-form-item :label="$t('user.label.dept')" name="deptId">
                 <deptTreeSelect v-model:value="formData.deptId"></deptTreeSelect>
             </t-form-item>
-            <t-form-item label="角色" name="roleIds">
+            <t-form-item :label="$t('user.label.role')" name="roleIds">
                 <userSelect v-model:value="formData.roleIds"></userSelect>
             </t-form-item>
             <t-form-item>
@@ -46,10 +46,10 @@ import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
-    userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-    account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-    sex: [{ required: true, message: '请输入性别', trigger: 'change' }],
-    email: [{ email: { ignore_max_length: true }, message: '请输入正确的邮箱地址' }]
+    userName: [{ required: true, message: i18n.global.t('user.label.pl.userName'), trigger: 'blur' }],
+    account: [{ required: true, message: i18n.global.t('user.label.pl.account'), trigger: 'blur' }],
+    sex: [{ required: true, message: i18n.global.t('user.label.pl.sex'), trigger: 'change' }],
+    email: [{ email: { ignore_max_length: true }, message: i18n.global.t('user.label.valid.email') }]
 })
 // 表单对象
 const formData = ref<PoemUser>({

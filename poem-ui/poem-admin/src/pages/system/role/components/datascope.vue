@@ -2,18 +2,18 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="角色名" name="roleName">
-        <t-input disabled v-model="formData.roleName" placeholder="请输入角色名"></t-input>
+      <t-form-item :label="$t('	role.label.name')" name="roleName">
+        <t-input disabled v-model="formData.roleName" :placeholder="$t('role.label.pl.name')"></t-input>
       </t-form-item>
-      <t-form-item label="权限码" name="roleCode">
-        <t-input disabled v-model="formData.roleCode" placeholder="请输入角色权限码"></t-input>
+      <t-form-item :label="$t('role.label.code')" name="roleCode">
+        <t-input disabled v-model="formData.roleCode" :placeholder="$t('role.label.pl.code')"></t-input>
       </t-form-item>
-      <t-form-item label="数据范围">
+      <t-form-item :label="$t('role.label.dataScope')">
         <t-select v-model="formData.dataScope">
           <t-option v-for="item in dataScopeDict" :key="item.value" :label="item.label" :value="item.value" />
         </t-select>
       </t-form-item>
-      <t-form-item v-if="formData.dataScope === 1" label="数据权限" name="menuIds">
+      <t-form-item v-if="formData.dataScope === 1" :label="$t('role.button.power')" name="menuIds">
         <div class="treeBox">
           <t-tree hover expand-all v-model="formData.menuIds" :data="deptTree" :keys="deptTreeKeys" checkable
             value-mode="all" @change="treeOnChange" checkStrictly />
@@ -44,8 +44,8 @@ const emit = defineEmits(['submit-hook'])
 const deptTree = ref<Array<PoemDeptTree>>();
 const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
 const FORM_RULES = ref<FormRules>({
-  roleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
-  roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
+  roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
+  roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PoemRole>({

@@ -134,7 +134,7 @@ const columns: Array<PrimaryTableCol> = [
 ];
 const userVisible = ref(false);
 const restPasswdVisible = ref(false);
-const userDialogTitle = ref('用户信息');
+const userDialogTitle = ref('');
 const userFromRef = ref();
 const restPasswdFromRef = ref();
 
@@ -143,7 +143,7 @@ const restPasswdFromRef = ref();
  * 添加事件弹窗适配
  */
 const onAddHander = async () => {
-  userDialogTitle.value = '添加用户'
+  userDialogTitle.value = i18n.global.t('user.button.add')
   userVisible.value = true;
   await nextTick();
   userFromRef.value.initFromData();
@@ -153,7 +153,7 @@ const onAddHander = async () => {
  * 修改事件弹窗适配
  */
 const onEditHander = async (row: any) => {
-  userDialogTitle.value = '修改用户'
+  userDialogTitle.value = i18n.global.t('user.label.edit')
   userVisible.value = true;
   await nextTick();
   userFromRef.value.initFromData(row.userId);
@@ -173,7 +173,7 @@ const onRestPasswdHander = async (row: any) => {
 const onDelHander = async (row: any) => {
   const { code } = await delUserInfo(row.userId);
   if (ResultEnum.SUCCESS === code) {
-    MessagePlugin.success('删除成功');
+    MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadUserData();
   }
 }

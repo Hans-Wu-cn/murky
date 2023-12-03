@@ -1,6 +1,6 @@
 <template>
     <t-tree-select v-model="value" :data="deptTree" :tree-props="deptTreeKeys" clearable filterable
-        :placeholder="placeholder || '请选择'" />
+        :placeholder="placeholder || $t('user.label.pl.dept')" />
 </template>
 <script setup lang="ts">
 import { getDeptList } from '@/api/system/dept';

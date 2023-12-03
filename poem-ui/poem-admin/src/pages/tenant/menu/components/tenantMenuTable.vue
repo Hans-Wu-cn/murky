@@ -50,7 +50,7 @@ const lazyLoadingData = ref(null);
 const treeConfig = reactive({ childrenKey: 'children', treeNodeColumnIndex: 1, indent: 50 });
 //表格字段
 const columns: Array<PrimaryTableCol<any>> = [
-    useAuth('menu:edit', {
+    useAuth('tenantMenu:edit', {
         // 列拖拽排序必要参数
         colKey: 'drag',
         title: () => i18n.global.t('common.attribute.sort'),
@@ -298,7 +298,7 @@ const onAbnormalDragSort = (params: TableAbnormalDragSortContext<T>) => {
     errDragCode.value = params.code
     // MessagePlugin.warning(params.reason);
     if (params.code === 1001) {
-        MessagePlugin.warning('不同层级的元素，不允许调整顺序');
+        MessagePlugin.warning(i18n.global.t('common.label.dragSort.error'));
     }
 };
 
@@ -316,7 +316,7 @@ const onDragSort = async (params: DragSortContext<T>) => {
         tenantMenuIds
     })
     if (code === 200) {
-        MessagePlugin.success('调整顺序成功！');
+        MessagePlugin.success(i18n.global.t('common.label.dragSort.success'));
     }
     console.log('onDragSort:', params);
 };

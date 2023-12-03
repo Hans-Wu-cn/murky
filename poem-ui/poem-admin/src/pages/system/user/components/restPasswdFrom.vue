@@ -1,11 +1,12 @@
 <template>
     <div>
         <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @submit="onSubmit">
-            <t-form-item label="密码" name="password">
-                <t-input v-model="formData.password" type="password" placeholder="请输入密码"></t-input>
+            <t-form-item :label="$t('user.label.password')" name="password">
+                <t-input v-model="formData.password" type="password" :placeholder="$t('user.label.pl.password')"></t-input>
             </t-form-item>
-            <t-form-item label="确认密码" name="confirmPassword">
-                <t-input v-model="formData.confirmPassword" type="password" placeholder="请重复输入密码"></t-input>
+            <t-form-item :label="$t('user.label.confirmPassword')" name="confirmPassword">
+                <t-input v-model="formData.confirmPassword" type="password"
+                    :placeholder="$t('user.label.pl.confirmPassword')"></t-input>
             </t-form-item>
 
             <t-form-item>
@@ -26,8 +27,8 @@ import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
-    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-    confirmPassword: [{ required: true, message: '请确认密码', trigger: 'blur' }],
+    password: [{ required: true, message: i18n.global.t('user.label.pl.password'), trigger: 'blur' }],
+    confirmPassword: [{ required: true, message: i18n.global.t('user.label.pl.confirmPassword'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<RestPassword>({

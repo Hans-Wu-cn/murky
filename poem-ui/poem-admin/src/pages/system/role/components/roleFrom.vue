@@ -2,16 +2,16 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item label="角色名" name="roleName">
-        <t-input v-model="formData.roleName" placeholder="请输入角色名"></t-input>
+      <t-form-item :label="$t('	role.label.name')" name="roleName">
+        <t-input v-model="formData.roleName" :placeholder="$t('role.label.pl.name')"></t-input>
       </t-form-item>
-      <t-form-item label="权限码" name="roleCode">
-        <t-input v-model="formData.roleCode" placeholder="请输入角色权限码"></t-input>
+      <t-form-item :label="$t('role.label.code')" name="roleCode">
+        <t-input v-model="formData.roleCode" :placeholder="$t('role.label.pl.code')"></t-input>
       </t-form-item>
-      <t-form-item label="描述" name="describe">
-        <t-textarea v-model="formData.describe" placeholder="请输入描述内容"></t-textarea>
+      <t-form-item :label="$t('common.attribute.describe')" name="describe">
+        <t-textarea v-model="formData.describe" :placeholder="$t('common.attribute.pl.describe')"></t-textarea>
       </t-form-item>
-      <t-form-item label="菜单权限" name="menuIds">
+      <t-form-item :label="$t('menu.label.from.auth')" name="menuIds">
         <div class="treeBox">
           <t-tree ref="menuTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys"
             checkable value-mode="all" @change="treeOnChange" />
@@ -41,8 +41,8 @@ const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<PoemMenu>>();
 const menuTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
-  roleName: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
-  roleCode: [{ required: true, message: '请输入角色权限码', trigger: 'blur' }],
+  roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
+  roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<PoemRole>({
