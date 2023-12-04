@@ -31,11 +31,12 @@ import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { I18nData, I18nInputs } from '@/api/systemSetting/i18n/types';
 import { saveI18n, i18nInfo, updateI18n } from '@/api/systemSetting/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
-import { i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import { PoemDictData } from '@/api/system/dict/types';
 import i18n from '@/i18n';
+import { useDictStore } from '@/store';
 
 const emit = defineEmits(['submit-hook'])
+const dictStore = useDictStore();
 
 
 const FORM_I18N = ref<FormRules>({
@@ -119,7 +120,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
 };
 
 const loadI18n = async () => {
-  const i18ns = await i18nDictHook();
+  const i18ns = await dictStore.i18nDictHook();
   const i18nInputs: Array<I18nInputs> = [];
   i18ns.forEach(item => {
     i18nInputs.push({
@@ -131,7 +132,7 @@ const loadI18n = async () => {
 }
 
 const loadI18nTag = async () => {
-  const i18nTags = await i18nTagDictHook();
+  const i18nTags = await dictStore.i18nTagDictHook();
   i18nTagSelectOption.value = i18nTags
   formData.value.i18nTag = i18nTags[0].dictValue
 }

@@ -22,12 +22,12 @@ import { PoemDictData } from '@/api/system/dict/types';
 import { I18nPageParams } from '@/api/systemSetting/i18n/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
-import { useSettingStore } from '@/store';
+import { useSettingStore, useDictStore } from '@/store';
+import { dictKey } from '@/store/modules/dict';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18nFrom from './components/i18nFrom.vue'
-import { dictKey, i18nDictHook, i18nTagDictHook } from '@/hooks/dict';
 import i18n from '@/i18n'
 
 const PagePoemDictTypeParams = ref<I18nPageParams>({
@@ -66,6 +66,7 @@ const i18nFromVisible = ref(false)
 // const i18nDict = ref<PoemDictData[]>();
 const i18nTagDict = ref<PoemDictData[]>();
 const settingStore = useSettingStore();
+const dictStore = useDictStore();
 const searchi18nTag = ref('')
 /**
  * 添加语言包数据表单适配器
@@ -159,7 +160,7 @@ const searchReset = async () => {
 }
 
 const getI18ndict = async () => {
-  const i18ns = await i18nDictHook();
+  const i18ns = await dictStore.i18nDictHook();
   if (i18ns) {
     // i18nDict.value = i18ns
     searchOptions.value[2].value = i18nTagDict.value[0].dictValue
@@ -168,7 +169,7 @@ const getI18ndict = async () => {
 }
 
 const getI18nTagdict = async () => {
-  const i18nTags = await i18nTagDictHook();
+  const i18nTags = await dictStore.i18nTagDictHook();
   if (i18nTags) {
     i18nTagDict.value = i18nTags
     PagePoemDictTypeParams.value.i18nTag = i18nTags[0].dictValue

@@ -12,5 +12,6 @@ export * from './modules/setting';
 export * from './modules/tabs-router';
 export * from './modules/user';
 export * from './modules/i18n';
+export * from './modules/dict';
 
 export default store;

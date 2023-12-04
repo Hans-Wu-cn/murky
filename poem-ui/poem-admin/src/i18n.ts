@@ -1,8 +1,7 @@
 import { createI18n } from 'vue-i18n';
 import { getLanguage } from '@/api/systemSetting/i18n';
-import { i18nDictHook } from './hooks/dict';
 import { ResultEnum } from './enums/httpEnum';
-import { useUserStore, useI18nStore } from '@/store';
+import { useUserStore, useI18nStore, useDictStore } from '@/store';
 import { request } from './utils/request';
 const I18N_TAG = import.meta.env.VITE_I18N_TAG
 
@@ -17,6 +16,7 @@ const i18n = createI18n({
  */
 export const initLanguage = async () => {
   const { setI18nLanguage, changeLanguage } = useI18nStore()
+  const { i18nDictHook } = useDictStore()
   const i18ns = await i18nDictHook()
   const defaultLanguage = i18ns[0].dictValue;
   let localeLang = 'en';

@@ -16,7 +16,7 @@ import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
 import { PoemDictData } from '@/api/system/dict/types';
 import { ComputedRef, onMounted, watch } from 'vue';
-import { dictFunction } from '@/hooks/dict'
+import { useDictStore } from '@/store';
 export interface SearchOption {
     name: string,
     label: string | ComputedRef<string> | any,
@@ -46,7 +46,7 @@ const initDictOptions = () => {
     props.options.forEach(async item => {
         console.log(item)
         if (item.type === 'dict' && item.dictType) {
-            const dict = await dictFunction(item.dictType);
+            const dict = await useDictStore().dictFunction(item.dictType);
             console.log('dict', dict)
             if (dict) {
                 item.dictOptions = dict

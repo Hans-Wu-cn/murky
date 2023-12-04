@@ -79,7 +79,7 @@ import { useRouter } from 'vue-router';
 import LogoFull from '@/assets/assets-logo-full.svg?component';
 import { prefix } from '@/config/global';
 import { getActive } from '@/router';
-import { useSettingStore, useUserStore, useI18nStore } from '@/store';
+import { useSettingStore, useUserStore, useI18nStore, useDictStore } from '@/store';
 import type { MenuRoute } from '@/types/interface';
 
 import { storeToRefs } from "pinia"
@@ -87,7 +87,7 @@ import MenuContent from './MenuContent.vue';
 import Notice from './Notice.vue';
 import Search from './Search.vue';
 import { logout, setLanguagePreference } from '@/api/auth';
-import { i18nDictHook } from '@/hooks/dict';
+
 import { DropdownOption } from 'tdesign-vue-next';
 import { ResultEnum } from '@/enums/httpEnum';
 
@@ -121,6 +121,7 @@ const props = defineProps({
     default: 3,
   },
 });
+const dictStore = useDictStore()
 const i18nStore = useI18nStore()
 const router = useRouter();
 const settingStore = useSettingStore();
@@ -189,7 +190,7 @@ const navToHelper = () => {
 
 onMounted(async () => {
 
-  const i18ns = await i18nDictHook();
+  const i18ns = await dictStore.i18nDictHook();
   i18ns.forEach(item => {
     languages.value.push({ content: item.dictLabel, value: item.dictValue })
     Reflect.set(i18nDictMap, item.dictValue, item.dictLabel)
