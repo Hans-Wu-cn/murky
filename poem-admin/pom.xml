@@ -15,11 +15,12 @@
 
     <modules>
         <module>main</module>
-        <module>poem-admin-system</module>
         <module>poem-admin-auth</module>
         <module>poem-admin-library</module>
         <module>poem-admin-tenant</module>
         <module>poem-admin-gen</module>
+        <module>poem-admin-system</module>
+        <module>poem-admin-tenant</module>
     </modules>
 
     <properties>
@@ -55,19 +56,19 @@
             <!--poem-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
-                <artifactId>poem-admin-system</artifactId>
+                <artifactId>poem-admin-system-biz</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <!--poem-admin-system 系统模块模块-->
+            <dependency>
+                <groupId>cn.poem.solon.admin</groupId>
+                <artifactId>poem-admin-system-api</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--poem-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-auth</artifactId>
-                <version>${version}</version>
-            </dependency>
-            <!--poem-admin-event 事件模块-->
-            <dependency>
-                <groupId>cn.poem.solon.admin</groupId>
-                <artifactId>poem-admin-event</artifactId>
                 <version>${version}</version>
             </dependency>
             <!--dami 依赖-->
@@ -79,7 +80,7 @@
             <!--saas管理模块 依赖-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
-                <artifactId>poem-admin-tenant</artifactId>
+                <artifactId>poem-admin-tenant-biz</artifactId>
                 <version>${version}</version>
             </dependency>
 

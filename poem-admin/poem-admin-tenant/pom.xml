@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>poem-admin-tenant</artifactId>
-
+    <packaging>pom</packaging>
     <dependencies>
         <!--poem核心依赖包-->
         <dependency>

@@ -19,10 +19,10 @@
             <artifactId>poem-admin-core</artifactId>
         </dependency>
 
-        <!--poem 事件依赖包-->
+        <!-- poem-admin-system-api -->
         <dependency>
             <groupId>cn.poem.solon.admin</groupId>
-            <artifactId>poem-admin-event</artifactId>
+            <artifactId>poem-admin-system-api</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.auth.controller;
 
-import cn.poem.solon.admin.core.extension.BaseController;
-import cn.poem.solon.admin.event.system.UserEvent;
+import cn.poem.solon.admin.system.api.PoemUserApi;
+import cn.poem.solon.extension.BaseController;
 import cn.poem.solon.utils.ApiResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,12 +19,12 @@ import org.noear.solon.validation.annotation.Valid;
 @Mapping("profile")
 public class PoemProfileController extends BaseController {
     @Inject
-    private UserEvent userEvent;
+    private PoemUserApi poemUserApi;
 
     @Post
     @ApiOperation("修改语言偏好")
     @Mapping("language/{language}")
     public ApiResult<?> setLanguage(String language) {
-        return toResult(userEvent.setLanguage(language));
+        return toResult(poemUserApi.setLanguage(language));
     }
 }

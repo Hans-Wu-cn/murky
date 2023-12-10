@@ -17,7 +17,13 @@
         <module>poem-admin-flex</module>
         <module>poem-admin-core</module>
         <module>poem-admin-common</module>
-        <module>poem-admin-event</module>
         <module>poem-admin-security</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>cn.poem.solon</groupId>
+            <artifactId>poem-library</artifactId>
+            <version>${version}</version>
+        </dependency>
+    </dependencies>
 </project>

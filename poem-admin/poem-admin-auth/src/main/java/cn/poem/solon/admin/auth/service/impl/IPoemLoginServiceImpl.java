@@ -5,11 +5,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.auth.service.IPoemLoginService;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
-import cn.poem.solon.admin.core.exception.ServiceException;
-import cn.poem.solon.admin.core.record.PasswordRecord;
-import cn.poem.solon.admin.core.utils.EncryptionUtil;
 import cn.poem.solon.admin.domin.PoemUser;
-import cn.poem.solon.admin.event.system.UserEvent;
+import cn.poem.solon.admin.system.api.PoemUserApi;
+import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.record.PasswordRecord;
+import cn.poem.solon.utils.EncryptionUtil;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 
@@ -19,11 +19,11 @@ import java.util.*;
 public class IPoemLoginServiceImpl implements IPoemLoginService {
 
     @Inject
-    private UserEvent userEvent;
+    private PoemUserApi poemUserApi;
 
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
-        PoemUser user = userEvent.getOneByAccount(loginDto.getAccount());
+        PoemUser user = poemUserApi.getOneByAccount(loginDto.getAccount());
         //如果为空抛出异常
         Optional.ofNullable(user).orElseThrow(() -> new ServiceException("账号或密码错误"));
         String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(user.getSalt(), loginDto.getPassword()));
@@ -43,6 +43,6 @@ public class IPoemLoginServiceImpl implements IPoemLoginService {
      */
     @Override
     public SecurityUserInfo userInfo() {
-        return userEvent.userInfo();
+        return poemUserApi.userInfo();
     }
 }
