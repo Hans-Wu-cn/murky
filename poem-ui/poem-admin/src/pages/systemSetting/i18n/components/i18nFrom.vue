@@ -7,8 +7,8 @@
       <t-form-item :label="$t('i18n.label.tag')" name="i18nTag">
         <t-select v-model="formData.i18nTag">
           <t-option v-for="(item, index) in i18nTagSelectOption" :key="index" :value="item.dictValue"
-            :label="item.dictLabel">
-            {{ item.dictLabel }}
+            :label="$t(item.dictLabel)">
+            {{ $t(item.dictLabel) }}
           </t-option>
         </t-select>
       </t-form-item>
