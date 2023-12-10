@@ -37,7 +37,10 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.type')),
         value: '',
         code: 'type',
-        column: 3
+        column: 3,
+        formatter:(value:number)=>{
+            return i18n.global.t('menu.label.type.'+value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.name')),
@@ -67,7 +70,10 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.title.openType')),
         value: '',
         code: 'openType',
-        column: 3
+        column: 3,
+        formatter:(value:number)=>{
+            return i18n.global.t('menu.label.title.openType.'+value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.auth')),
@@ -79,19 +85,28 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.isDisplay')),
         value: '',
         code: 'isDisplay',
-        column: 3
+        column: 3,
+        formatter:(value:number)=>{
+            return i18n.global.t('menu.label.isDisplay.'+value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.isCache')),
         value: '',
         code: 'isCache',
-        column: 3
+        column: 3,
+        formatter:(value:number)=>{
+            return i18n.global.t('menu.label.isCache.'+value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.isOutside')),
         value: '',
         code: 'isOutside',
-        column: 3
+        column: 3,
+        formatter:(value:number)=>{
+            return i18n.global.t('menu.label.isOutside.'+value)
+        }
     },
 ])
 /**
