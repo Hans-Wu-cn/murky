@@ -37,15 +37,18 @@ cn.poem.solon
 ├── poem-common        // 通用模块
 ├── poem-admin         // 管理端服务端模块
 │       └── main                                      // 启动类
-│       └── poem-admin-auth                           // 权限模块 
-│       └── poem-admin-library                        // 管理端后端依赖库
+│       └── poem-admin-auth                   // 管理端权限模块 
+│       └── poem-admin-library                // 管理端依赖库
 │                   └── poem-admin-common             // 管理端通用模块
 │                   └── poem-admin-core               // 管理端核心模块
-│                   └── poem-admin-event              // 管理端事件模块
 │                   └── poem-admin-flex               // 管理端 mybats-flex 模块
-│                   └── poem-admin-security           // 管理端satoken 安全模块
-│       └── poem-admin-saas                           // 租户管理模块
-│       └── poem-admin-system                         // 系统管理模块
+│                   └── poem-admin-security           // 管理端 satoken 安全模块
+│       └── poem-admin-saas                   // 管理端租户管理模块
+│       └── poem-admin-system                 // 管理端系统管理模块
+├── poem-library       // 抽象通用库
+│       └── poem-common                       // 抽象公共库
+│       └── poem-core                         // 抽象核心库
+│       └── poem-flex                         // 抽象mybats-flex库
 ├── poem-saas          // 商户端服务端模块
 ├── pom.xml             // 公共依赖管理声明
 ~~~
