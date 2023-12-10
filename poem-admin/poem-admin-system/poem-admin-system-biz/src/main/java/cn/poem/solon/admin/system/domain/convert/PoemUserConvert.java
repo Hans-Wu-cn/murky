@@ -19,6 +19,7 @@ public interface PoemUserConvert {
     /**
      * 将PoemUserFromDTO转为PoemUser
      */
+    @Mapping(target = "language", ignore = true)
     @Mapping(target = "updateUser", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createUser", ignore = true)

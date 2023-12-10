@@ -28,13 +28,6 @@
             <artifactId>poem-admin-common</artifactId>
         </dependency>
 
-        <!-- HikariCP连接池 -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${HikariCP.verion}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>dami-solon-plugin</artifactId>

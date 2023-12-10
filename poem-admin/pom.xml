@@ -83,7 +83,6 @@
                 <artifactId>poem-admin-tenant-biz</artifactId>
                 <version>${version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

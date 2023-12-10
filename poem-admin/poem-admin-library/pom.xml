@@ -19,11 +19,14 @@
         <module>poem-admin-common</module>
         <module>poem-admin-security</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>cn.poem.solon</groupId>
-            <artifactId>poem-library</artifactId>
-            <version>${version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.poem.solon</groupId>
+                <artifactId>poem-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>

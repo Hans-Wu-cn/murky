@@ -1,4 +1,5 @@
-package cn.poem.solon.admin.security.enums;
+package cn.poem.solon.admin.system.api.enums;
+
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
@@ -6,17 +7,11 @@ import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
 
-/**
- * 菜单类型
- *
- * @author hans
- */
 @AllArgsConstructor
 @Getter
-public enum MenuType {
-    DIRECTORY(0,"目录"),
-    MENU(1,"菜单"),
-    BUTTON(2,"按钮"),
+public enum MenuOpenType {
+    CURRENT(1,"当前窗口"),
+    NEW(2,"新窗口"),
     ;
     @EnumValue
     @ONodeAttr

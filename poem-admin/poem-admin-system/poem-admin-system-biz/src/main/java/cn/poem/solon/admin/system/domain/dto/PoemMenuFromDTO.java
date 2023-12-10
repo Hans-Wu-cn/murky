@@ -1,8 +1,8 @@
 package cn.poem.solon.admin.system.domain.dto;
 
 
+import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.validat.Update;
-import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.system.domain.convert.PoemMenuConvert;
 import cn.poem.solon.admin.system.domain.entity.PoemMenu;
 import cn.poem.solon.admin.system.enums.MenuCacheType;

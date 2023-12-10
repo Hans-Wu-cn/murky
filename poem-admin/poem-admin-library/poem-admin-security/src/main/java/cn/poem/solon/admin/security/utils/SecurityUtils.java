@@ -6,7 +6,6 @@ import cn.poem.solon.admin.security.SecurityCache;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import org.noear.solon.Solon;
 
-import java.util.List;
 
 public class SecurityUtils {
     static SecurityCache securityCache;
@@ -52,9 +51,5 @@ public class SecurityUtils {
         return securityCache.admin();
     }
 
-
-    public static void delUserMenu() throws NotLoginException {
-        securityCache.delUserMenu();
-    }
 
 }

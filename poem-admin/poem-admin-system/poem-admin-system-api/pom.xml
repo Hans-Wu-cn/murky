@@ -10,5 +10,5 @@
     </parent>
 
     <artifactId>poem-admin-system-api</artifactId>
-
+    <packaging>jar</packaging>
 </project>

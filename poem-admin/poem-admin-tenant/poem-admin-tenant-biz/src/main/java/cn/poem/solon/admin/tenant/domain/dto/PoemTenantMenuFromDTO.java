@@ -1,8 +1,8 @@
 package cn.poem.solon.admin.tenant.domain.dto;
 
-import cn.poem.solon.admin.security.enums.*;
 import cn.poem.solon.admin.tenant.domain.convert.PoemTenantMenuConvert;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenantMenu;
+import cn.poem.solon.admin.tenant.enums.*;
 import cn.poem.solon.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -44,7 +44,7 @@ public class PoemTenantMenuFromDTO {
 
     @ApiModelProperty(value = "菜单类型 0:目录 1:侧边菜单 2:按钮", required = true)
     @NotNull
-    private MenuType type;
+    private TenantMenuType type;
 
     @ApiModelProperty("是否开启缓存 0:关闭  1:开启 ")
     private MenuCacheType isCache;

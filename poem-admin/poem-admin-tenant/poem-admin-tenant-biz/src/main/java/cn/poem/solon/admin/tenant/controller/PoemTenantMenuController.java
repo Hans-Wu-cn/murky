@@ -1,12 +1,12 @@
 package cn.poem.solon.admin.tenant.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.tenant.domain.convert.PoemTenantMenuConvert;
 import cn.poem.solon.admin.tenant.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.tenant.domain.dto.PoemTenantMenuFromDTO;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenantMenu;
 import cn.poem.solon.admin.tenant.domain.vo.PoemTenantMenuTreeVo;
+import cn.poem.solon.admin.tenant.enums.TenantMenuType;
 import cn.poem.solon.admin.tenant.service.IPoemTenantMenuService;
 import cn.poem.solon.extension.BaseController;
 import cn.poem.solon.utils.ApiResult;
@@ -37,7 +37,7 @@ public class PoemTenantMenuController extends BaseController<IPoemTenantMenuServ
     @Mapping("list")
     @SaCheckPermission("tenantMenu")
     public ApiResult<List<PoemTenantMenuTreeVo>> list() {
-        return ApiResult.ok(baseService.treePoemMenu(Arrays.asList(MenuType.MENU,MenuType.DIRECTORY,MenuType.BUTTON)));
+        return ApiResult.ok(baseService.treePoemMenu(Arrays.asList(TenantMenuType.MENU,TenantMenuType.DIRECTORY,TenantMenuType.BUTTON)));
     }
 
     @ApiOperation("租户菜单详情")
@@ -55,11 +55,11 @@ public class PoemTenantMenuController extends BaseController<IPoemTenantMenuServ
         if(!ONode.loadStr(poemTenantMenuFromDTO.getQuery()).isUndefined()&&!ONode.loadStr(poemTenantMenuFromDTO.getQuery()).isObject()){
             return ApiResult.fail("query参数格式不正确");
         }
-        PoemTenantMenu poemMenu = PoemTenantMenuConvert.INSTANCES.toEntity(poemTenantMenuFromDTO);
-        if(MenuType.DIRECTORY==poemMenu.getType()){
-            poemMenu.setComponent("LAYOUT");
+        PoemTenantMenu poemTenantMenu = PoemTenantMenuConvert.INSTANCES.toEntity(poemTenantMenuFromDTO);
+        if(TenantMenuType.DIRECTORY==poemTenantMenu.getType()){
+            poemTenantMenu.setComponent("LAYOUT");
         }
-        return toResult(baseService.save(poemMenu));
+        return toResult(baseService.save(poemTenantMenu));
     }
 
     @ApiOperation("修改菜单")
@@ -71,7 +71,7 @@ public class PoemTenantMenuController extends BaseController<IPoemTenantMenuServ
             return ApiResult.fail("query参数格式不正确");
         }
         PoemTenantMenu poemMenu = PoemTenantMenuConvert.INSTANCES.toEntity(poemSaasMenuFromDTO);
-        if(MenuType.DIRECTORY==poemMenu.getType()){
+        if(TenantMenuType.DIRECTORY==poemMenu.getType()){
             poemMenu.setComponent("LAYOUT");
         }
         boolean result = baseService.updateById(poemMenu);

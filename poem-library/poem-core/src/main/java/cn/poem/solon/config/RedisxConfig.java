@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.core.config;
+package cn.poem.solon.config;
 
 import org.noear.redisx.RedisClient;
 import org.noear.solon.annotation.Bean;

@@ -1,9 +1,9 @@
 package cn.poem.solon.admin.tenant.service;
 
-import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.tenant.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenantMenu;
 import cn.poem.solon.admin.tenant.domain.vo.PoemTenantMenuTreeVo;
+import cn.poem.solon.admin.tenant.enums.TenantMenuType;
 import com.mybatisflex.core.service.IService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public interface IPoemTenantMenuService extends IService<PoemTenantMenu> {
      *
      * @return 商户菜单树视图对象
      */
-    List<PoemTenantMenuTreeVo> treePoemMenu(List<MenuType> menuTypes);
+    List<PoemTenantMenuTreeVo> treePoemMenu(List<TenantMenuType> menuTypes);
 
     /**
      * 商户菜单排序接口,设置菜单排序并统一设定父级菜单

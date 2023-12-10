@@ -1,6 +1,7 @@
 <template>
     <div>
-        <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @submit="onSubmit">
+        <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @submit="onSubmit"
+            labelWidth="width-content">
             <t-form-item :label="$t('user.label.password')" name="password">
                 <t-input v-model="formData.password" type="password" :placeholder="$t('user.label.pl.password')"></t-input>
             </t-form-item>

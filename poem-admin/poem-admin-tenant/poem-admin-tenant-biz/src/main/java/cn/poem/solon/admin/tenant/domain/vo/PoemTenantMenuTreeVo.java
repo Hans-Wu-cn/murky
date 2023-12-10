@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.tenant.domain.vo;
 
-import cn.poem.solon.admin.security.enums.*;
+import cn.poem.solon.admin.tenant.enums.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -28,7 +28,7 @@ public class PoemTenantMenuTreeVo implements Serializable {
     /**
      * 菜单类型 0:目录 1:侧边菜单 2:按钮
      */
-    private MenuType type;
+    private TenantMenuType type;
 
     /**
      * 菜单名称

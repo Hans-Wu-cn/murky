@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.api.domian;
 
-import cn.poem.solon.admin.security.enums.*;
+import cn.poem.solon.admin.system.api.enums.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

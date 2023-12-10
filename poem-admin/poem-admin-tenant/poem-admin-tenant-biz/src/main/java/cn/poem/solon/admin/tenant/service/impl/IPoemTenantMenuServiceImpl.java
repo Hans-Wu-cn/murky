@@ -1,11 +1,11 @@
 package cn.poem.solon.admin.tenant.service.impl;
 
 
-import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.tenant.domain.convert.PoemTenantMenuConvert;
 import cn.poem.solon.admin.tenant.domain.dto.PoemMenuDropDTO;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenantMenu;
 import cn.poem.solon.admin.tenant.domain.vo.PoemTenantMenuTreeVo;
+import cn.poem.solon.admin.tenant.enums.TenantMenuType;
 import cn.poem.solon.admin.tenant.mapper.PoemTenantMenuMapper;
 import cn.poem.solon.admin.tenant.service.IPoemTenantMenuService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
@@ -32,7 +32,7 @@ public class IPoemTenantMenuServiceImpl extends ServiceImpl<PoemTenantMenuMapper
      * @return 商户菜单树视图对象
      */
     @Override
-    public List<PoemTenantMenuTreeVo> treePoemMenu(List<MenuType> menuTypes) {
+    public List<PoemTenantMenuTreeVo> treePoemMenu(List<TenantMenuType> menuTypes) {
         List<PoemTenantMenu> allPoemMenuList = mapper.selectByMenuType(menuTypes);
         List<PoemTenantMenuTreeVo> poemSaasMenuTreeVos = PoemTenantMenuConvert.INSTANCES.toEntity(allPoemMenuList);
         List<PoemTenantMenuTreeVo> list = poemSaasMenuTreeVos.stream().filter(item -> item.getParentTenantMenuId() == 0).toList();

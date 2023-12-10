@@ -1,4 +1,4 @@
-package cn.poem.solon.admin.security.enums;
+package cn.poem.solon.admin.system.api.enums;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
@@ -6,15 +6,15 @@ import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
 /**
- * 该菜单是否使用外链内嵌进系统
+ * 是否开启缓存 0:关闭  1:开启
  *
  * @author hans
  */
 @AllArgsConstructor
 @Getter
-public enum MenuOutside {
-    ON(0,"不使用外链"),
-    YES(1,"使用外链"),
+public enum MenuCacheType {
+    ON(0,"开启缓存"),
+    OFF(1,"关闭缓存"),
     ;
     @EnumValue
     @ONodeAttr
@@ -26,4 +26,3 @@ public enum MenuOutside {
         return this.code+":"+this.des;
     }
 }
-

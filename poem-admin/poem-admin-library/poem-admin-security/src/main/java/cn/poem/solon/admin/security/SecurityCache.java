@@ -4,7 +4,6 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.common.constant.BusTopicConstant;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
-//import cn.poem.solon.admin.security.entity.PoemMenuTree;
 import org.noear.dami.Dami;
 import org.noear.redisx.RedisClient;
 import org.noear.snack.ONode;
@@ -80,25 +79,6 @@ public class SecurityCache  {
     public Long getUserId() throws NotLoginException{
         return StpUtil.getLoginIdAsLong();
     }
-
-    /**
-     * 获取用户菜单
-     * @return Menu
-     */
-//    public List<PoemMenuTree> getUserMenu() throws NotLoginException {
-//        String json = redisClient.openAndGet(session -> session.key(MENU_KEY + getUserId()).get());
-//        return ONode.deserialize(json,PoemMenuTree.class);
-//    }
-//
-//    /**
-//     * 缓存用户菜单
-//     */
-//    public void setUserMenu(List<PoemMenuTree> menus) throws NotLoginException {
-//        redisClient.open(session -> {
-//            String serialize = ONode.stringify(menus);
-//            session.key(MENU_KEY + getUserId()).expire(expire).set(serialize);
-//        });
-//    }
 
     /**
      * 缓存用户菜单

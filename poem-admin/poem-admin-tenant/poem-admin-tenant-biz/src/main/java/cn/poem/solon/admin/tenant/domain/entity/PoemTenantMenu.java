@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.tenant.domain.entity;
 
 import cn.poem.solon.admin.common.entity.BaseEntity;
-import cn.poem.solon.admin.security.enums.*;
+import cn.poem.solon.admin.tenant.enums.*;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
@@ -44,7 +44,7 @@ public class PoemTenantMenu extends BaseEntity implements Serializable {
     private Long parentTenantMenuId;
 
     @ApiModelProperty("菜单类型 1:侧边菜单 2:按钮")
-    private MenuType type;
+    private TenantMenuType type;
 
     @ApiModelProperty("是否开启缓存 0:关闭  1:开启")
     private MenuCacheType isCache;

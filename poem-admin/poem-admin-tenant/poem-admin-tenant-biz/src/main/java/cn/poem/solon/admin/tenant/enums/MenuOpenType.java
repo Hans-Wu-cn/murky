@@ -1,20 +1,17 @@
-package cn.poem.solon.admin.security.enums;
+package cn.poem.solon.admin.tenant.enums;
+
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.noear.snack.annotation.ONodeAttr;
 
-/**
- * 是否开启缓存 0:关闭  1:开启
- *
- * @author hans
- */
+
 @AllArgsConstructor
 @Getter
-public enum MenuCacheType {
-    ON(0,"开启缓存"),
-    OFF(1,"关闭缓存"),
+public enum MenuOpenType {
+    CURRENT(1,"当前窗口"),
+    NEW(2,"新窗口"),
     ;
     @EnumValue
     @ONodeAttr

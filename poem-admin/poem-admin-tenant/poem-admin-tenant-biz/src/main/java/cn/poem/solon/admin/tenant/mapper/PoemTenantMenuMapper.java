@@ -1,11 +1,11 @@
 package cn.poem.solon.admin.tenant.mapper;
 
 
-import cn.poem.solon.admin.security.enums.MenuType;
 import cn.poem.solon.admin.tenant.domain.entity.PoemTenantMenu;
 import cn.poem.solon.admin.tenant.domain.entity.table.PoemTenantGroupMenuTableDef;
 import cn.poem.solon.admin.tenant.domain.entity.table.PoemTenantMenuTableDef;
 import cn.poem.solon.admin.tenant.domain.entity.table.PoemTenantPermissionGroupTableDef;
+import cn.poem.solon.admin.tenant.enums.TenantMenuType;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 
@@ -27,7 +27,7 @@ public interface PoemTenantMenuMapper extends BaseMapper<PoemTenantMenu> {
      * @param menuTypes 菜单类型
      * @return PoemTenantMenu
      */
-    default List<PoemTenantMenu> selectByMenuType(List<MenuType> menuTypes) {
+    default List<PoemTenantMenu> selectByMenuType(List<TenantMenuType> menuTypes) {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .select().from(POEM_TENANT_MENU)
                 .where(POEM_TENANT_MENU.TYPE.in(menuTypes))

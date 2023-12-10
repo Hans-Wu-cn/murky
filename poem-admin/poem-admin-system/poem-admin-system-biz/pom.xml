@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>poem-admin-system-biz</artifactId>
-
+    <packaging>jar</packaging>
     <dependencies>
         <!--poem 事件包-->
         <dependency>
@@ -19,7 +19,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

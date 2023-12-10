@@ -16,7 +16,7 @@
       <template #header>{{ userDialogTitle }}</template>
       <userFrom ref="userFromRef" @submit-hook="onUserSubmit"></userFrom>
     </t-dialog>
-    <t-dialog v-model:visible="restPasswdVisible" :footer="false" width="500px" top="20px">
+    <t-dialog v-model:visible="restPasswdVisible" :footer="false" width="600px" top="20px">
       <template #header>{{ $t('user.button.resetPassword') }}</template>
       <restPasswdFrom ref="restPasswdFromRef" @submit-hook="onRestPasswdSubmit"></restPasswdFrom>
     </t-dialog>

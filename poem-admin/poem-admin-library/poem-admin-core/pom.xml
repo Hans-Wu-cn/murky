@@ -86,11 +86,10 @@
             <artifactId>poem-common</artifactId>
         </dependency>
 
-        <!-- 公共包 -->
+        <!-- core -->
         <dependency>
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
