@@ -1,7 +1,7 @@
 <template>
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
-      @submit="onSubmit">
+      labelWidth="width-content" @submit="onSubmit">
       <t-form-item :label="$t('permissionGroup.label.name')" name="groupName">
         <t-input v-model="formData.groupName" :placeholder="$t('permissionGroup.label.pl.name')"></t-input>
       </t-form-item>

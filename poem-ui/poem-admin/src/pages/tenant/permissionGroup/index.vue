@@ -8,7 +8,7 @@
       <t-table stripe :data="permissionGroupData" :columns="columns" row-key="groupId" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
-    <t-dialog v-model:visible="permissionGroupFromVisible" :footer="false" width="500px" top="20px">
+    <t-dialog v-model:visible="permissionGroupFromVisible" :footer="false" width="600px" top="20px">
       <template #header>{{ permissionGroupFromTitle }}</template>
       <permissionGroupFrom ref="permissionGroupFromRef" @submit-hook="onSubmitHook"></permissionGroupFrom>
     </t-dialog>
