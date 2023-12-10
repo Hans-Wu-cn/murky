@@ -8,7 +8,7 @@
         </t-select>
         <t-select v-else-if="props.type === 'dict'" v-model="value" :placeholder="props.placeholder || '请输入'">
             <t-option v-for="(item, index) in dictOptions" :key="item.dictValue" :value="item.dictValue"
-                :label="item.dictLabel" />
+                :label="$t(item.dictLabel)" />
         </t-select>
         <!-- <t-radio-group v-else-if="props.type === 'radio'" v-model="value">
             <t-radio v-for="(value,key) in radioOptions" :key="key" :value="key">{{ value }}</t-radio>
