@@ -29,8 +29,8 @@ import { ComputedRef, Ref } from 'vue';
  * desc 数据    label 名  value 值  slotName 插值名称  column flex位数
  */
 export interface DescItem {
-    label: String|ComputedRef<string>,
-    value: String|Ref<string>,
+    label: String | ComputedRef<string>,
+    value: String | Ref<string>,
     column?: number,
     formatter?: Function;
     slotName?: String,

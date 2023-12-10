@@ -9,12 +9,12 @@
 </template>
 <script setup lang="tsx">
 import { getMenu } from '@/api/tenant/menu';
-import descriptions from '@/components/descriptions/index.vue'
+import descriptions, { DescItem } from '@/components/descriptions/index.vue'
 import i18n from '@/i18n';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const desc = ref([
+const desc = ref<DescItem[]>([
     {
         label: computed(() => i18n.global.t('menu.label.id')),
         value: '',
@@ -37,7 +37,10 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.type')),
         value: '',
         code: 'type',
-        column: 3
+        column: 3,
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.type.' + value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.name')),
@@ -67,7 +70,10 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.title.openType')),
         value: '',
         code: 'openType',
-        column: 3
+        column: 3,
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.title.openType.' + value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.auth')),
@@ -79,19 +85,28 @@ const desc = ref([
         label: computed(() => i18n.global.t('menu.label.isDisplay')),
         value: '',
         code: 'isDisplay',
-        column: 3
+        column: 3,
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isDisplay.' + value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.isCache')),
         value: '',
         code: 'isCache',
-        column: 3
+        column: 3,
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isCache.' + value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.isOutside')),
         value: '',
         code: 'isOutside',
-        column: 3
+        column: 3,
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isOutside.' + value)
+        }
     },
 ])
 /**

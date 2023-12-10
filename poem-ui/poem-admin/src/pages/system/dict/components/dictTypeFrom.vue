@@ -3,7 +3,9 @@
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
       <t-form-item :label="$t('dict.label.dictName')" name="dictName">
-        <t-input v-model="formData.dictName" :placeholder="$t('dict.label.pl.dictName')"></t-input>
+        <t-input-adornment :prepend="$t(formData.dictName)">
+          <t-input v-model="formData.dictName" :placeholder="$t('dict.label.pl.dictName')"></t-input>
+        </t-input-adornment>
       </t-form-item>
       <t-form-item :label="$t('dict.label.dictType')" name="dictType">
         <t-input v-model="formData.dictType" :placeholder="$t('dict.label.pl.dictType')"></t-input>

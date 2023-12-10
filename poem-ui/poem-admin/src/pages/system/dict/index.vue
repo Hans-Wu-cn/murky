@@ -62,6 +62,13 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
     colKey: 'dictName',
     title: () => i18n.global.t('dict.label.dictName'),
     minWidth: 100,
+    cell: (h, { col, row }) => (
+      <div>
+        {
+          i18n.global.t(row.dictName)
+        }
+      </div>
+    ),
   },
   {
     colKey: 'dictType',
