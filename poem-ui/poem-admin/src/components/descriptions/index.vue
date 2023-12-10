@@ -22,14 +22,14 @@
     </div>
 </template>
 <script setup lang="ts">
-import { Ref } from 'vue';
+import { ComputedRef, Ref } from 'vue';
 /**
  * title 标题
  * column 列数
  * desc 数据    label 名  value 值  slotName 插值名称  column flex位数
  */
 export interface DescItem {
-    label: String,
+    label: String|ComputedRef<string>,
     value: String|Ref<string>,
     column?: number,
     formatter?: Function;
