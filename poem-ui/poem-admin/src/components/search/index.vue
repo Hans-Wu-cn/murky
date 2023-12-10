@@ -17,6 +17,7 @@ import InputContent from './components/inputContent.vue';
 import { PoemDictData } from '@/api/system/dict/types';
 import { ComputedRef, onMounted, watch } from 'vue';
 import { useDictStore } from '@/store';
+import i18n from '@/i18n';
 export interface SearchOption {
     name: string,
     label: string | ComputedRef<string> | any,
@@ -42,7 +43,6 @@ const props = withDefaults(defineProps<{
 })
 
 const initDictOptions = () => {
-    console.log(11111)
     props.options.forEach(async item => {
         console.log(item)
         if (item.type === 'dict' && item.dictType) {

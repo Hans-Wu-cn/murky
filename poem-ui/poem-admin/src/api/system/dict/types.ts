@@ -1,4 +1,5 @@
 import { BaseApiType, PageRequest } from '@/api/types';
+import { ComputedRef } from 'vue';
 
 /**
  * 字典分类查询类

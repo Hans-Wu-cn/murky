@@ -63,6 +63,7 @@ export const useDictStore = defineStore('dict', {
       const { code, result, message } = await dict(key);
       if (ResultEnum.SUCCESS === code) {
         this.dictCache.set(key, result)
+        // result.forEach(item => item.dictLabel = i18n.global.t(item.dictLabel))
         return result
       }
       return []
