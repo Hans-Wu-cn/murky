@@ -9,12 +9,12 @@
 </template>
 <script setup lang="tsx">
 import { getMenu } from '@/api/tenant/menu';
-import descriptions from '@/components/descriptions/index.vue'
+import descriptions, { DescItem } from '@/components/descriptions/index.vue'
 import i18n from '@/i18n';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const desc = ref([
+const desc = ref<DescItem[]>([
     {
         label: computed(() => i18n.global.t('menu.label.id')),
         value: '',
