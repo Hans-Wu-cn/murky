@@ -13,7 +13,7 @@
 3. 前端技术栈:vue3 + vite + pina
 4. 后端技术栈:solon + mybaits-flex + satoken + DamiBus
 5. 数据库使用postgresql,redis
-6. jdk支持默认21,可低成本兼容到17
+6. jdk支持默认21,可低成本兼容到17(修改pom中的javaversion,修改main中使用的虚拟线程池)
 7. 系统内置了国际化功能,采用了字典+国际化语言包数据化的管理方式,可以自由拓展需要的语言
 
 ### 技术选型
