@@ -6,16 +6,16 @@
           <template #icon>
             <component :is="menuIcon(item)" class="t-icon"></component>
           </template>
-          {{ item.title }}
+          {{ $t(item.title) }}
         </t-menu-item>
         <t-menu-item v-else :name="item.path" :value="getPath(item)" :to="item.path">
           <template #icon>
             <component :is="menuIcon(item)" class="t-icon"></component>
           </template>
-          {{ item.title }}
+          {{ $t(item.title) }}
         </t-menu-item>
       </template>
-      <t-submenu v-else :name="item.path" :value="item.path" :title="item.title">
+      <t-submenu v-else :name="item.path" :value="item.path" :title="$t(item.title)">
         <template #icon>
           <component :is="menuIcon(item)" class="t-icon"></component>
         </template>
@@ -48,8 +48,8 @@ const list = computed(() => {
 });
 
 const menuIcon = (item: ListItemType) => {
-  if (typeof item.icon === 'string'){
-    return item.icon.indexOf(iconConfig.svgPath)===-1?<t-icon name={item.icon} />:<img src={item.icon}/>;
+  if (typeof item.icon === 'string') {
+    return item.icon.indexOf(iconConfig.svgPath) === -1 ? <t-icon name={item.icon} /> : <img src={item.icon} />;
   }
   const RenderIcon = item.icon;
   return RenderIcon;

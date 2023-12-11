@@ -7,6 +7,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import router, { fixedRouterList, homepageRouterList } from '@/router';
 import { store } from '@/store';
 import { transformObjectToRoute } from '@/utils/route';
+import i18n from '@/i18n';
 
 export const usePermissionStore = defineStore('permission', {
   state: () => ({

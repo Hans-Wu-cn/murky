@@ -128,6 +128,7 @@ const loadI18n = async () => {
       i18nValue: undefined
     })
   })
+  console.log(FORM_I18N.value)
   formData.value.i18nInputs = i18nInputs
 }
 

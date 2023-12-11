@@ -2,7 +2,7 @@
   <div>
     <t-form ref="form" colon reset-type="initial" :rules="FORM_RULES" :data="formData" @reset="onReset"
       @submit="onSubmit">
-      <t-form-item :label="$t('	role.label.name')" name="roleName">
+      <t-form-item :label="$t('role.label.name')" name="roleName">
         <t-input disabled v-model="formData.roleName" :placeholder="$t('role.label.pl.name')"></t-input>
       </t-form-item>
       <t-form-item :label="$t('role.label.code')" name="roleCode">

@@ -28,6 +28,12 @@
               <t-icon name="git-repository" />
             </t-button>
           </t-tooltip>
+
+          <t-tooltip placement="bottom" content="github">
+            <t-button theme="default" shape="square" variant="text" @click="navToGithub">
+              <t-icon name="logo-github" />
+            </t-button>
+          </t-tooltip>
           <!-- <t-tooltip placement="bottom" content="帮助文档">
             <t-button theme="default" shape="square" variant="text" @click="navToHelper">
               <t-icon name="help-circle" />
@@ -45,10 +51,11 @@
             <template #dropdown>
               <t-dropdown-menu>
                 <t-dropdown-item class="operations-dropdown-container-item" @click="handleNav('/profile')">
-                  <t-icon name="user-circle"></t-icon>个人中心
+                  <t-icon name="user-circle"></t-icon>
+                  {{ $t('head.Setting') }}
                 </t-dropdown-item>
                 <t-dropdown-item class="operations-dropdown-container-item" @click="handleLogout">
-                  <t-icon name="poweroff"></t-icon>退出登录
+                  <t-icon name="poweroff"></t-icon>{{ $t('head.logout') }}
                 </t-dropdown-item>
               </t-dropdown-menu>
             </template>
@@ -60,7 +67,7 @@
               <template #suffix><t-icon name="chevron-down" /></template>
             </t-button>
           </t-dropdown>
-          <t-tooltip placement="bottom" content="系统设置">
+          <t-tooltip placement="bottom" :content="$t('head.systemSetting')">
             <t-button theme="default" shape="square" variant="text" @click="toggleSettingPanel">
               <t-icon name="setting" />
             </t-button>
@@ -182,6 +189,10 @@ const handleLogout = async () => {
 
 const navToGitee = () => {
   window.open('https://gitee.com/wu-zhihao/poem-solon');
+};
+
+const navToGithub = () => {
+  window.open('https://github.com/Hans-Wu-cn/poem-solon');
 };
 
 const navToHelper = () => {

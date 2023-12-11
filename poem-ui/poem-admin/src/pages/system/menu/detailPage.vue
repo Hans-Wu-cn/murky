@@ -25,7 +25,10 @@ const desc = ref<DescItem[]>([
         label: computed(() => i18n.global.t('menu.label.title')),
         value: '',
         code: 'label',
-        column: 3
+        column: 3,
+        formatter: (value: string) => {
+            return i18n.global.t(value)
+        }
     },
     {
         label: computed(() => i18n.global.t('menu.label.icon')),
@@ -38,8 +41,8 @@ const desc = ref<DescItem[]>([
         value: '',
         code: 'type',
         column: 3,
-        formatter:(value:number)=>{
-            return i18n.global.t('menu.label.type.'+value)
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.type.' + value)
         }
     },
     {
@@ -71,8 +74,8 @@ const desc = ref<DescItem[]>([
         value: '',
         code: 'openType',
         column: 3,
-        formatter:(value:number)=>{
-            return i18n.global.t('menu.label.title.openType.'+value)
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.title.openType.' + value)
         }
     },
     {
@@ -86,8 +89,8 @@ const desc = ref<DescItem[]>([
         value: '',
         code: 'isDisplay',
         column: 3,
-        formatter:(value:number)=>{
-            return i18n.global.t('menu.label.isDisplay.'+value)
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isDisplay.' + value)
         }
     },
     {
@@ -95,8 +98,8 @@ const desc = ref<DescItem[]>([
         value: '',
         code: 'isCache',
         column: 3,
-        formatter:(value:number)=>{
-            return i18n.global.t('menu.label.isCache.'+value)
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isCache.' + value)
         }
     },
     {
@@ -104,8 +107,8 @@ const desc = ref<DescItem[]>([
         value: '',
         code: 'isOutside',
         column: 3,
-        formatter:(value:number)=>{
-            return i18n.global.t('menu.label.isOutside.'+value)
+        formatter: (value: number) => {
+            return i18n.global.t('menu.label.isOutside.' + value)
         }
     },
 ])

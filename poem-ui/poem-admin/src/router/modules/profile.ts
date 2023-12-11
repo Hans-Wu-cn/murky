@@ -5,14 +5,14 @@ export default [
     name: 'profile',
     redirect: '/profile/index',
     component: Layout,
-    meta: { title: '个人中心', icon: 'user-circle', hidden: false },
+    meta: { title: 'menu:PersonalCenter', icon: 'user-circle', hidden: false },
     children: [
       {
         path: 'index',
         name: 'Profile',
         component: () => import('@/pages/profile/index.vue'),
         meta: {
-          title: '个人中心',
+          title: 'menu:PersonalCenter',
         },
       },
     ]

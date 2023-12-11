@@ -11,7 +11,10 @@
                         </t-select>
                     </t-form-item>
                     <t-form-item :label="$t('menu.label.title')" name="label">
-                        <t-input :placeholder="$t('menu.label.pl.title')" v-model="menuFormData.label" />
+                        <t-input-adornment :prepend="$t(menuFormData.label)">
+                            <t-input :placeholder="$t('menu.label.pl.title')" v-model="menuFormData.label" />
+                        </t-input-adornment>
+
                     </t-form-item>
                     <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.name')" name="name">
                         <t-input :placeholder="$t('menu.label.pl.name')" v-model="menuFormData.name" />
@@ -88,7 +91,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'submit'): void
 }>()
-const menuFormData = ref<PoemMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
+const menuFormData = ref<PoemMenu>({ label: '', openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
     // name: [{ required: true, message: '请输入菜单名' }, { pattern: /^[a-zA-Z]{1,}$/, message: '只支持大小写英文字母' },],
     name: [{ required: true, message: i18n.global.t('menu.label.pl.name') }],

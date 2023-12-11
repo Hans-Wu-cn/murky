@@ -62,6 +62,13 @@ const columns: Array<PrimaryTableCol<any>> = [
         colKey: 'label',
         title: () => i18n.global.t('menu.label.title'),
         minWidth: 200,
+        cell: (h, { col, row }) => (
+            <div>
+                {
+                    i18n.global.t(row.label)
+                }
+            </div>
+        ),
     },
     {
         colKey: 'name',
