@@ -1,13 +1,13 @@
 import { request } from "@/utils/request";
 import { PageResponse } from "@/api/types";
-import { PageUser, PoemUser, RestPassword } from "./types";
+import { PageUser, User, RestPassword } from "./types";
 
 
 
 const Api = {
-  role: '/poemUser',
-  rolePage: '/poemUser/page',
-  restPassword: '/poemUser/restPassword',
+  user: '/user',
+  userPage: '/user/page',
+  restPassword: '/user/restPassword',
 };
 
 /**
@@ -15,8 +15,8 @@ const Api = {
  * @returns Route
  */
 export function userPage(params: PageUser) {
-  return request.get<PageResponse<Array<PoemUser>>>({
-    url: Api.rolePage,
+  return request.get<PageResponse<Array<User>>>({
+    url: Api.userPage,
     params
   });
 }
@@ -24,9 +24,9 @@ export function userPage(params: PageUser) {
  * 新增用户
  * @returns Route
  */
-export function addUser(data: PoemUser) {
+export function addUser(data: User) {
   return request.post({
-    url: '/poemUser',
+    url: Api.user,
     data
   });
 }
@@ -34,9 +34,9 @@ export function addUser(data: PoemUser) {
  * 编辑用户
  * @returns Route
  */
-export function editUser(data: PoemUser) {
+export function editUser(data: User) {
   return request.put({
-    url: '/poemUser',
+    url: Api.user,
     data
   });
 }
@@ -46,7 +46,7 @@ export function editUser(data: PoemUser) {
  */
 export function queryUserInfo(userId: string) {
   return request.get({
-    url: `/poemUser/${userId}`,
+    url: `${Api.user}/${userId}`,
   });
 }
 
@@ -56,7 +56,7 @@ export function queryUserInfo(userId: string) {
  */
 export function delUserInfo(userId: string) {
   return request.delete({
-    url: `/poemUser/${userId}`,
+    url: `${Api.user}/${userId}`,
   });
 }
 

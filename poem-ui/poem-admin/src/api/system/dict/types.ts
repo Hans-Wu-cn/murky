@@ -8,7 +8,7 @@ import { ComputedRef } from 'vue';
  * @param status 字典状态 0:正常 1:停用
  */
 
-export interface PagePoemDictType extends PageRequest {
+export interface PageDictType extends PageRequest {
   dictName: string,
   dictType: string,
   status: number,
@@ -20,7 +20,7 @@ export interface PagePoemDictType extends PageRequest {
  * @param dictType 字典类型
  * @param status 字典状态 0:正常 1:停用
  */
-export interface PagePoemDictData extends PageRequest {
+export interface PageDictData extends PageRequest {
   dictLabel?: string,
   dictType: string,
   status?: number,
@@ -33,7 +33,7 @@ export interface PagePoemDictData extends PageRequest {
  * @param status 字典状态 0:正常 1:停用
  * @param remark 备注/描述
  */
-export interface PoemDictType extends BaseApiType {
+export interface DictType extends BaseApiType {
   dictTypeId?: string,
   dictName: string,
   dictType: string,
@@ -50,7 +50,7 @@ export interface PoemDictType extends BaseApiType {
  * @param remark 备注
  * @param status 字典状态 0:正常 1:停用
  */
-export interface PoemDictData extends BaseApiType {
+export interface DictData extends BaseApiType {
   dictCode?: string,
   dictSort: number,
   dictLabel: string,

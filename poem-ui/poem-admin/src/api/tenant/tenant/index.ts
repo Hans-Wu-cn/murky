@@ -1,10 +1,10 @@
 import { PageResponse } from "@/api/types";
-import { PagePoemTenant, PoemTenantFrom, PoemTenant } from "./types";
+import { PageTenant, TenantFrom, Tenant } from "./types";
 import { request } from '@/utils/request';
 
 const Api = {
-  poemTenant: '/poemTenant',
-  poemTenantPage: '/poemTenant/page',
+  tenant: '/tenant',
+  tenantPage: '/tenant/page',
 };
 
 
@@ -12,9 +12,9 @@ const Api = {
  * 获取租户分页列表
  * @returns Route
  */
-export function poemTenantPage(params: PagePoemTenant) {
-  return request.get<PageResponse<Array<PoemTenant>>>({
-    url: Api.poemTenantPage,
+export function tenantPage(params: PageTenant) {
+  return request.get<PageResponse<Array<Tenant>>>({
+    url: Api.tenantPage,
     params
   });
 }
@@ -23,9 +23,9 @@ export function poemTenantPage(params: PagePoemTenant) {
  * 获取租户详情
  * @returns Route
  */
-export function poemTenantInfo(tenantId: string) {
-  return request.get<PoemTenant>({
-    url: `${Api.poemTenant}/${tenantId}`,
+export function tenantInfo(tenantId: string) {
+  return request.get<Tenant>({
+    url: `${Api.tenant}/${tenantId}`,
   });
 }
 
@@ -33,9 +33,9 @@ export function poemTenantInfo(tenantId: string) {
  * 添加租户
  * @returns Route
  */
-export function addPoemTenant(data: PoemTenantFrom) {
+export function addTenant(data: TenantFrom) {
   return request.post({
-    url: Api.poemTenant,
+    url: Api.tenant,
     data
   });
 }
@@ -44,9 +44,9 @@ export function addPoemTenant(data: PoemTenantFrom) {
  * 修改租户
  * @returns Route
  */
-export function editPoemTenant(data: PoemTenant) {
+export function editTenant(data: Tenant) {
   return request.put({
-    url: Api.poemTenant,
+    url: Api.tenant,
     data
   });
 }
@@ -55,8 +55,8 @@ export function editPoemTenant(data: PoemTenant) {
  * 停用租户
  * @returns Route
  */
-export function deactivatePoemTenant(tenantId: string) {
+export function deactivateTenant(tenantId: string) {
   return request.post({
-    url: `${Api.poemTenant}/${tenantId}`,
+    url: `${Api.tenant}/${tenantId}`,
   });
 }

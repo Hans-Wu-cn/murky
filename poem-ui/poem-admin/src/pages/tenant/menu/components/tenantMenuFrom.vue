@@ -72,7 +72,7 @@
 </template>
 <script setup lang="tsx">
 import { addMenu, getMenu, updateMenu } from '@/api/tenant/menu';
-import { PoemTenantMenu } from '@/api/tenant/menu/types';
+import { TenantMenu } from '@/api/tenant/menu/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { ref } from 'vue';
@@ -87,7 +87,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'submit'): void
 }>()
-const menuFormData = ref<PoemTenantMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
+const menuFormData = ref<TenantMenu>({ openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' })
 const FORM_RULES = ref<FormRules>({
     name: [{ required: true, message: i18n.global.t('menu.label.pl.name') }],
     label: [{ required: true, message: i18n.global.t('menu.label.pl.title') }],
@@ -110,7 +110,7 @@ const onReset = () => {
  * 表单提交方法
  * 
  **/
-const onSubmit = async ({ validateResult, firstError }: SubmitContext<PoemTenantMenu>) => {
+const onSubmit = async ({ validateResult, firstError }: SubmitContext<TenantMenu>) => {
     if (validateResult === true) {
         const api = menuFormData.value.tenantMenuId ? updateMenu : addMenu
         menuFormData.value.icon = menuFormData.value.icon || ''

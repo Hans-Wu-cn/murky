@@ -29,23 +29,23 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemRole } from '@/api/system/role/types'
+import { Role } from '@/api/system/role/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addPoemRole, updatePoemRole, roleInfo } from '@/api/system/role';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/system/menu/types';
+import { Menu } from '@/api/system/menu/types';
 import { getMenuList } from '@/api/system/menu';
 import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
-const menuTree = ref<Array<PoemMenu>>();
+const menuTree = ref<Array<Menu>>();
 const menuTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
   roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemRole>({
+const formData = ref<Role>({
   roleCode: '',
   roleName: '',
   describe: '',
@@ -72,7 +72,7 @@ const onReset = () => {
  * @param value 
  * @param context 
  */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<Menu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
   formData.value.menuIds = menuIds
@@ -107,7 +107,7 @@ const initFromData = async (roleId: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<Role>) => {
   if (validateResult === true) {
     loading.value = true
     const api = formData.value.roleId ? updatePoemRole : addPoemRole

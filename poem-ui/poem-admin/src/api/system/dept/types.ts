@@ -9,16 +9,16 @@
  * @param sort 排序
  * @param children 子部门
  */
-export interface PoemDeptTree {
+export interface DeptTree {
   deptId?: string;
   deptName?: string;
   parentDept?: string;
   ancestors?: string;
   sort?: number;
-  children?: Array<PoemDeptTree>;
+  children?: Array<DeptTree>;
 }
 
-export interface PoemDept {
+export interface Dept {
   deptId?: string;
   deptName?: string;
   parentDept?: string;

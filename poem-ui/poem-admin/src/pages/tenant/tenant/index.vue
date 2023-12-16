@@ -22,8 +22,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { poemTenantPage, deactivatePoemTenant } from '@/api/tenant/tenant';
-import { PagePoemTenant, PoemTenant } from '@/api/tenant/tenant/types';
+import { tenantPage, deactivateTenant } from '@/api/tenant/tenant';
+import { PageTenant, Tenant } from '@/api/tenant/tenant/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import tenantFrom from './components/tenantFrom.vue'
@@ -35,7 +35,7 @@ import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 import { status, tableStatus } from '@/constants';
 
-const pagePermissionGroupParams = ref<PagePoemTenant>({
+const pagePermissionGroupParams = ref<PageTenant>({
   tenantName: '',
   pageNumber: 1,
   pageSize: 10,
@@ -46,7 +46,7 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemTenant>> = [
+const columns: Array<PrimaryTableCol<Tenant>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
@@ -106,7 +106,7 @@ const columns: Array<PrimaryTableCol<PoemTenant>> = [
   },
 ];
 
-const tenantData = ref<PoemTenant[]>([]);
+const tenantData = ref<Tenant[]>([]);
 const settingStore = useSettingStore();
 const tableLoading = ref(false);
 
@@ -130,8 +130,8 @@ const onAddHander = () => {
  * 停用/启用当前租户
  * @param row 当前行数据
  */
-const onDeactivate = async (row: PoemTenant) => {
-  const { code, result } = await deactivatePoemTenant(row.tenantId);
+const onDeactivate = async (row: Tenant) => {
+  const { code, result } = await deactivateTenant(row.tenantId);
   if (ResultEnum.SUCCESS === code) {
     Object.assign(row, result)
   }
@@ -141,7 +141,7 @@ const onDeactivate = async (row: PoemTenant) => {
  * 租户详情表单
  * @param row 当前行数据
  */
-const onInfoHander = async (row: PoemTenant) => {
+const onInfoHander = async (row: Tenant) => {
   tenantInfoFromRef.value.initFromData(row.tenantId)
   tenantInfoFromVisible.value = true
 }
@@ -163,7 +163,7 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await poemTenantPage({ ...pagePermissionGroupParams.value })
+  const { code, result, message } = await tenantPage({ ...pagePermissionGroupParams.value })
   if (code === ResultEnum.SUCCESS) {
     tenantData.value = result.records
     pagination.total = +result.totalRow

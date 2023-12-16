@@ -36,7 +36,7 @@ redis:
   serializer: "cn.poem.solon.config.SerializerJsonTyped"
 
 postgres.db:
-  jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon?currentSchema=demo
+  jdbcUrl: jdbc:postgresql://localhost:5432/poem-solon?currentSchema=admin
   driverClassName: org.postgresql.Driver
   username: postgres
   password: 123

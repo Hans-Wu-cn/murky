@@ -12,7 +12,7 @@ export interface PageRole extends PageRequest {
  * @param roleCode 角色码
  * @param describe 描述
  */
-export interface PoemRole extends BaseApiType {
+export interface Role extends BaseApiType {
   roleId?: string,
   roleName: string,
   roleCode: string,

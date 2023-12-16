@@ -37,7 +37,7 @@ import { ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addUser, editUser, queryUserInfo } from '@/api/system/user';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemUser } from '@/api/system/user/types';
+import { User } from '@/api/system/user/types';
 
 import { gender } from '../constants';
 import deptTreeSelect from './deptTreeSelect.vue';
@@ -52,7 +52,7 @@ const FORM_RULES = ref<FormRules>({
     email: [{ email: { ignore_max_length: true }, message: i18n.global.t('user.label.valid.email') }]
 })
 // 表单对象
-const formData = ref<PoemUser>({
+const formData = ref<User>({
     sex: 0,
     deptId: '',
     roleIds: []
@@ -99,7 +99,7 @@ const initFromData = async (userId: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<User>) => {
     if (validateResult === true) {
         loading.value = true
         console.log(formData.value)

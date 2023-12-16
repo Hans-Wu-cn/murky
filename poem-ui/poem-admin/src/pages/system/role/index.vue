@@ -23,7 +23,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
 import { delPoemRole, rolePage } from '@/api/system/role';
-import { PageRole, PoemRole } from '@/api/system/role/types';
+import { PageRole, Role } from '@/api/system/role/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import roleFrom from './components/roleFrom.vue'
@@ -46,7 +46,7 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemRole>> = [
+const columns: Array<PrimaryTableCol<Role>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
@@ -96,7 +96,7 @@ const columns: Array<PrimaryTableCol<PoemRole>> = [
   },
 ];
 
-const roleData = ref<PoemRole[]>([]);
+const roleData = ref<Role[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
 const roleFromTitle = ref('');
@@ -122,7 +122,7 @@ const onAddHander = () => {
  * 修改角色表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemRole) => {
+const onEditHander = (row: Role) => {
   roleFromTitle.value = i18n.global.t('role.label.edit')
   roleFromRef.value.initFromData(row.roleId)
   roleFromVisible.value = true
@@ -132,7 +132,7 @@ const onEditHander = (row: PoemRole) => {
  * 数据权限表单适配器
  * @param row 当前行数据
  */
-const onDatascopeHander = (row: PoemRole) => {
+const onDatascopeHander = (row: Role) => {
   datascopeRef.value.initFromData(row.roleId)
   datascopeVisible.value = true
 }
@@ -141,7 +141,7 @@ const onDatascopeHander = (row: PoemRole) => {
  * 删除角色
  * @param row 
  */
-const onDelHander = async (row: PoemRole) => {
+const onDelHander = async (row: Role) => {
   const { code } = await delPoemRole(row.roleId)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));

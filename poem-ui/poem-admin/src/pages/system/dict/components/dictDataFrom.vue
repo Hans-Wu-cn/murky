@@ -34,9 +34,9 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemDictData } from '@/api/system/dict/types'
+import { DictData } from '@/api/system/dict/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { addPoemDictData, editPoemDictData, PoemDictDataInfo } from '@/api/system/dict';
+import { addDictData, editDictData, dictDataInfo } from '@/api/system/dict';
 import { ResultEnum } from '@/enums/httpEnum';
 import { fromPairs } from 'lodash';
 import i18n from '@/i18n';
@@ -51,7 +51,7 @@ const FORM_RULES = ref<FormRules>({
   dictValue: [{ required: true, message: i18n.global.t('dictData.label.pl.dictValue'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemDictData>({
+const formData = ref<DictData>({
   dictSort: 0,
   dictLabel: '',
   dictValue: '',
@@ -98,7 +98,7 @@ const initFromData = async (dictCode: string | undefined, dictType: string) => {
   dictDataFromId.value = dictCode;
   formData.value.dictType = dictType;
   formData.value.dictCode = dictCode;
-  const { code, result } = await PoemDictDataInfo(dictCode);
+  const { code, result } = await dictDataInfo(dictCode);
   console.log(code, result)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
@@ -110,10 +110,10 @@ const initFromData = async (dictCode: string | undefined, dictType: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<DictData>) => {
   if (validateResult === true) {
     loading.value = true
-    const api = formData.value.dictCode ? editPoemDictData : addPoemDictData
+    const api = formData.value.dictCode ? editDictData : addDictData
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

@@ -1,17 +1,18 @@
 import { request } from '@/utils/request';
 
-import { PoemMenu } from './types';
+import { Menu } from './types';
 
 const Api = {
-  menuList: '/poemMenu/list',
-  addMenu: '/poemMenu',
+  menu: '/menu',
+  menuList: '/menu/list',
+  drop: '/menu/drop',
 };
 /**
  * 获取菜单列表
  * @returns Route
  */
 export function getMenuList() {
-  return request.get<Array<PoemMenu>>({
+  return request.get<Array<Menu>>({
     url: Api.menuList,
   });
 }
@@ -20,9 +21,9 @@ export function getMenuList() {
  * 添加菜单
  * @returns Route
  */
-export function addMenu(data: PoemMenu) {
+export function addMenu(data: Menu) {
   return request.post({
-    url: Api.addMenu,
+    url: Api.menu,
     data
   });
 }
@@ -30,9 +31,9 @@ export function addMenu(data: PoemMenu) {
  * 修改菜单
  * @returns Route
  */
-export function updateMenu(data: PoemMenu) {
+export function updateMenu(data: Menu) {
   return request.put({
-    url: Api.addMenu,
+    url: Api.menu,
     data
   });
 }
@@ -42,7 +43,7 @@ export function updateMenu(data: PoemMenu) {
  */
 export function delMenu(menuId: string) {
   return request.delete({
-    url: `/poemMenu/${menuId}`,
+    url: `${Api.menu}/${menuId}`,
   });
 }
 /**
@@ -51,7 +52,7 @@ export function delMenu(menuId: string) {
  */
 export function getMenu(menuId: string) {
   return request.get({
-    url: `/poemMenu/${menuId}`,
+    url: `${Api.menu}/${menuId}`,
   });
 }
 /**
@@ -64,7 +65,7 @@ export function dragMenu(data: {
   menuIds: string[];
 }) {
   return request.put({
-    url: `/poemMenu/drop`,
+    url: Api.drop,
     data
   });
 }

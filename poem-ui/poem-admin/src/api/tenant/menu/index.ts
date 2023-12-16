@@ -1,18 +1,18 @@
 import { request } from '@/utils/request';
 
-import { PoemTenantMenu } from './types';
+import { TenantMenu } from './types';
 
 const Api = {
-  tenantMenu: '/poemTenantMenu',
-  tenantMenuDrop: `/poemTenantMenu/drop`,
-  menuList: '/poemTenantMenu/list',
+  tenantMenu: '/tenantMenu',
+  tenantMenuDrop: '/tenantMenu/drop',
+  menuList: '/tenantMenu/list',
 };
 /**
  * 获取菜单列表
  * @returns Route
  */
 export function getTenantMenuList() {
-  return request.get<Array<PoemTenantMenu>>({
+  return request.get<Array<TenantMenu>>({
     url: Api.menuList,
   });
 }
@@ -21,7 +21,7 @@ export function getTenantMenuList() {
  * 添加菜单
  * @returns Route
  */
-export function addMenu(data: PoemTenantMenu) {
+export function addMenu(data: TenantMenu) {
   return request.post({
     url: Api.tenantMenu,
     data
@@ -31,7 +31,7 @@ export function addMenu(data: PoemTenantMenu) {
  * 修改菜单
  * @returns Route
  */
-export function updateMenu(data: PoemTenantMenu) {
+export function updateMenu(data: TenantMenu) {
   return request.put({
     url: Api.tenantMenu,
     data

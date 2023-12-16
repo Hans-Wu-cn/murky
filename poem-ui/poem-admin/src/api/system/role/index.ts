@@ -1,10 +1,11 @@
 import { PageResponse } from "@/api/types";
-import { PageRole, PoemRole } from "./types";
+import { PageRole, Role } from "./types";
 import { request } from '@/utils/request';
 
 const Api = {
-  role: '/poemRole',
-  rolePage: '/poemRole/page',
+  role: '/role',
+  rolePage: '/role/page',
+  roleList: '/role/list',
 };
 
 /**
@@ -12,7 +13,7 @@ const Api = {
  * @returns Route
  */
 export function rolePage(params: PageRole) {
-  return request.get<PageResponse<Array<PoemRole>>>({
+  return request.get<PageResponse<Array<Role>>>({
     url: Api.rolePage,
     params
   });
@@ -22,8 +23,8 @@ export function rolePage(params: PageRole) {
  * @returns Route
  */
 export function roleList(params?: PageRole) {
-  return request.get<PoemRole[]>({
-    url: '/poemRole/list',
+  return request.get<Role[]>({
+    url: Api.roleList,
     params
   });
 }
@@ -33,7 +34,7 @@ export function roleList(params?: PageRole) {
  * @returns Route
  */
 export function roleInfo(roleId: string) {
-  return request.get<PoemRole>({
+  return request.get<Role>({
     url: `${Api.role}/${roleId}`,
   });
 }
@@ -42,7 +43,7 @@ export function roleInfo(roleId: string) {
  * 修改
  * @returns Route
  */
-export function updatePoemRole(data: PoemRole) {
+export function updatePoemRole(data: Role) {
   return request.put({
     url: Api.role,
     data
@@ -52,7 +53,7 @@ export function updatePoemRole(data: PoemRole) {
  * 新增
  * @returns Route
  */
-export function addPoemRole(data: PoemRole) {
+export function addPoemRole(data: Role) {
   return request.post({
     url: Api.role,
     data

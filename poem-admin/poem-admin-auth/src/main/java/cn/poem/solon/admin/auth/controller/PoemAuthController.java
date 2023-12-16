@@ -5,8 +5,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.auth.domain.dto.LoginDto;
 import cn.poem.solon.admin.auth.service.IPoemLoginService;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
-import cn.poem.solon.admin.system.api.PoemMenuApi;
-import cn.poem.solon.admin.system.api.domian.PoemMenuTree;
+import cn.poem.solon.admin.system.api.SysMenuApi;
+import cn.poem.solon.admin.system.api.domian.SysMenuTree;
 import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.utils.ApiResult;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
@@ -32,7 +32,7 @@ public class PoemAuthController {
     @Inject
     private IPoemLoginService iPoemLoginService;
     @Inject
-    private PoemMenuApi poemMenuApi;
+    private SysMenuApi sysMenuApi;
 
     @Post
     @ApiOperation("登录")
@@ -55,8 +55,8 @@ public class PoemAuthController {
     @Get
     @ApiOperation("获取菜单")
     @Mapping("menu")
-    public ApiResult<List<PoemMenuTree>> menu() {
-        return ApiResult.ok(poemMenuApi.treePoemMenu(Arrays.asList(MenuType.MENU, MenuType.DIRECTORY)));
+    public ApiResult<List<SysMenuTree>> menu() {
+        return ApiResult.ok(sysMenuApi.treePoemMenu(Arrays.asList(MenuType.MENU, MenuType.DIRECTORY)));
     }
 
     @Get

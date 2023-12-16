@@ -17,8 +17,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictDataPage, PoemDictDataRemove } from '@/api/system/dict';
-import { PagePoemDictData, PoemDictData } from '@/api/system/dict/types';
+import { dictDataPage, dictDataRemove } from '@/api/system/dict';
+import { PageDictData, DictData } from '@/api/system/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
@@ -31,7 +31,7 @@ import { useRoute } from 'vue-router';
 import i18n from '@/i18n';
 
 const route = useRoute();
-const PagePoemDictDataParams = ref<PagePoemDictData>({
+const PagePoemDictDataParams = ref<PageDictData>({
   dictType: '',
   status: undefined,
   pageNumber: 1,
@@ -43,7 +43,7 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemDictData>> = [
+const columns: Array<PrimaryTableCol<DictData>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
@@ -107,7 +107,7 @@ const columns: Array<PrimaryTableCol<PoemDictData>> = [
   },
 ];
 
-const dictData = ref<PoemDictData[]>([]);
+const dictData = ref<DictData[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
 const dictDataFromTitle = ref('');
@@ -130,7 +130,7 @@ const onAddHander = () => {
  * 修改字典数据表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemDictData) => {
+const onEditHander = (row: DictData) => {
   dictDataFromTitle.value = i18n.global.t('dict.label.edit')
   dictDataFromRef.value.initFromData(row.dictCode, row.dictType)
   dictDataFromVisible.value = true
@@ -140,8 +140,8 @@ const onEditHander = (row: PoemDictData) => {
  * 删除字典数据
  * @param row 
  */
-const onDelHander = async (row: PoemDictData) => {
-  const { code } = await PoemDictDataRemove(row.dictCode)
+const onDelHander = async (row: DictData) => {
+  const { code } = await dictDataRemove(row.dictCode)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();

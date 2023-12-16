@@ -49,9 +49,9 @@
 import { onMounted, ref } from 'vue'
 import { PermissionGroup } from '@/api/tenant/permissionGroup/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
-import { poemTenantInfo, editPoemTenant } from '@/api/tenant/tenant';
+import { tenantInfo, editTenant } from '@/api/tenant/tenant';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemTenant } from '@/api/tenant/tenant/types';
+import { Tenant } from '@/api/tenant/tenant/types';
 import i18n from '@/i18n';
 import { permissionGroupList } from '@/api/tenant/permissionGroup';
 
@@ -62,7 +62,7 @@ const FORM_RULES = ref<FormRules>({
   expires: [{ required: true, message: i18n.global.t('tenant.label.pl.expires'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemTenant>({
+const formData = ref<Tenant>({
   tenantId: '',
   groupId: '',
   tenantName: '',
@@ -95,7 +95,7 @@ const resetValue = ref({})// 记录重置表单数据
 
 const initFromData = async (tenantId: string) => {
   tenantFromId.value = tenantId;
-  const { code, result } = await poemTenantInfo(tenantId)
+  const { code, result } = await tenantInfo(tenantId)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
     resetValue.value = result
@@ -119,7 +119,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PermissionGroup>) => {
   if (validateResult === true) {
     loading.value = true
     console.debug(formData)
-    const res = await editPoemTenant(formData.value);
+    const res = await editTenant(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');

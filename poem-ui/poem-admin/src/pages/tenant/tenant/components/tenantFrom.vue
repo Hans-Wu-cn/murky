@@ -52,9 +52,9 @@ import { onMounted, ref } from 'vue'
 import { PermissionGroup } from '@/api/tenant/permissionGroup/types'
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { LockOnIcon } from 'tdesign-icons-vue-next';
-import { addPoemTenant } from '@/api/tenant/tenant';
+import { addTenant } from '@/api/tenant/tenant';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemTenantFrom } from '@/api/tenant/tenant/types';
+import { TenantFrom } from '@/api/tenant/tenant/types';
 import i18n from '@/i18n';
 import { permissionGroupList } from '@/api/tenant/permissionGroup';
 
@@ -76,7 +76,7 @@ const FORM_RULES = ref<FormRules>({
   expires: [{ required: true, message: i18n.global.t('tenant.label.pl.expires'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemTenantFrom>({
+const formData = ref<TenantFrom>({
   groupId: '',
   tenantName: '',
   account: '',
@@ -123,7 +123,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<PermissionGroup>) => {
   if (validateResult === true) {
     loading.value = true
     console.debug(formData)
-    const res = await addPoemTenant(formData.value);
+    const res = await addTenant(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       emit('submit-hook');

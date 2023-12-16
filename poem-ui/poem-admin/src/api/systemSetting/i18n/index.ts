@@ -3,10 +3,10 @@ import { PageResponse } from '@/api/types';
 import { I18nPageParams, I18nParam, I18nData } from './types';
 
 const Api = {
-  i18n: '/poemI18n',
-  i18nPage: '/poemI18n/page',
-  i18nInfo: '/poemI18n/info',
-  language: '/poemI18n/language',
+  i18n: '/i18n',
+  i18nPage: '/i18n/page',
+  i18nInfo: '/i18n/info',
+  language: '/i18n/language',
 };
 
 /**

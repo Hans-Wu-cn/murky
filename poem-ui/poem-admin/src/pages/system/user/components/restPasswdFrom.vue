@@ -23,7 +23,7 @@ import { ref } from 'vue'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { restPassword } from '@/api/system/user';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemUser, RestPassword } from '@/api/system/user/types';
+import { User, RestPassword } from '@/api/system/user/types';
 import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
@@ -52,7 +52,7 @@ const initFromData = (userId: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemUser>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<User>) => {
     if (validateResult === true) {
         loading.value = true
         console.log(formData.value)

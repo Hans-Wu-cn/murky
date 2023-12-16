@@ -7,7 +7,7 @@
 </template>
 <script setup lang="ts">
 import { roleList } from '@/api/system/role';
-import { PoemRole } from '@/api/system/role/types';
+import { Role } from '@/api/system/role/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useVModels } from '@vueuse/core';
 import { MessagePlugin } from 'tdesign-vue-next';
@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>()
 const { value } = useVModels(props, emit);
 // 角色
-const roleData = ref<PoemRole[]>();
+const roleData = ref<Role[]>();
 const getroleTreeData = async () => {
     const { code, result, message } = await roleList()
     if (code === ResultEnum.SUCCESS) {

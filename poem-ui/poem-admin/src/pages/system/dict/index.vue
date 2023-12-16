@@ -21,8 +21,8 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { ResultEnum } from '@/enums/httpEnum'
-import { dictTypePage, PoemDictTypeRemove, refershDict } from '@/api/system/dict';
-import { PoemDictType, PagePoemDictType } from '@/api/system/dict/types';
+import { dictTypePage, dictTypeRemove, refershDict } from '@/api/system/dict';
+import { DictType, PageDictType } from '@/api/system/dict/types';
 import { PrimaryTableCol } from 'tdesign-vue-next/es/table/type';
 import { PaginationProps } from 'tdesign-vue-next/es/pagination';
 import { useSettingStore } from '@/store';
@@ -39,7 +39,7 @@ import {
 import i18n from '@/i18n';
 const route = useRoute();
 const router = useRouter();
-const PagePoemDictTypeParams = ref<PagePoemDictType>({
+const PageDictTypeParams = ref<PageDictType>({
   dictName: '',
   dictType: '',
   status: 0,
@@ -52,7 +52,7 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 表格字段
-const columns: Array<PrimaryTableCol<PoemDictType>> = [
+const columns: Array<PrimaryTableCol<DictType>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
@@ -125,7 +125,7 @@ const columns: Array<PrimaryTableCol<PoemDictType>> = [
   },
 ];
 
-const dictTypeData = ref<PoemDictType[]>([]);
+const dictTypeData = ref<DictType[]>([]);
 // 表格loading标记
 const tableLoading = ref(false);
 const dictTypeFromTitle = ref('');
@@ -148,7 +148,7 @@ const onAddHander = () => {
  * 修改字典数据表单适配器
  * @param row 当前行数据
  */
-const onEditHander = (row: PoemDictType) => {
+const onEditHander = (row: DictType) => {
   dictTypeFromTitle.value = i18n.global.t('dict.label.edit')
   dictTypeFromRef.value.initFromData(row.dictTypeId)
   dictTypeFromVisible.value = true
@@ -158,8 +158,8 @@ const onEditHander = (row: PoemDictType) => {
  * 删除字典数据
  * @param row 
  */
-const onDelHander = async (row: PoemDictType) => {
-  const { code } = await PoemDictTypeRemove(row.dictTypeId)
+const onDelHander = async (row: DictType) => {
+  const { code } = await dictTypeRemove(row.dictTypeId)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();
@@ -170,7 +170,7 @@ const onDelHander = async (row: PoemDictType) => {
  * 查询字典分类下对应得字典数据
  * @param row 
  */
-const onDictData = (row: PoemDictType) => {
+const onDictData = (row: DictType) => {
   // router.push(`${dictConfig.dictUrl}?dictTypeId=${row.dictTypeId}`)
   router.push({
     name: dictConfig.dictData,
@@ -188,8 +188,8 @@ const rehandleChange = (changeParams: any, triggerAndData: any) => {
 
 // BaseTable 中只有 page-change 事件，没有 change 事件
 const onPageChange = async (pageInfo: PaginationProps) => {
-  PagePoemDictTypeParams.value.pageNumber = pageInfo.current;
-  PagePoemDictTypeParams.value.pageSize = pageInfo.pageSize;
+  PageDictTypeParams.value.pageNumber = pageInfo.current;
+  PageDictTypeParams.value.pageSize = pageInfo.pageSize;
   loadData()
 };
 
@@ -198,7 +198,7 @@ const onPageChange = async (pageInfo: PaginationProps) => {
  */
 const loadData = async () => {
   tableLoading.value = true;
-  const { code, result, message } = await dictTypePage({ ...PagePoemDictTypeParams.value })
+  const { code, result, message } = await dictTypePage({ ...PageDictTypeParams.value })
   if (code === ResultEnum.SUCCESS) {
     dictTypeData.value = result.records
     pagination.total = +result.totalRow
@@ -252,9 +252,9 @@ onMounted(async () => {
 
 const searchSubmit = (params: any) => {
   console.debug(params)
-  PagePoemDictTypeParams.value.dictName = params.dictName
-  PagePoemDictTypeParams.value.dictType = params.dictType
-  PagePoemDictTypeParams.value.status = params.status
+  PageDictTypeParams.value.dictName = params.dictName
+  PageDictTypeParams.value.dictType = params.dictType
+  PageDictTypeParams.value.status = params.status
   loadData()
 }
 </script>

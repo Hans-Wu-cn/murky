@@ -1,9 +1,9 @@
 package cn.poem.solon.admin;
 
-import cn.poem.solon.admin.system.domain.dto.PoemI18nDTO;
-import cn.poem.solon.admin.system.domain.query.PoemI18nPageQuery;
-import cn.poem.solon.admin.system.domain.vo.PoemI18nVo;
-import cn.poem.solon.admin.system.mapper.PoemI18nMapper;
+import cn.poem.solon.admin.system.domain.dto.SysI18nDTO;
+import cn.poem.solon.admin.system.domain.query.SysI18nPageQuery;
+import cn.poem.solon.admin.system.domain.vo.SysI18nVo;
+import cn.poem.solon.admin.system.mapper.SysI18nMapper;
 import com.mybatisflex.core.paginate.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -18,15 +18,15 @@ import java.util.Map;
 @Slf4j
 public class I18nTest {
     @Inject
-    private PoemI18nMapper poemI18nMapper;
+    private SysI18nMapper poemI18nMapper;
 
     @Test
     public void i18nPage() {
-        PoemI18nDTO admin = new PoemI18nDTO().setI18nTag("admin");
+        SysI18nDTO admin = new SysI18nDTO().setI18nTag("admin");
 
-        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery()
+        SysI18nPageQuery poemI18nPageQuery = new SysI18nPageQuery()
                 .setI18nKeys(Arrays.asList("en", "zh-CN"))
-                .setPoemI18nDTO(admin);
+                .setSysI18nDTO(admin);
         Page<Map> page = poemI18nMapper.page(poemI18nPageQuery);
         log.debug(String.valueOf(page));
         assert page.getRecords().get(0).get("en") != null &&
@@ -35,12 +35,12 @@ public class I18nTest {
 
     @Test
     public void i18nInfo() {
-        PoemI18nDTO admin = new PoemI18nDTO().setI18nTag("admin").setI18nKey("1");
+        SysI18nDTO admin = new SysI18nDTO().setI18nTag("admin").setI18nKey("1");
 
-        PoemI18nPageQuery poemI18nPageQuery = new PoemI18nPageQuery()
+        SysI18nPageQuery poemI18nPageQuery = new SysI18nPageQuery()
                 .setI18nKeys(Arrays.asList("en", "zh-CN"))
-                .setPoemI18nDTO(admin);
-        PoemI18nVo info = poemI18nMapper.info(poemI18nPageQuery);
+                .setSysI18nDTO(admin);
+        SysI18nVo info = poemI18nMapper.info(poemI18nPageQuery);
         log.debug(String.valueOf(info));
         assert info != null;
     }

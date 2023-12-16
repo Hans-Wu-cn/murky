@@ -2,8 +2,6 @@ package cn.poem.solon.admin.utils;
 
 import cn.poem.solon.admin.PoemServiceImpl;
 import cn.poem.solon.admin.common.constant.BusTopicConstant;
-import cn.poem.solon.admin.domin.table.PoemDeptAncestorsTableDef;
-import cn.poem.solon.admin.domin.table.PoemRoleDeptTableDef;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
 import com.mybatisflex.core.query.QueryWrapper;

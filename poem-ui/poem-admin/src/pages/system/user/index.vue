@@ -27,7 +27,7 @@ import { useSettingStore } from '@/store';
 import { MessagePlugin, PaginationProps, PrimaryTableCol, TreeNodeModel } from 'tdesign-vue-next';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { getDeptList } from '@/api/system/dept';
-import { PoemDeptTree } from '@/api/system/dept/types';
+import { DeptTree } from '@/api/system/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { userPage, delUserInfo } from '@/api/system/user'
 import { PageUser } from '@/api/system/user/types'
@@ -51,7 +51,7 @@ const userQuery = ref<PageUser>({
 })
 
 // 部门数据
-const deptData = ref<PoemDeptTree[]>([]);
+const deptData = ref<DeptTree[]>([]);
 // 用户列表
 const userData = ref([])
 // 表格loading标记
@@ -196,7 +196,7 @@ const onRestPasswdSubmit = () => {
 * 加载列表数据
 */
 const getdeptTreeData = async () => {
-  let data: PoemDeptTree[] = [];
+  let data: DeptTree[] = [];
   const { code, result } = await getDeptList();
 
   if (ResultEnum.SUCCESS === code) {
@@ -222,7 +222,7 @@ const loadUserData = async () => {
 /**
  * 部门树点击事件
  */
-const deptTreeNodeClick = (context: { node: TreeNodeModel<PoemDeptTree>; e: MouseEvent }) => {
+const deptTreeNodeClick = (context: { node: TreeNodeModel<DeptTree>; e: MouseEvent }) => {
   console.log(context)
   userQuery.value.deptId = context.node.value as string
   loadUserData()

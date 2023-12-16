@@ -30,7 +30,7 @@ import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCo
 import { computed, onMounted, reactive, ref } from 'vue';
 import { delMenu, dragMenu, getMenuList } from '@/api/system/menu';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemMenu } from '@/api/system/menu/types';
+import { Menu } from '@/api/system/menu/types';
 import { menuConfig } from '../config';
 import { useRouter } from 'vue-router';
 import menuFrom from './menuFrom.vue';
@@ -40,7 +40,7 @@ import i18n from '@/i18n';
 
 const router = useRouter();
 const tableRef = ref();
-const tableData = ref<PoemMenu[]>();
+const tableData = ref<Menu[]>();
 //菜单loading标记
 const tableLoading = ref(false);
 //菜单列表数据
@@ -186,7 +186,7 @@ const searchSubmit = (params: any) => {
  * @param path 菜单路径
  * @param auth 菜单权限码
  */
-const recursion = (data: PoemMenu[], label: string, name: string, path: string, auth: string): PoemMenu[] => {
+const recursion = (data: Menu[], label: string, name: string, path: string, auth: string): Menu[] => {
     function searchStr(source: string, target: string) {
         if (target && source) {
             debugger
@@ -217,7 +217,7 @@ const searchReset = () => {
  * 加载列表数据
  */
 const getData = async () => {
-    let data: PoemMenu[] = [];
+    let data: Menu[] = [];
     const { code, result } = await getMenuList();
 
     if (ResultEnum.SUCCESS === code) {
@@ -243,7 +243,7 @@ const resetData = async () => {
  */
 const menuVisible = ref(false);
 const parentMenuId = ref('');
-const onAddClick = async (row: PoemMenu) => {
+const onAddClick = async (row: Menu) => {
     menuVisible.value = true;
     parentMenuId.value = row.menuId;
     poemId.value = ''
@@ -254,7 +254,7 @@ const onAddClick = async (row: PoemMenu) => {
  * @param row 当前行的菜单对象
  */
 const poemId = ref('')
-const onEditClick = async (row: PoemMenu) => {
+const onEditClick = async (row: Menu) => {
     menuVisible.value = true;
     parentMenuId.value = '';
     poemId.value = row.menuId
@@ -269,7 +269,7 @@ const submit = () => {
  * 删除菜单
  * @param row 当前行的菜单对象
  */
-const onDeleteClick = async (row: PoemMenu) => {
+const onDeleteClick = async (row: Menu) => {
     const { code } = await delMenu(row.menuId);
     if (ResultEnum.SUCCESS === code) {
         tableRef.value.remove(row.menuId);
@@ -281,7 +281,7 @@ const onDeleteClick = async (row: PoemMenu) => {
  * 菜单详情
  * @param row 当前行的菜单对象
  */
-const onLookUp = (row: PoemMenu) => {
+const onLookUp = (row: Menu) => {
     router.push(menuConfig.detailUrl + '?menuId=' + row.menuId)
 };
 const expandedTableTreeNodes = ref<Array<string | number>>(['1']); // 存储展开的数据

@@ -1,7 +1,7 @@
 import { BaseApiType, PageRequest } from '@/api/types';
 
 
-export interface PoemUser extends BaseApiType {
+export interface User extends BaseApiType {
   userId?: string,
   userName?: string,
   account?: string,

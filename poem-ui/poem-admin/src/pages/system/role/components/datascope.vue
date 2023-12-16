@@ -31,24 +31,24 @@
 </template>
 <script setup lang="tsx">
 import { onMounted, ref } from 'vue'
-import { PoemRole } from '@/api/system/role/types'
+import { Role } from '@/api/system/role/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addPoemRole, updatePoemRole, roleInfo } from '@/api/system/role';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemDeptTree } from '@/api/system/dept/types';
+import { DeptTree } from '@/api/system/dept/types';
 import { getDeptList } from '@/api/system/dept';
 import { dataScopeDict } from '../constants'
 import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
-const deptTree = ref<Array<PoemDeptTree>>();
+const deptTree = ref<Array<DeptTree>>();
 const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
   roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemRole>({
+const formData = ref<Role>({
   roleCode: '',
   roleName: '',
   describe: '',
@@ -72,7 +72,7 @@ const onReset = () => {
  * @param value 
  * @param context 
  */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemDeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<DeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
   formData.value.menuIds = menuIds
@@ -105,7 +105,7 @@ const initFromData = async (roleId: string) => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemRole>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<Role>) => {
   if (validateResult === true) {
     const api = formData.value.roleId ? updatePoemRole : addPoemRole
     const res = await api(formData.value);

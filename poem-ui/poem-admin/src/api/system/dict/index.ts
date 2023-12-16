@@ -1,14 +1,14 @@
 import { PageResponse } from "@/api/types";
-import { PagePoemDictData, PagePoemDictType, PoemDictData, PoemDictType } from "./types";
+import { PageDictData, PageDictType, DictData, DictType } from "./types";
 import { request } from '@/utils/request';
 
 const Api = {
-  dictType: '/poemDictType',
-  dictData: '/poemDictData',
-  dictTypePage: '/poemDictType/page',
-  dictDataPage: '/poemDictData/page',
-  dict: '/poemDictData/dict',
-  refresh: '/poemDictType/refresh',
+  dictType: '/dictType',
+  dictData: '/dictData',
+  dictTypePage: '/dictType/page',
+  dictDataPage: '/dictData/page',
+  dict: '/dictData/dict',
+  refresh: '/dictType/refresh',
 };
 
 
@@ -18,7 +18,7 @@ const Api = {
  * @returns Route
  */
 export function dict(params: string) {
-  return request.get<Array<PoemDictData>>({
+  return request.get<Array<DictData>>({
     url: `${Api.dict}/${params}`,
   });
 }
@@ -27,8 +27,8 @@ export function dict(params: string) {
  * 获取字典类型分页列表
  * @returns Route
  */
-export function dictTypePage(params: PagePoemDictType) {
-  return request.get<PageResponse<Array<PoemDictType>>>({
+export function dictTypePage(params: PageDictType) {
+  return request.get<PageResponse<Array<DictType>>>({
     url: Api.dictTypePage,
     params
   });
@@ -38,8 +38,8 @@ export function dictTypePage(params: PagePoemDictType) {
  * 获取字典数据分页列表
  * @returns Route
  */
-export function dictDataPage(params: PagePoemDictData) {
-  return request.get<PageResponse<Array<PoemDictData>>>({
+export function dictDataPage(params: PageDictData) {
+  return request.get<PageResponse<Array<DictData>>>({
     url: Api.dictDataPage,
     params
   });
@@ -49,7 +49,7 @@ export function dictDataPage(params: PagePoemDictData) {
  * 新增字典分类
  * @returns Route
  */
-export function addPoemDictType(data: PoemDictType) {
+export function addDictType(data: DictType) {
   return request.post({
     url: Api.dictType,
     data
@@ -60,7 +60,7 @@ export function addPoemDictType(data: PoemDictType) {
  * 新增字典数据
  * @returns Route
  */
-export function addPoemDictData(data: PoemDictData) {
+export function addDictData(data: DictData) {
   return request.post({
     url: Api.dictData,
     data
@@ -71,7 +71,7 @@ export function addPoemDictData(data: PoemDictData) {
  * 修改字典分类
  * @returns Route
  */
-export function editPoemDictType(data: PoemDictType) {
+export function editDictType(data: DictType) {
   return request.put({
     url: Api.dictType,
     data
@@ -82,7 +82,7 @@ export function editPoemDictType(data: PoemDictType) {
  * 修改字典数据
  * @returns Route
  */
-export function editPoemDictData(data: PoemDictData) {
+export function editDictData(data: DictData) {
   return request.put({
     url: Api.dictData,
     data
@@ -93,7 +93,7 @@ export function editPoemDictData(data: PoemDictData) {
  * 字典类型详情
  * @returns Route
  */
-export function PoemDictTypeInfo(dictTypeId: string) {
+export function dictTypeInfo(dictTypeId: string) {
   return request.get({
     url: `${Api.dictType}/${dictTypeId}`,
   });
@@ -103,7 +103,7 @@ export function PoemDictTypeInfo(dictTypeId: string) {
  * 字典数据详情
  * @returns Route
  */
-export function PoemDictDataInfo(dictCode: string) {
+export function dictDataInfo(dictCode: string) {
   return request.get({
     url: `${Api.dictData}/${dictCode}`,
   });
@@ -113,7 +113,7 @@ export function PoemDictDataInfo(dictCode: string) {
  * 删除字典分类
  * @returns Route
  */
-export function PoemDictTypeRemove(dictTypeId: string) {
+export function dictTypeRemove(dictTypeId: string) {
   return request.delete({
     url: `${Api.dictType}/${dictTypeId}`,
   });
@@ -123,7 +123,7 @@ export function PoemDictTypeRemove(dictTypeId: string) {
  * 删除字典数据
  * @returns Route
  */
-export function PoemDictDataRemove(dictDataId: string) {
+export function dictDataRemove(dictDataId: string) {
   return request.delete({
     url: `${Api.dictData}/${dictDataId}`,
   });

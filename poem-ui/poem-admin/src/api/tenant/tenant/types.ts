@@ -4,7 +4,7 @@ import { BaseApiType, PageRequest } from '@/api/types';
 /**
  * @param tenantName 租户名称
  */
-export interface PagePoemTenant extends PageRequest {
+export interface PageTenant extends PageRequest {
   tenantName?: string,
 }
 
@@ -19,7 +19,7 @@ export interface PagePoemTenant extends PageRequest {
  * @param status 状态
  * @param createTime 创建时间
  */
-export interface PoemTenant extends BaseApiType {
+export interface Tenant extends BaseApiType {
   tenantId: string,
   groupId: string,
   groupName: string,
@@ -41,7 +41,7 @@ export interface PoemTenant extends BaseApiType {
  * @param describe 描述
  * @param status 状态
  */
-export interface PoemTenantFrom extends BaseApiType {
+export interface TenantFrom extends BaseApiType {
   tenantId?: string,
   groupId: string,
   tenantName: string,

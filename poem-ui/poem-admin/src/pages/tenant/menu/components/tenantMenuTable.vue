@@ -31,7 +31,7 @@ import { EnhancedTable as TEnhancedTable, Loading, MessagePlugin, PrimaryTableCo
 import { computed, onMounted, reactive, ref } from 'vue';
 import { delMenu, dragMenu, getTenantMenuList } from '@/api/tenant/menu';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemTenantMenu } from '@/api/tenant/menu/types';
+import { TenantMenu } from '@/api/tenant/menu/types';
 import { menuConfig } from '../config';
 import { useRouter } from 'vue-router';
 import tenantMenuFrom from './tenantMenuFrom.vue';
@@ -41,7 +41,7 @@ import i18n from '@/i18n';
 
 const router = useRouter();
 const tableRef = ref();
-const tableData = ref<PoemTenantMenu[]>();
+const tableData = ref<TenantMenu[]>();
 //菜单loading标记
 const tableLoading = ref(false);
 //菜单列表数据
@@ -179,7 +179,7 @@ const searchSubmit = (params: any) => {
  * @param path 菜单路径
  * @param auth 菜单权限码
  */
-const recursion = (data: PoemTenantMenu[], label: string, name: string, path: string, auth: string): PoemTenantMenu[] => {
+const recursion = (data: TenantMenu[], label: string, name: string, path: string, auth: string): TenantMenu[] => {
     function searchStr(source: string, target: string) {
         if (target && source) {
             debugger
@@ -210,7 +210,7 @@ const searchReset = () => {
  * 加载列表数据
  */
 const getData = async () => {
-    let data: PoemTenantMenu[] = [];
+    let data: TenantMenu[] = [];
     const { code, result } = await getTenantMenuList();
 
     if (ResultEnum.SUCCESS === code) {
@@ -236,7 +236,7 @@ const resetData = async () => {
  */
 const menuVisible = ref(false);
 const parentTenantMenuId = ref('');
-const onAddClick = async (row: PoemTenantMenu) => {
+const onAddClick = async (row: TenantMenu) => {
     menuVisible.value = true;
     parentTenantMenuId.value = row.tenantMenuId;
     tenantMenuId.value = ''
@@ -247,7 +247,7 @@ const onAddClick = async (row: PoemTenantMenu) => {
  * @param row 当前行的菜单对象
  */
 const tenantMenuId = ref('')
-const onEditClick = async (row: PoemTenantMenu) => {
+const onEditClick = async (row: TenantMenu) => {
     menuVisible.value = true;
     parentTenantMenuId.value = '';
     tenantMenuId.value = row.tenantMenuId
@@ -262,7 +262,7 @@ const submit = () => {
  * 删除菜单
  * @param row 当前行的菜单对象
  */
-const onDeleteClick = async (row: PoemTenantMenu) => {
+const onDeleteClick = async (row: TenantMenu) => {
     const { code } = await delMenu(row.tenantMenuId);
     if (ResultEnum.SUCCESS === code) {
         tableRef.value.remove(row.tenantMenuId);
@@ -274,7 +274,7 @@ const onDeleteClick = async (row: PoemTenantMenu) => {
  * 菜单详情
  * @param row 当前行的菜单对象
  */
-const onLookUp = (row: PoemTenantMenu) => {
+const onLookUp = (row: TenantMenu) => {
     router.push(menuConfig.detailUrl + '?tenantMenuId=' + row.tenantMenuId)
 };
 

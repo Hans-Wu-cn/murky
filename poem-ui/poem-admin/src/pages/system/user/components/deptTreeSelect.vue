@@ -4,7 +4,7 @@
 </template>
 <script setup lang="ts">
 import { getDeptList } from '@/api/system/dept';
-import { PoemDeptTree } from '@/api/system/dept/types';
+import { DeptTree } from '@/api/system/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useVModels } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
@@ -18,7 +18,7 @@ const emit = defineEmits<{
 }>()
 const { value } = useVModels(props, emit);
 //部门数据
-const deptTree = ref<PoemDeptTree[]>();
+const deptTree = ref<DeptTree[]>();
 const deptTreeKeys = { keys: { value: 'deptId', label: 'deptName', children: 'children' } }
 const getdeptTreeData = async () => {
     const { code, result } = await getDeptList();
