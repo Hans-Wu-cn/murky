@@ -41,7 +41,6 @@ public class DataScopeUtils {
         }else{
             deptIdFrom="";
         }
-        StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList());
         for (DataScope dataScope : dataScopes) {
             if (DataScope.ALL.equals(dataScope)) {
                 break;
@@ -49,22 +48,22 @@ public class DataScopeUtils {
             StringBuilder sql=new StringBuilder();
             if (DataScope.CUSTOMIZE.equals(dataScope)) {
                 sql.append(STR."""
-                         \{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList())}))""");
+                          \{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList())}))""");
             }
             if (DataScope.DEPARTMENT_BELOW.equals(dataScope)) {
                 sql.append(STR."""
-                          (\{deptIdFrom}dept_id in (select \{DEPT_TABLE_NAME}.dept_id from sys_dept_ancestors as \{DEPT_TABLE_NAME} where \{DEPT_TABLE_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}dept_id=\{userInfo.getDeptId()})
+                           (\{deptIdFrom}dept_id in (select \{DEPT_TABLE_NAME}.dept_id from sys_dept_ancestors as \{DEPT_TABLE_NAME} where \{DEPT_TABLE_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}dept_id=\{userInfo.getDeptId()})
                           """);
 
             }
             if (DataScope.DEPARTMENT.equals(dataScope)) {
                 sql.append(STR."""
-                         \{deptIdFrom}dept_id=\{userInfo.getDeptId().toString()}
+                          \{deptIdFrom}dept_id=\{userInfo.getDeptId().toString()}
                         """);
             }
             if (DataScope.ONESELF.equals(dataScope)) {
                 sql.append(STR."""
-                        create_user = \{userInfo.getUserId().toString()}
+                         create_user = \{userInfo.getUserId().toString()}
                         """);
             }
 
