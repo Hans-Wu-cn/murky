@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>poem-admin-tenant-biz</artifactId>
-
+    <packaging>jar</packaging>
     <dependencies>
 
     </dependencies>

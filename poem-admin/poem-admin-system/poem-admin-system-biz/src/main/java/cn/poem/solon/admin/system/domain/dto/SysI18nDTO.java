@@ -1,6 +1,6 @@
 package cn.poem.solon.admin.system.domain.dto;
 
-import cn.poem.solon.validat.Info;
+import cn.poem.solon.core.validat.Info;
 import cn.poem.solon.admin.system.domain.entity.SysI18n;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.ApiModel;

@@ -11,7 +11,7 @@ import cn.poem.solon.admin.system.domain.entity.table.SysRoleMenuTableDef;
 import cn.poem.solon.admin.system.mapper.SysMenuMapper;
 import cn.poem.solon.admin.system.mapper.SysRoleMenuMapper;
 import cn.poem.solon.admin.system.service.ISysMenuService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;

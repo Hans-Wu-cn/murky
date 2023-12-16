@@ -3,7 +3,7 @@ package cn.poem.solon.admin.core.filter;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.poem.solon.enums.ApiResultEnum;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.utils.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.dami.exception.DamiException;

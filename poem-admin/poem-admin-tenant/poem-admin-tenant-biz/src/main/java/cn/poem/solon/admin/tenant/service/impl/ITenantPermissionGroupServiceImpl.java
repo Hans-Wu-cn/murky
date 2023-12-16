@@ -10,7 +10,7 @@ import cn.poem.solon.admin.tenant.mapper.TenantGroupMenuMapper;
 import cn.poem.solon.admin.tenant.mapper.TenantMenuMapper;
 import cn.poem.solon.admin.tenant.mapper.TenantPermissionGroupMapper;
 import cn.poem.solon.admin.tenant.service.ITenantPermissionGroupService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;

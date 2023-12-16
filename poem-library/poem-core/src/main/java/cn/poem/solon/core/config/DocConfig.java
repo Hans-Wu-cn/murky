@@ -1,4 +1,4 @@
-package cn.poem.solon.config;
+package cn.poem.solon.core.config;
 
 
 //import com.github.xiaoymin.knife4j.solon.extension.OpenApiExtensionResolver;

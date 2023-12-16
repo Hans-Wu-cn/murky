@@ -7,7 +7,7 @@ import cn.poem.solon.admin.system.domain.entity.SysDictType;
 import cn.poem.solon.admin.system.mapper.SysDictTypeMapper;
 import cn.poem.solon.admin.system.service.ISysDictDataService;
 import cn.poem.solon.admin.system.service.ISysDictTypeService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.redisx.RedisClient;

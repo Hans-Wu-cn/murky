@@ -1,8 +1,8 @@
 package cn.poem.solon.admin.core;
 
 
-import cn.poem.solon.record.PasswordRecord;
-import cn.poem.solon.utils.EncryptionUtil;
+import cn.poem.solon.core.record.PasswordRecord;
+import cn.poem.solon.core.utils.EncryptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

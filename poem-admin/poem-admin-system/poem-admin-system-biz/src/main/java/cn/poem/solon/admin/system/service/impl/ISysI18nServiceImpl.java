@@ -9,7 +9,7 @@ import cn.poem.solon.admin.system.domain.vo.SysI18nVo;
 import cn.poem.solon.admin.system.mapper.SysI18nMapper;
 import cn.poem.solon.admin.system.service.ISysDictDataService;
 import cn.poem.solon.admin.system.service.ISys18nService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.snack.ONode;

@@ -3,7 +3,7 @@ package cn.poem.solon.admin.system.domain.dto;
 
 import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.admin.system.domain.convert.SysMenuConvert;
-import cn.poem.solon.validat.Update;
+import cn.poem.solon.core.validat.Update;
 import cn.poem.solon.admin.system.domain.entity.SysMenu;
 import cn.poem.solon.admin.system.enums.MenuCacheType;
 import cn.poem.solon.admin.system.enums.MenuDisplayType;

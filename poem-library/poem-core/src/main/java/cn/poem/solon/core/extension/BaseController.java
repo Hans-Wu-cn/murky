@@ -1,4 +1,4 @@
-package cn.poem.solon.extension;
+package cn.poem.solon.core.extension;
 
 import cn.poem.solon.utils.ApiResult;
 import com.mybatisflex.core.service.IService;

@@ -2,7 +2,7 @@ package cn.poem.solon.admin.tenant.domain.dto;
 
 import cn.poem.solon.admin.tenant.domain.convert.TenantPermissionGroupConvert;
 import cn.poem.solon.admin.tenant.domain.entity.TenantPermissionGroup;
-import cn.poem.solon.validat.Update;
+import cn.poem.solon.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

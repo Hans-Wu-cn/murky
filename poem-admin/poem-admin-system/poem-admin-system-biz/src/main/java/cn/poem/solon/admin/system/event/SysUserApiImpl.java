@@ -19,7 +19,7 @@ import cn.poem.solon.admin.system.mapper.SysRoleMapper;
 import cn.poem.solon.admin.system.mapper.SysUserRoleMapper;
 import cn.poem.solon.admin.system.service.ISysDictDataService;
 import cn.poem.solon.admin.system.service.ISysUserService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;

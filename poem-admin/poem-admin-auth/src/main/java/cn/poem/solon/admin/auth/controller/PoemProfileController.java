@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.auth.controller;
 
 import cn.poem.solon.admin.system.api.SysUserApi;
-import cn.poem.solon.extension.BaseController;
+import cn.poem.solon.core.extension.BaseController;
 import cn.poem.solon.utils.ApiResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

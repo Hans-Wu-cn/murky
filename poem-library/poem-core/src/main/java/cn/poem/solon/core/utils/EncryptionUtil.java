@@ -1,6 +1,6 @@
-package cn.poem.solon.utils;
+package cn.poem.solon.core.utils;
 
-import cn.poem.solon.record.PasswordRecord;
+import cn.poem.solon.core.record.PasswordRecord;
 import org.noear.solon.Utils;
 
 public class EncryptionUtil {

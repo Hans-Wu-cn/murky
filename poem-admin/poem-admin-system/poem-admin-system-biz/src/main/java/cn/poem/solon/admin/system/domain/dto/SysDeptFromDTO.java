@@ -2,7 +2,7 @@ package cn.poem.solon.admin.system.domain.dto;
 
 import cn.poem.solon.admin.system.domain.convert.SysDeptConvert;
 import cn.poem.solon.admin.system.domain.entity.SysDept;
-import cn.poem.solon.validat.Update;
+import cn.poem.solon.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

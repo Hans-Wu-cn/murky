@@ -11,6 +11,12 @@
 
     <artifactId>poem-admin-tenant</artifactId>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>poem-admin-tenant-biz</module>
+    </modules>
+
+
     <dependencies>
         <!--poem核心依赖包-->
         <dependency>

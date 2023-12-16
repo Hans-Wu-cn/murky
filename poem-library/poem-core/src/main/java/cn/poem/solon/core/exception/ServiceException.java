@@ -1,4 +1,4 @@
-package cn.poem.solon.exception;
+package cn.poem.solon.core.exception;
 
 public class ServiceException extends RuntimeException{
     public final Integer CODE=500;

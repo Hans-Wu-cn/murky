@@ -1,7 +1,7 @@
 package cn.poem.solon.admin.tenant.domain.dto;
 
-import cn.poem.solon.validat.Insert;
-import cn.poem.solon.validat.Update;
+import cn.poem.solon.core.validat.Insert;
+import cn.poem.solon.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

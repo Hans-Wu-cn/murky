@@ -13,9 +13,6 @@
     <artifactId>main</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-    </properties>
-
     <dependencies>
         <!--单元测试依赖-->
         <dependency>

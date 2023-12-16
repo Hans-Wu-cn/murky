@@ -15,7 +15,7 @@ import cn.poem.solon.admin.system.mapper.SysRoleDeptMapper;
 import cn.poem.solon.admin.system.mapper.SysRoleMapper;
 import cn.poem.solon.admin.system.mapper.SysRoleMenuMapper;
 import cn.poem.solon.admin.system.service.ISysRoleService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;

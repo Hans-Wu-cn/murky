@@ -54,7 +54,7 @@
             <artifactId>poem-flex</artifactId>
         </dependency>
 
-        <!--mybatis-flex 依赖-->
+        <!-- common 依赖-->
         <dependency>
             <groupId>cn.poem.solon</groupId>
             <artifactId>poem-common</artifactId>

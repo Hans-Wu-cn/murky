@@ -10,7 +10,7 @@ import cn.poem.solon.admin.system.mapper.SysDeptMapper;
 import cn.poem.solon.admin.system.mapper.SysUserMapper;
 import cn.poem.solon.admin.system.mapper.SysDeptAncestorsMapper;
 import cn.poem.solon.admin.system.service.ISysDeptService;
-import cn.poem.solon.exception.ServiceException;
+import cn.poem.solon.core.exception.ServiceException;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;

@@ -20,7 +20,6 @@
         <module>poem-admin-tenant</module>
         <module>poem-admin-gen</module>
         <module>poem-admin-system</module>
-        <module>poem-admin-tenant</module>
     </modules>
 
     <properties>
@@ -33,43 +32,43 @@
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-security</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-core 核心模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-core</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-flex mybatis-flex配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-flex</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-common</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-system-biz</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-system-api</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--poem-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-auth</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--dami 依赖-->
             <dependency>
@@ -81,7 +80,7 @@
             <dependency>
                 <groupId>cn.poem.solon.admin</groupId>
                 <artifactId>poem-admin-tenant-biz</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

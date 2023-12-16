@@ -1,4 +1,4 @@
-package cn.poem.solon.web;
+package cn.poem.solon.core.web;
 
 import org.noear.snack.core.exts.EnumWrap;
 import org.noear.snack.core.utils.TypeUtil;
