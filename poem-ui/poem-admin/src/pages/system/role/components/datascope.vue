@@ -13,9 +13,9 @@
           <t-option v-for="item in dataScopeDict" :key="item.value" :label="item.label" :value="item.value" />
         </t-select>
       </t-form-item>
-      <t-form-item v-if="formData.dataScope === 1" :label="$t('role.button.power')" name="menuIds">
+      <t-form-item v-if="formData.dataScope === 1" :label="$t('role.button.power')" name="deptIds">
         <div class="treeBox">
-          <t-tree hover expand-all v-model="formData.menuIds" :data="deptTree" :keys="deptTreeKeys" checkable
+          <t-tree hover expand-all v-model="formData.deptIds" :data="deptTree" :keys="deptTreeKeys" checkable
             value-mode="all" @change="treeOnChange" checkStrictly />
         </div>
       </t-form-item>
@@ -73,9 +73,9 @@ const onReset = () => {
  * @param context 
  */
 const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<DeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
-  const menuIds = Array<string>();
-  value.forEach(item => menuIds.push(item as string))
-  formData.value.menuIds = menuIds
+  let deptIds = Array<string>();
+  value.forEach(item => deptIds.push(item as string))
+  formData.value.deptIds = deptIds
 }
 
 /**
@@ -89,7 +89,7 @@ const initFromData = async (roleId: string) => {
       roleName: '',
       describe: '',
       dataScope: 0,
-      menuIds: []
+      deptIds: [],
     }
     roleFromId.value = undefined
     return

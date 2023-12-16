@@ -60,7 +60,6 @@ public class SysRoleController extends BaseController<ISysRoleService> {
         List<SysRole> result = baseService.list(
                 QueryWrapper.create()
                 .and(SYS_ROLE.ROLE_CODE.ne(SystemContant.ADMIN_ROLE_CODE))
-                .and(SYS_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
                         .orderBy(SYS_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);

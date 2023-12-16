@@ -33,5 +33,4 @@
             <artifactId>dami-solon-plugin</artifactId>
         </dependency>
     </dependencies>
-
 </project>

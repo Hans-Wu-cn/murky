@@ -83,6 +83,7 @@ public class SysUserApiImpl implements SysUserApi {
                     .stream().map(SysUserRole::getRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
+            userInfo.setAdmin(false);
             //查询角色code列表
             List<SysRole> poemRoles = sysRoleMapper.selectListByIds(roleIds);
             List<String> roleCodes = poemRoles.stream().map(item -> {

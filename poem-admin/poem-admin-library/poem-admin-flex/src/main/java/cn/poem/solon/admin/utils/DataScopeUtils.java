@@ -5,8 +5,10 @@ import cn.poem.solon.admin.common.constant.BusTopicConstant;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.dami.Dami;
+import org.noear.solon.Utils;
 
 import java.text.MessageFormat;
 import java.util.HashSet;
@@ -21,55 +23,74 @@ import java.util.Set;
  */
 @Slf4j
 public class DataScopeUtils {
+    public static final String DEPT_TABLE_NAME = "department";
 
     /**
      * 数据权限方法，将query绑定数据权限sql
      * @param query query
      * @param userInfo 用户信息
      */
-    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo){
+    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo,String deptIdFrom){
         if(userInfo.getAdmin()){
             return;
         }
         Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
+        if(Utils.isNotEmpty(deptIdFrom)){
+            deptIdFrom=STR."""
+                    " \{deptIdFrom}".""";
+        }else{
+            deptIdFrom="";
+        }
+        StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList());
         for (DataScope dataScope : dataScopes) {
             if (DataScope.ALL.equals(dataScope)) {
                 break;
             }
             StringBuilder sql=new StringBuilder();
             if (DataScope.CUSTOMIZE.equals(dataScope)) {
-                sql.append(MessageFormat.format(" dept_id in (select dept_id from poem_role_dept where role_id in ({0}))",userInfo.getRoleIds()));
-//                query.and(MessageFormat.format("dept_id in (select dept_id from poem_role_dept where role_id in ({0}))",userInfo.getRoleIds()));
+                sql.append(STR."""
+                         \{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList())}))""");
             }
             if (DataScope.DEPARTMENT_BELOW.equals(dataScope)) {
-                sql.append(MessageFormat.format(" (dept_id in (select dept_id from poem_dept_ancestors where ancestors = {0}) or dept_id={0})",userInfo.getDeptId().toString()));
-
-//                query.and(MessageFormat.format("(dept_id in (select dept_id from poem_dept_ancestors where ancestors = {0}) or dept_id={0})",userInfo.getDeptId().toString()));
+                sql.append(STR."""
+                          (\{deptIdFrom}dept_id in (select \{DEPT_TABLE_NAME}.dept_id from sys_dept_ancestors as \{DEPT_TABLE_NAME} where \{DEPT_TABLE_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}dept_id=\{userInfo.getDeptId()})
+                          """);
 
             }
             if (DataScope.DEPARTMENT.equals(dataScope)) {
-                sql.append(MessageFormat.format(" dept_id={0}",userInfo.getDeptId().toString()));
-
-//                query.and(MessageFormat.format("dept_id={0}",userInfo.getDeptId().toString()));
+                sql.append(STR."""
+                         \{deptIdFrom}dept_id=\{userInfo.getDeptId().toString()}
+                        """);
             }
             if (DataScope.ONESELF.equals(dataScope)) {
-                sql.append(MessageFormat.format(" create_user = {0}",userInfo.getUserId().toString()));
-
-//                query.and(MessageFormat.format("create_user = {0}",userInfo.getUserId().toString()));
+                sql.append(STR."""
+                        create_user = \{userInfo.getUserId().toString()}
+                        """);
             }
 
             if(sql.isEmpty()){
                 continue;
             }
-            query.and(MessageFormat.format("({0})",sql));
+            query.and(STR."""
+                    (\{sql})
+                    """);
         }
         log.debug("sql=================="+query.toSQL());
     }
 
+    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo){
+        dataScope(query,userInfo,null);
+    }
     public static QueryWrapper dataScope(QueryWrapper query){
         dataScope(query,getUserInfo());
         return query;
     }
+
+    public static QueryWrapper dataScope(QueryWrapper query,String deptIdFrom){
+        dataScope(query,getUserInfo(),deptIdFrom);
+        return query;
+    }
+
 
     private static SecurityUserInfo getUserInfo(){
         return Dami.<String, SecurityUserInfo>bus().sendAndRequest(BusTopicConstant.USER_INFO_TOPIC,null);
