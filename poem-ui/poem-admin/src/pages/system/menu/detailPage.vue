@@ -2,7 +2,12 @@
     <div class="detailPage">
         <t-card :bordered="false" title="菜单信息">
             <t-skeleton :loading="loading" animation="gradient">
-                <descriptions :desc="desc"></descriptions>
+                <descriptions :desc="desc">
+                    <template #icon="scope">
+                        <t-icon v-if="scope.item.iconType" :name="scope.scope" />
+                        <img class="icon-options" v-else @error="scope.item.iconType = true" :src="scope.scope" alt="icon">
+                    </template>
+                </descriptions>
             </t-skeleton>
         </t-card>
     </div>
@@ -34,7 +39,8 @@ const desc = ref<DescItem[]>([
         label: computed(() => i18n.global.t('menu.label.icon')),
         value: '',
         code: 'icon',
-        column: 3
+        column: 3,
+        slotName:'icon'
     },
     {
         label: computed(() => i18n.global.t('menu.label.type')),
@@ -144,6 +150,11 @@ queryMenuDetail()
 
         :deep(.t-skeleton) {
             margin-top: 20px;
+        }
+        img.icon-options {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
         }
     }
 }
