@@ -72,21 +72,22 @@ public class SysUserApiImpl implements SysUserApi {
         return Optional.ofNullable(userInfoCache).orElseGet(() -> {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Long loginId = StpUtil.getLoginIdAsLong();
-            SysUser poemUser = iSysUserService.getById(loginId);
+            SysUser sysUser = iSysUserService.getById(loginId);
             SecurityUserInfo userInfo = new SecurityUserInfo().setUserId(loginId)
-                    .setUserName(poemUser.getUserName())
-                    .setLanguage(poemUser.getLanguage())
-                    .setDeptId(poemUser.getDeptId())
+                    .setEmail(sysUser.getEmail())
+                    .setUserName(sysUser.getUserName())
+                    .setLanguage(sysUser.getLanguage())
+                    .setDeptId(sysUser.getDeptId())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
-            Set<Long> roleIds = sysUserRoleMapper.selectByUserId(poemUser.getUserId())
+            Set<Long> roleIds = sysUserRoleMapper.selectByUserId(sysUser.getUserId())
                     .stream().map(SysUserRole::getRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
             userInfo.setAdmin(false);
             //查询角色code列表
-            List<SysRole> poemRoles = sysRoleMapper.selectListByIds(roleIds);
-            List<String> roleCodes = poemRoles.stream().map(item -> {
+            List<SysRole> sysRoleList = sysRoleMapper.selectListByIds(roleIds);
+            List<String> roleCodes = sysRoleList.stream().map(item -> {
                 if (SystemContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())) {
                     userInfo.setAdmin(true);
                 }
@@ -94,7 +95,7 @@ public class SysUserApiImpl implements SysUserApi {
             }).collect(Collectors.toList());
             userInfo.setRoleCodes(roleCodes);
             //查询数据权限信息
-            Set<DataScope> dataScopes = poemRoles.stream().map(SysRole::getDataScope).collect(Collectors.toSet());
+            Set<DataScope> dataScopes = sysRoleList.stream().map(SysRole::getDataScope).collect(Collectors.toSet());
             dataScopes.forEach(userInfo::addDataScope);
             //查询权限列表
             List<String> permissions = SysMenuMapper.selectByMenuType(
@@ -116,8 +117,8 @@ public class SysUserApiImpl implements SysUserApi {
         if(Utils.isEmpty(list)){
             throw new ServiceException("系统暂不支持该语言");
         }
-        SysUser poemUser = new SysUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
-        boolean b = iSysUserService.updateById(poemUser);
+        SysUser sysUser = new SysUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
+        boolean b = iSysUserService.updateById(sysUser);
         if(b){
             SecurityUserInfo userInfo = SecurityUtils.getUserInfo();
             userInfo.setLanguage(language);

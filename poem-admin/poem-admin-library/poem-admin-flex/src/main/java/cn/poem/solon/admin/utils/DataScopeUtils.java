@@ -37,7 +37,7 @@ public class DataScopeUtils {
         Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
         if(Utils.isNotEmpty(deptIdFrom)){
             deptIdFrom=STR."""
-                    " \{deptIdFrom}".""";
+                     "\{deptIdFrom}".""";
         }else{
             deptIdFrom="";
         }

@@ -38,7 +38,12 @@ public class SecurityUserInfo implements Serializable {
     private Boolean admin;
 
     /**
-     * 所属部门id
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 语言偏好
      */
     private String language;
 
