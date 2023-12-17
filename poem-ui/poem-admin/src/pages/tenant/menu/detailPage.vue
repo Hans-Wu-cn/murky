@@ -2,7 +2,12 @@
     <div class="detailPage">
         <t-card :bordered="false" title="菜单信息">
             <t-skeleton :loading="loading" animation="gradient">
-                <descriptions :desc="desc"></descriptions>
+                <descriptions :desc="desc">
+                    <template #icon="scope">
+                        <t-icon v-if="scope.item.iconType" :name="scope.scope" />
+                        <img class="icon-options" v-else @error="scope.item.iconType = true" :src="scope.scope" alt="icon">
+                    </template>
+                </descriptions>
             </t-skeleton>
         </t-card>
     </div>
