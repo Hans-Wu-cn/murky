@@ -18,4 +18,5 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
         DataScopeUtils.dataScope(queryWrapper, userInfo);
         return this.selectListByQuery(queryWrapper);
     }
+
 }

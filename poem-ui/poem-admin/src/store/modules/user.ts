@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
         throw message;
       }
     },
-    async getUserInfo() {
+    async initUserInfo() {
       const { result, code } = await getUserInfo();
       if (ResultEnum.SUCCESS === code) {
         console.log('info', result)
@@ -50,6 +50,17 @@ export const useUserStore = defineStore('user', {
         if (result.language) {
           useI18nStore().changeLanguage(result.language)
         }
+      }
+    },
+    async getUserInfo() {
+      if (this.userInfo) {
+        return this.userInfo
+      }
+      const { result, code } = await getUserInfo();
+      if (ResultEnum.SUCCESS === code) {
+        console.log('info', result)
+        this.userInfo = result;
+        return this.userInfo
       }
     },
     async logout() {

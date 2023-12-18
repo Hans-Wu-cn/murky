@@ -1,6 +1,6 @@
 import type { UserInfo } from '@/types/interface';
 import { request } from '@/utils/request';
-import { Route } from './types';
+import { ProfileInfo, Route } from './types';
 
 const Api = {
   menuList: '/auth/menu',
@@ -8,6 +8,7 @@ const Api = {
   logout: '/auth/logout',
   userInfo: '/auth/info',
   languagePreference: '/profile/language',
+  profileInfo: '/profile',
 };
 
 /**
@@ -39,6 +40,17 @@ export function logout() {
 export function getUserInfo() {
   return request.get<UserInfo>({
     url: Api.userInfo,
+  });
+}
+
+
+/**
+ * 获取用户详情信息
+ * @returns
+ */
+export function profileInfo() {
+  return request.get<ProfileInfo>({
+    url: Api.profileInfo,
   });
 }
 

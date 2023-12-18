@@ -78,6 +78,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
                 .and(SYS_USER.USER_ID.ne(SecurityUtils.getUserId()))
                 .and(SYS_USER.USER_ID.ne(SystemContant.ADMIN_USER_ID))
                 .orderBy(SYS_USER.CREATE_TIME.asc());
-        return paginateAs(poemUserPageDTO.getPageNumber(), poemUserPageDTO.getPageSize(), DataScopeUtils.dataScope(queryWrapper,SYS_DEPT.getTableName()), SysUserPageVo.class);
+        return paginateAs(poemUserPageDTO.getPageNumber(), poemUserPageDTO.getPageSize(), DataScopeUtils.dataScope(queryWrapper,SYS_USER.getTableName()), SysUserPageVo.class);
     }
 }

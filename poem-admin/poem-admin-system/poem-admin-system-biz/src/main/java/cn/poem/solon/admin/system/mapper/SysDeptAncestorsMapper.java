@@ -53,7 +53,7 @@ public interface SysDeptAncestorsMapper extends BaseMapper<SysDeptAncestors> {
     }
 
     /**
-     * 根绝部门id删除
+     * 根据部门id删除
      *
      * @param deptId 部门id
      */

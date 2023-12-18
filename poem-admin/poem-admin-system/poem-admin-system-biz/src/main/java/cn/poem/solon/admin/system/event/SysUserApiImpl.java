@@ -4,19 +4,20 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.poem.solon.admin.common.entity.SecurityUserInfo;
 import cn.poem.solon.admin.common.enums.DataScope;
+import cn.poem.solon.admin.domin.SysDeptAncestors;
 import cn.poem.solon.admin.domin.SysUser;
 import cn.poem.solon.admin.domin.tab.SysUserTableDef;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import cn.poem.solon.admin.system.api.SysUserApi;
+import cn.poem.solon.admin.system.api.domian.UserProfile;
 import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.admin.system.contant.SystemContant;
-import cn.poem.solon.admin.system.domain.entity.SysDictData;
-import cn.poem.solon.admin.system.domain.entity.SysMenu;
-import cn.poem.solon.admin.system.domain.entity.SysRole;
-import cn.poem.solon.admin.system.domain.entity.SysUserRole;
+import cn.poem.solon.admin.system.domain.entity.*;
+import cn.poem.solon.admin.system.mapper.SysDeptAncestorsMapper;
 import cn.poem.solon.admin.system.mapper.SysMenuMapper;
 import cn.poem.solon.admin.system.mapper.SysRoleMapper;
 import cn.poem.solon.admin.system.mapper.SysUserRoleMapper;
+import cn.poem.solon.admin.system.service.ISysDeptService;
 import cn.poem.solon.admin.system.service.ISysDictDataService;
 import cn.poem.solon.admin.system.service.ISysUserService;
 import cn.poem.solon.core.exception.ServiceException;
@@ -47,6 +48,10 @@ public class SysUserApiImpl implements SysUserApi {
     private SysMenuMapper SysMenuMapper;
     @Inject
     private ISysDictDataService iSysDictDataService;
+    @Inject
+    private SysDeptAncestorsMapper sysDeptAncestorsMapper;
+    @Inject
+    private ISysDeptService iSysDeptService;
 
     /**
      * 根据账号查询用户
@@ -105,6 +110,24 @@ public class SysUserApiImpl implements SysUserApi {
             SecurityUtils.setUserInfo(userInfo);
             return userInfo;
         });
+    }
+
+    @Override
+    public UserProfile getProfile(Long userId) {
+        SysUser sysUser = iSysUserService.getById(userId);
+        List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
+                .stream().map(SysUserRole::getRoleId).toList();
+        List<String> roleNameList = sysRoleMapper.selectListByIds(roleIds).stream().map(SysRole::getRoleName).toList();
+        List<Long> deptIds = new java.util.ArrayList<>(sysDeptAncestorsMapper.getListByDeptId(sysUser.getDeptId()).stream().map(SysDeptAncestors::getAncestors).toList());
+        deptIds.add(sysUser.getDeptId());
+        List<String> deptNameList = iSysDeptService.listByIds(deptIds).stream().map(SysDept::getDeptName).toList();
+        return new UserProfile()
+                .setUserName(sysUser.getUserName())
+                .setEmail(sysUser.getEmail())
+                .setCreateTime(sysUser.getCreateTime())
+                .setRoleNameList(roleNameList)
+                .setDeptNameList(deptNameList)
+                ;
     }
 
     /**

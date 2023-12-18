@@ -44,7 +44,7 @@ public class ISysRoleServiceImpl extends PoemServiceImpl<SysRoleMapper, SysRole>
     private SysMenuMapper SysMenuMapper;
 
     /**
-     * 修改角色以及角色菜单关系
+     * 查询角色以及角色菜单关系
      *
      * @param roleId 角色id
      * @return 角色视图对象，包含菜单信息
