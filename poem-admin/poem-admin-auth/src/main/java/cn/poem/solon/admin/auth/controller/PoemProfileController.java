@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.auth.controller;
 
+import cn.poem.solon.admin.auth.domain.dto.EditPasswordDTO;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import cn.poem.solon.admin.system.api.SysUserApi;
 import cn.poem.solon.admin.system.api.domian.UserProfile;
@@ -42,6 +43,13 @@ public class PoemProfileController extends BaseController {
     @Mapping
     public ApiResult<?> editProfile(@Body ProfileFromDTO profileFromDTO) {
         return toResult(sysUserApi.setProfile(profileFromDTO));
+    }
+
+    @Put
+    @ApiOperation("修改密码")
+    @Mapping
+    public ApiResult<?> editProfile(@Body EditPasswordDTO editPasswordDTO) {
+        return toResult(sysUserApi.setPassword(editPasswordDTO.getOldPassword(),editPasswordDTO.getPassword(),editPasswordDTO.getSurePassword()));
     }
 
 }

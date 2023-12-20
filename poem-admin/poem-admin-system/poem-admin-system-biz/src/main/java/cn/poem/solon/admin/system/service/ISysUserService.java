@@ -1,6 +1,7 @@
 package cn.poem.solon.admin.system.service;
 
 import cn.poem.solon.admin.domin.SysUser;
+import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
 import cn.poem.solon.admin.system.domain.dto.SysUserFromDTO;
 import cn.poem.solon.admin.system.domain.dto.SysUserPageDTO;
 import cn.poem.solon.admin.system.domain.vo.SysUserPageVo;
@@ -36,11 +37,11 @@ public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 重置用户密码
-     * @param userId 用户id
-     * @param password 密码
+     *
+     * @param resetPasswordDto
      * @return 重置成功状态
      */
-    boolean resetPassword(Long userId,String password);
+    boolean resetPassword(ResetPasswordDto resetPasswordDto);
 
     /**
      * 重写分页方法

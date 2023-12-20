@@ -13,6 +13,7 @@ import cn.poem.solon.admin.system.api.domian.UserProfile;
 import cn.poem.solon.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.admin.system.contant.SystemContant;
+import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
 import cn.poem.solon.admin.system.domain.entity.*;
 import cn.poem.solon.admin.system.mapper.SysDeptAncestorsMapper;
 import cn.poem.solon.admin.system.mapper.SysMenuMapper;
@@ -22,6 +23,8 @@ import cn.poem.solon.admin.system.service.ISysDeptService;
 import cn.poem.solon.admin.system.service.ISysDictDataService;
 import cn.poem.solon.admin.system.service.ISysUserService;
 import cn.poem.solon.core.exception.ServiceException;
+import cn.poem.solon.core.record.PasswordRecord;
+import cn.poem.solon.core.utils.EncryptionUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
@@ -140,6 +143,27 @@ public class SysUserApiImpl implements SysUserApi {
         return sysUser.setUserName(profileFromDTO.getUserName())
                 .setEmail(profileFromDTO.getEmail())
                 .setSex(profileFromDTO.getSex()).updateById();
+    }
+
+    /**
+     * 修改密码
+     *  @param oldPassword 旧密码
+     *  @param password 新密码
+     *  @param surePassword 确定新密码
+     * @return 修改状态
+     */
+    @Override
+    public boolean setPassword(String oldPassword, String password, String surePassword) {
+        Long userId = SecurityUtils.getUserId();
+        SysUser sysUser = iSysUserService.getById(userId);
+        String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(sysUser.getSalt(), oldPassword));
+        if(!sysUser.getPassword().equals(encryPassword)){
+            throw new ServiceException("旧密码不正确");
+        }
+        return iSysUserService.resetPassword(new ResetPasswordDto()
+                .setPassword(password)
+                .setConfirmPassword(surePassword)
+                .setUserId(userId));
     }
 
     /**

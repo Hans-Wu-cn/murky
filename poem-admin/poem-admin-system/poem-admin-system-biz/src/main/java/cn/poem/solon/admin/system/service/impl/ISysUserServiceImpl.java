@@ -5,6 +5,7 @@ import cn.poem.solon.admin.domin.SysDeptAncestors;
 import cn.poem.solon.admin.domin.SysUser;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import cn.poem.solon.admin.system.domain.convert.SysUserConvert;
+import cn.poem.solon.admin.system.domain.dto.ResetPasswordDto;
 import cn.poem.solon.admin.system.domain.dto.SysUserFromDTO;
 import cn.poem.solon.admin.system.domain.dto.SysUserPageDTO;
 import cn.poem.solon.admin.system.domain.entity.SysUserRole;
@@ -18,6 +19,7 @@ import cn.poem.solon.admin.system.service.ISystemParameterService;
 import cn.poem.solon.core.exception.ServiceException;
 import cn.poem.solon.core.record.PasswordRecord;
 import cn.poem.solon.core.utils.EncryptionUtil;
+import cn.poem.solon.utils.ApiResult;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.annotation.Component;
@@ -134,17 +136,20 @@ public class ISysUserServiceImpl extends PoemServiceImpl<SysUserMapper, SysUser>
 
     /**
      * 重置用户密码
-     * @param userId 用户id
-     * @param password 密码
-     * @return 重置成功状态
+     *
+     * @param resetPasswordDto@return 重置成功状态
      */
     @Override
-    public boolean resetPassword(Long userId, String password) {
+    public boolean resetPassword(ResetPasswordDto resetPasswordDto) {
+        if (!resetPasswordDto.getPassword().equals(resetPasswordDto.getConfirmPassword())) {
+            throw new ServiceException("确认密码不一致");
+        }
+        Long userId = resetPasswordDto.getUserId();
         SysUser poemUser = mapper.selectOneById(userId);
         // 校验账号是否正确
         Optional.ofNullable(poemUser).orElseThrow(() -> new ServiceException("该用户不存在"));
         // 加密获取新的密码和盐值
-        PasswordRecord passwordRecord = EncryptionUtil.userEncryption(password);
+        PasswordRecord passwordRecord = EncryptionUtil.userEncryption(resetPasswordDto.getPassword());
         int count = mapper.resetPassword(userId, passwordRecord.password(),passwordRecord.salt());
         return count > 0;
     }

@@ -59,10 +59,8 @@ public class SysUserController extends BaseController<ISysUserService> {
     @Put
     @Mapping("restPassword")
     public ApiResult<?> resetPassword(@Body @Validated ResetPasswordDto resetPasswordDto) {
-        if (!resetPasswordDto.getPassword().equals(resetPasswordDto.getConfirmPassword())) {
-            return ApiResult.fail("确认密码不一致");
-        }
-        return toResult(baseService.resetPassword(resetPasswordDto.getUserId(),resetPasswordDto.getPassword()));
+
+        return toResult(baseService.resetPassword(resetPasswordDto));
     }
 
     @ApiOperation("删除用户")

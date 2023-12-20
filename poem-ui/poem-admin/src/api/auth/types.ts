@@ -31,6 +31,18 @@ export interface ProfileFrom {
   sex: number;
 }
 
+/**
+ * 
+ * @param oldPassword 旧密码
+ * @param password 新密码
+ * @param surePassword 确定新密码
+ */
+export interface EditPasswordFrom {
+  oldPassword: string;
+  password: string;
+  surePassword: string;
+}
+
 export interface UserInfo {
   userId: string;
   userName: string;

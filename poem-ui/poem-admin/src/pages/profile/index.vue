@@ -36,15 +36,15 @@
       <t-card title="基本资料" :bordered="false" hover-shadow :style="{ width: '400px' }">
         <t-tabs :default-value="1">
           <t-tab-panel :value="1" label="基本资料">
-            <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" :on-submit="onSubmit"
-              :on-reset="initUserInfo">
+            <t-form ref="form" style="margin-top: 10px;" :rules="FORM_RULES" :data="formData" :colon="true"
+              :on-submit="onSubmit" :on-reset="initUserInfo">
               <t-form-item label="用户名称" name="userName">
                 <t-input v-model="formData.userName" :placeholder="$t('user.label.pl.userName')"></t-input>
               </t-form-item>
               <t-form-item label="用户邮箱" name="email">
                 <t-input v-model="formData.email" :placeholder="$t('user.label.pl.email')"></t-input>
               </t-form-item>
-              <t-form-item label="性别" name="gender">
+              <t-form-item label="性别" name="sex">
                 <t-radio-group v-model="formData.sex">
                   <t-radio v-for="(item, key) in sexDictList" :key="item.dictValue" :value="Number(item.dictValue)">{{
                     $t(item.dictLabel) }}</t-radio>
@@ -60,7 +60,26 @@
             </t-form>
           </t-tab-panel>
           <t-tab-panel :value="2" label="修改密码">
-            <p style="margin: 20px">选项卡2内容区</p>
+            <t-form ref="form" style="margin-top: 10px;" :rules="FORM_RULES" :data="passwordFormData" :colon="true"
+              :on-submit="onSubmit" :on-reset="initUserInfo">
+              <t-form-item label="旧密码" name="oldPassword">
+                <t-input v-model="passwordFormData.oldPassword" :placeholder="$t('user.label.pl.userName')"></t-input>
+              </t-form-item>
+              <t-form-item label="新密码" name="password">
+                <t-input v-model="passwordFormData.password" :placeholder="$t('user.label.pl.email')"></t-input>
+              </t-form-item>
+              <t-form-item label="确定新密码" name="surePassword">
+                <t-input v-model="passwordFormData.surePassword" :placeholder="$t('user.label.pl.email')"></t-input>
+              </t-form-item>
+
+
+              <t-form-item>
+                <t-space size="small">
+                  <t-button theme="primary" type="submit">提交</t-button>
+                  <t-button theme="default" variant="base" type="reset">重置</t-button>
+                </t-space>
+              </t-form-item>
+            </t-form>
           </t-tab-panel>
         </t-tabs>
       </t-card>
@@ -71,7 +90,7 @@
 
 <script setup lang="tsx">
 import { profileInfo, editProfile } from '@/api/auth';
-import { ProfileInfo, ProfileFrom } from '@/api/auth/types';
+import { ProfileInfo, ProfileFrom, EditPasswordFrom } from '@/api/auth/types';
 import { DictData } from '@/api/system/dict/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import i18n from '@/i18n';
@@ -82,7 +101,11 @@ const { sexDictHook } = useDictStore()
 const FORM_RULES = ref<FormRules>({
   userName: [{ required: true, message: i18n.global.t('user.label.pl.userName') }],
   email: [{ required: true, message: i18n.global.t('user.label.pl.email') }, { email: { ignore_max_length: true }, message: i18n.global.t('user.label.valid.email') }],
-  gender: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
+  sex: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
+
+  oldPassword: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
+  password: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
+  surePassword: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
 });
 const loading = ref(false);
 const userInfo = ref<ProfileInfo>({
@@ -98,6 +121,13 @@ const formData = ref<ProfileFrom>({
   email: '',
   sex: 2
 });
+
+const passwordFormData = ref<EditPasswordFrom>({
+  oldPassword: '',
+  password: '',
+  surePassword: ''
+})
+
 const sexDictList = ref<DictData[]>()
 
 const initUserInfo = async () => {
@@ -105,7 +135,7 @@ const initUserInfo = async () => {
   const { code, result } = await profileInfo();
   if (ResultEnum.SUCCESS === code) {
     userInfo.value = result
-    formData.value = userInfo.value
+    formData.value = { ...userInfo.value }
   }
   loading.value = false
 }
@@ -122,6 +152,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<ProfileInfo>) => {
     const res = await editProfile(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
+      await initUserInfo();
     }
     loading.value = false
   }

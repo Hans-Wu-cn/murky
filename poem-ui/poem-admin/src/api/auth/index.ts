@@ -1,6 +1,6 @@
 import type { UserInfo } from '@/types/interface';
 import { request } from '@/utils/request';
-import { ProfileFrom, ProfileInfo, Route } from './types';
+import { EditPasswordFrom, ProfileFrom, ProfileInfo, Route } from './types';
 
 const Api = {
   menuList: '/auth/menu',
@@ -64,6 +64,18 @@ export function editProfile(data: ProfileFrom) {
     data
   });
 }
+
+/**
+ * 获取用户详情信息
+ * @returns
+ */
+export function editPassword(data: EditPasswordFrom) {
+  return request.put({
+    url: Api.profileInfo,
+    data
+  });
+}
+
 
 /**
  * 获取用户菜单

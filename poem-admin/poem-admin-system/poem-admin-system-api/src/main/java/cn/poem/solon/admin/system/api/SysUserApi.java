@@ -30,11 +30,20 @@ public interface SysUserApi {
     UserProfile getProfile(Long userId);
 
     /**
-     * 获取用户profile
+     * 修改用户profile
      *
      * @return
      */
     boolean setProfile(ProfileFromDTO profileFromDTO);
+
+    /**
+     * 修改密码
+     *  @param oldPassword 旧密码
+     *  @param password 新密码
+     *  @param surePassword 确定新密码
+     * @return 修改状态
+     */
+    boolean setPassword(String oldPassword,String password,String surePassword);
 
     /**
      * 设置用户语言偏好
