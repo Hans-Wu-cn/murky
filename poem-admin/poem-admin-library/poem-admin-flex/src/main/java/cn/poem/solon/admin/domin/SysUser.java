@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @Table("sys_user")
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseEntity<SysUser> {
 
     /**
      * 用户id

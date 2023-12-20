@@ -5,6 +5,7 @@ import { defineComponent } from 'vue';
  * 
  * @param userName 用户名称
  * @param email 邮箱
+ * @param sex 性别
  * @param roleNameList 角色名称
  * @param deptNameList 部门名称
  * @param createTime 创建日期
@@ -12,9 +13,22 @@ import { defineComponent } from 'vue';
 export interface ProfileInfo {
   userName: string;
   email: string;
+  sex: number;
   roleNameList: string[];
   deptNameList: string[];
   createTime: number;
+}
+
+/**
+ * 
+ * @param userName 用户名称
+ * @param email 邮箱
+ * @param sex 性别
+ */
+export interface ProfileFrom {
+  userName: string;
+  email: string;
+  sex: number;
 }
 
 export interface UserInfo {

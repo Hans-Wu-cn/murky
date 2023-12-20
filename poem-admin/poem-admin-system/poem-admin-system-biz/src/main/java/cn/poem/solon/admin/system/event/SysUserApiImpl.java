@@ -10,6 +10,7 @@ import cn.poem.solon.admin.domin.tab.SysUserTableDef;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import cn.poem.solon.admin.system.api.SysUserApi;
 import cn.poem.solon.admin.system.api.domian.UserProfile;
+import cn.poem.solon.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.poem.solon.admin.system.api.enums.MenuType;
 import cn.poem.solon.admin.system.contant.SystemContant;
 import cn.poem.solon.admin.system.domain.entity.*;
@@ -55,22 +56,24 @@ public class SysUserApiImpl implements SysUserApi {
 
     /**
      * 根据账号查询用户
+     *
      * @param account 账号
      * @return 用户
      */
     @Override
-    public SysUser getOneByAccount(String account){
-       return iSysUserService.getOne(QueryWrapper.create().where(
+    public SysUser getOneByAccount(String account) {
+        return iSysUserService.getOne(QueryWrapper.create().where(
                 SysUserTableDef.SYS_USER.ACCOUNT.eq(account)
         ));
     }
 
     /**
      * 获取用户详情事件
+     *
      * @return 用户详情信息
      */
     @Override
-    public SecurityUserInfo userInfo(){
+    public SecurityUserInfo userInfo() {
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
         SecurityUserInfo userInfoCache = SecurityUtils.getUserInfo();
 
@@ -123,6 +126,7 @@ public class SysUserApiImpl implements SysUserApi {
         List<String> deptNameList = iSysDeptService.listByIds(deptIds).stream().map(SysDept::getDeptName).toList();
         return new UserProfile()
                 .setUserName(sysUser.getUserName())
+                .setSex(sysUser.getSex())
                 .setEmail(sysUser.getEmail())
                 .setCreateTime(sysUser.getCreateTime())
                 .setRoleNameList(roleNameList)
@@ -130,19 +134,28 @@ public class SysUserApiImpl implements SysUserApi {
                 ;
     }
 
+    @Override
+    public boolean setProfile(ProfileFromDTO profileFromDTO) {
+        SysUser sysUser = iSysUserService.getById(SecurityUtils.getUserId());
+        return sysUser.setUserName(profileFromDTO.getUserName())
+                .setEmail(profileFromDTO.getEmail())
+                .setSex(profileFromDTO.getSex()).updateById();
+    }
+
     /**
      * 设置用户语言偏好
+     *
      * @return true:设置成功  false:设置失败
      */
     @Override
-    public boolean setLanguage(String language){
+    public boolean setLanguage(String language) {
         List<SysDictData> list = iSysDictDataService.getI18nDict().stream().filter(item -> item.getDictValue().equals(language)).toList();
-        if(Utils.isEmpty(list)){
+        if (Utils.isEmpty(list)) {
             throw new ServiceException("系统暂不支持该语言");
         }
         SysUser sysUser = new SysUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
         boolean b = iSysUserService.updateById(sysUser);
-        if(b){
+        if (b) {
             SecurityUserInfo userInfo = SecurityUtils.getUserInfo();
             userInfo.setLanguage(language);
             SecurityUtils.setUserInfo(userInfo);

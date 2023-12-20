@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.common.entity;
 
+import com.mybatisflex.core.activerecord.Model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-public class BaseEntity implements Serializable {
+public class BaseEntity<T extends Model<T>> extends Model<T>implements Serializable {
     /**
      * 创建时间
      */

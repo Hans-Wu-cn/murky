@@ -6,18 +6,19 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useUserStore } from '@/store/modules/user'
 import { useTDesignLanguageStore } from '@/store/modules/tDesignI18n';
 import { request } from '@/utils/request';
-import { PoemDictData } from '@/api/system/dict/types';
+import { DictData } from '@/api/system/dict/types';
 import { dict } from '@/api/system/dict';
 
 export const dictKey = {
   i18n: 'i18n:language',
   i18nTag: 'i18n:tag',
+  sex: 'sex',
   saasScriptTag: 'saas:script:tag',
 };
 
 export const useDictStore = defineStore('dict', {
   state: () => ({
-    dictCache: new Map<string, Array<PoemDictData>>()
+    dictCache: new Map<string, Array<DictData>>()
   }),
   getters: {
     getDictCache: (state) => {
@@ -26,18 +27,18 @@ export const useDictStore = defineStore('dict', {
   },
   actions: {
     /**
-     * 国际化标签字典数据
+     * 国际化性别字典数据
      * @returns 
      */
-    async saasScriptTagDictHook(): Promise<PoemDictData[]> {
-      return await this.dictFunction(dictKey.saasScriptTag)
+    async sexDictHook(): Promise<DictData[]> {
+      return await this.dictFunction(dictKey.sex)
     },
 
     /**
-     * 国际化标签字典数据
+     * 国际化语言字典数据
      * @returns 
      */
-    async i18nDictHook(): Promise<PoemDictData[]> {
+    async i18nDictHook(): Promise<DictData[]> {
       return await this.dictFunction(dictKey.i18n)
     },
 
@@ -45,7 +46,7 @@ export const useDictStore = defineStore('dict', {
      * 国际化标签字典数据
      * @returns 
      */
-    async i18nTagDictHook(): Promise<PoemDictData[]> {
+    async i18nTagDictHook(): Promise<DictData[]> {
       return await this.dictFunction(dictKey.i18nTag)
     },
 
@@ -54,7 +55,7 @@ export const useDictStore = defineStore('dict', {
      * @param key 对应字典的字典key
      * @returns 字典集合
      */
-    async dictFunction(key: string): Promise<PoemDictData[]> {
+    async dictFunction(key: string): Promise<DictData[]> {
       const cache = this.dictCache.get(key);
       if (cache) {
         console.debug("cache")

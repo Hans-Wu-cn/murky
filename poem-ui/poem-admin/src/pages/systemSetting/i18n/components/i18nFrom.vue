@@ -31,7 +31,7 @@ import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { I18nData, I18nInputs } from '@/api/systemSetting/i18n/types';
 import { saveI18n, i18nInfo, updateI18n } from '@/api/systemSetting/i18n';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemDictData } from '@/api/system/dict/types';
+import { DictData } from '@/api/system/dict/types';
 import i18n from '@/i18n';
 import { useDictStore } from '@/store';
 
@@ -50,7 +50,7 @@ const i18nFromKey = ref('');
 const i18nFromTag = ref('');
 const loading = ref(false);
 let api = saveI18n
-const i18nTagSelectOption = ref<PoemDictData[]>()
+const i18nTagSelectOption = ref<DictData[]>()
 
 // 表单对象
 const formData = ref<I18nData>({
@@ -107,7 +107,7 @@ const onReset = async () => {
  * 表单提交事件
  * @param param0 表单验证
  */
-const onSubmit = async ({ validateResult }: SubmitContext<PoemDictData>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<DictData>) => {
   if (validateResult === true) {
     loading.value = true
     const res = await api(formData.value);

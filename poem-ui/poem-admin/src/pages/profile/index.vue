@@ -1,5 +1,6 @@
 <template>
   <div class="profile-card">
+    <t-loading :loading="loading" :text="$t('common.loading')" fullscreen />
     <t-space>
       <t-card title="个人信息" :bordered="false" hover-shadow :style="{ width: '400px' }">
         <t-divider></t-divider>
@@ -32,38 +33,36 @@
         <t-divider></t-divider>
       </t-card>
 
-      <t-card title="个人信息" :bordered="false" hover-shadow :style="{ width: '400px' }">
-        <t-divider></t-divider>
-        <div>
-          <span class="label">用户名</span>
-          <span class="value">用户名</span>
-        </div>
-        <t-divider></t-divider>
-        <div>
-          <span class="label">昵称</span>
-          <span class="value">昵称</span>
-        </div>
-        <t-divider></t-divider>
-        <div>
-          <span class="label">邮箱</span>
-          <span class="value">邮箱</span>
-        </div>
-        <t-divider></t-divider>
-        <div>
-          <span class="label">所属部门</span>
-          <span class="value">所属部门</span>
-        </div>
-        <t-divider></t-divider>
-        <div>
-          <span class="label">所属角色</span>
-          <span class="value">所属角色</span>
-        </div>
-        <t-divider></t-divider>
-        <div>
-          <span class="label">创建日期</span>
-          <span class="value">创建日期</span>
-        </div>
-        <t-divider></t-divider>
+      <t-card title="基本资料" :bordered="false" hover-shadow :style="{ width: '400px' }">
+        <t-tabs :default-value="1">
+          <t-tab-panel :value="1" label="基本资料">
+            <t-form ref="form" :rules="FORM_RULES" :data="formData" :colon="true" :on-submit="onSubmit"
+              :on-reset="initUserInfo">
+              <t-form-item label="用户名称" name="userName">
+                <t-input v-model="formData.userName" :placeholder="$t('user.label.pl.userName')"></t-input>
+              </t-form-item>
+              <t-form-item label="用户邮箱" name="email">
+                <t-input v-model="formData.email" :placeholder="$t('user.label.pl.email')"></t-input>
+              </t-form-item>
+              <t-form-item label="性别" name="gender">
+                <t-radio-group v-model="formData.sex">
+                  <t-radio v-for="(item, key) in sexDictList" :key="item.dictValue" :value="Number(item.dictValue)">{{
+                    $t(item.dictLabel) }}</t-radio>
+                </t-radio-group>
+              </t-form-item>
+
+              <t-form-item>
+                <t-space size="small">
+                  <t-button theme="primary" type="submit">提交</t-button>
+                  <t-button theme="default" variant="base" type="reset">重置</t-button>
+                </t-space>
+              </t-form-item>
+            </t-form>
+          </t-tab-panel>
+          <t-tab-panel :value="2" label="修改密码">
+            <p style="margin: 20px">选项卡2内容区</p>
+          </t-tab-panel>
+        </t-tabs>
       </t-card>
     </t-space>
   </div>
@@ -71,27 +70,66 @@
 
 
 <script setup lang="tsx">
-import { profileInfo } from '@/api/auth';
-import { ProfileInfo } from '@/api/auth/types';
+import { profileInfo, editProfile } from '@/api/auth';
+import { ProfileInfo, ProfileFrom } from '@/api/auth/types';
+import { DictData } from '@/api/system/dict/types';
 import { ResultEnum } from '@/enums/httpEnum';
-import { useUserStore } from '@/store';
+import i18n from '@/i18n';
+import { useDictStore, useUserStore } from '@/store';
+import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
-
+const { sexDictHook } = useDictStore()
+const FORM_RULES = ref<FormRules>({
+  userName: [{ required: true, message: i18n.global.t('user.label.pl.userName') }],
+  email: [{ required: true, message: i18n.global.t('user.label.pl.email') }, { email: { ignore_max_length: true }, message: i18n.global.t('user.label.valid.email') }],
+  gender: [{ required: true, message: i18n.global.t('user.label.pl.sex') }],
+});
+const loading = ref(false);
 const userInfo = ref<ProfileInfo>({
   userName: '',
   email: '',
+  sex: 2,
   roleNameList: [],
   deptNameList: [],
   createTime: 0,
 });
+const formData = ref<ProfileFrom>({
+  userName: '',
+  email: '',
+  sex: 2
+});
+const sexDictList = ref<DictData[]>()
+
 const initUserInfo = async () => {
+  loading.value = true
   const { code, result } = await profileInfo();
   if (ResultEnum.SUCCESS === code) {
     userInfo.value = result
+    formData.value = userInfo.value
   }
+  loading.value = false
 }
+
+
+/**
+ * 表单提交事件
+ * @param param0 表单验证
+ */
+const onSubmit = async ({ validateResult }: SubmitContext<ProfileInfo>) => {
+  console.log(formData.value)
+  if (validateResult === true) {
+    loading.value = true
+    const res = await editProfile(formData.value);
+    if (res.code === ResultEnum.SUCCESS) {
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
+    }
+    loading.value = false
+  }
+};
+
 onMounted(async () => {
   await initUserInfo();
+  sexDictList.value = await sexDictHook();
   console.log(userInfo.value)
 });
 </script>

@@ -3,6 +3,7 @@ package cn.poem.solon.admin.auth.controller;
 import cn.poem.solon.admin.security.utils.SecurityUtils;
 import cn.poem.solon.admin.system.api.SysUserApi;
 import cn.poem.solon.admin.system.api.domian.UserProfile;
+import cn.poem.solon.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.poem.solon.core.extension.BaseController;
 import cn.poem.solon.utils.ApiResult;
 import io.swagger.annotations.Api;
@@ -34,6 +35,13 @@ public class PoemProfileController extends BaseController {
     @Mapping
     public ApiResult<UserProfile> info() {
         return ApiResult.ok(sysUserApi.getProfile(SecurityUtils.getUserId()));
+    }
+
+    @Put
+    @ApiOperation("修改用户信息")
+    @Mapping
+    public ApiResult<?> editProfile(@Body ProfileFromDTO profileFromDTO) {
+        return toResult(sysUserApi.setProfile(profileFromDTO));
     }
 
 }

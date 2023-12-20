@@ -1,5 +1,6 @@
 package cn.poem.solon.admin.system.api.domian;
 
+import cn.poem.solon.admin.enums.Sex;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -21,6 +22,11 @@ public class UserProfile {
      * 邮箱
      */
     private String email;
+
+    /**
+     * 性别
+     */
+    private Sex sex;
 
     /**
      * 所属角色
