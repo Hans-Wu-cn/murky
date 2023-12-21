@@ -5,7 +5,7 @@ export default [
     name: 'profile',
     redirect: '/profile/index',
     component: Layout,
-    meta: { title: 'menu:PersonalCenter', icon: 'user-circle', hidden: false },
+    meta: { title: 'menu:PersonalCenter', icon: 'user-circle', hidden: true },
     children: [
       {
         path: 'index',

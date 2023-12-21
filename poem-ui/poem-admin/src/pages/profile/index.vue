@@ -2,49 +2,49 @@
   <div class="profile-card">
     <t-loading :loading="loading" :text="$t('common.loading')" fullscreen />
     <t-space>
-      <t-card title="个人信息" :bordered="false" hover-shadow :style="{ width: '400px' }">
+      <t-card :title="$t('profile.userInfo')" :bordered="false" hover-shadow :style="{ width: '400px' }">
         <t-divider></t-divider>
         <div>
-          <span class="label">用户名</span>
+          <span class="label">{{ $t('user.label.userName') }}</span>
           <span class="value">{{ userInfo?.userName }}</span>
         </div>
         <t-divider></t-divider>
         <div>
-          <span class="label">邮箱</span>
+          <span class="label">{{ $t('user.label.email') }}</span>
           <span class="value">{{ userInfo?.email }}</span>
         </div>
         <t-divider></t-divider>
         <div>
-          <span class="label">所属部门</span>
+          <span class="label">{{ $t('user.label.dept') }}</span>
           <span class="value" v-for="(item, index) in userInfo.deptNameList">{{ index ===
             userInfo.deptNameList.length - 1 ? item : "/" + item }}</span>
         </div>
         <t-divider></t-divider>
         <div>
-          <span class="label">所属角色</span>
+          <span class="label">{{ $t('user.label.role') }}</span>
           <span class="value" v-for="(item, index) in userInfo.roleNameList">{{ index ==
             userInfo.roleNameList.length - 1 ? item : "/" + item }}</span>
         </div>
         <t-divider></t-divider>
         <div>
-          <span class="label">创建日期</span>
+          <span class="label">{{ $t('common.attribute.createTime') }}</span>
           <span class="value">{{ userInfo.createTime }}</span>
         </div>
         <t-divider></t-divider>
       </t-card>
 
-      <t-card title="基本资料" :bordered="false" hover-shadow :style="{ width: '400px' }">
+      <t-card :title="$t('profile.base')" :bordered="false" hover-shadow :style="{ width: '800px' }">
         <t-tabs :default-value="1">
-          <t-tab-panel :value="1" label="基本资料">
+          <t-tab-panel :value="1" :label="$t('profile.base')">
             <t-form ref="form" style="margin-top: 10px;" :rules="FORM_RULES" :data="formData" :colon="true"
               :on-submit="onSubmit" :on-reset="initUserInfo">
-              <t-form-item label="用户名称" name="userName">
+              <t-form-item :label="$t('user.label.userName')" name="userName">
                 <t-input v-model="formData.userName" :placeholder="$t('user.label.pl.userName')"></t-input>
               </t-form-item>
-              <t-form-item label="用户邮箱" name="email">
+              <t-form-item :label="$t('user.label.email')" name="email">
                 <t-input v-model="formData.email" :placeholder="$t('user.label.pl.email')"></t-input>
               </t-form-item>
-              <t-form-item label="性别" name="sex">
+              <t-form-item :label="$t('user.label.sex')" name="sex">
                 <t-radio-group v-model="formData.sex">
                   <t-radio v-for="(item, key) in sexDictList" :key="item.dictValue" :value="Number(item.dictValue)">{{
                     $t(item.dictLabel) }}</t-radio>
@@ -53,30 +53,44 @@
 
               <t-form-item>
                 <t-space size="small">
-                  <t-button theme="primary" type="submit">提交</t-button>
-                  <t-button theme="default" variant="base" type="reset">重置</t-button>
+                  <t-button theme="primary" type="submit">{{ $t('common.button.submit') }}</t-button>
+                  <t-button theme="default" variant="base" type="reset">{{ $t('common.button.reset1') }}</t-button>
                 </t-space>
               </t-form-item>
             </t-form>
           </t-tab-panel>
-          <t-tab-panel :value="2" label="修改密码">
+          <t-tab-panel :value="2" :label="$t('profile.editPassword')">
             <t-form ref="form" style="margin-top: 10px;" :rules="FORM_RULES" :data="passwordFormData" :colon="true"
-              :on-submit="onSubmit" :on-reset="initUserInfo">
-              <t-form-item label="旧密码" name="oldPassword">
-                <t-input v-model="passwordFormData.oldPassword" :placeholder="$t('user.label.pl.userName')"></t-input>
+              :on-submit="onPasswordSubmit" labelWidth="width-content">
+              <t-form-item :label="$t('profile.oldPassword')" name="oldPassword">
+                <t-input v-model="passwordFormData.oldPassword" type="password"
+                  :placeholder="$t('profile.pl.oldPassword')">
+                  <template #prefix-icon>
+                    <lock-on-icon />
+                  </template>
+                </t-input>
               </t-form-item>
-              <t-form-item label="新密码" name="password">
-                <t-input v-model="passwordFormData.password" :placeholder="$t('user.label.pl.email')"></t-input>
+              <t-form-item :label="$t('profile.newPassword')" name="password">
+                <t-input v-model="passwordFormData.password" type="password" :placeholder="$t('profile.pl.newPassword')">
+                  <template #prefix-icon>
+                    <lock-on-icon />
+                  </template>
+                </t-input>
               </t-form-item>
-              <t-form-item label="确定新密码" name="surePassword">
-                <t-input v-model="passwordFormData.surePassword" :placeholder="$t('user.label.pl.email')"></t-input>
+              <t-form-item :label="$t('profile.surePassword')" name="surePassword">
+                <t-input v-model="passwordFormData.surePassword" type="password"
+                  :placeholder="$t('profile.pl.surePassword')">
+                  <template #prefix-icon>
+                    <lock-on-icon />
+                  </template>
+                </t-input>
               </t-form-item>
 
 
               <t-form-item>
                 <t-space size="small">
-                  <t-button theme="primary" type="submit">提交</t-button>
-                  <t-button theme="default" variant="base" type="reset">重置</t-button>
+                  <t-button theme="primary" type="submit">{{ $t('common.button.submit') }}</t-button>
+                  <t-button theme="default" variant="base" type="reset">{{ $t('common.button.reset1') }}</t-button>
                 </t-space>
               </t-form-item>
             </t-form>
@@ -89,7 +103,7 @@
 
 
 <script setup lang="tsx">
-import { profileInfo, editProfile } from '@/api/auth';
+import { profileInfo, editProfile, editPassword } from '@/api/auth';
 import { ProfileInfo, ProfileFrom, EditPasswordFrom } from '@/api/auth/types';
 import { DictData } from '@/api/system/dict/types';
 import { ResultEnum } from '@/enums/httpEnum';
@@ -150,6 +164,23 @@ const onSubmit = async ({ validateResult }: SubmitContext<ProfileInfo>) => {
   if (validateResult === true) {
     loading.value = true
     const res = await editProfile(formData.value);
+    if (res.code === ResultEnum.SUCCESS) {
+      MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
+      await initUserInfo();
+    }
+    loading.value = false
+  }
+};
+
+/**
+ * 表单提交事件
+ * @param param0 表单验证
+ */
+const onPasswordSubmit = async ({ validateResult }: SubmitContext<ProfileInfo>) => {
+  console.log(passwordFormData.value)
+  if (validateResult === true) {
+    loading.value = true
+    const res = await editPassword(passwordFormData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));
       await initUserInfo();
