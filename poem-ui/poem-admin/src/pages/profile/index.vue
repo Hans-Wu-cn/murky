@@ -1,7 +1,7 @@
 <template>
   <div class="profile-card">
     <t-loading :loading="loading" :text="$t('common.loading')" fullscreen />
-    <t-space>
+    <t-space class="userInfoBox">
       <t-card :title="$t('profile.userInfo')" :bordered="false" hover-shadow :style="{ width: '400px' }">
         <t-divider></t-divider>
         <div>
@@ -32,8 +32,7 @@
         </div>
         <t-divider></t-divider>
       </t-card>
-
-      <t-card :title="$t('profile.base')" :bordered="false" hover-shadow :style="{ width: '800px' }">
+      <t-card :title="$t('profile.base')" :bordered="false" hover-shadow>
         <t-tabs :default-value="1">
           <t-tab-panel :value="1" :label="$t('profile.base')">
             <t-form ref="form" style="margin-top: 10px;" :rules="FORM_RULES" :data="formData" :colon="true"
@@ -109,6 +108,7 @@ import { DictData } from '@/api/system/dict/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import i18n from '@/i18n';
 import { useDictStore, useUserStore } from '@/store';
+import { LockOnIcon } from 'tdesign-icons-vue-next';
 import { FormRules, MessagePlugin, SubmitContext } from 'tdesign-vue-next';
 import { computed, onMounted, reactive, ref } from 'vue';
 const { sexDictHook } = useDictStore()
@@ -208,6 +208,12 @@ onMounted(async () => {
 
   .value {
     float: right;
+  }
+  .userInfoBox{
+    display: flex;
+    :deep(.t-space-item:last-of-type){
+      flex: 1;
+    }
   }
 }
 </style>

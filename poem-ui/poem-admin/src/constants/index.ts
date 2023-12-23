@@ -1,5 +1,4 @@
-import i18n from "@/i18n";
-
+import i18n from '@/i18n';
 // 合同状态枚举
 export const CONTRACT_STATUS = {
   FAIL: 0,

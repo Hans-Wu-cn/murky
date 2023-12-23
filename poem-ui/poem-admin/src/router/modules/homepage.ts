@@ -6,7 +6,7 @@ import Layout from '@/layouts/index.vue';
 export default [
   {
     path: '/dashboard',
-    component: Layout,
+    component: shallowRef(Layout),
     redirect: '/dashboard/base',
     name: 'dashboard',
     meta: {

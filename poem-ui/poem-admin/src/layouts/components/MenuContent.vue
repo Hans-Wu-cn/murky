@@ -6,16 +6,16 @@
           <template #icon>
             <component :is="menuIcon(item)" class="t-icon"></component>
           </template>
-          {{ $t(item.title) }}
+          {{ $t(item.title|| '') }}
         </t-menu-item>
         <t-menu-item v-else :name="item.path" :value="getPath(item)" :to="item.path">
           <template #icon>
             <component :is="menuIcon(item)" class="t-icon"></component>
           </template>
-          {{ $t(item.title) }}
+          {{ $t(item.title|| '') }}
         </t-menu-item>
       </template>
-      <t-submenu v-else :name="item.path" :value="item.path" :title="$t(item.title)">
+      <t-submenu v-else :name="item.path" :value="item.path" :title="$t(item.title||'')">
         <template #icon>
           <component :is="menuIcon(item)" class="t-icon"></component>
         </template>
