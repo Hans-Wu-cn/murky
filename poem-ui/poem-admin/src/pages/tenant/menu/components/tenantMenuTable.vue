@@ -2,6 +2,7 @@
     <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
 
     <t-card class="menuTable">
+        <t-button @click="handleAdd" v-auth="['tenantMenu:add']">{{ $t('menu.button.add') }}</t-button>
         <slot></slot>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
@@ -16,8 +17,8 @@
             </template>
         </t-enhanced-table>
     </t-card>
-    <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
-        <tenantMenuFrom :tenantMenuId="tenantMenuId" :parentTenantMenuId="parentTenantMenuId" @submit="submit">
+    <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :header="(tenantMenuId?'编辑':parentTenantMenuId?'添加子':'添加根')+'菜单'" :footer="false" width="1000px" top="100">
+        <tenantMenuFrom :tenantMenuId="tenantMenuId" :spanCol="6" :parentTenantMenuId="parentTenantMenuId" @submit="submit">
         </tenantMenuFrom>
     </t-dialog>
 </template>
@@ -333,7 +334,13 @@ const lazyLoadingTreeIconRender = (h: any, params: { type: any; row: any; }) => 
 const treeExpandIcon = computed(() => {
     return lazyLoadingTreeIconRender;
 });
-
+// 新增根菜单
+const handleAdd = () => {
+  menuVisible.value = true
+  tenantMenuId.value = '';
+  parentTenantMenuId.value = ''
+  // router.push(menuConfig.menuFromUrl)
+};
 onMounted(async () => {
     resetData();
 });

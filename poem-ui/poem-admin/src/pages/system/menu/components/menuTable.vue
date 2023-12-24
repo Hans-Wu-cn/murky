@@ -2,7 +2,7 @@
     <search v-model:options="searchOptions" @submit="searchSubmit" @reset="searchReset"></search>
 
     <t-card class="menuTable">
-        <slot></slot>
+        <t-button @click="handleAdd" v-auth="['menu:add']">{{ $t('menu.button.add') }}</t-button>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
         <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
@@ -16,8 +16,8 @@
             </template>
         </t-enhanced-table>
     </t-card>
-    <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :footer="false" width="600px" top="10">
-        <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" @submit="submit"></menuFrom>
+    <t-dialog v-model:visible="menuVisible" v-if="menuVisible" :header="(poemId?'编辑':parentMenuId?'添加子':'添加根')+'菜单'" :footer="false" width="1000px" top="100">
+        <menuFrom :poemId="poemId" :parentMenuId="parentMenuId" :spanCol="6" @submit="submit"></menuFrom>
     </t-dialog>
 </template>
 <script setup lang="tsx">
@@ -340,6 +340,11 @@ const treeExpandIcon = computed(() => {
     return lazyLoadingTreeIconRender;
 });
 
+const handleAdd = ()=>{
+  menuVisible.value = true;
+  poemId.value = ''
+  parentMenuId.value = ''
+}
 onMounted(async () => {
     resetData();
 });
