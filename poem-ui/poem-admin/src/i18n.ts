@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n';
-import { getLanguage } from '@/api/systemSetting/i18n';
+import { getLanguage } from '@/api/system/i18n';
 import { ResultEnum } from './enums/httpEnum';
 import { useUserStore, useI18nStore, useDictStore } from '@/store';
 import { request } from './utils/request';
@@ -10,7 +10,7 @@ const i18n = createI18n({
   fallbackLocale: 'en', // 如果找不到当前语言的翻译，就使用默认语言
   messages: {}, // 空对象，稍后会通过接口获取数据并填充这里
   silentFallbackWarn: true,
-  silentTranslationWarn : true
+  silentTranslationWarn: true
 });
 
 /**

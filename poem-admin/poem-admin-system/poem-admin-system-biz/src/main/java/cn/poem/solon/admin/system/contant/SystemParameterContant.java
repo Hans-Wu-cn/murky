@@ -15,4 +15,5 @@ public class SystemParameterContant {
      * 系统用户最终默认密码
      */
     public static final String DEFAULT_PASSWORD="123456";
+
 }

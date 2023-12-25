@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ResultEnum } from '@/enums/httpEnum';
 import i18n from '@/i18n'
-import { getLanguage } from '@/api/systemSetting/i18n';
+import { getLanguage } from '@/api/system/i18n';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { useUserStore } from '@/store/modules/user'
 import { useTDesignLanguageStore } from '@/store/modules/tDesignI18n';

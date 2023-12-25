@@ -14,7 +14,11 @@
       <t-form-item :label="$t('menu.label.from.auth')" name="menuIds">
         <div class="treeBox">
           <t-tree ref="menuTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys"
-            checkable value-mode="all" @change="treeOnChange" />
+            checkable value-mode="all" @change="treeOnChange">
+            <template #label="{ node }">
+              <span> {{ $t(node.label) }}</span>
+            </template>
+          </t-tree>
         </div>
       </t-form-item>
       <t-form-item>

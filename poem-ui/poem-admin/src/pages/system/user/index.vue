@@ -5,7 +5,7 @@
       <t-tree activeMultiple checkStrictly hover lazy :expandLevel="0" :data="deptData" :keys="deptTreeKeys"
         @click="deptTreeNodeClick" />
     </t-card>
-    <t-card :bordered="false" :title="$t('user.label.userList')">
+    <t-card :bordred="false" :title="$t('user.label.userList')">
       <div>
         <t-button @click="onAddHander" v-auth="'user:add'">{{ $t('user.button.add') }}</t-button>
       </div>

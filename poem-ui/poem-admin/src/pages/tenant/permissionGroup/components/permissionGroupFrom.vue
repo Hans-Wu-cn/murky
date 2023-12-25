@@ -11,7 +11,11 @@
       <t-form-item :label="$t('permissionGroup.label.menu')" name="tenantMenuIds">
         <div class="treeBox">
           <t-tree ref="tenantMenuTreeRef" hover expand-all v-model="formData.tenantMenuIds" :data="menuTree"
-            :keys="menuTreeKeys" checkable value-mode="all" @change="treeOnChange" />
+            :keys="menuTreeKeys" checkable value-mode="all" @change="treeOnChange">
+            <template #label="{ node }">
+              <span> {{ $t(node.label) }}</span>
+            </template>
+          </t-tree>
         </div>
       </t-form-item>
       <t-form-item>
@@ -30,12 +34,12 @@ import { PermissionGroup } from '@/api/tenant/permissionGroup/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addPermissionGroup, updatePermissionGroup, permissionGroupInfo } from '@/api/tenant/permissionGroup';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemTenantMenu } from '@/api/tenant/menu/types';
+import { TenantMenu } from '@/api/tenant/menu/types';
 import { getTenantMenuList } from '@/api/tenant/menu';
 import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
-const menuTree = ref<Array<PoemTenantMenu>>();
+const menuTree = ref<Array<TenantMenu>>();
 const menuTreeKeys = { value: 'tenantMenuId', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   groupName: [{ required: true, message: i18n.global.t('permissionGroup.label.pl.name'), trigger: 'blur' }],
@@ -65,7 +69,7 @@ const onReset = () => {
  * @param value 
  * @param context 
  */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemTenantMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TenantMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
   formData.value.tenantMenuIds = menuIds

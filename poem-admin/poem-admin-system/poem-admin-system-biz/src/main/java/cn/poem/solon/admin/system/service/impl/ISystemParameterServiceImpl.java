@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * SystemParameterService
+ *
  * @Author hans
  */
 @Component
@@ -33,39 +34,53 @@ public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapp
      * 刷新缓存
      */
     @Override
-    public void refresh(){
+    public void refresh() {
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
         redisHash.clear();
         List<SystemParameter> systemParameters = mapper.selectAll();
         for (SystemParameter systemParameter : systemParameters) {
-            redisHash.putAndSerialize(systemParameter.getKey(),systemParameter.getValue());
+            redisHash.putAndSerialize(systemParameter.getKey(), systemParameter.getValue());
         }
         log.info("初始化系统配置缓存");
     }
 
+    /**
+     * 根据参数key获取默认配置
+     */
     @Override
-    public String getDefaultUserPassword() {
-        String key=SystemParameterContant.DEFAULT_USER_PASSWORD;
+    public String getDefaultByKey(String key) {
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
         String defaultPassword = redisHash.get(key);
-        if(!Strings.isEmpty(defaultPassword)){
+        if (!Strings.isEmpty(defaultPassword)) {
             return defaultPassword;
         }
         SystemParameter systemParameter = mapper.selectByKey(key);
-        if(systemParameter==null || Strings.isEmpty(systemParameter.getKey())){
-            return SystemParameterContant.DEFAULT_PASSWORD;
-        }
+        redisHash.putAndSerialize(systemParameter.getKey(), systemParameter.getValue());
         return systemParameter.getValue();
+    }
+
+    /**
+     * 获取默认密码
+     * @return 密码
+     */
+    @Override
+    public String getDefaultUserPassword() {
+        String key = SystemParameterContant.DEFAULT_USER_PASSWORD;
+        String defaultPassword = getDefaultByKey(key);
+        if (!Strings.isEmpty(defaultPassword)) {
+            return defaultPassword;
+        }
+        return SystemParameterContant.DEFAULT_PASSWORD;
     }
 
     /**
      * 初始化缓存
      */
     @Init
-    public void initParameter(){
+    public void initParameter() {
         RedisHash redisHash = redisClient.getHash(SystemParameterContant.PARAMETER_CACHE_KEY);
         // 如果已经被初始化过则不需要在初始化
-        if(!redisHash.isEmpty()){
+        if (!redisHash.isEmpty()) {
             return;
         }
         List<SystemParameter> systemParameters = mapper.selectAll();

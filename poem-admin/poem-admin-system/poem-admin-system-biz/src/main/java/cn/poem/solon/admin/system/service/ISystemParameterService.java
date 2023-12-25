@@ -12,8 +12,14 @@ public interface ISystemParameterService extends IService<SystemParameter> {
     void refresh();
 
     /**
+     * 根据参数key获取默认配置
+     */
+    String getDefaultByKey(String key);
+
+    /**
      * 获取默认密码
-     * @return
+     * @return 密码
      */
     String getDefaultUserPassword();
+
 }
