@@ -9,15 +9,15 @@
         <version>2.6.2</version>
     </parent>
 
-    <groupId>cn.poem.solon</groupId>
-    <artifactId>poem-solon</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>cn.murky</groupId>
+    <artifactId>parent</artifactId>
+    <version>${version}</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>poem-admin</module>
-        <module>poem-saas</module>
-        <module>poem-library</module>
+        <module>murky-admin</module>
+        <module>murky-tenant</module>
+        <module>murky-library</module>
     </modules>
 
     <properties>
@@ -28,14 +28,15 @@
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <skipTests>true</skipTests>
+        <version>1.0-SNAPSHOT</version>
     </properties>
     <dependencyManagement>
 
         <dependencies>
             <dependency>
-                <groupId>cn.poem.solon</groupId>
-                <artifactId>poem-common</artifactId>
-                <version>${project.version}</version>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-common</artifactId>
+                <version>${version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

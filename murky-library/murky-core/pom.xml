@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.murky</groupId>
+        <artifactId>murky-library</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>murky-core</artifactId>
+    <packaging>jar</packaging>
+    <properties>
+        <mybatis-flex.version>1.6.5</mybatis-flex.version>
+        <postgresql.verion>42.6.0</postgresql.verion>
+        <redisx.verion>1.4.9</redisx.verion>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--接口文档依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.docs.openapi2</artifactId>
+        </dependency>
+        <!-- start 实体转换依赖-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <!--end 实体转换依赖-->
+
+        <!--参数校验-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.validation</artifactId>
+        </dependency>
+
+        <!--mybatis-flex 依赖-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-flex</artifactId>
+        </dependency>
+
+        <!-- common 依赖-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-common</artifactId>
+        </dependency>
+
+        <!--pgsql驱动-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.verion}</version>
+        </dependency>
+        <!--单元测试 依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

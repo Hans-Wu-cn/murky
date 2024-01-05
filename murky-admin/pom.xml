@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.murky</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>cn.murky.admin</groupId>
+    <artifactId>murky-admin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>main</module>
+        <module>murky-admin-auth</module>
+        <module>murky-admin-library</module>
+        <module>murky-admin-tenant</module>
+        <module>murky-admin-gen</module>
+        <module>murky-admin-system</module>
+    </modules>
+
+    <properties>
+        <dami.version>0.54</dami.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--poem-admin-security 安全模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-core 核心模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-flex mybatis-flex配置模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-flex</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-system 系统模块模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-system-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-system 系统模块模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--poem-admin-common 公共配置模块-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--dami 依赖-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>dami-solon-plugin</artifactId>
+                <version>${dami.version}</version>
+            </dependency>
+            <!--saas管理模块 依赖-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-tenant-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

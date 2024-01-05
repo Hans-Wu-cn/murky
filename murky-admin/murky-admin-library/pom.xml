@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.murky.admin</groupId>
+        <artifactId>murky-admin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>murky-admin-library</artifactId>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>murky-admin-flex</module>
+        <module>murky-admin-core</module>
+        <module>murky-admin-common</module>
+        <module>murky-admin-security</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-common</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
