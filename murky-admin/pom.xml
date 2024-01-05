@@ -10,7 +10,6 @@
     </parent>
     <groupId>cn.murky.admin</groupId>
     <artifactId>murky-admin</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>

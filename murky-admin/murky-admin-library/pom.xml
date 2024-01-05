@@ -23,12 +23,12 @@
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-core</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

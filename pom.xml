@@ -11,7 +11,7 @@
 
     <groupId>cn.murky</groupId>
     <artifactId>parent</artifactId>
-    <version>${version}</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -28,7 +28,6 @@
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <skipTests>true</skipTests>
-        <version>1.0-SNAPSHOT</version>
     </properties>
     <dependencyManagement>
 
@@ -36,7 +35,7 @@
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
