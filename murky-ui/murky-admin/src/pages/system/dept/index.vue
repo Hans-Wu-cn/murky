@@ -6,7 +6,7 @@
     </div>
     <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
     <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-    <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="deptId" drag-sort="row-handler"
+    <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="id" drag-sort="row-handler"
       :table-layout="'auto'" :data="deptList" :columns="columns" :tree="treeConfig" :before-drag-sort="beforeDragSort"
       @abnormal-drag-sort="onAbnormalDragSort" @drag-sort="onDragSort" @tree-expand-change="onTreeExpandChange" />
     <t-dialog v-model:visible="visible" :footer="false" width="500px">
@@ -27,14 +27,14 @@ import { dropDept, getDeptList, removeDept } from '@/api/system/dept';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useRouter } from 'vue-router';
 import deptFrom from './compoments/deptFrom.vue';
-import { PoemDept, PoemDeptTree } from '@/api/system/dept/types';
+import { Dept, DeptTree } from '@/api/system/dept/types';
 import { useSettingStore } from '@/store';
 import { hasAuth, useAuth } from '@/hooks/auth';
 import search, { SearchOption } from '@/components/search/index.vue';
 import i18n from '@/i18n';
 
 const router = useRouter();
-const tableData = ref<PoemDeptTree[]>();
+const tableData = ref<DeptTree[]>();
 const tableRef = ref();
 //菜单loading标记
 const tableLoading = ref(false);
@@ -137,7 +137,7 @@ const searchReset = () => {
 * 加载列表数据
 */
 const getData = async () => {
-  const data: PoemDeptTree[] = [];
+  const data: DeptTree[] = [];
   const { code, result } = await getDeptList();
 
   if (ResultEnum.SUCCESS === code) {
@@ -173,9 +173,9 @@ const onAddHander = (parentDept: string) => {
 * 跳转至表单页面
 * @param row 当前行的菜单对象
 */
-const onEditHandler = async (row: PoemDept) => {
+const onEditHandler = async (row: Dept) => {
   deptFromTitle.value = i18n.global.t('dept.label.edit')
-  deptFromRef.value.initFromData(row.deptId)
+  deptFromRef.value.initFromData(row.id)
   visible.value = true
 };
 
@@ -183,10 +183,10 @@ const onEditHandler = async (row: PoemDept) => {
 * 删除菜单
 * @param row 当前行的菜单对象
 */
-const onDeleteHandler = async (row: PoemDept) => {
-  const { code } = await removeDept(row.deptId);
+const onDeleteHandler = async (row: Dept) => {
+  const { code } = await removeDept(row.id);
   if (ResultEnum.SUCCESS === code) {
-    tableRef.value.remove(row.deptId);
+    tableRef.value.remove(row.id);
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
   }
 };

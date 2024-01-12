@@ -19,7 +19,7 @@ import java.util.List;
 public class SysMenuDropDTO {
 
     @ApiModelProperty("父级菜单id")
-    private Long parentMenuId;
+    private Long parentId;
 
     @ApiModelProperty(value = "菜单id集合,按顺序排列", required = true)
     @NotEmpty

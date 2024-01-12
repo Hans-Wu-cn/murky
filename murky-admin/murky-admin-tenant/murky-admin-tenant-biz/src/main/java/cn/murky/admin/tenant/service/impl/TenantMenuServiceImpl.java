@@ -35,7 +35,7 @@ public class TenantMenuServiceImpl extends ServiceImpl<TenantMenuMapper, TenantM
     public List<TenantMenuTreeVo> treeSysMenu(List<TenantMenuType> menuTypes) {
         List<TenantMenu> allTenantMenuList = mapper.selectByMenuType(menuTypes);
         List<TenantMenuTreeVo> tenantMenuTreeVos = TenantMenuConvert.INSTANCES.toEntity(allTenantMenuList);
-        List<TenantMenuTreeVo> list = tenantMenuTreeVos.stream().filter(item -> item.getParentTenantMenuId() == 0).toList();
+        List<TenantMenuTreeVo> list = tenantMenuTreeVos.stream().filter(item -> item.getParentId() == 0).toList();
         buildTreeMenu(list, tenantMenuTreeVos);
         return list;
     }
@@ -49,11 +49,11 @@ public class TenantMenuServiceImpl extends ServiceImpl<TenantMenuMapper, TenantM
     @Override
     public Boolean drop(TenantMenuDropDTO tenantMenuDropDTO) {
         List<TenantMenu> tenantMenuList = new ArrayList<>();
-        List<Long> menuIds = tenantMenuDropDTO.getSaasMenuIds();
+        List<Long> menuIds = tenantMenuDropDTO.getMenuIds();
         for (int i = 0; i < menuIds.size(); i++) {
-            tenantMenuList.add(new TenantMenu().setTenantMenuId(menuIds.get(i))
+            tenantMenuList.add(new TenantMenu().setId(menuIds.get(i))
                     .setSort(Short.parseShort(String.valueOf(i)))
-                    .setParentTenantMenuId(tenantMenuDropDTO.getParentSaasMenuId()));
+                    .setParentId(tenantMenuDropDTO.getParentId()));
         }
         return iTenantMenuService.updateBatch(tenantMenuList);
     }
@@ -68,7 +68,7 @@ public class TenantMenuServiceImpl extends ServiceImpl<TenantMenuMapper, TenantM
         for (TenantMenuTreeVo tenantMenuTreeVo : parentMenuList) {
             List<TenantMenuTreeVo> treeMenu = new ArrayList<>();
             for (TenantMenuTreeVo menu : menuList) {
-                if (menu.getParentTenantMenuId().equals(tenantMenuTreeVo.getTenantMenuId())) {
+                if (menu.getParentId().equals(tenantMenuTreeVo.getId())) {
                     treeMenu.add(menu);
                 }
             }

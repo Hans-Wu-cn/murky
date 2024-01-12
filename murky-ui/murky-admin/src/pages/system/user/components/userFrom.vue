@@ -72,11 +72,11 @@ const onReset = () => {
 
 /**
  * 初始化表单
- * @param userId 用户id
+ * @param id 用户id
  */
 const resetValue = ref({})// 记录重置表单数据
-const initFromData = async (userId: string) => {
-    if (!userId) {
+const initFromData = async (id: string) => {
+    if (!id) {
         formData.value = {
             sex: 0,
             deptId: '',
@@ -85,9 +85,9 @@ const initFromData = async (userId: string) => {
         userFromId.value = undefined
         return
     }
-    userFromId.value = userId;
+    userFromId.value = id;
     loading.value = true
-    const { code, result } = await queryUserInfo(userId)
+    const { code, result } = await queryUserInfo(id)
     if (ResultEnum.SUCCESS === code) {
         formData.value = result
         resetValue.value = JSON.parse(JSON.stringify(result))
@@ -103,7 +103,7 @@ const onSubmit = async ({ validateResult }: SubmitContext<User>) => {
     if (validateResult === true) {
         loading.value = true
         console.log(formData.value)
-        const api = formData.value.userId ? editUser : addUser
+        const api = formData.value.id ? editUser : addUser
         const res = await api(formData.value);
         if (res.code === ResultEnum.SUCCESS) {
             MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

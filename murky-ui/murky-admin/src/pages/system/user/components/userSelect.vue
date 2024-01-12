@@ -2,7 +2,7 @@
     <t-select v-model="value" :placeholder="placeholder || $t('user.label.pl.role')" multiple clearable
         :min-collapsed-num="3">
         <t-option :label="$t('common.label.allSelect')" :check-all="true" />
-        <t-option v-for="item in roleData" :key="item.roleId" :value="item.roleId" :label="item.roleName"></t-option>
+        <t-option v-for="item in roleData" :key="item.id" :value="item.id" :label="item.roleName"></t-option>
     </t-select>
 </template>
 <script setup lang="ts">

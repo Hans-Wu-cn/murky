@@ -59,7 +59,7 @@ public class ISysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysD
     @Tran
     @Override
     public boolean edit(SysDictType sysDictType) {
-        SysDictType dictType = iSysDictTypeService.getById(sysDictType.getDictTypeId());
+        SysDictType dictType = iSysDictTypeService.getById(sysDictType.getId());
         boolean b = iSysDictTypeService.updateById(sysDictType);
         if (b) {
             // 修改对应的data

@@ -25,7 +25,7 @@ import java.util.List;
 public class SysUserFromDTO {
     @ApiModelProperty("用户id")
     @NotNull(groups = Update.class)
-    private Long userId;
+    private Long id;
 
     @ApiModelProperty(value = "用户名",required = true)
     @NotBlank

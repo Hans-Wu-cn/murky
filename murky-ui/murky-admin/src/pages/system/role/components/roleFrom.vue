@@ -80,11 +80,11 @@ const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeMode
 
 /**
  * 初始化表单
- * @param roleId 角色id
+ * @param id 角色id
  */
 const resetValue = ref({})// 记录重置表单数据
-const initFromData = async (roleId: string) => {
-  if (!roleId) {
+const initFromData = async (id: string) => {
+  if (!id) {
     formData.value = {
       roleCode: '',
       roleName: '',
@@ -95,8 +95,8 @@ const initFromData = async (roleId: string) => {
     roleFromId.value = undefined
     return
   }
-  roleFromId.value = roleId;
-  const { code, result } = await roleInfo(roleId)
+  roleFromId.value = id;
+  const { code, result } = await roleInfo(id)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
     resetValue.value = result
@@ -110,7 +110,7 @@ const initFromData = async (roleId: string) => {
 const onSubmit = async ({ validateResult }: SubmitContext<Role>) => {
   if (validateResult === true) {
     loading.value = true
-    const api = formData.value.roleId ? updatePoemRole : addPoemRole
+    const api = formData.value.id ? updatePoemRole : addPoemRole
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

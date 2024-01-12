@@ -150,7 +150,7 @@ const onAddHander = () => {
  */
 const onEditHander = (row: DictType) => {
   dictTypeFromTitle.value = i18n.global.t('dict.label.edit')
-  dictTypeFromRef.value.initFromData(row.dictTypeId)
+  dictTypeFromRef.value.initFromData(row.id)
   dictTypeFromVisible.value = true
 }
 
@@ -159,7 +159,7 @@ const onEditHander = (row: DictType) => {
  * @param row 
  */
 const onDelHander = async (row: DictType) => {
-  const { code } = await dictTypeRemove(row.dictTypeId)
+  const { code } = await dictTypeRemove(row.id)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();

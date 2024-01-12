@@ -28,7 +28,7 @@ import org.noear.solon.validation.annotation.NotNull;
 public class SysMenuFromDTO {
     @ApiModelProperty("菜单id")
     @NotNull(groups = Update.class)
-    private Long menuId;
+    private Long id;
 
     @ApiModelProperty(value = "菜单标题", required = true)
     @NotBlank
@@ -47,7 +47,7 @@ public class SysMenuFromDTO {
     private String auth;
 
     @ApiModelProperty("上级菜单id")
-    private Long parentMenuId;
+    private Long parentId;
 
     @ApiModelProperty(value = "菜单类型 0:目录 1:侧边菜单 2:按钮", required = true)
     @NotNull

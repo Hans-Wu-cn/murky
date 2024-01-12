@@ -117,7 +117,7 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
             throw new ServiceException("添加失败");
         }
         if (!sysUserFromDTO.getRoleIds().isEmpty()) {
-            sysUserRoleMapper.deleteByUserId(sysUserFromDTO.getUserId());
+            sysUserRoleMapper.deleteByUserId(sysUserFromDTO.getId());
             List<SysUserRole> sysUserRoles = new ArrayList<>();
             for (Long roleId : sysUserFromDTO.getRoleIds()) {
                 sysUserRoles.add(new SysUserRole()
@@ -143,7 +143,7 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
         if (!resetPasswordDto.getPassword().equals(resetPasswordDto.getConfirmPassword())) {
             throw new ServiceException("确认密码不一致");
         }
-        Long userId = resetPasswordDto.getUserId();
+        Long userId = resetPasswordDto.getId();
         SysUser sysUser = mapper.selectOneById(userId);
         // 校验账号是否正确
         Optional.ofNullable(sysUser).orElseThrow(() -> new ServiceException("该用户不存在"));

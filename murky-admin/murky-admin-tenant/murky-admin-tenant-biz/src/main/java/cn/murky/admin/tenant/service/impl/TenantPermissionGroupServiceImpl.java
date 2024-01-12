@@ -50,16 +50,16 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
         TenantPermissionGroupVo vo = TenantPermissionGroupConvert.INSTANCES.toVo(tenantPermissionGroup);
         List<TenantMenu> tenantMenus = tenantMenuMapper.selectByGroupId(groupId);
         List<Long> tenantMenuIds = tenantMenus.stream().filter(item -> {
-            Long saasMenuId = item.getTenantMenuId();
+            Long saasMenuId = item.getId();
             boolean notHasChild = true;
             for (TenantMenu tenantMenu : tenantMenus) {
-                if (saasMenuId.equals(tenantMenu.getParentTenantMenuId())) {
+                if (saasMenuId.equals(tenantMenu.getId())) {
                     notHasChild = false;
                     break;
                 }
             }
             return notHasChild;
-        }).map(TenantMenu::getTenantMenuId).toList();
+        }).map(TenantMenu::getId).toList();
         vo.setTenantMenuIds(tenantMenuIds);
         return vo;
     }
@@ -91,7 +91,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
             //补充不完全一定存在的父级元素
             List<Long> parentMenuIds = tenantMenuMapper.selectByListByIds(tenantPermissionGroupFromDTO.getTenantMenuIds())
                     .stream()
-                    .map(TenantMenu::getParentTenantMenuId)
+                    .map(TenantMenu::getParentId)
                     .toList();
             HashSet<Long> saasMenuIds = new HashSet<>(tenantPermissionGroupFromDTO.getTenantMenuIds());
             saasMenuIds.addAll(parentMenuIds);
@@ -145,7 +145,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
         if (Utils.isNotEmpty(tenantPermissionGroupFromDTO.getTenantMenuIds())) {
             //补充不完全一定存在的父级元素
             List<Long> parentMenuIds = tenantMenuMapper.selectByListByIds(tenantPermissionGroupFromDTO.getTenantMenuIds())
-                    .stream().map(TenantMenu::getParentTenantMenuId).toList();
+                    .stream().map(TenantMenu::getParentId).toList();
             HashSet<Long> saasMenuIds = new HashSet<>(tenantPermissionGroupFromDTO.getTenantMenuIds());
             saasMenuIds.addAll(parentMenuIds);
             List<TenantGroupMenu> tenantGroupMenus = saasMenuIds.stream()

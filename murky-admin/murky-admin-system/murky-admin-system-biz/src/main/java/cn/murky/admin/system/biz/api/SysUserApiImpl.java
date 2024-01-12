@@ -163,7 +163,7 @@ public class SysUserApiImpl implements SysUserApi {
         return iSysUserService.resetPassword(new ResetPasswordDto()
                 .setPassword(password)
                 .setConfirmPassword(surePassword)
-                .setUserId(userId));
+                .setId(userId));
     }
 
     /**

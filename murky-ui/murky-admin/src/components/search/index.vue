@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { SubmitContext } from 'tdesign-vue-next';
 import InputContent from './components/inputContent.vue';
-import { PoemDictData } from '@/api/system/dict/types';
+import { DictData } from '@/api/system/dict/types';
 import { ComputedRef, onMounted, watch } from 'vue';
 import { useDictStore } from '@/store';
 import i18n from '@/i18n';
@@ -25,7 +25,7 @@ export interface SearchOption {
     type: string,// 输入框类型
     placeholder?: string | ComputedRef<string> | any,
     radioOptions?: { [key: string]: string },// 单选项搜索
-    dictOptions?: Array<PoemDictData>,// 单选项字典
+    dictOptions?: Array<DictData>,// 单选项字典
     dictType?: string,// 单选项字典类型
     labelWidth?: string | number
 }

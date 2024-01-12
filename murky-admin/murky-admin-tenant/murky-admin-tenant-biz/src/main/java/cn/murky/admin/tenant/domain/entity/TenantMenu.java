@@ -23,7 +23,7 @@ import java.io.Serializable;
 public class TenantMenu extends BaseEntity<TenantMenu> implements Serializable {
     @Id
     @ApiModelProperty("菜单id")
-    private Long tenantMenuId;
+    private Long id;
 
     @ApiModelProperty("菜单标题")
     private String label;
@@ -41,7 +41,7 @@ public class TenantMenu extends BaseEntity<TenantMenu> implements Serializable {
     private String auth;
 
     @ApiModelProperty("上级菜单id")
-    private Long parentTenantMenuId;
+    private Long parentId;
 
     @ApiModelProperty("菜单类型 1:侧边菜单 2:按钮")
     private TenantMenuType type;

@@ -18,7 +18,7 @@ public class TenantMenuTreeVo implements Serializable {
     /**
      * 租户菜单id
      */
-    private Long tenantMenuId;
+    private Long id;
 
     /**
      * 菜单标题
@@ -73,7 +73,7 @@ public class TenantMenuTreeVo implements Serializable {
     /**
      * 上级租户菜单id
      */
-    private Long parentTenantMenuId;
+    private Long parentId;
 
     /**
      * 组件路径

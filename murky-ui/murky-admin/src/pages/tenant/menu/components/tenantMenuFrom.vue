@@ -98,7 +98,7 @@ const FORM_RULES = ref<FormRules>({
  * 重置表单
  * */
 const onReset = () => {
-    if (poemId.value) {
+    if (tenantMenuId.value) {
         menuFormData.value = historyPoemMenu.value
     } else {
         menuFormData.value = { openType: 1, isDisplay: 0, component: '', isOutside: 0, isCache: 0, sort: 0, icon: '' }
@@ -112,7 +112,7 @@ const onReset = () => {
  **/
 const onSubmit = async ({ validateResult, firstError }: SubmitContext<TenantMenu>) => {
     if (validateResult === true) {
-        const api = menuFormData.value.tenantMenuId ? updateMenu : addMenu
+        const api = menuFormData.value.id ? updateMenu : addMenu
         menuFormData.value.icon = menuFormData.value.icon || ''
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
@@ -128,17 +128,17 @@ const onSubmit = async ({ validateResult, firstError }: SubmitContext<TenantMenu
 /**
  * 表单初始化事件
  * */
-const poemId = ref(route.query.poemId as string || props.tenantMenuId);
+const tenantMenuId = ref(route.query.tenantMenuId as string || props.tenantMenuId);
 const historyPoemMenu = ref({})
 const loading = ref(false);
 const onInitFrom = async () => {
     const parentMenuId = route.query.parentMenuId as string || props.parentTenantMenuId
     if (parentMenuId) {
-        menuFormData.value.parentTenantMenuId = parentMenuId;
+        menuFormData.value.id = parentMenuId;
     }
-    if (!poemId.value) return
+    if (!tenantMenuId.value) return
     loading.value = true;
-    const res = await getMenu(poemId.value)
+    const res = await getMenu(tenantMenuId.value)
     loading.value = false;
     menuFormData.value = res.result
     historyPoemMenu.value = JSON.parse(JSON.stringify(res.result))

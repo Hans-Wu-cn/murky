@@ -19,9 +19,9 @@ import java.util.List;
 public class TenantMenuDropDTO {
 
     @ApiModelProperty("租户父级菜单id")
-    private Long parentSaasMenuId;
+    private Long parentId;
 
     @ApiModelProperty(value = "菜单id集合,按顺序排列", required = true)
     @NotEmpty
-    private List<Long> saasMenuIds;
+    private List<Long> menuIds;
 }

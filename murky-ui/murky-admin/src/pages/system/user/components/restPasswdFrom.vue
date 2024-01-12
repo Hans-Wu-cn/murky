@@ -33,7 +33,7 @@ const FORM_RULES = ref<FormRules>({
 })
 // 表单对象
 const formData = ref<RestPassword>({
-    userId: '',
+    id: '',
     password: '',
     confirmPassword: '',
 });
@@ -42,10 +42,10 @@ const loading = ref(false);
 
 /**
  * 初始化表单事件
- * @param userId 
+ * @param id 
  */
-const initFromData = (userId: string) => {
-    formData.value.userId = userId
+const initFromData = (id: string) => {
+    formData.value.id = id
 }
 
 /**

@@ -47,9 +47,9 @@ public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> imp
         List<SysMenu> SysMenuList = new ArrayList<>();
         List<Long> menuIds = sysMenuDropDTO.getMenuIds();
         for (int i = 0; i < menuIds.size(); i++) {
-            SysMenuList.add(new SysMenu().setMenuId(menuIds.get(i))
+            SysMenuList.add(new SysMenu().setId(menuIds.get(i))
                     .setSort(Short.parseShort(String.valueOf(i)))
-                    .setParentMenuId(sysMenuDropDTO.getParentMenuId()));
+                    .setParentId(sysMenuDropDTO.getParentId()));
         }
         return iSysMenuService.updateBatch(SysMenuList);
     }
@@ -63,7 +63,7 @@ public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> imp
     public List<SysMenuTree> treeSysMenu(List<MenuType> menuTypes) {
         List<SysMenu> allSysMenuList = mapper.selectByMenuType(menuTypes, SecurityUtils.isAdmin() ? null : SecurityUtils.getUserInfo().getRoleIds());
         List<SysMenuTree> SysMenuTreeVOS = SysMenuConvert.INSTANCES.toEntity(allSysMenuList);
-        List<SysMenuTree> list = SysMenuTreeVOS.stream().filter(item -> item.getParentMenuId() == 0).toList();
+        List<SysMenuTree> list = SysMenuTreeVOS.stream().filter(item -> item.getParentId() == 0).toList();
         buildTreeSysMenu(list, SysMenuTreeVOS);
         return list;
     }
@@ -78,7 +78,7 @@ public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> imp
     @Tran
     public boolean removeById(Serializable id) {
         long count = mapper.selectCountByQuery(
-                QueryWrapper.create().from(SysMenuTableDef.SYS_MENU).where(SysMenuTableDef.SYS_MENU.PARENT_MENU_ID.eq(id))
+                QueryWrapper.create().from(SysMenuTableDef.SYS_MENU).where(SysMenuTableDef.SYS_MENU.PARENT_ID.eq(id))
         );
         if (count > 0) {
             throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
@@ -102,7 +102,7 @@ public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> imp
         for (SysMenuTree SysMenuTreeVO : parentMenuList) {
             List<SysMenuTree> treeSysMenu = new ArrayList<>();
             for (SysMenuTree SysMenu : SysMenuList) {
-                if (SysMenu.getParentMenuId().equals(SysMenuTreeVO.getMenuId())) {
+                if (SysMenu.getParentId().equals(SysMenuTreeVO.getId())) {
                     treeSysMenu.add(SysMenu);
                 }
             }

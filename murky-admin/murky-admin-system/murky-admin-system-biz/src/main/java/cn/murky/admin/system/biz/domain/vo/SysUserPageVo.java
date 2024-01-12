@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 @ApiModel("用户分页视图类")
 public class SysUserPageVo {
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String userName;

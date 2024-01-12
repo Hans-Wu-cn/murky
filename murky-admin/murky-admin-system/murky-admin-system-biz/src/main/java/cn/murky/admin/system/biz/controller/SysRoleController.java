@@ -46,7 +46,7 @@ public class SysRoleController extends BaseController<ISysRoleService> {
                         .and(SYS_ROLE.ROLE_CODE.like(SysRolePageDTO.getRoleCode(), If::hasText))
                         .and(SYS_ROLE.ROLE_NAME.like(SysRolePageDTO.getRoleName(), If::hasText))
                         .and(SYS_ROLE.ROLE_CODE.ne(SystemContant.ADMIN_ROLE_CODE))
-                        .and(SYS_ROLE.ROLE_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                        .and(SYS_ROLE.ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
                         .orderBy(SYS_ROLE.CREATE_TIME.asc())
         );
         return ApiResult.ok(result);

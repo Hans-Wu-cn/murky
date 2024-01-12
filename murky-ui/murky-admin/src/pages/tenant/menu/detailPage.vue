@@ -23,7 +23,7 @@ const desc = ref<DescItem[]>([
     {
         label: computed(() => i18n.global.t('menu.label.id')),
         value: '',
-        code: 'tenantMenuId',
+        code: 'id',
         column: 3
     },
     {

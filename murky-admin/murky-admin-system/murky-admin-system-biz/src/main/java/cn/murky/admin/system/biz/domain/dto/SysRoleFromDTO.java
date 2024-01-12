@@ -24,7 +24,7 @@ import java.util.List;
 public class SysRoleFromDTO {
     @ApiModelProperty("角色id")
     @NotNull(groups = Update.class)
-    private Long roleId;
+    private Long id;
 
     @ApiModelProperty(value = "角色名", required = true)
     @NotBlank

@@ -33,7 +33,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     default SysRole selectByNameOrCode(Long roleId, String name, String code) {
         SysRoleTableDef SYS_ROLE = SysRoleTableDef.SYS_ROLE;
         return this.selectOneByQuery(QueryWrapper.create().where(
-                SYS_ROLE.ROLE_ID.ne(roleId, If::notNull)
+                SYS_ROLE.ID.ne(roleId, If::notNull)
         ).and(SYS_ROLE.ROLE_CODE.eq(code).or(SYS_ROLE.ROLE_NAME.eq(name))).limit(1));
     }
 }

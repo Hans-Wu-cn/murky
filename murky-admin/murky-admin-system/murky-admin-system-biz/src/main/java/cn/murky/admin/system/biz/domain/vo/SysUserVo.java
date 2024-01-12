@@ -18,7 +18,7 @@ import java.util.List;
 @ApiModel("用户视图类")
 public class SysUserVo {
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String userName;

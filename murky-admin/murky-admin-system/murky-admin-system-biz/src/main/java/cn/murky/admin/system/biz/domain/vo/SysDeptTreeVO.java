@@ -17,13 +17,13 @@ import java.util.List;
 @ApiModel("菜单树视图类")
 public class SysDeptTreeVO {
     @ApiModelProperty("部门id")
-    private Long deptId;
+    private Long id;
 
     @ApiModelProperty("部门名称")
     private String deptName;
 
     @ApiModelProperty("上级部门id")
-    private Long parentDept;
+    private Long parentId;
 
     @ApiModelProperty("排序")
     private Integer sort;

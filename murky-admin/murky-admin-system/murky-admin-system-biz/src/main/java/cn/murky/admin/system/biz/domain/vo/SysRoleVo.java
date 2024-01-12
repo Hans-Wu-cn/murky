@@ -19,7 +19,7 @@ import java.util.List;
 @ApiModel("角色视图类")
 public class SysRoleVo implements Serializable {
     @ApiModelProperty("主键")
-    private Long roleId;
+    private Long id;
 
     @ApiModelProperty("角色名")
     private String roleName;

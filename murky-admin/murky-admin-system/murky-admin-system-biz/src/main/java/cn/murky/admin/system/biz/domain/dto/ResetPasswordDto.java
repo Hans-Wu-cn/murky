@@ -13,7 +13,7 @@ import org.noear.solon.validation.annotation.NotNull;
 public class ResetPasswordDto {
     @ApiModelProperty(value = "用户id",required = true)
     @NotNull
-    private Long userId;
+    private Long id;
 
     @ApiModelProperty(value = "密码",required = true)
     @NotBlank

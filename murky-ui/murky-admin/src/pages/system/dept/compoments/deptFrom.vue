@@ -20,7 +20,7 @@
 </template>
 <script setup lang="tsx">
 import { ref } from 'vue'
-import { PoemDeptTree, PoemDept } from '@/api/system/dept/types'
+import { DeptTree, Dept } from '@/api/system/dept/types'
 import { FormRules, MessagePlugin, SubmitContext, } from 'tdesign-vue-next';
 import { addDept, deptInfo, editDept } from '@/api/system/dept';
 import { ResultEnum } from '@/enums/httpEnum';
@@ -32,10 +32,10 @@ const FORM_RULES = ref<FormRules>({
   sort: [{ required: true, message: i18n.global.t('common.attribute.pl.sort'), trigger: 'blur' }],
 })
 // 表单对象
-const formData = ref<PoemDeptTree>({
-  deptId: '',
+const formData = ref<DeptTree>({
+  id: '',
   deptName: '',
-  parentDept: '0',
+  parentId: '0',
   sort: 0
 });
 
@@ -56,20 +56,20 @@ const onReset = () => {
  * @param roleId 角色id
  */
 const historyFormValue = ref({})
-const initFromData = async (deptId: string, parentDept: string) => {
-  if (!deptId) {
+const initFromData = async (id: string, parentId: string) => {
+  if (!id) {
     formData.value = {
-      deptId: '',
+      id: '',
       deptName: '',
-      parentDept: parentDept,
+      parentId: parentId,
       sort: 0
     }
-    parentFromDept.value = parentDept
+    parentFromDept.value = parentId
     deptFormId.value = undefined
     return
   }
-  deptFormId.value = deptId;
-  const { code, result } = await deptInfo(deptId)
+  deptFormId.value = id;
+  const { code, result } = await deptInfo(id)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
     historyFormValue.value = JSON.parse(JSON.stringify(result))
@@ -81,10 +81,10 @@ const initFromData = async (deptId: string, parentDept: string) => {
  * @param param0 表单验证
  */
 const loading = ref(false)
-const onSubmit = async ({ validateResult }: SubmitContext<PoemDept>) => {
+const onSubmit = async ({ validateResult }: SubmitContext<Dept>) => {
   if (validateResult) {
     loading.value = true
-    const api = formData.value.deptId ? editDept : addDept
+    const api = formData.value.id ? editDept : addDept
     const res = await api(formData.value);
     loading.value = false
     if (res.code === ResultEnum.SUCCESS) {

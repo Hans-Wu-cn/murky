@@ -18,7 +18,7 @@ import java.util.List;
 @ApiModel("部门拖动排序接口参数实体类")
 public class SysDeptDropDTO {
     @ApiModelProperty("父级部门id")
-    private Long parentMenuId;
+    private Long parentId;
 
     @ApiModelProperty(value = "部门id集合,按顺序排列", required = true)
     @NotEmpty

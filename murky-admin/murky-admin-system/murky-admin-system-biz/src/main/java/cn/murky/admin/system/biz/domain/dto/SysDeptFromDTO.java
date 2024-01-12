@@ -20,14 +20,14 @@ import org.noear.solon.validation.annotation.NotNull;
 public class SysDeptFromDTO {
     @ApiModelProperty(value = "部门id")
     @NotNull(groups = Update.class)
-    private Long deptId;
+    private Long id;
 
     @ApiModelProperty(value = "部门名称",required=true)
     @NotBlank
     private String deptName;
 
     @ApiModelProperty("父级部门id")
-    private Long parentDept;
+    private Long parentId;
 
     @ApiModelProperty("排序")
     private Integer sort;

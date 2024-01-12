@@ -5,7 +5,7 @@
       <div>
         <t-button @click="onAddHander" v-auth="'role:add'">{{ $t('role.button.add') }}</t-button>
       </div>
-      <t-table stripe :data="roleData" :columns="columns" row-key="roleId" :loading="tableLoading"
+      <t-table stripe :data="roleData" :columns="columns" row-key="id" :loading="tableLoading"
         :pagination="pagination" @change="rehandleChange" @page-change="onPageChange" />
     </t-card>
     <t-dialog v-model:visible="roleFromVisible" :footer="false" width="500px" top="20px">
@@ -124,7 +124,7 @@ const onAddHander = () => {
  */
 const onEditHander = (row: Role) => {
   roleFromTitle.value = i18n.global.t('role.label.edit')
-  roleFromRef.value.initFromData(row.roleId)
+  roleFromRef.value.initFromData(row.id)
   roleFromVisible.value = true
 }
 
@@ -133,7 +133,7 @@ const onEditHander = (row: Role) => {
  * @param row 当前行数据
  */
 const onDatascopeHander = (row: Role) => {
-  datascopeRef.value.initFromData(row.roleId)
+  datascopeRef.value.initFromData(row.id)
   datascopeVisible.value = true
 }
 
@@ -142,7 +142,7 @@ const onDatascopeHander = (row: Role) => {
  * @param row 
  */
 const onDelHander = async (row: Role) => {
-  const { code } = await delPoemRole(row.roleId)
+  const { code } = await delPoemRole(row.id)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();

@@ -22,7 +22,7 @@ public class TenantUser extends BaseEntity<TenantUser> {
 
     @Id
     @ApiModelProperty("租户用户id")
-    private Long tenantUserId;
+    private Long id;
 
     @ApiModelProperty("用户名")
     private String userName;

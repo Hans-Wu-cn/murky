@@ -53,9 +53,9 @@ export function editDept(data: Dept) {
  * 删除部门
  * @returns Route
  */
-export function removeDept(deptId: string) {
+export function removeDept(id: string) {
   return request.delete({
-    url: `${Api.dept}/${deptId}`,
+    url: `${Api.dept}/${id}`,
   });
 }
 

@@ -24,7 +24,7 @@ public class SysDictType extends BaseEntity<SysDictType> implements Serializable
 
     @Id
     @ApiModelProperty("主键")
-    private Long dictTypeId;
+    private Long id;
 
     @ApiModelProperty("字典名称")
     private String dictName;

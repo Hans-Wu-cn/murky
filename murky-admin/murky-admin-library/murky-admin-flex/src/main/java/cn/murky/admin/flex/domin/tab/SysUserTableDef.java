@@ -28,7 +28,7 @@ public class SysUserTableDef extends TableDef {
     /**
      * 用户id
      */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
+    public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
      * 账号
@@ -73,7 +73,7 @@ public class SysUserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{SEX, EMAIL, DEPT_ID, USER_ID, ACCOUNT, PASSWORD, USER_NAME, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{SEX, EMAIL, DEPT_ID, ID, ACCOUNT, PASSWORD, USER_NAME, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER};
 
     public SysUserTableDef() {
         super("", "sys_user");

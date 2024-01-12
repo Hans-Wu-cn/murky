@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel("i18n实体类")
 @Table(value = "sys_i18n")
-public class SysI18n extends BaseEntity {
+public class SysI18n extends BaseEntity<SysI18n> {
     @Id
     @ApiModelProperty("主键")
     private Long id;

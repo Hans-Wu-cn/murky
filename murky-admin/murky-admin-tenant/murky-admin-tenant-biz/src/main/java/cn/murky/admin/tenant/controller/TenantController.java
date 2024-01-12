@@ -84,9 +84,4 @@ public class TenantController extends BaseController<ITenantService> {
         return ApiResult.fail();
     }
 
-    public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        System.out.println(ZonedDateTime.now().format(formatter));
-        ZonedDateTime now = ZonedDateTime.now();
-    }
 }

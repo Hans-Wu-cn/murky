@@ -21,7 +21,7 @@ public class SysDictTypeFromDTO {
 
     @ApiModelProperty("主键")
     @NotNull(groups = Update.class)
-    private Long dictTypeId;
+    private Long id;
 
     @ApiModelProperty(value = "字典名称",required = true)
     @NotBlank

@@ -18,10 +18,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel("角色实体类")
 @Table("sys_role")
-public class SysRole extends BaseEntity {
+public class SysRole extends BaseEntity<SysRole> {
     @Id
     @ApiModelProperty("主键")
-    private Long roleId;
+    private Long id;
 
     @ApiModelProperty("角色名")
     private String roleName;

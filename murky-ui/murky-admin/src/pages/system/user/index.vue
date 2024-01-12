@@ -92,7 +92,7 @@ const columns: Array<PrimaryTableCol<User>> = [
     cell: (h, { col, row }) => (
       <div>
         {
-          gender[row[col.colKey]]
+          gender[row.sex]
         }
       </div>
     ),
@@ -223,7 +223,6 @@ const loadUserData = async () => {
  * 部门树点击事件
  */
 const deptTreeNodeClick = (context: { node: TreeNodeModel<DeptTree>; e: MouseEvent }) => {
-  console.log(context)
   userQuery.value.deptId = context.node.value as string
   loadUserData()
 }

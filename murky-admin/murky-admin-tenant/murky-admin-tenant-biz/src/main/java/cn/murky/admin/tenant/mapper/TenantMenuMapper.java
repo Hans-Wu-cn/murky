@@ -45,7 +45,7 @@ public interface TenantMenuMapper extends BaseMapper<TenantMenu> {
         return this.selectListByQuery(
                 QueryWrapper.create()
                         .select().from(TENANT_MENU)
-                        .where(TENANT_MENU.TENANT_MENU_ID.in(tenantMenuIds))
+                        .where(TENANT_MENU.ID.in(tenantMenuIds))
                         .orderBy(TENANT_MENU.SORT.asc(), TENANT_MENU.LABEL.asc())
         );
     }
@@ -61,7 +61,7 @@ public interface TenantMenuMapper extends BaseMapper<TenantMenu> {
         return this.selectListByQuery(
                 QueryWrapper.create()
                         .select().from(TENANT_MENU).leftJoin(TENANT_GROUP_MENU)
-                        .on(TENANT_GROUP_MENU.TENANT_MENU_ID.eq(TENANT_MENU.TENANT_MENU_ID))
+                        .on(TENANT_GROUP_MENU.TENANT_MENU_ID.eq(TENANT_MENU.ID))
                         .where(TENANT_GROUP_MENU.GROUP_ID.eq(groupId))
                         .orderBy(TENANT_MENU.SORT.asc(), TENANT_MENU.LABEL.asc())
         );

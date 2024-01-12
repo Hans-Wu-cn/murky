@@ -44,9 +44,9 @@ export function editUser(data: User) {
  * 查询用户信息
  * @returns Route
  */
-export function queryUserInfo(userId: string) {
-  return request.get({
-    url: `${Api.user}/${userId}`,
+export function queryUserInfo(id: string) {
+  return request.get<User>({
+    url: `${Api.user}/${id}`,
   });
 }
 
@@ -54,9 +54,9 @@ export function queryUserInfo(userId: string) {
  * 删除用户信息
  * @returns Route
  */
-export function delUserInfo(userId: string) {
+export function delUserInfo(id: string) {
   return request.delete({
-    url: `${Api.user}/${userId}`,
+    url: `${Api.user}/${id}`,
   });
 }
 

@@ -5,7 +5,7 @@
         <slot></slot>
         <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
         <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="menuId" drag-sort="row-handler"
+        <t-enhanced-table stripe :loading="tableLoading" ref="tableRef" row-key="id" drag-sort="row-handler"
             :table-layout="'auto'" :data="menuList" :columns="columns" :tree="treeConfig"
             :tree-expand-and-fold-icon="treeExpandIcon" :before-drag-sort="beforeDragSort"
             v-model:expandedTreeNodes="expandedTableTreeNodes" @abnormal-drag-sort="onAbnormalDragSort"
@@ -245,7 +245,7 @@ const menuVisible = ref(false);
 const parentMenuId = ref('');
 const onAddClick = async (row: Menu) => {
     menuVisible.value = true;
-    parentMenuId.value = row.menuId;
+    parentMenuId.value = row.id;
     poemId.value = ''
 };
 
@@ -257,7 +257,7 @@ const poemId = ref('')
 const onEditClick = async (row: Menu) => {
     menuVisible.value = true;
     parentMenuId.value = '';
-    poemId.value = row.menuId
+    poemId.value = row.id
 };
 
 // 表单提交成功页面
@@ -270,9 +270,9 @@ const submit = () => {
  * @param row 当前行的菜单对象
  */
 const onDeleteClick = async (row: Menu) => {
-    const { code } = await delMenu(row.menuId);
+    const { code } = await delMenu(row.id);
     if (ResultEnum.SUCCESS === code) {
-        tableRef.value.remove(row.menuId);
+        tableRef.value.remove(row.id);
         MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     }
 };
@@ -282,7 +282,7 @@ const onDeleteClick = async (row: Menu) => {
  * @param row 当前行的菜单对象
  */
 const onLookUp = (row: Menu) => {
-    router.push(menuConfig.detailUrl + '?menuId=' + row.menuId)
+    router.push(menuConfig.detailUrl + '?menuId=' + row.id)
 };
 const expandedTableTreeNodes = ref<Array<string | number>>(['1']); // 存储展开的数据
 const onExpandedTreeNodesChange = (expandedTreeNodes: Array<string | number>, context: any) => {

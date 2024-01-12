@@ -16,7 +16,7 @@ public class SysDictBo {
     /**
      * 主键
      */
-    private Long dictTypeId;
+    private Long id;
 
     /**
      * 字典名称

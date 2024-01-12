@@ -24,10 +24,10 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel("菜单实体类")
 @Table(value = "sys_menu")
-public class SysMenu extends BaseEntity implements Serializable {
+public class SysMenu extends BaseEntity<SysMenu> implements Serializable {
     @Id
     @ApiModelProperty("菜单id")
-    private Long menuId;
+    private Long id;
 
     @ApiModelProperty("菜单标题")
     private String label;
@@ -45,7 +45,7 @@ public class SysMenu extends BaseEntity implements Serializable {
     private String auth;
 
     @ApiModelProperty("上级菜单id")
-    private Long parentMenuId;
+    private Long parentId;
 
     @ApiModelProperty("菜单类型 1:侧边菜单 2:按钮")
     private MenuType type;

@@ -41,7 +41,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
         SysUserTableDef SYS_USER = SysUserTableDef.SYS_USER;
         return this.updateByQuery(new SysUser().setPassword(password).setSalt(salt)
                 , true, QueryWrapper.create().where(
-                        SYS_USER.USER_ID.eq(userId)
+                        SYS_USER.ID.eq(userId)
                 ));
     }
 
@@ -69,14 +69,14 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
         SysDeptTableDef SYS_DEPT = SysDeptTableDef.SYS_DEPT;
         SysUserTableDef SYS_USER = SysUserTableDef.SYS_USER;
         QueryWrapper queryWrapper = QueryWrapper.create()
-                .leftJoin(SYS_DEPT).on(SYS_DEPT.DEPT_ID.eq(SYS_USER.DEPT_ID))
+                .leftJoin(SYS_DEPT).on(SYS_DEPT.ID.eq(SYS_USER.DEPT_ID))
                 .and(SYS_USER.DEPT_ID.in(deptIds, If::notNull))
                 .and(SYS_USER.EMAIL.like(sysUserPageDTO.getEmail(), If::hasText))
                 .and(SYS_USER.SEX.eq(sysUserPageDTO.getSex(), If::notNull))
                 .and(SYS_USER.USER_NAME.like(sysUserPageDTO.getUserName(), If::hasText))
                 .and(SYS_USER.DEPT_ID.in(deptIds, If::notNull))
-                .and(SYS_USER.USER_ID.ne(SecurityUtils.getUserId()))
-                .and(SYS_USER.USER_ID.ne(SystemContant.ADMIN_USER_ID))
+                .and(SYS_USER.ID.ne(SecurityUtils.getUserId()))
+                .and(SYS_USER.ID.ne(SystemContant.ADMIN_USER_ID))
                 .orderBy(SYS_USER.CREATE_TIME.asc());
         return paginateAs(sysUserPageDTO.getPageNumber(), sysUserPageDTO.getPageSize(), DataScopeUtils.dataScope(queryWrapper,SYS_USER.getTableName()), SysUserPageVo.class);
     }

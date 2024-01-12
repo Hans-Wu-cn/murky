@@ -86,8 +86,8 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         // 添加租户
         Tenant tenantEntity = TenantConvert.INSTANCES.toEntity(tenantFromDTO)
                 .setStatus(CommonStatus.NORMAL);
-        int tenantInsertCount = mapper.insert(tenantEntity);
-        if (tenantInsertCount <= 0) {
+        boolean tenantSaveB = tenantEntity.save();
+        if (tenantSaveB) {
             throw new ServiceException("添加租户失败");
         }
         // 密码加密
@@ -99,12 +99,12 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
                 .setSalt(passwordRecord.salt())
                 .setSex(Sex.OTHER)
                 .setTenantId(tenantEntity.getId());
-        int userInsertCount = tenantUserMapper.insert(tenantUser);
-        if (userInsertCount <= 0) {
+        boolean userSaveB = tenantUser.save();
+        if (userSaveB) {
             throw new ServiceException("添加租户失败");
         }
         // 绑定租户与租户管理员
-        tenantEntity.setAdminUser(tenantUser.getTenantUserId());
+        tenantEntity.setAdminUser(tenantUser.getId());
         int count = mapper.update(tenantEntity);
         if (count <= 0) {
             throw new ServiceException("添加租户失败");

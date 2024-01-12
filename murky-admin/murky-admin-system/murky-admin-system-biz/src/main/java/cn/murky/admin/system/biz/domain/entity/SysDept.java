@@ -12,17 +12,17 @@ import lombok.experimental.Accessors;
 @Table("sys_dept")
 @Accessors(chain = true)
 @ApiModel
-public class SysDept extends BaseEntity {
+public class SysDept extends BaseEntity<SysDept> {
 
     @Id
     @ApiModelProperty("部门id")
-    private Long deptId;
+    private Long id;
 
     @ApiModelProperty("部门名称")
     private String deptName;
 
     @ApiModelProperty("父级部门id")
-    private Long parentDept;
+    private Long parentId;
 
     @ApiModelProperty("排序")
     private Integer sort;

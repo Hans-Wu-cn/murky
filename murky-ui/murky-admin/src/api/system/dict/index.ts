@@ -113,9 +113,9 @@ export function dictDataInfo(dictCode: string) {
  * 删除字典分类
  * @returns Route
  */
-export function dictTypeRemove(dictTypeId: string) {
+export function dictTypeRemove(id: string) {
   return request.delete({
-    url: `${Api.dictType}/${dictTypeId}`,
+    url: `${Api.dictType}/${id}`,
   });
 }
 

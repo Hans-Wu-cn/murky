@@ -27,14 +27,14 @@ export interface PageDictData extends PageRequest {
 }
 
 /**
- * @param dictTypeId 字典类型id
+ * @param id 字典类型id
  * @param dictName 字典名称
  * @param dictType 字典类型
  * @param status 字典状态 0:正常 1:停用
  * @param remark 备注/描述
  */
 export interface DictType extends BaseApiType {
-  dictTypeId?: string,
+  id?: string,
   dictName: string,
   dictType: string,
   status: number,

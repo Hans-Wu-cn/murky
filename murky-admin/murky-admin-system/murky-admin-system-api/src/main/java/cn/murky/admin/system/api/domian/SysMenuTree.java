@@ -19,7 +19,7 @@ public class SysMenuTree implements Serializable {
     /**
      * 菜单id
      */
-    private Long menuId;
+    private Long id;
 
     /**
      * 菜单标题
@@ -74,7 +74,7 @@ public class SysMenuTree implements Serializable {
     /**
      * 上级菜单id
      */
-    private Long parentMenuId;
+    private Long parentId;
 
     /**
      * 组件路径

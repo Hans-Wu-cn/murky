@@ -14,7 +14,6 @@
                         <t-input-adornment :prepend="$t(menuFormData.label)">
                             <t-input :placeholder="$t('menu.label.pl.title')" v-model="menuFormData.label" />
                         </t-input-adornment>
-
                     </t-form-item>
                     <t-form-item v-if="menuFormData.type !== 2" :label="$t('menu.label.name')" name="name">
                         <t-input :placeholder="$t('menu.label.pl.name')" v-model="menuFormData.name" />
@@ -116,7 +115,7 @@ const onReset = () => {
  */
 const onSubmit = async ({ validateResult, firstError }: SubmitContext<Menu>) => {
     if (validateResult === true) {
-        const api = menuFormData.value.menuId ? updateMenu : addMenu
+        const api = menuFormData.value.id ? updateMenu : addMenu
         menuFormData.value.icon = menuFormData.value.icon || ''
         const res = await api(menuFormData.value);
         if (res.code === ResultEnum.SUCCESS) {
@@ -136,9 +135,9 @@ const poemId = ref(route.query.poemId as string || props.poemId);
 const historyPoemMenu = ref({})
 const loading = ref(false);
 const onInitFrom = async () => {
-    const parentMenuId = route.query.parentMenuId as string || props.parentMenuId
-    if (parentMenuId) {
-        menuFormData.value.parentMenuId = parentMenuId;
+    const parentId = route.query.parentMenuId as string || props.parentMenuId
+    if (parentId) {
+        menuFormData.value.parentId = parentId;
     }
     if (!poemId.value) return
     loading.value = true;

@@ -63,8 +63,8 @@ export function addPoemRole(data: Role) {
  * 删除
  * @returns Route
  */
-export function delPoemRole(roleId: string) {
+export function delPoemRole(id: string) {
   return request.delete({
-    url: `/${Api.role}/${roleId}`,
+    url: `/${Api.role}/${id}`,
   });
 }
