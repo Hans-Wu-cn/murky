@@ -30,7 +30,7 @@
           </template></t-input>
       </t-form-item>
       <t-form-item :label="$t('tenant.label.expires')" name="expires">
-        <t-date-picker v-model="formData.expires" :placeholder="$t('tenant.label.pl.expires')" :disable-date="{
+        <t-date-picker v-model="formData.expires" :placeholder="$t('tenant.label.pl.expires')" valueType="time-stamp" :disable-date="{
           before: new Date(),
         }" enableTimePicker />
       </t-form-item>

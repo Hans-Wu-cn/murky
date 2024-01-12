@@ -63,7 +63,7 @@ const FORM_RULES = ref<FormRules>({
 })
 // 表单对象
 const formData = ref<Tenant>({
-  tenantId: '',
+  id: '',
   groupId: '',
   tenantName: '',
   expires: '',
@@ -93,9 +93,9 @@ const onReset = () => {
  */
 const resetValue = ref({})// 记录重置表单数据
 
-const initFromData = async (tenantId: string) => {
-  tenantFromId.value = tenantId;
-  const { code, result } = await tenantInfo(tenantId)
+const initFromData = async (id: string) => {
+  tenantFromId.value = id;
+  const { code, result } = await tenantInfo(id)
   if (ResultEnum.SUCCESS === code) {
     formData.value = result
     resetValue.value = result

@@ -44,7 +44,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         QueryWrapper queryWrapper = QueryWrapper.create().from(TENANT)
                 .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.GROUP_ID.eq(TENANT_PERMISSION_GROUP.GROUP_ID))
-                .where(TENANT.TENANT_ID.eq(tenantId));
+                .where(TENANT.ID.eq(tenantId));
 
         return selectOneByQueryAs(queryWrapper, TenantVo.class);
     }

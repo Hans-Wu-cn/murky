@@ -21,7 +21,7 @@ public class SysUser extends BaseEntity<SysUser> {
      * 用户id
      */
     @Id
-    private Long userId;
+    private Long id;
 
     /**
      * 用户名

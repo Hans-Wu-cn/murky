@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Tenant extends BaseEntity<Tenant> {
     @Id
     @ApiModelProperty("租户id")
-    private Long tenantId;
+    private Long id;
 
     @ApiModelProperty("权限组id")
     private Long groupId;

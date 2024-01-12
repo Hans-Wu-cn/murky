@@ -18,6 +18,15 @@ import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 import org.noear.solon.validation.annotation.Validated;
 
+import java.time.ZonedDateTime;
+import java.time.chrono.IsoChronology;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
+
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+import static java.time.temporal.ChronoField.*;
+
 /**
  * 租户 Controller
  *
@@ -73,5 +82,11 @@ public class TenantController extends BaseController<ITenantService> {
             return ApiResult.ok(tenant);
         }
         return ApiResult.fail();
+    }
+
+    public static void main(String[] args) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        System.out.println(ZonedDateTime.now().format(formatter));
+        ZonedDateTime now = ZonedDateTime.now();
     }
 }

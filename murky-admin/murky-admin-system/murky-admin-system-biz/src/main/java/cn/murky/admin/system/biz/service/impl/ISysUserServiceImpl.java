@@ -92,7 +92,7 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
             for (Long roleId : sysUserFromDTO.getRoleIds()) {
                 sysUserRoles.add(new SysUserRole()
                         .setRoleId(roleId)
-                        .setUserId(entity.getUserId())
+                        .setUserId(entity.getId())
                 );
             }
             int i = sysUserRoleMapper.insertBatch(sysUserRoles);
@@ -122,7 +122,7 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
             for (Long roleId : sysUserFromDTO.getRoleIds()) {
                 sysUserRoles.add(new SysUserRole()
                         .setRoleId(roleId)
-                        .setUserId(entity.getUserId())
+                        .setUserId(entity.getId())
                 );
             }
             int i = sysUserRoleMapper.insertBatch(sysUserRoles);

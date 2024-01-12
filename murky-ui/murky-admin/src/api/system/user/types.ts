@@ -2,7 +2,7 @@ import { BaseApiType, PageRequest } from '@/api/types';
 
 
 export interface User extends BaseApiType {
-  userId?: string,
+  id?: string,
   userName?: string,
   account?: string,
   password?: string,

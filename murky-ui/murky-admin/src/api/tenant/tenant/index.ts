@@ -23,9 +23,9 @@ export function tenantPage(params: PageTenant) {
  * 获取租户详情
  * @returns Route
  */
-export function tenantInfo(tenantId: string) {
+export function tenantInfo(id: string) {
   return request.get<Tenant>({
-    url: `${Api.tenant}/${tenantId}`,
+    url: `${Api.tenant}/${id}`,
   });
 }
 

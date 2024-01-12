@@ -31,7 +31,7 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
             throw new ServiceException("账号或密码错误");
         }
         // 第1步，先登录
-        StpUtil.login(user.getUserId());
+        StpUtil.login(user.getId());
         // 第2步，获取 Token  相关参数
         return StpUtil.getTokenInfo();
     }

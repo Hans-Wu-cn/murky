@@ -20,7 +20,7 @@ export interface PageTenant extends PageRequest {
  * @param createTime 创建时间
  */
 export interface Tenant extends BaseApiType {
-  tenantId: string,
+  id: string,
   groupId: string,
   groupName: string,
   tenantName: string,
@@ -42,7 +42,7 @@ export interface Tenant extends BaseApiType {
  * @param status 状态
  */
 export interface TenantFrom extends BaseApiType {
-  tenantId?: string,
+  id?: string,
   groupId: string,
   tenantName: string,
   account: string,

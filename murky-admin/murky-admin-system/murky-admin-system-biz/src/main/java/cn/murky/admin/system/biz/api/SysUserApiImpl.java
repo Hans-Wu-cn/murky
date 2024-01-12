@@ -91,7 +91,7 @@ public class SysUserApiImpl implements SysUserApi {
                     .setDeptId(sysUser.getDeptId())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
-            Set<Long> roleIds = sysUserRoleMapper.selectByUserId(sysUser.getUserId())
+            Set<Long> roleIds = sysUserRoleMapper.selectByUserId(sysUser.getId())
                     .stream().map(SysUserRole::getRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
@@ -177,7 +177,7 @@ public class SysUserApiImpl implements SysUserApi {
         if (Utils.isEmpty(list)) {
             throw new ServiceException("系统暂不支持该语言");
         }
-        SysUser sysUser = new SysUser().setUserId(SecurityUtils.getUserId()).setLanguage(language);
+        SysUser sysUser = new SysUser().setId(SecurityUtils.getUserId()).setLanguage(language);
         boolean b = iSysUserService.updateById(sysUser);
         if (b) {
             SecurityUserInfo userInfo = SecurityUtils.getUserInfo();

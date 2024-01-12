@@ -131,7 +131,7 @@ const onAddHander = () => {
  * @param row 当前行数据
  */
 const onDeactivate = async (row: Tenant) => {
-  const { code, result } = await deactivateTenant(row.tenantId);
+  const { code, result } = await deactivateTenant(row.id);
   if (ResultEnum.SUCCESS === code) {
     Object.assign(row, result)
   }
@@ -142,7 +142,7 @@ const onDeactivate = async (row: Tenant) => {
  * @param row 当前行数据
  */
 const onInfoHander = async (row: Tenant) => {
-  tenantInfoFromRef.value.initFromData(row.tenantId)
+  tenantInfoFromRef.value.initFromData(row.id)
   tenantInfoFromVisible.value = true
 }
 

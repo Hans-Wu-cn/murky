@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class TenantFromDTO {
     @ApiModelProperty("租户id")
     @NotNull(groups = Update.class)
-    private Long tenantId;
+    private Long id;
 
     @ApiModelProperty("权限组id")
     @NotNull

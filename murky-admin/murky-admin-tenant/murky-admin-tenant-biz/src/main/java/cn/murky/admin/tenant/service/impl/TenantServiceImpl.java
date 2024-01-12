@@ -98,7 +98,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
                 .setPassword(passwordRecord.password())
                 .setSalt(passwordRecord.salt())
                 .setSex(Sex.OTHER)
-                .setTenantId(tenantEntity.getTenantId());
+                .setTenantId(tenantEntity.getId());
         int userInsertCount = tenantUserMapper.insert(tenantUser);
         if (userInsertCount <= 0) {
             throw new ServiceException("添加租户失败");
@@ -110,7 +110,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
             throw new ServiceException("添加租户失败");
         }
         // 生成schema名称
-        String schemaName = generateSchemaName(tenantEntity.getTenantId());
+        String schemaName = generateSchemaName(tenantEntity.getId());
         //todo 创建schame
         iTenantDDLService.createSchema(schemaName);
         //todo 执行ddl
@@ -133,7 +133,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         if (tenantNameCount > 0) {
             throw new ServiceException("该租户名称已存在");
         }
-        int i = mapper.updateNameAndExpiresAndGroupByTenantId(tenantFromDTO.getTenantId()
+        int i = mapper.updateNameAndExpiresAndGroupByTenantId(tenantFromDTO.getId()
                 , tenantFromDTO.getTenantName()
                 , tenantFromDTO.getExpires()
                 , tenantFromDTO.getGroupId());

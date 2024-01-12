@@ -37,7 +37,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
     public void createRoleTable(String schemaName) {
         // 创建租户角色表
         Db.updateBySql(STR."""
-                CREATE TABLE\{schemaName}.tenant_role (
+                CREATE TABLE \{schemaName}.tenant_role (
                 	create_time timestamp NULL,
                 	update_time timestamp NULL,
                 	create_user int8 NULL,
@@ -61,7 +61,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
     public void createRoleMenuTable(String schemaName) {
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
-                CREATE TABLE\{schemaName}.tenant_role_menu (
+                CREATE TABLE \{schemaName}.tenant_role_menu (
                 	menu_id int8 NOT NULL,
                 	role_id int8 NOT NULL,
                 	CONSTRAINT poem_role_menu_pk PRIMARY KEY (menu_id, role_id)
@@ -77,7 +77,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
     public void createUserTable(String schemaName) {
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
-                CREATE TABLE\{schemaName}.tenant_user (
+                CREATE TABLE \{schemaName}.tenant_user (
                 	create_time timestamp NULL,
                 	update_time timestamp NULL,
                 	create_user int8 NULL,
@@ -104,7 +104,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
     public void createUserRoleTable(String schemaName) {
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
-                CREATE TABLE\{schemaName}.tenant_user_role (
+                CREATE TABLE \{schemaName}.tenant_user_role (
                 	user_id int8 NOT NULL,
                 	role_id int8 NOT NULL,
                 	CONSTRAINT tenant_user_role_pk PRIMARY KEY (user_id, role_id)

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class TenantVo {
     @ApiModelProperty("租户id")
-    private Long tenantId;
+    private Long id;
 
     @ApiModelProperty("权限组id")
     private Long groupId;

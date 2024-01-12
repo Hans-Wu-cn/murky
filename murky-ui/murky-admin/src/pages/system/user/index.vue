@@ -30,7 +30,7 @@ import { getDeptList } from '@/api/system/dept';
 import { DeptTree } from '@/api/system/dept/types';
 import { ResultEnum } from '@/enums/httpEnum';
 import { userPage, delUserInfo } from '@/api/system/user'
-import { PageUser } from '@/api/system/user/types'
+import { PageUser, User } from '@/api/system/user/types'
 import userFrom from './components/userFrom.vue'
 import restPasswdFrom from './components/restPasswdFrom.vue'
 import { useAuth } from '@/hooks/auth';
@@ -64,7 +64,7 @@ const pagination: PaginationProps = reactive({
 // 部门树配置
 const deptTreeKeys = ref({ value: 'deptId', label: 'deptName', children: 'children' })
 // 表格字段
-const columns: Array<PrimaryTableCol> = [
+const columns: Array<PrimaryTableCol<User>> = [
   {
     colKey: 'serial-number',
     title: () => i18n.global.t('common.attribute.serialNumber'),
@@ -152,26 +152,26 @@ const onAddHander = async () => {
 /**
  * 修改事件弹窗适配
  */
-const onEditHander = async (row: any) => {
+const onEditHander = async (row: User) => {
   userDialogTitle.value = i18n.global.t('user.label.edit')
   userVisible.value = true;
   await nextTick();
-  userFromRef.value.initFromData(row.userId);
+  userFromRef.value.initFromData(row.id);
 }
 
 /**
  * 重置密码事件
  */
-const onRestPasswdHander = async (row: any) => {
+const onRestPasswdHander = async (row: User) => {
   restPasswdVisible.value = true;
-  restPasswdFromRef.value.initFromData(row.userId);
+  restPasswdFromRef.value.initFromData(row.id);
 }
 
 /**
  * 删除事件
  */
-const onDelHander = async (row: any) => {
-  const { code } = await delUserInfo(row.userId);
+const onDelHander = async (row: User) => {
+  const { code } = await delUserInfo(row.id);
   if (ResultEnum.SUCCESS === code) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadUserData();
