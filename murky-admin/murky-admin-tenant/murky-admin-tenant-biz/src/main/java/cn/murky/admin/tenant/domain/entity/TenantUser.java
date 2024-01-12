@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Table("tenant_user")
 @ApiModel("租户用户实体类")
-public class TenantUser extends BaseEntity {
+public class TenantUser extends BaseEntity<TenantUser> {
 
     @Id
     @ApiModelProperty("租户用户id")

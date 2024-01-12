@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @ApiModel("租户信息表")
 @Table("tenant")
-public class Tenant extends BaseEntity {
+public class Tenant extends BaseEntity<Tenant> {
     @Id
     @ApiModelProperty("租户id")
     private Long tenantId;

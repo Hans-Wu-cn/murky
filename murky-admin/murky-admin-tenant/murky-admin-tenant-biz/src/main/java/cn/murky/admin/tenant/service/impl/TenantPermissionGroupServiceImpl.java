@@ -28,7 +28,7 @@ import java.util.Optional;
  * @author hans
  */
 @Component
-public class ITenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissionGroupMapper, TenantPermissionGroup> implements ITenantPermissionGroupService {
+public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissionGroupMapper, TenantPermissionGroup> implements ITenantPermissionGroupService {
 
     @Inject
     private TenantMenuMapper tenantMenuMapper;

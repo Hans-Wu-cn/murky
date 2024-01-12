@@ -7,6 +7,7 @@ import cn.murky.admin.tenant.domain.entity.table.TenantTableDef;
 import cn.murky.admin.tenant.domain.vo.TenantVo;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.UpdateEntity;
 
@@ -28,7 +29,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         QueryWrapper queryWrapper = QueryWrapper.create().from(TENANT)
                 .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.GROUP_ID.eq(TENANT_PERMISSION_GROUP.GROUP_ID))
-                .where(TENANT.TENANT_NAME.like(tenantPageDTO.getTenantName()))
+                .where(TENANT.TENANT_NAME.like(tenantPageDTO.getTenantName(), If::hasText))
                 .orderBy(TENANT.UPDATE_TIME.desc());
 
         return paginateAs(tenantPageDTO.getPageNumber(), tenantPageDTO.getPageSize(),queryWrapper, TenantVo.class);

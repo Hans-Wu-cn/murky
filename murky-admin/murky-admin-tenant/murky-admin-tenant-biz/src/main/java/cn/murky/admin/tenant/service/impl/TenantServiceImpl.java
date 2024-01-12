@@ -10,6 +10,7 @@ import cn.murky.admin.tenant.domain.entity.TenantUser;
 import cn.murky.admin.tenant.domain.vo.TenantVo;
 import cn.murky.admin.tenant.mapper.TenantMapper;
 import cn.murky.admin.tenant.mapper.TenantUserMapper;
+import cn.murky.admin.tenant.service.ITenantDDLService;
 import cn.murky.admin.tenant.service.ITenantService;
 import cn.murky.core.exception.ServiceException;
 import cn.murky.core.record.PasswordRecord;
@@ -26,11 +27,13 @@ import org.noear.solon.data.annotation.Tran;
  * @Author hans
  */
 @Component
-public class ITenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implements ITenantService {
+public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implements ITenantService {
 
     @Inject
     private TenantUserMapper tenantUserMapper;
 
+    @Inject
+    private ITenantDDLService iTenantDDLService;
     /**
      * 分页接口
      *
@@ -106,6 +109,14 @@ public class ITenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implem
         if (count <= 0) {
             throw new ServiceException("添加租户失败");
         }
+        // 生成schema名称
+        String schemaName = generateSchemaName(tenantEntity.getTenantId());
+        //todo 创建schame
+        iTenantDDLService.createSchema(schemaName);
+        //todo 执行ddl
+        iTenantDDLService.createTable(schemaName);
+        //todo 插入基础数据
+        iTenantDDLService.createTable(schemaName);
         return true;
     }
 
@@ -127,5 +138,9 @@ public class ITenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implem
                 , tenantFromDTO.getExpires()
                 , tenantFromDTO.getGroupId());
         return i > 0;
+    }
+
+    public String generateSchemaName(Long tenantId){
+        return STR."tenant_\{tenantId}";
     }
 }

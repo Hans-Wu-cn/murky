@@ -12,5 +12,5 @@ import org.noear.solon.annotation.Component;
  * @Author hans
  */
 @Component
-public class ITenantUserServiceImpl extends ServiceImpl<TenantUserMapper, TenantUser> implements ITenantUserService {
+public class TenantUserServiceImpl extends ServiceImpl<TenantUserMapper, TenantUser> implements ITenantUserService {
 }

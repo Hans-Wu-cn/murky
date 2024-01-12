@@ -22,7 +22,7 @@ import java.util.List;
  * @author hans
  */
 @Component
-public class ITenantMenuServiceImpl extends ServiceImpl<TenantMenuMapper, TenantMenu> implements ITenantMenuService {
+public class TenantMenuServiceImpl extends ServiceImpl<TenantMenuMapper, TenantMenu> implements ITenantMenuService {
 
     @Inject
     private ITenantMenuService iTenantMenuService;

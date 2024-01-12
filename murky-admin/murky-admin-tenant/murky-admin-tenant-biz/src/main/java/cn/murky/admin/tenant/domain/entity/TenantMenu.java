@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel("租户菜单实体类")
 @Table(value = "tenant_menu")
-public class TenantMenu extends BaseEntity implements Serializable {
+public class TenantMenu extends BaseEntity<TenantMenu> implements Serializable {
     @Id
     @ApiModelProperty("菜单id")
     private Long tenantMenuId;
