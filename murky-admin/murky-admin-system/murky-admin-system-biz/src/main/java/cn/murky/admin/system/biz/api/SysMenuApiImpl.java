@@ -1,4 +1,4 @@
-package cn.murky.admin.system.biz.event;
+package cn.murky.admin.system.biz.api;
 
 import cn.murky.admin.system.api.SysMenuApi;
 import cn.murky.admin.system.api.domian.SysMenuTree;

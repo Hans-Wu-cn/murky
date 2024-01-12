@@ -1,4 +1,4 @@
-package cn.murky.admin.system.biz.event;
+package cn.murky.admin.system.biz.api;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;

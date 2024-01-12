@@ -9,8 +9,8 @@ solon:
     safe: 0
   debug: 1
   app:
-    name: 'demo-app'
-    group: 'demo'
+    name: 'murky-admin'
+    group: 'admin'
   validation:
     validateAll: true
   cloud:
@@ -51,9 +51,9 @@ postgres.db:
 # 配置数据源对应的 我给你找出那个文档mybatis 信息（要与 DataSource bean 的名字对上）这个是solon的官网提供的而应该是没错上面的pgsql
 mybatis.db:
   typeAliases:    #支持包名 或 类名（大写开头 或 *）//支持 ** 或 * 占位符
-    - "cn.poem.solon.**.domain.entity"
+    - "cn.murky.**.domain.entity"
   mappers:        #支持包名 或 类名（大写开头 或 *）或 xml（.xml结尾）//支持 ** 或 * 占位符
-    - "cn.poem.solon.admin.**.mapper.*"
+    - "cn.murky.admin.**.mapper.*"
     - "classpath:mapper/**/*.xml"
   configuration: #扩展配置（要与 FlexConfiguration 类的属性一一对应）
     cacheEnabled: false
@@ -64,9 +64,6 @@ mybatis.db:
     keyConfig:
       keyType: "Generator"
       value: "snowFlakeId"
-
-sqltoy:
-  unifyFieldsHandler: cn.poem.solon.admin.handler.UnifyFieldsHandler
 
 # sa-token配置
 sa-token:
@@ -101,15 +98,15 @@ solon.serialization.json:
 
 doc:
   enable: true
-  groupName: poem-admin接口
+  groupName: murky-admin接口
   title: 在线文档
-  description: 在线API文档
-  termsOfService: https://gitee.com/wu-zhihao/poem-solon
-  name: poem-solon
-  url: https://gitee.com/wu-zhihao/poem-solon
+  description: murky-admin在线API文档
+  termsOfService: https://gitee.com/wu-zhihao/murky
+  name: murky-admin
+  url: https://gitee.com/wu-zhihao/murky
   email: 837713748@qq.com
   version: 1.0
-  apis: cn.poem.solon.admin.auth.controller,cn.poem.solon.admin.system.controller,cn.poem.solon.admin.tenant.controller
+  apis: cn.murky.admin.auth.controller,cn.murky.admin.system.biz.controller,cn.murky.admin.tenant.controller
   basic:
     enable: true
     username: admin
