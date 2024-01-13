@@ -87,7 +87,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         Tenant tenantEntity = TenantConvert.INSTANCES.toEntity(tenantFromDTO)
                 .setStatus(CommonStatus.NORMAL);
         boolean tenantSaveB = tenantEntity.save();
-        if (tenantSaveB) {
+        if (!tenantSaveB) {
             throw new ServiceException("添加租户失败");
         }
         // 密码加密
@@ -100,7 +100,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
                 .setSex(Sex.OTHER)
                 .setFkTenantId(tenantEntity.getId());
         boolean userSaveB = tenantUser.save();
-        if (userSaveB) {
+        if (!userSaveB) {
             throw new ServiceException("添加租户失败");
         }
         // 绑定租户与租户管理员
@@ -111,12 +111,12 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         }
         // 生成schema名称
         String schemaName = generateSchemaName(tenantEntity.getId());
-        //todo 创建schame
+        //创建schame
         iTenantDDLService.createSchema(schemaName);
-        //todo 执行ddl
+        //执行ddl
         iTenantDDLService.createTable(schemaName);
-        //todo 插入基础数据
-        iTenantDDLService.createTable(schemaName);
+        //插入基础数据
+        iTenantDDLService.initData(schemaName);
         return true;
     }
 

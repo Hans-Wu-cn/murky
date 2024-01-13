@@ -5,6 +5,8 @@ import com.mybatisflex.core.row.Db;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.data.annotation.Tran;
 
+import java.util.Optional;
+
 /**
  * pgsql租户初始化实现
  */
@@ -13,19 +15,24 @@ import org.noear.solon.data.annotation.Tran;
 public class TenantPgsqlServiceImpl implements ITenantDDLService {
     @Override
     public void createSchema(String schemaName) {
-        Db.updateBySql(STR."CREATE SCHEMA \{schemaName}");
+        assertSchema(schemaName);
+        Db.updateBySql(STR. "CREATE SCHEMA \{ schemaName }" );
     }
 
     @Override
     public void createTable(String schemaName) {
+        assertSchema(schemaName);
+        // 租户系统基础权限表
         createRoleTable(schemaName);
         createRoleMenuTable(schemaName);
         createUserTable(schemaName);
         createUserRoleTable(schemaName);
+        createRoleDeptTable(schemaName);
     }
 
     @Override
     public void initData(String schemaName) {
+        assertSchema(schemaName);
 
     }
 
@@ -36,8 +43,8 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      */
     public void createRoleTable(String schemaName) {
         // 创建租户角色表
-        Db.updateBySql(STR."""
-                CREATE TABLE \{schemaName}.tenant_role (
+        Db.updateBySql(STR. """
+                CREATE TABLE \{ schemaName }.tenant_role (
                 	create_time timestamp NULL,
                 	update_time timestamp NULL,
                 	create_user int8 NULL,
@@ -50,7 +57,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	dept_id int8 NULL,
                 	CONSTRAINT tenant_role_pk PRIMARY KEY (id)
                 );
-                """);
+                """ );
     }
 
     /**
@@ -60,13 +67,13 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      */
     public void createRoleMenuTable(String schemaName) {
         // 创建租户角色权限关系表
-        Db.updateBySql(STR."""
-                CREATE TABLE \{schemaName}.tenant_role_menu (
-                	menu_id int8 NOT NULL,
-                	role_id int8 NOT NULL,
-                	CONSTRAINT poem_role_menu_pk PRIMARY KEY (menu_id, role_id)
+        Db.updateBySql(STR. """
+                CREATE TABLE \{ schemaName }.tenant_role_menu (
+                	fk_menu_id int8 NOT NULL,
+                	fk_role_id int8 NOT NULL,
+                	CONSTRAINT sys_role_menu_pk PRIMARY KEY (fk_menu_id, fk_role_id)
                 );
-                """);
+                """ );
     }
 
     /**
@@ -76,8 +83,8 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      */
     public void createUserTable(String schemaName) {
         // 创建租户角色权限关系表
-        Db.updateBySql(STR."""
-                CREATE TABLE \{schemaName}.tenant_user (
+        Db.updateBySql(STR. """
+                CREATE TABLE \{ schemaName }.tenant_user (
                 	create_time timestamp NULL,
                 	update_time timestamp NULL,
                 	create_user int8 NULL,
@@ -88,12 +95,12 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	"password" varchar NOT NULL,
                 	sex int2 NOT NULL,
                 	email varchar NULL,
-                	dept_id int8 NULL,
+                	fk_dept_id int8 NULL,
                 	"language" varchar NULL,
                 	salt varchar NULL,
-                	CONSTRAINT tenant_user_pk PRIMARY KEY (user_id),
+                	CONSTRAINT tenant_user_pk PRIMARY KEY (id)
                 );
-                """);
+                """ );
     }
 
     /**
@@ -103,12 +110,32 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      */
     public void createUserRoleTable(String schemaName) {
         // 创建租户角色权限关系表
-        Db.updateBySql(STR."""
-                CREATE TABLE \{schemaName}.tenant_user_role (
-                	user_id int8 NOT NULL,
-                	role_id int8 NOT NULL,
-                	CONSTRAINT tenant_user_role_pk PRIMARY KEY (user_id, role_id)
+        Db.updateBySql(STR. """
+                CREATE TABLE \{ schemaName }.tenant_user_role (
+                	fk_user_id int8 NOT NULL,
+                	fk_role_id int8 NOT NULL,
+                	CONSTRAINT tenant_user_role_pk PRIMARY KEY (fk_user_id, fk_role_id)
                 );
-                """);
+                """ );
+    }
+
+    /**
+     * 创建租户用户角色关系表
+     *
+     * @param schemaName 模式名称
+     */
+    public void createRoleDeptTable(String schemaName) {
+        // 创建租户角色权限关系表
+        Db.updateBySql(STR. """
+                CREATE TABLE \{ schemaName }.tenant_role_dept (
+                	fk_role_id int8 NOT NULL,
+                	fk_dept_id int8 NOT NULL,
+                	CONSTRAINT sys_role_dept_pk PRIMARY KEY (fk_role_id,fk_dept_id)
+                );
+                """ );
+    }
+
+    private void assertSchema(String schemaName) {
+        Optional.ofNullable(schemaName).orElseThrow();
     }
 }
