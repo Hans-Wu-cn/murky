@@ -103,7 +103,7 @@ const onAddHander = () => {
  */
 const onEditHander = (row: PermissionGroup) => {
   permissionGroupFromTitle.value = i18n.global.t('permissionGroup.label.edit')
-  permissionGroupFromRef.value.initFromData(row.groupId)
+  permissionGroupFromRef.value.initFromData(row.id)
   permissionGroupFromVisible.value = true
 }
 
@@ -112,7 +112,7 @@ const onEditHander = (row: PermissionGroup) => {
  * @param row 
  */
 const onDelHander = async (row: PermissionGroup) => {
-  const { code } = await delPermissionGroup(row.groupId)
+  const { code } = await delPermissionGroup(row.id)
   if (code === ResultEnum.SUCCESS) {
     MessagePlugin.success(i18n.global.t('common.messages.deleteSuccess'));
     loadData();

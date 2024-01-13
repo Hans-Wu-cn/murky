@@ -57,7 +57,7 @@ public class PermissionGroupController extends BaseController<ITenantPermissionG
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         List<TenantPermissionGroup> result = baseService.list(
                 QueryWrapper.create()
-                .and(TENANT_PERMISSION_GROUP.GROUP_ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
+                .and(TENANT_PERMISSION_GROUP.ID.notIn(SecurityUtils.getUserInfo().getRoleIds()))
                         .and(TENANT_PERMISSION_GROUP.GROUP_NAME.like(tenantPermissionGroupPageDTO.getGroupName()))
                         .orderBy(TENANT_PERMISSION_GROUP.CREATE_TIME.asc())
         );

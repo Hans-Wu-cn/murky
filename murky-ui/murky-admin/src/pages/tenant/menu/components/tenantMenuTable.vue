@@ -182,13 +182,11 @@ const searchSubmit = (params: any) => {
 const recursion = (data: TenantMenu[], label: string, name: string, path: string, auth: string): TenantMenu[] => {
     function searchStr(source: string, target: string) {
         if (target && source) {
-            debugger
             return source.includes(target)
         }
         return false
     }
     return data.filter(item => {
-        debugger
         if (item.children.length > 0) {
             item.children = recursion(item.children, label, name, path, auth)
         }

@@ -18,7 +18,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
     default int deleteByRoleId(Long roleId) {
         SysRoleMenuTableDef SYS_ROLE_MENU = SysRoleMenuTableDef.SYS_ROLE_MENU;
         return this.deleteByQuery(QueryWrapper.create().where(
-                SYS_ROLE_MENU.ROLE_ID.eq(roleId)
+                SYS_ROLE_MENU.FK_ROLE_ID.eq(roleId)
                 )
         );
     }
@@ -32,7 +32,7 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
     default List<SysRoleMenu> selectByRoleId(Long roleId) {
         SysRoleMenuTableDef SYS_ROLE_MENU = SysRoleMenuTableDef.SYS_ROLE_MENU;
         return this.selectListByQuery(QueryWrapper.create().where(
-                SYS_ROLE_MENU.ROLE_ID.eq(roleId)
+                SYS_ROLE_MENU.FK_ROLE_ID.eq(roleId)
                 )
         );
     }

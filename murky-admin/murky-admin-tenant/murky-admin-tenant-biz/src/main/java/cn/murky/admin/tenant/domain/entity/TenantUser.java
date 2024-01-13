@@ -49,6 +49,6 @@ public class TenantUser extends BaseEntity<TenantUser> {
     private String salt;
 
     @ApiModelProperty("租户id")
-    private Long tenantId;
+    private Long fkTenantId;
 
 }

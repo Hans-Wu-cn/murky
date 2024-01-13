@@ -23,7 +23,7 @@ public interface SysDeptAncestorsMapper extends BaseMapper<SysDeptAncestors> {
         SysDeptAncestorsTableDef SYS_DEPT_ANCESTORS = SysDeptAncestorsTableDef.SYS_DEPT_ANCESTORS;
         return this.selectListByQuery(QueryWrapper.create()
                 .from(SYS_DEPT_ANCESTORS)
-                .where(SYS_DEPT_ANCESTORS.DEPT_ID.eq(deptId)));
+                .where(SYS_DEPT_ANCESTORS.FK_DEPT_ID.eq(deptId)));
     }
 
     /**
@@ -62,6 +62,6 @@ public interface SysDeptAncestorsMapper extends BaseMapper<SysDeptAncestors> {
         SysDeptAncestorsTableDef SYS_DEPT_ANCESTORS = SysDeptAncestorsTableDef.SYS_DEPT_ANCESTORS;
         return this.deleteByQuery(QueryWrapper.create()
                 .from(SYS_DEPT_ANCESTORS)
-                .where(SYS_DEPT_ANCESTORS.DEPT_ID.eq(deptId)));
+                .where(SYS_DEPT_ANCESTORS.FK_DEPT_ID.eq(deptId)));
     }
 }

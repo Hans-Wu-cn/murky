@@ -51,7 +51,7 @@ public class SysUser extends BaseEntity<SysUser> {
     /**
      * 部门id
      */
-    private Long deptId;
+    private Long fkDeptId;
 
     /**
      * 语言

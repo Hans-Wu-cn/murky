@@ -34,8 +34,8 @@ public class SysRoleVo implements Serializable {
     private DataScope dataScope;
 
     @ApiModelProperty("菜单id集合")
-    private List<Long> menuIds;
+    private List<Long> fkMenuIds;
 
     @ApiModelProperty("部门Id集合")
-    private List<Long> deptIds;
+    private List<Long> fkDeptIds;
 }

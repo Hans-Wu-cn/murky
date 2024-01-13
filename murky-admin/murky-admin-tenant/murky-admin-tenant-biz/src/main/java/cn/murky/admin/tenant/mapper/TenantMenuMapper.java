@@ -61,8 +61,8 @@ public interface TenantMenuMapper extends BaseMapper<TenantMenu> {
         return this.selectListByQuery(
                 QueryWrapper.create()
                         .select().from(TENANT_MENU).leftJoin(TENANT_GROUP_MENU)
-                        .on(TENANT_GROUP_MENU.TENANT_MENU_ID.eq(TENANT_MENU.ID))
-                        .where(TENANT_GROUP_MENU.GROUP_ID.eq(groupId))
+                        .on(TENANT_GROUP_MENU.FK_MENU_ID.eq(TENANT_MENU.ID))
+                        .where(TENANT_GROUP_MENU.FK_GROUP_ID.eq(groupId))
                         .orderBy(TENANT_MENU.SORT.asc(), TENANT_MENU.LABEL.asc())
         );
     }

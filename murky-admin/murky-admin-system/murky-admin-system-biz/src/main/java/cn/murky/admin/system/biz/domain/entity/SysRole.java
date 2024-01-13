@@ -33,7 +33,7 @@ public class SysRole extends BaseEntity<SysRole> {
     private DataScope dataScope;
 
     @ApiModelProperty("部门Id")
-    private Long deptId;
+    private Long fkDeptId;
 
     @ApiModelProperty("描述")
     private String describe;

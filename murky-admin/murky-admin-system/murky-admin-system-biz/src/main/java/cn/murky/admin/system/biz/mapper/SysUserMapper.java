@@ -1,7 +1,7 @@
 package cn.murky.admin.system.biz.mapper;
 
 import cn.murky.admin.flex.domin.SysUser;
-import cn.murky.admin.flex.domin.tab.SysUserTableDef;
+import cn.murky.admin.flex.domin.table.SysUserTableDef;
 import cn.murky.admin.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
 import cn.murky.admin.system.biz.domain.entity.table.SysDeptTableDef;
@@ -26,7 +26,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
         SysUserTableDef SYS_USER = SysUserTableDef.SYS_USER;
         return selectCountByQuery(QueryWrapper.create()
                 .from(SYS_USER)
-                .where(SYS_USER.DEPT_ID.eq(deptId))
+                .where(SYS_USER.FK_DEPT_ID.eq(deptId))
         );
     }
 
@@ -69,12 +69,12 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
         SysDeptTableDef SYS_DEPT = SysDeptTableDef.SYS_DEPT;
         SysUserTableDef SYS_USER = SysUserTableDef.SYS_USER;
         QueryWrapper queryWrapper = QueryWrapper.create()
-                .leftJoin(SYS_DEPT).on(SYS_DEPT.ID.eq(SYS_USER.DEPT_ID))
-                .and(SYS_USER.DEPT_ID.in(deptIds, If::notNull))
+                .leftJoin(SYS_DEPT).on(SYS_DEPT.ID.eq(SYS_USER.FK_DEPT_ID))
+                .and(SYS_USER.FK_DEPT_ID.in(deptIds, If::notNull))
                 .and(SYS_USER.EMAIL.like(sysUserPageDTO.getEmail(), If::hasText))
                 .and(SYS_USER.SEX.eq(sysUserPageDTO.getSex(), If::notNull))
                 .and(SYS_USER.USER_NAME.like(sysUserPageDTO.getUserName(), If::hasText))
-                .and(SYS_USER.DEPT_ID.in(deptIds, If::notNull))
+                .and(SYS_USER.FK_DEPT_ID.in(deptIds, If::notNull))
                 .and(SYS_USER.ID.ne(SecurityUtils.getUserId()))
                 .and(SYS_USER.ID.ne(SystemContant.ADMIN_USER_ID))
                 .orderBy(SYS_USER.CREATE_TIME.asc());

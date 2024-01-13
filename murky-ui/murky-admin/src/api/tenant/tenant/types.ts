@@ -21,7 +21,7 @@ export interface PageTenant extends PageRequest {
  */
 export interface Tenant extends BaseApiType {
   id: string,
-  groupId: string,
+  fkGroupId: string,
   groupName: string,
   tenantName: string,
   adminUser?: string,
@@ -43,7 +43,7 @@ export interface Tenant extends BaseApiType {
  */
 export interface TenantFrom extends BaseApiType {
   id?: string,
-  groupId: string,
+  fkGroupId: string,
   tenantName: string,
   account: string,
   password: string,

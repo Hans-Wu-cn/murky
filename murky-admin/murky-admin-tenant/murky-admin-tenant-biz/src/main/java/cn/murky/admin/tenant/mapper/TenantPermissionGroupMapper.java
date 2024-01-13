@@ -34,7 +34,7 @@ public interface TenantPermissionGroupMapper extends BaseMapper<TenantPermission
     default TenantPermissionGroup selectByNameOrCode(Long groupId, String groupName) {
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         return this.selectOneByQuery(QueryWrapper.create().where(
-                TENANT_PERMISSION_GROUP.GROUP_ID.ne(groupId, If::notNull)
+                TENANT_PERMISSION_GROUP.ID.ne(groupId, If::notNull)
         ).or(TENANT_PERMISSION_GROUP.GROUP_NAME.eq(groupName)).limit(1));
     }
 

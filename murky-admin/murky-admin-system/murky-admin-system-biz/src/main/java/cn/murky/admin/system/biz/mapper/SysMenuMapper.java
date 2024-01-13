@@ -27,10 +27,10 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
                         .and(
                                 exists
                                         (
-                                                QueryWrapper.create().select(SYS_ROLE_MENU.MENU_ID)
+                                                QueryWrapper.create().select(SYS_ROLE_MENU.FK_MENU_ID)
                                                         .from(SYS_ROLE_MENU)
-                                                        .where(SYS_ROLE_MENU.ROLE_ID.in(roleids))
-                                                        .and(SYS_MENU.ID.eq(SYS_ROLE_MENU.MENU_ID))
+                                                        .where(SYS_ROLE_MENU.FK_ROLE_ID.in(roleids))
+                                                        .and(SYS_MENU.ID.eq(SYS_ROLE_MENU.FK_MENU_ID))
                                         ).when(Utils.isNotEmpty(roleids))
                         )
                         .orderBy(SYS_MENU.SORT.asc(), SYS_MENU.LABEL.asc())
@@ -60,8 +60,8 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
         return this.selectListByQuery(
                 QueryWrapper.create()
                         .select().from(SYS_MENU).leftJoin(SYS_ROLE_MENU)
-                        .on(SYS_ROLE_MENU.MENU_ID.eq(SYS_MENU.ID))
-                        .where(SYS_ROLE_MENU.ROLE_ID.eq(roleId))
+                        .on(SYS_ROLE_MENU.FK_MENU_ID.eq(SYS_MENU.ID))
+                        .where(SYS_ROLE_MENU.FK_ROLE_ID.eq(roleId))
                         .orderBy(SYS_MENU.SORT.asc(), SYS_MENU.LABEL.asc())
         );
     }

@@ -23,7 +23,7 @@ import java.util.List;
 public class TenantPermissionGroupFromDTO {
     @ApiModelProperty("权限组id")
     @NotNull(groups = Update.class)
-    private Long groupId;
+    private Long id;
 
     @ApiModelProperty(value = "权限组名", required = true)
     @NotBlank

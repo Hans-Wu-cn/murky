@@ -18,8 +18,8 @@ import lombok.experimental.Accessors;
 public class SysUserRole {
 
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long fkUserId;
 
     @ApiModelProperty("角色id")
-    private Long roleId;
+    private Long fkRoleId;
 }

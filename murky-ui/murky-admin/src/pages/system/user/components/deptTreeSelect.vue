@@ -19,7 +19,7 @@ const emit = defineEmits<{
 const { value } = useVModels(props, emit);
 //部门数据
 const deptTree = ref<DeptTree[]>();
-const deptTreeKeys = { keys: { value: 'deptId', label: 'deptName', children: 'children' } }
+const deptTreeKeys = { keys: { value: 'id', label: 'deptName', children: 'children' } }
 const getdeptTreeData = async () => {
     const { code, result } = await getDeptList();
     if (ResultEnum.SUCCESS === code) {

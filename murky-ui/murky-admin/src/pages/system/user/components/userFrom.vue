@@ -16,11 +16,11 @@
             <t-form-item :label="$t('user.label.email')" name="email">
                 <t-input v-model="formData.email" :placeholder="$t('user.label.pl.email')"></t-input>
             </t-form-item>
-            <t-form-item :label="$t('user.label.dept')" name="deptId">
-                <deptTreeSelect v-model:value="formData.deptId"></deptTreeSelect>
+            <t-form-item :label="$t('user.label.dept')" name="fkDeptId">
+                <deptTreeSelect v-model:value="formData.fkDeptId"></deptTreeSelect>
             </t-form-item>
-            <t-form-item :label="$t('user.label.role')" name="roleIds">
-                <userSelect v-model:value="formData.roleIds"></userSelect>
+            <t-form-item :label="$t('user.label.role')" name="fkRoleIds">
+                <userSelect v-model:value="formData.fkRoleIds"></userSelect>
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
@@ -54,8 +54,8 @@ const FORM_RULES = ref<FormRules>({
 // 表单对象
 const formData = ref<User>({
     sex: 0,
-    deptId: '',
-    roleIds: []
+    fkDeptId: '',
+    fkRoleIds: []
 });
 
 const userFromId = ref('');
@@ -79,8 +79,8 @@ const initFromData = async (id: string) => {
     if (!id) {
         formData.value = {
             sex: 0,
-            deptId: '',
-            roleIds: []
+            fkDeptId: '',
+            fkRoleIds: []
         }
         userFromId.value = undefined
         return

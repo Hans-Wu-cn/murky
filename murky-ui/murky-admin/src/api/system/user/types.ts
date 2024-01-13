@@ -17,24 +17,27 @@ export interface User extends BaseApiType {
   password?: string,
   sex?: number,
   email?: string,
-  deptId?: string,
-  roleIds?: string[]
+  fkDeptId?: string,
+  fkRoleIds?: string[]
 }
 
 /**
- * @param roleId 所属部门
+ * @param deptId 所属部门
  * @param userName 用户名称
+ * @param email 邮箱
+ * @param sex 性别
  */
 export interface PageUser extends PageRequest {
-  deptId?: string,
+  fkDeptId?: string,
   userName?: string,
   email?: string,
   sex?: string,
 }
 
 /**
- * @param roleId 所属部门
- * @param userName 用户名称
+ * @param id 用户id
+ * @param password 新密码
+ * @param confirmPassword 确定新密码
  */
 export interface RestPassword {
   id: string,

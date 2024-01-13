@@ -98,7 +98,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
                 .setPassword(passwordRecord.password())
                 .setSalt(passwordRecord.salt())
                 .setSex(Sex.OTHER)
-                .setTenantId(tenantEntity.getId());
+                .setFkTenantId(tenantEntity.getId());
         boolean userSaveB = tenantUser.save();
         if (userSaveB) {
             throw new ServiceException("添加租户失败");
@@ -136,7 +136,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         int i = mapper.updateNameAndExpiresAndGroupByTenantId(tenantFromDTO.getId()
                 , tenantFromDTO.getTenantName()
                 , tenantFromDTO.getExpires()
-                , tenantFromDTO.getGroupId());
+                , tenantFromDTO.getFkGroupId());
         return i > 0;
     }
 

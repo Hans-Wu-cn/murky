@@ -23,6 +23,6 @@ export interface Role extends BaseApiType {
   roleCode: string,
   dataScope: number,
   describe?: string,
-  menuIds?: string[],
-  deptIds?: string[],
+  fkMenuIds?: string[],
+  fkDeptIds?: string[],
 }

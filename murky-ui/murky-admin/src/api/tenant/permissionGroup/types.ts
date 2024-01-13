@@ -14,7 +14,7 @@ export interface PagePermissionGroup extends PageRequest {
  * @param tenantMenuIds 菜单列表
  */
 export interface PermissionGroup extends BaseApiType {
-  groupId?: string,
+  id?: string,
   groupName: string,
   describe?: string,
   tenantMenuIds?: string[],

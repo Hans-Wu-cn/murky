@@ -28,5 +28,5 @@ public class SysUserPageDTO extends Page<SysUser> {
     private Sex sex;
 
     @ApiModelProperty("部门id")
-    private Long deptId;
+    private Long fkDeptId;
 }

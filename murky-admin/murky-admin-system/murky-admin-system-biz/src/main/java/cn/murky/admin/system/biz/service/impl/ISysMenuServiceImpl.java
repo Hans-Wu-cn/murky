@@ -84,7 +84,7 @@ public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> imp
             throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
         }
         long l = sysRoleMenuMapper.selectCountByQuery(QueryWrapper.create().where(
-                SysRoleMenuTableDef.SYS_ROLE_MENU.MENU_ID.eq(id)
+                SysRoleMenuTableDef.SYS_ROLE_MENU.FK_MENU_ID.eq(id)
         ));
         if (l > 0) {
             throw new ServiceException("删除失败,请保证该菜单没有被角色引用");

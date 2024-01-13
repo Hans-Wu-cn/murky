@@ -15,7 +15,7 @@
       </t-form-item>
       <t-form-item v-if="formData.dataScope === 1" :label="$t('role.button.power')" name="deptIds">
         <div class="treeBox">
-          <t-tree hover expand-all v-model="formData.deptIds" :data="deptTree" :keys="deptTreeKeys" checkable
+          <t-tree hover expand-all v-model="formData.fkDeptIds" :data="deptTree" :keys="deptTreeKeys" checkable
             value-mode="all" @change="treeOnChange" checkStrictly />
         </div>
       </t-form-item>
@@ -42,7 +42,7 @@ import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const deptTree = ref<Array<DeptTree>>();
-const deptTreeKeys = { value: 'deptId', label: 'deptName', children: 'children' }
+const deptTreeKeys = { value: 'id', label: 'deptName', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
   roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
@@ -53,7 +53,7 @@ const formData = ref<Role>({
   roleName: '',
   describe: '',
   dataScope: 0,
-  deptIds: []
+  fkDeptIds: []
 });
 
 const roleFromId = ref('');
@@ -75,7 +75,7 @@ const onReset = () => {
 const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<DeptTree>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   let deptIds = Array<string>();
   value.forEach(item => deptIds.push(item as string))
-  formData.value.deptIds = deptIds
+  formData.value.fkDeptIds = deptIds
 }
 
 /**
@@ -89,7 +89,7 @@ const initFromData = async (id: string) => {
       roleName: '',
       describe: '',
       dataScope: 0,
-      deptIds: [],
+      fkDeptIds: [],
     }
     roleFromId.value = undefined
     return

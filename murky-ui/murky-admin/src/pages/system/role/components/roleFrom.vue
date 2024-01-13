@@ -13,8 +13,10 @@
       </t-form-item>
       <t-form-item :label="$t('menu.label.from.auth')" name="menuIds">
         <div class="treeBox">
-          <t-tree ref="menuTreeRef" hover expand-all v-model="formData.menuIds" :data="menuTree" :keys="menuTreeKeys"
-            checkable value-mode="all" @change="treeOnChange" />
+          <t-tree ref="menuTreeRef" hover expand-all v-model="formData.fkMenuIds" :data="menuTree" :keys="menuTreeKeys"
+            checkable value-mode="all" @change="treeOnChange" >
+            <template #label="{node}">{{$t(node.data.label)}}</template>
+          </t-tree>
         </div>
       </t-form-item>
       <t-form-item>
@@ -39,7 +41,7 @@ import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
 const menuTree = ref<Array<Menu>>();
-const menuTreeKeys = { value: 'menuId', label: 'label', children: 'children' }
+const menuTreeKeys = { value: 'id', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   roleName: [{ required: true, message: i18n.global.t('role.label.pl.name'), trigger: 'blur' }],
   roleCode: [{ required: true, message: i18n.global.t('role.label.pl.code'), trigger: 'blur' }],
@@ -50,7 +52,7 @@ const formData = ref<Role>({
   roleName: '',
   describe: '',
   dataScope: 0,
-  menuIds: []
+  fkDeptIds: []
 });
 
 const roleFromId = ref('');
@@ -75,7 +77,7 @@ const onReset = () => {
 const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<Menu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
-  formData.value.menuIds = menuIds
+  formData.value.fkMenuIds = menuIds
 }
 
 /**
@@ -90,7 +92,7 @@ const initFromData = async (id: string) => {
       roleName: '',
       describe: '',
       dataScope: 0,
-      menuIds: []
+      fkMenuIds: []
     }
     roleFromId.value = undefined
     return

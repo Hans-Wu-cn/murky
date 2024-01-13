@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 public class TenantPermissionGroup extends BaseEntity<TenantPermissionGroup> {
     @Id
     @ApiModelProperty("主键")
-    private Long groupId;
+    private Long id;
 
     @ApiModelProperty("权限组名")
     private String groupName;

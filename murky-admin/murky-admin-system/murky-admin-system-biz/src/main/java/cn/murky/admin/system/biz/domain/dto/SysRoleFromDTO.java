@@ -42,10 +42,10 @@ public class SysRoleFromDTO {
     private DataScope dataScope;
 
     @ApiModelProperty("所属菜单id")
-    private List<Long> menuIds;
+    private List<Long> fkMenuIds;
 
     @ApiModelProperty("自定义权限部门Id")
-    private List<Long> deptIds;
+    private List<Long> fkDeptIds;
 
     public SysRole toEntity() {
         return SysRoleConvert.INSTANCES.toEntity(this);

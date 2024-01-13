@@ -45,7 +45,7 @@ const showBreadcrumbHeight = computed(() => {
 // 用户列表条件
 const userQuery = ref<PageUser>({
   userName: '',
-  deptId: '',
+  fkDeptId: '',
   pageNumber: 1,
   pageSize: 10
 })
@@ -62,7 +62,7 @@ const pagination: PaginationProps = reactive({
   maxPageBtn: 5
 })
 // 部门树配置
-const deptTreeKeys = ref({ value: 'deptId', label: 'deptName', children: 'children' })
+const deptTreeKeys = ref({ value: 'id', label: 'deptName', children: 'children' })
 // 表格字段
 const columns: Array<PrimaryTableCol<User>> = [
   {
@@ -223,7 +223,7 @@ const loadUserData = async () => {
  * 部门树点击事件
  */
 const deptTreeNodeClick = (context: { node: TreeNodeModel<DeptTree>; e: MouseEvent }) => {
-  userQuery.value.deptId = context.node.value as string
+  userQuery.value.fkDeptId = context.node.value as string
   loadUserData()
 }
 

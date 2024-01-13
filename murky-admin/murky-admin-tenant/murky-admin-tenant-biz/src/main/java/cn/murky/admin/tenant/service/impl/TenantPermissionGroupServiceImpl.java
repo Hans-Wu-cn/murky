@@ -50,10 +50,10 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
         TenantPermissionGroupVo vo = TenantPermissionGroupConvert.INSTANCES.toVo(tenantPermissionGroup);
         List<TenantMenu> tenantMenus = tenantMenuMapper.selectByGroupId(groupId);
         List<Long> tenantMenuIds = tenantMenus.stream().filter(item -> {
-            Long saasMenuId = item.getId();
+            Long menuId = item.getId();
             boolean notHasChild = true;
             for (TenantMenu tenantMenu : tenantMenus) {
-                if (saasMenuId.equals(tenantMenu.getId())) {
+                if (menuId.equals(tenantMenu.getParentId())) {
                     notHasChild = false;
                     break;
                 }
@@ -98,8 +98,8 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
             List<TenantGroupMenu> groupMenuList = new ArrayList<>();
             for (Long saasMenuId : saasMenuIds) {
                 groupMenuList.add(TenantGroupMenu.create()
-                        .setGroupId(entity.getGroupId())
-                        .setTenantMenuId(saasMenuId)
+                        .setFkGroupId(entity.getId())
+                        .setFkMenuId(saasMenuId)
                 );
             }
             int i = tenantGroupMenuMapper.insertBatch(groupMenuList);
@@ -122,7 +122,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
     public boolean update(TenantPermissionGroupFromDTO tenantPermissionGroupFromDTO) {
         TenantPermissionGroup entity = tenantPermissionGroupFromDTO.toEntity();
         //判断权限组名称与权限组码是否重复
-        TenantPermissionGroup tenantRole = mapper.selectByNameOrCode(entity.getGroupId()
+        TenantPermissionGroup tenantRole = mapper.selectByNameOrCode(entity.getId()
                 , entity.getGroupName());
         Optional.ofNullable(tenantRole).map(item -> {
             if (item.getGroupName().equals(entity.getGroupName())) {
@@ -139,8 +139,8 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
 
         //先删除在新增，覆盖原本的权限
         TenantGroupMenu.create()
-                .where(TenantGroupMenu::getGroupId)
-                .eq(tenantPermissionGroupFromDTO.getGroupId())
+                .where(TenantGroupMenu::getFkGroupId)
+                .eq(tenantPermissionGroupFromDTO.getId())
                 .remove();
         if (Utils.isNotEmpty(tenantPermissionGroupFromDTO.getTenantMenuIds())) {
             //补充不完全一定存在的父级元素
@@ -149,8 +149,8 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
             HashSet<Long> saasMenuIds = new HashSet<>(tenantPermissionGroupFromDTO.getTenantMenuIds());
             saasMenuIds.addAll(parentMenuIds);
             List<TenantGroupMenu> tenantGroupMenus = saasMenuIds.stream()
-                    .map(item -> TenantGroupMenu.create().setGroupId(entity.getGroupId())
-                    .setTenantMenuId(item)).toList();
+                    .map(item -> TenantGroupMenu.create().setFkGroupId(entity.getId())
+                    .setFkMenuId(item)).toList();
             int i = tenantGroupMenuMapper.insertBatch(tenantGroupMenus);
             if (i <= 0) {
                 throw new ServiceException("修改失败");

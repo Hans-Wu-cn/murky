@@ -17,7 +17,7 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
     default int deleteByUserId(Long userId) {
         SysUserRoleTableDef SYS_USER_ROLE = SysUserRoleTableDef.SYS_USER_ROLE;
         return this.deleteByQuery(QueryWrapper.create().where(
-                        SYS_USER_ROLE.USER_ID.eq(userId)
+                        SYS_USER_ROLE.FK_USER_ID.eq(userId)
                 )
         );
     }
@@ -31,7 +31,7 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
     default List<SysUserRole> selectByUserId(Long userId) {
         SysUserRoleTableDef SYS_USER_ROLE = SysUserRoleTableDef.SYS_USER_ROLE;
         return this.selectListByQuery(QueryWrapper.create().where(
-                        SYS_USER_ROLE.USER_ID.eq(userId)
+                        SYS_USER_ROLE.FK_USER_ID.eq(userId)
                 )
         );
     }

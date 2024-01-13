@@ -34,7 +34,7 @@ public class SysUserPageVo {
     private String email;
 
     @ApiModelProperty("部门id")
-    private String deptId;
+    private String fkDeptId;
 
     @ApiModelProperty("部门名称")
     private String deptName;

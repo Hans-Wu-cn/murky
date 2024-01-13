@@ -19,7 +19,7 @@ public class TenantVo {
     private Long id;
 
     @ApiModelProperty("权限组id")
-    private Long groupId;
+    private Long fkGroupId;
 
     @ApiModelProperty("权限组名称")
     private String groupName;

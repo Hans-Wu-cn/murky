@@ -18,11 +18,11 @@ public class SysRoleDept extends Model<SysRoleDept> {
     /**
      * 角色id
      */
-    private Long roleId;
+    private Long fkRoleId;
 
     /**
      * 部门id
      */
-    private Long deptId;
+    private Long fkDeptId;
 
 }

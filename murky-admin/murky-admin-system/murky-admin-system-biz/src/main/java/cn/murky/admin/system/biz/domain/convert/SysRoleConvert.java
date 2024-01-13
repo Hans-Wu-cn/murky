@@ -19,7 +19,7 @@ public interface SysRoleConvert {
     /**
      * 将SysRoleFromDTO转为SysRole
      */
-    @Mapping(target = "deptId", ignore = true)
+    @Mapping(target = "fkDeptId", ignore = true)
     @Mapping(target = "updateUser", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createUser", ignore = true)
@@ -29,7 +29,7 @@ public interface SysRoleConvert {
     /**
      * 将SysRole对象转化为SysRoleVo对象
      */
-    @Mapping(target = "menuIds", ignore = true)
-    @Mapping(target = "deptIds", ignore = true)
+    @Mapping(target = "fkMenuIds", ignore = true)
+    @Mapping(target = "fkDeptIds", ignore = true)
     SysRoleVo toVo(SysRole sysRole);
 }

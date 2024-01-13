@@ -28,7 +28,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         TenantTableDef TENANT=TenantTableDef.TENANT;
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         QueryWrapper queryWrapper = QueryWrapper.create().from(TENANT)
-                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.GROUP_ID.eq(TENANT_PERMISSION_GROUP.GROUP_ID))
+                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.FK_GROUP_ID.eq(TENANT_PERMISSION_GROUP.ID))
                 .where(TENANT.TENANT_NAME.like(tenantPageDTO.getTenantName(), If::hasText))
                 .orderBy(TENANT.UPDATE_TIME.desc());
 
@@ -43,7 +43,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         TenantTableDef TENANT=TenantTableDef.TENANT;
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         QueryWrapper queryWrapper = QueryWrapper.create().from(TENANT)
-                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.GROUP_ID.eq(TENANT_PERMISSION_GROUP.GROUP_ID))
+                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.FK_GROUP_ID.eq(TENANT_PERMISSION_GROUP.ID))
                 .where(TENANT.ID.eq(tenantId));
 
         return selectOneByQueryAs(queryWrapper, TenantVo.class);
@@ -57,7 +57,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         TenantTableDef TENANT=TenantTableDef.TENANT;
         TenantPermissionGroupTableDef TENANT_PERMISSION_GROUP = TenantPermissionGroupTableDef.TENANT_PERMISSION_GROUP;
         QueryWrapper queryWrapper = QueryWrapper.create().from(TENANT)
-                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.GROUP_ID.eq(TENANT_PERMISSION_GROUP.GROUP_ID))
+                .innerJoin(TENANT_PERMISSION_GROUP).on(TENANT.FK_GROUP_ID.eq(TENANT_PERMISSION_GROUP.ID))
                 .where(TENANT.TENANT_NAME.eq(tenantName));
 
         return selectCountByQuery(queryWrapper);
@@ -76,7 +76,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
         Tenant tenant = UpdateEntity.of(Tenant.class, tenantId)
                 .setTenantName(tenantName)
                 .setExpires(expires)
-                .setGroupId(groupId);
+                .setFkGroupId(groupId);
         return update(tenant);
     }
 }

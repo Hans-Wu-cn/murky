@@ -29,6 +29,6 @@ public interface SysUserConvert {
     /**
      * 将SysUser转为SysUserVo
      */
-    @Mapping(target = "roleIds", ignore = true)
+    @Mapping(target = "fkRoleIds", ignore = true)
     SysUserVo toVo(SysUser sysUser);
 }

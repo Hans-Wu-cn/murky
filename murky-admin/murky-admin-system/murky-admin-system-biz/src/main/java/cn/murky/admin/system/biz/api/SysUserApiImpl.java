@@ -4,12 +4,12 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.admin.common.entity.SecurityUserInfo;
 import cn.murky.admin.common.enums.DataScope;
+import cn.murky.admin.flex.domin.table.SysUserTableDef;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.entity.*;
 import cn.murky.admin.flex.domin.SysDeptAncestors;
 import cn.murky.admin.flex.domin.SysUser;
-import cn.murky.admin.flex.domin.tab.SysUserTableDef;
 import cn.murky.admin.security.utils.SecurityUtils;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
@@ -88,11 +88,11 @@ public class SysUserApiImpl implements SysUserApi {
                     .setEmail(sysUser.getEmail())
                     .setUserName(sysUser.getUserName())
                     .setLanguage(sysUser.getLanguage())
-                    .setDeptId(sysUser.getDeptId())
+                    .setDeptId(sysUser.getFkDeptId())
                     .setToken(tokenInfo.getTokenValue());
             //查询角色id列表
             Set<Long> roleIds = sysUserRoleMapper.selectByUserId(sysUser.getId())
-                    .stream().map(SysUserRole::getRoleId)
+                    .stream().map(SysUserRole::getFkRoleId)
                     .collect(Collectors.toSet());
             userInfo.setRoleIds(roleIds);
             userInfo.setAdmin(false);
@@ -122,10 +122,10 @@ public class SysUserApiImpl implements SysUserApi {
     public UserProfile getProfile(Long userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
-                .stream().map(SysUserRole::getRoleId).toList();
+                .stream().map(SysUserRole::getFkRoleId).toList();
         List<String> roleNameList = sysRoleMapper.selectListByIds(roleIds).stream().map(SysRole::getRoleName).toList();
-        List<Long> deptIds = new java.util.ArrayList<>(sysDeptAncestorsMapper.getListByDeptId(sysUser.getDeptId()).stream().map(SysDeptAncestors::getAncestors).toList());
-        deptIds.add(sysUser.getDeptId());
+        List<Long> deptIds = new java.util.ArrayList<>(sysDeptAncestorsMapper.getListByDeptId(sysUser.getFkDeptId()).stream().map(SysDeptAncestors::getAncestors).toList());
+        deptIds.add(sysUser.getFkDeptId());
         List<String> deptNameList = iSysDeptService.listByIds(deptIds).stream().map(SysDept::getDeptName).toList();
         return new UserProfile()
                 .setUserName(sysUser.getUserName())

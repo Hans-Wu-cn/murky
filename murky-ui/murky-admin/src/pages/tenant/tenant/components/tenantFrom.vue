@@ -5,9 +5,9 @@
       <t-form-item :label="$t('tenant.label.name')" name="tenantName">
         <t-input v-model="formData.tenantName" :placeholder="$t('tenant.label.pl.name')"></t-input>
       </t-form-item>
-      <t-form-item :label="$t('permissionGroup.label')" name="groupId">
-        <t-select v-model="formData.groupId" :placeholder="$t('permissionGroup.label.from.pl')" filterable>
-          <t-option v-for="(item, index) in groupSelectOptions" :key="index" :value="item.groupId"
+      <t-form-item :label="$t('permissionGroup.label')" name="fkGroupId">
+        <t-select v-model="formData.fkGroupId" :placeholder="$t('permissionGroup.label.from.pl')" filterable>
+          <t-option v-for="(item, index) in groupSelectOptions" :key="index" :value="item.id"
             :label="item.groupName">
             {{ item.groupName }}
           </t-option>
@@ -61,7 +61,7 @@ import { permissionGroupList } from '@/api/tenant/permissionGroup';
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
   tenantName: [{ required: true, message: i18n.global.t('tenant.label.pl.name'), trigger: 'blur' }],
-  groupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
+  fkGroupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
   account: [{ required: true, message: i18n.global.t('tenant.label.pl.account'), trigger: 'blur' }],
   password: [{ required: true, message: i18n.global.t('tenant.label.pl.password'), trigger: 'blur' }],
   confirmPassword: [{ required: true, message: i18n.global.t('tenant.label.pl.confirmPassword'), trigger: 'blur' }, {
@@ -77,7 +77,7 @@ const FORM_RULES = ref<FormRules>({
 })
 // 表单对象
 const formData = ref<TenantFrom>({
-  groupId: '',
+  fkGroupId: '',
   tenantName: '',
   account: '',
   password: '',
@@ -104,7 +104,7 @@ const onReset = () => {
  */
 const initFromData = async () => {
   formData.value = {
-    groupId: '',
+    fkGroupId: '',
     tenantName: '',
     account: '',
     password: '',

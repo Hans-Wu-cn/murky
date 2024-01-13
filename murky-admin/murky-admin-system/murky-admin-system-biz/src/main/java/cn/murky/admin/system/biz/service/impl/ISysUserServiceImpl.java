@@ -57,8 +57,8 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
         SysUser sysUser = mapper.selectOneById(userId);
         SysUserVo vo = SysUserConvert.INSTANCES.toVo(sysUser);
         List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
-                .stream().map(SysUserRole::getRoleId).toList();
-        vo.setRoleIds(roleIds);
+                .stream().map(SysUserRole::getFkRoleId).toList();
+        vo.setFkRoleIds(roleIds);
         return vo;
     }
 
@@ -87,16 +87,16 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
         if (insert <= 0) {
             throw new ServiceException("添加失败");
         }
-        if (!sysUserFromDTO.getRoleIds().isEmpty()) {
+        if (!sysUserFromDTO.getFkRoleIds().isEmpty()) {
             List<SysUserRole> sysUserRoles = new ArrayList<>();
-            for (Long roleId : sysUserFromDTO.getRoleIds()) {
+            for (Long roleId : sysUserFromDTO.getFkRoleIds()) {
                 sysUserRoles.add(new SysUserRole()
-                        .setRoleId(roleId)
-                        .setUserId(entity.getId())
+                        .setFkRoleId(roleId)
+                        .setFkUserId(entity.getId())
                 );
             }
             int i = sysUserRoleMapper.insertBatch(sysUserRoles);
-            if (i != sysUserFromDTO.getRoleIds().size()) {
+            if (i != sysUserFromDTO.getFkRoleIds().size()) {
                 throw new ServiceException("添加失败");
             }
         }
@@ -116,17 +116,15 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
         if (update <= 0) {
             throw new ServiceException("添加失败");
         }
-        if (!sysUserFromDTO.getRoleIds().isEmpty()) {
+        if (!sysUserFromDTO.getFkRoleIds().isEmpty()) {
             sysUserRoleMapper.deleteByUserId(sysUserFromDTO.getId());
-            List<SysUserRole> sysUserRoles = new ArrayList<>();
-            for (Long roleId : sysUserFromDTO.getRoleIds()) {
-                sysUserRoles.add(new SysUserRole()
-                        .setRoleId(roleId)
-                        .setUserId(entity.getId())
-                );
-            }
+            List<SysUserRole> sysUserRoles = sysUserFromDTO.getFkRoleIds()
+                    .stream()
+                    .map(roleId -> new SysUserRole().setFkRoleId(roleId).setFkUserId(entity.getId()))
+                    .toList();
+
             int i = sysUserRoleMapper.insertBatch(sysUserRoles);
-            if (i != sysUserFromDTO.getRoleIds().size()) {
+            if (i != sysUserFromDTO.getFkRoleIds().size()) {
                 throw new ServiceException("修改失败");
             }
         }
@@ -158,8 +156,8 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
      */
     @Override
     public Page<SysUserPageVo> page(SysUserPageDTO sysUserPageDTO) {
-        Set<Long> deptIds = sysDeptAncestorsMapper.getListByAncestors(sysUserPageDTO.getDeptId()).stream().map(SysDeptAncestors::getDeptId).collect(Collectors.toSet());
-        deptIds.add(sysUserPageDTO.getDeptId());
+        Set<Long> deptIds = sysDeptAncestorsMapper.getListByAncestors(sysUserPageDTO.getFkDeptId()).stream().map(SysDeptAncestors::getFkDeptId).collect(Collectors.toSet());
+        deptIds.add(sysUserPageDTO.getFkDeptId());
         return mapper.page(sysUserPageDTO, deptIds);
     }
 

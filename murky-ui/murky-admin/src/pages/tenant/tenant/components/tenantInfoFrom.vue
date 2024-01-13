@@ -5,10 +5,10 @@
         <t-input v-model="formData.tenantName" :placeholder="$t('tenant.label.pl.name')"
           :disabled="disabledFrom"></t-input>
       </t-form-item>
-      <t-form-item :label="$t('permissionGroup.label')" name="groupId">
-        <t-select v-model="formData.groupId" :placeholder="$t('permissionGroup.label.from.pl')" :disabled="disabledFrom"
+      <t-form-item :label="$t('permissionGroup.label')" name="fkGroupId">
+        <t-select v-model="formData.fkGroupId" :placeholder="$t('permissionGroup.label.from.pl')" :disabled="disabledFrom"
           filterable>
-          <t-option v-for="(item, index) in groupSelectOptions" :key="index" :value="item.groupId"
+          <t-option v-for="(item, index) in groupSelectOptions" :key="index" :value="item.id"
             :label="item.groupName">
             {{ item.groupName }}
           </t-option>
@@ -58,13 +58,13 @@ import { permissionGroupList } from '@/api/tenant/permissionGroup';
 const emit = defineEmits(['submit-hook'])
 const FORM_RULES = ref<FormRules>({
   tenantName: [{ required: true, message: i18n.global.t('tenant.label.pl.name'), trigger: 'blur' }],
-  groupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
+  fkGroupId: [{ required: true, message: i18n.global.t('permissionGroup.label.from.pl'), trigger: 'blur' }],
   expires: [{ required: true, message: i18n.global.t('tenant.label.pl.expires'), trigger: 'blur' }],
 })
 // 表单对象
 const formData = ref<Tenant>({
   id: '',
-  groupId: '',
+  fkGroupId: '',
   tenantName: '',
   expires: '',
   describe: '',

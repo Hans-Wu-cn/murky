@@ -15,7 +15,7 @@ public class SysDeptAncestors {
     /**
      * 部门id
      */
-    private Long deptId;
+    private Long fkDeptId;
 
     /**
      * 祖级部门Id

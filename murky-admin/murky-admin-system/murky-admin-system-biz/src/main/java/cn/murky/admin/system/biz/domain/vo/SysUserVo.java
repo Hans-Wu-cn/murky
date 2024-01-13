@@ -36,9 +36,9 @@ public class SysUserVo {
     private String email;
 
     @ApiModelProperty("部门id")
-    private String deptId;
+    private String fkDeptId;
 
     @ApiModelProperty("角色id")
-    private List<Long> roleIds;
+    private List<Long> fkRoleIds;
 
 }

@@ -71,10 +71,10 @@ public class ISysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole
                 menuIds.add(menuId);
             }
         }
-        vo.setMenuIds(menuIds);
+        vo.setFkMenuIds(menuIds);
         if (DataScope.CUSTOMIZE == sysRole.getDataScope()) {
-            List<Long> deptIds = SysRoleDept.create().where(SysRoleDept::getRoleId).eq(roleId).list().stream().map(SysRoleDept::getDeptId).toList();
-            vo.setDeptIds(deptIds);
+            List<Long> deptIds = SysRoleDept.create().where(SysRoleDept::getFkRoleId).eq(roleId).list().stream().map(SysRoleDept::getFkDeptId).toList();
+            vo.setFkDeptIds(deptIds);
         }
 
         return vo;
@@ -102,20 +102,20 @@ public class ISysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole
             return null;
         });
         entity.setDataScope(DataScope.ONESELF);
-        entity.setDeptId(SecurityUtils.getUserInfo().getDeptId());
+        entity.setFkDeptId(SecurityUtils.getUserInfo().getDeptId());
         int insert = mapper.insert(entity);
         if (insert <= 0) {
             return false;
         }
         //如果有配置菜单则添加菜单信息
-        if (Utils.isNotEmpty(sysRoleFromDTO.getMenuIds())) {
+        if (Utils.isNotEmpty(sysRoleFromDTO.getFkMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getMenuIds()).stream().map(SysMenu::getParentId).toList();
-            HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getMenuIds());
+            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).toList();
+            HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getFkMenuIds());
             menuIds.addAll(parentMenuIds);
             List<SysRoleMenu> sysRoleMenuList = menuIds.stream().map(menuId -> new SysRoleMenu()
-                    .setRoleId(entity.getId())
-                    .setMenuId(menuId)).toList();
+                    .setFkRoleId(entity.getId())
+                    .setFkMenuId(menuId)).toList();
             int i = sysRoleMenuMapper.insertBatch(sysRoleMenuList);
             if (i <= 0) {
                 throw new ServiceException("添加失败");
@@ -157,28 +157,28 @@ public class ISysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole
 
         //先删除在新增，覆盖原本的权限
         sysRoleMenuMapper.deleteByRoleId(sysRoleFromDTO.getId());
-        if (Utils.isNotEmpty(sysRoleFromDTO.getMenuIds())) {
+        if (Utils.isNotEmpty(sysRoleFromDTO.getFkMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getMenuIds()).stream().map(SysMenu::getParentId).toList();
-            HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getMenuIds());
+            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).toList();
+            HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getFkMenuIds());
             menuIds.addAll(parentMenuIds);
             List<SysRoleMenu> sysRoleMenuList = menuIds.stream().map(menuId -> new SysRoleMenu()
-                    .setRoleId(entity.getId())
-                    .setMenuId(menuId)).toList();
+                    .setFkRoleId(entity.getId())
+                    .setFkMenuId(menuId)).toList();
             int i = sysRoleMenuMapper.insertBatch(sysRoleMenuList);
             if (i <= 0) {
                 throw new ServiceException("修改失败");
             }
         }
         //删除角色部门关系数据,准备重载
-        SysRoleDept.create().where(SysRoleDept::getRoleId).eq(sysRoleFromDTO.getId()).remove();
+        SysRoleDept.create().where(SysRoleDept::getFkRoleId).eq(sysRoleFromDTO.getId()).remove();
         // 如果是自定义部门权限则需要保存对应部门角色关系数据
         if (DataScope.CUSTOMIZE == sysRoleFromDTO.getDataScope()) {
-            List<SysRoleDept> sysRoleDepts = sysRoleFromDTO.getDeptIds().stream().map(item -> {
-                return SysRoleDept.create().setDeptId(item).setRoleId(sysRoleFromDTO.getId());
+            List<SysRoleDept> sysRoleDepts = sysRoleFromDTO.getFkDeptIds().stream().map(item -> {
+                return SysRoleDept.create().setFkDeptId(item).setFkRoleId(sysRoleFromDTO.getId());
             }).toList();
             int i = sysRoleDeptMapper.insertBatch(sysRoleDepts);
-            if (i != sysRoleFromDTO.getDeptIds().size()) {
+            if (i != sysRoleFromDTO.getFkDeptIds().size()) {
                 throw new ServiceException("修改失败");
             }
         }

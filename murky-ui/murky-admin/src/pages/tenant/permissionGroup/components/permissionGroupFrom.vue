@@ -30,13 +30,13 @@ import { PermissionGroup } from '@/api/tenant/permissionGroup/types'
 import { FormRules, MessagePlugin, SubmitContext, TreeNodeModel, TreeNodeValue, } from 'tdesign-vue-next';
 import { addPermissionGroup, updatePermissionGroup, permissionGroupInfo } from '@/api/tenant/permissionGroup';
 import { ResultEnum } from '@/enums/httpEnum';
-import { PoemTenantMenu } from '@/api/tenant/menu/types';
+import { TenantMenu } from '@/api/tenant/menu/types';
 import { getTenantMenuList } from '@/api/tenant/menu';
 import i18n from '@/i18n';
 
 const emit = defineEmits(['submit-hook'])
-const menuTree = ref<Array<PoemTenantMenu>>();
-const menuTreeKeys = { value: 'tenantMenuId', label: 'label', children: 'children' }
+const menuTree = ref<Array<TenantMenu>>();
+const menuTreeKeys = { value: 'id', label: 'label', children: 'children' }
 const FORM_RULES = ref<FormRules>({
   groupName: [{ required: true, message: i18n.global.t('permissionGroup.label.pl.name'), trigger: 'blur' }],
 })
@@ -65,7 +65,7 @@ const onReset = () => {
  * @param value 
  * @param context 
  */
-const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<PoemTenantMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
+const treeOnChange = (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TenantMenu>; e?: any; trigger: 'node-click' | 'setItem' }) => {
   const menuIds = Array<string>();
   value.forEach(item => menuIds.push(item as string))
   formData.value.tenantMenuIds = menuIds
@@ -101,7 +101,7 @@ const initFromData = async (groupId: string) => {
 const onSubmit = async ({ validateResult }: SubmitContext<PermissionGroup>) => {
   if (validateResult === true) {
     loading.value = true
-    const api = formData.value.groupId ? updatePermissionGroup : addPermissionGroup
+    const api = formData.value.id ? updatePermissionGroup : addPermissionGroup
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

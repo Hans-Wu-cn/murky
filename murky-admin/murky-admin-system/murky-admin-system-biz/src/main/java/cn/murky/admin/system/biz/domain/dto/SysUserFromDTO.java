@@ -45,10 +45,10 @@ public class SysUserFromDTO {
     private String email;
 
     @ApiModelProperty(value = "部门id",required = true)
-    private Long deptId;
+    private Long fkDeptId;
 
     @ApiModelProperty("角色id")
-    private List<Long> roleIds;
+    private List<Long> fkRoleIds;
 
     public SysUser toEntity(){
         return SysUserConvert.INSTANCES.toEntity(this);

@@ -59,12 +59,12 @@ public class ISysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> imp
         if(insert>0){
             List<SysDeptAncestors> SysDeptAncestors=new ArrayList<>();
             SysDeptAncestors.add(new SysDeptAncestors()
-                    .setDeptId(entity.getId())
+                    .setFkDeptId(entity.getId())
                     .setAncestors(entity.getParentId()));
             List<SysDeptAncestors> list = SysDeptAncestorsMapper.getListByDeptId(entity.getParentId());
             for (SysDeptAncestors deptAncestors : list) {
                 SysDeptAncestors.add(new SysDeptAncestors()
-                        .setDeptId(entity.getId())
+                        .setFkDeptId(entity.getId())
                         .setAncestors(deptAncestors.getAncestors()));
             }
             int i = SysDeptAncestorsMapper.insertBatch(SysDeptAncestors);
@@ -94,12 +94,12 @@ public class ISysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> imp
             //组装部门关系
             List<SysDeptAncestors> SysDeptAncestors=new ArrayList<>();
             SysDeptAncestors.add(new SysDeptAncestors()
-                    .setDeptId(entity.getId())
+                    .setFkDeptId(entity.getId())
                     .setAncestors(entity.getParentId()));
             List<SysDeptAncestors> list = SysDeptAncestorsMapper.getListByDeptId(entity.getParentId());
             for (SysDeptAncestors deptAncestors : list) {
                 SysDeptAncestors.add(new SysDeptAncestors()
-                        .setDeptId(entity.getId())
+                        .setFkDeptId(entity.getId())
                         .setAncestors(deptAncestors.getAncestors()));
             }
             //删除部门关系

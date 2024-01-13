@@ -26,7 +26,7 @@ public class TenantFromDTO {
 
     @ApiModelProperty("权限组id")
     @NotNull
-    private Long groupId;
+    private Long fkGroupId;
 
     @ApiModelProperty("租户名")
     @NotBlank

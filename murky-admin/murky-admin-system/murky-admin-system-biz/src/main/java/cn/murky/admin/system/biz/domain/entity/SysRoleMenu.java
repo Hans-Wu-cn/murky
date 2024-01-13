@@ -17,9 +17,9 @@ import lombok.experimental.Accessors;
 @Table("sys_role_menu")
 public class SysRoleMenu {
     @ApiModelProperty("角色id")
-    private Long roleId;
+    private Long fkRoleId;
 
     @ApiModelProperty("菜单id")
-    private Long menuId;
+    private Long fkMenuId;
 
 }

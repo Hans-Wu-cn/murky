@@ -18,9 +18,9 @@ import lombok.experimental.Accessors;
 @Table("tenant_group_menu")
 public class TenantGroupMenu extends Model<TenantGroupMenu> {
     @ApiModelProperty("权限组id")
-    private Long groupId;
+    private Long fkGroupId;
 
     @ApiModelProperty("菜单id")
-    private Long tenantMenuId;
+    private Long fkMenuId;
 
 }

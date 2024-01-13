@@ -26,7 +26,7 @@ public class Tenant extends BaseEntity<Tenant> {
     private Long id;
 
     @ApiModelProperty("权限组id")
-    private Long groupId;
+    private Long fkGroupId;
 
     @ApiModelProperty("租户名")
     private String tenantName;
