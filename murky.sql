@@ -1,6 +1,59 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.16 (Debian 12.16-1.pgdg120+1)
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2024-01-13 21:23:59
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE "poem-solon";
+--
+-- TOC entry 3166 (class 1262 OID 16515)
+-- Name: poem-solon; Type: DATABASE; Schema: -; Owner: -
+--
+
+CREATE DATABASE "poem-solon" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.utf8';
+
+
+\connect -reuse-previous=on "dbname='poem-solon'"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
 --
--- TOC entry 203 (class 1259 OID 16517)
+-- TOC entry 9 (class 2615 OID 16516)
+-- Name: admin; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA admin;
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 204 (class 1259 OID 16517)
 -- Name: gen_table; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -29,8 +82,8 @@ CREATE TABLE admin.gen_table (
 
 
 --
--- TOC entry 3158 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3167 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: TABLE gen_table; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -38,8 +91,8 @@ COMMENT ON TABLE admin.gen_table IS '代码生成业务表';
 
 
 --
--- TOC entry 3159 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3168 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -47,8 +100,8 @@ COMMENT ON COLUMN admin.gen_table.create_time IS '创建时间';
 
 
 --
--- TOC entry 3160 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3169 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -56,8 +109,8 @@ COMMENT ON COLUMN admin.gen_table.update_time IS '修改时间';
 
 
 --
--- TOC entry 3161 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3170 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -65,8 +118,8 @@ COMMENT ON COLUMN admin.gen_table.create_user IS '创建人';
 
 
 --
--- TOC entry 3162 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3171 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -74,8 +127,8 @@ COMMENT ON COLUMN admin.gen_table.update_user IS '修改人';
 
 
 --
--- TOC entry 3163 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3172 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.table_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -83,8 +136,8 @@ COMMENT ON COLUMN admin.gen_table.table_id IS '主键';
 
 
 --
--- TOC entry 3164 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3173 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.table_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -92,8 +145,8 @@ COMMENT ON COLUMN admin.gen_table.table_name IS '表名称';
 
 
 --
--- TOC entry 3165 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3174 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.table_comment; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -101,8 +154,8 @@ COMMENT ON COLUMN admin.gen_table.table_comment IS '表描述';
 
 
 --
--- TOC entry 3166 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3175 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.sub_table_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -110,8 +163,8 @@ COMMENT ON COLUMN admin.gen_table.sub_table_name IS '关联子表的表名';
 
 
 --
--- TOC entry 3167 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3176 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.sub_table_fk_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -119,8 +172,8 @@ COMMENT ON COLUMN admin.gen_table.sub_table_fk_name IS '子表关联的外键名
 
 
 --
--- TOC entry 3168 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3177 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.class_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -128,8 +181,8 @@ COMMENT ON COLUMN admin.gen_table.class_name IS '实体类名称';
 
 
 --
--- TOC entry 3169 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3178 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.tpl_category; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -137,8 +190,8 @@ COMMENT ON COLUMN admin.gen_table.tpl_category IS '使用的模板（0:单表操
 
 
 --
--- TOC entry 3170 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3179 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.package_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -146,8 +199,8 @@ COMMENT ON COLUMN admin.gen_table.package_name IS '生成包路径';
 
 
 --
--- TOC entry 3171 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3180 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.module_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -155,8 +208,8 @@ COMMENT ON COLUMN admin.gen_table.module_name IS '生成模块名';
 
 
 --
--- TOC entry 3172 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3181 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.business_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -164,8 +217,8 @@ COMMENT ON COLUMN admin.gen_table.business_name IS '生成业务名';
 
 
 --
--- TOC entry 3173 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3182 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.function_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -173,8 +226,8 @@ COMMENT ON COLUMN admin.gen_table.function_name IS '生成功能名';
 
 
 --
--- TOC entry 3174 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3183 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.function_author; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -182,8 +235,8 @@ COMMENT ON COLUMN admin.gen_table.function_author IS '生成功能作者';
 
 
 --
--- TOC entry 3175 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3184 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.gen_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -191,8 +244,8 @@ COMMENT ON COLUMN admin.gen_table.gen_type IS '生成代码方式（0zip压缩�
 
 
 --
--- TOC entry 3176 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3185 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.gen_path; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -200,8 +253,8 @@ COMMENT ON COLUMN admin.gen_table.gen_path IS '生成路径（不填默认项目
 
 
 --
--- TOC entry 3177 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3186 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.options; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -209,8 +262,8 @@ COMMENT ON COLUMN admin.gen_table.options IS '其它生成选项';
 
 
 --
--- TOC entry 3178 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3187 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: COLUMN gen_table.remark; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -218,7 +271,7 @@ COMMENT ON COLUMN admin.gen_table.remark IS '备注';
 
 
 --
--- TOC entry 204 (class 1259 OID 16526)
+-- TOC entry 205 (class 1259 OID 16526)
 -- Name: gen_table_column; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -249,8 +302,8 @@ CREATE TABLE admin.gen_table_column (
 
 
 --
--- TOC entry 3179 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3188 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: TABLE gen_table_column; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -258,8 +311,8 @@ COMMENT ON TABLE admin.gen_table_column IS '代码生成业务表字段';
 
 
 --
--- TOC entry 3180 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3189 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -267,8 +320,8 @@ COMMENT ON COLUMN admin.gen_table_column.create_time IS '创建时间';
 
 
 --
--- TOC entry 3181 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3190 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -276,8 +329,8 @@ COMMENT ON COLUMN admin.gen_table_column.update_time IS '修改时间';
 
 
 --
--- TOC entry 3182 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3191 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -285,8 +338,8 @@ COMMENT ON COLUMN admin.gen_table_column.create_user IS '创建人';
 
 
 --
--- TOC entry 3183 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3192 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -294,8 +347,8 @@ COMMENT ON COLUMN admin.gen_table_column.update_user IS '修改人';
 
 
 --
--- TOC entry 3184 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3193 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.column_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -303,8 +356,8 @@ COMMENT ON COLUMN admin.gen_table_column.column_id IS '主键';
 
 
 --
--- TOC entry 3185 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3194 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.table_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -312,8 +365,8 @@ COMMENT ON COLUMN admin.gen_table_column.table_id IS '归属表编号';
 
 
 --
--- TOC entry 3186 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3195 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.column_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -321,8 +374,8 @@ COMMENT ON COLUMN admin.gen_table_column.column_name IS '列名称';
 
 
 --
--- TOC entry 3187 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3196 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.column_comment; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -330,8 +383,8 @@ COMMENT ON COLUMN admin.gen_table_column.column_comment IS '列描述';
 
 
 --
--- TOC entry 3188 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3197 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.column_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -339,8 +392,8 @@ COMMENT ON COLUMN admin.gen_table_column.column_type IS '列类型';
 
 
 --
--- TOC entry 3189 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3198 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.java_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -348,8 +401,8 @@ COMMENT ON COLUMN admin.gen_table_column.java_type IS 'JAVA类型';
 
 
 --
--- TOC entry 3190 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3199 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.java_field; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -357,8 +410,8 @@ COMMENT ON COLUMN admin.gen_table_column.java_field IS 'JAVA字段名';
 
 
 --
--- TOC entry 3191 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3200 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.pk; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -366,8 +419,8 @@ COMMENT ON COLUMN admin.gen_table_column.pk IS '是否主键（0:否 1是）';
 
 
 --
--- TOC entry 3192 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3201 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.increment; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -375,8 +428,8 @@ COMMENT ON COLUMN admin.gen_table_column.increment IS '是否自增（0:否 1:�
 
 
 --
--- TOC entry 3193 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3202 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.required; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -384,8 +437,8 @@ COMMENT ON COLUMN admin.gen_table_column.required IS '是否必填（0:否 1:是
 
 
 --
--- TOC entry 3194 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3203 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.insert; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -393,8 +446,8 @@ COMMENT ON COLUMN admin.gen_table_column.insert IS '是否为插入字段（0:�
 
 
 --
--- TOC entry 3195 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3204 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.edit; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -402,8 +455,8 @@ COMMENT ON COLUMN admin.gen_table_column.edit IS '是否编辑字段（0:否 1:�
 
 
 --
--- TOC entry 3196 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3205 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.list; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -411,8 +464,8 @@ COMMENT ON COLUMN admin.gen_table_column.list IS '是否编辑字段（0:否  1:
 
 
 --
--- TOC entry 3197 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3206 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.query; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -420,8 +473,8 @@ COMMENT ON COLUMN admin.gen_table_column.query IS '是否查询字段（0:否 1�
 
 
 --
--- TOC entry 3198 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3207 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.query_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -429,8 +482,8 @@ COMMENT ON COLUMN admin.gen_table_column.query_type IS '查询方式（0:等于�
 
 
 --
--- TOC entry 3199 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3208 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.html_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -438,8 +491,8 @@ COMMENT ON COLUMN admin.gen_table_column.html_type IS '显示类型（0:文本�
 
 
 --
--- TOC entry 3200 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3209 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.dict_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -447,8 +500,8 @@ COMMENT ON COLUMN admin.gen_table_column.dict_type IS '字典类型';
 
 
 --
--- TOC entry 3201 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3210 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: COLUMN gen_table_column.sort; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -456,7 +509,7 @@ COMMENT ON COLUMN admin.gen_table_column.sort IS '排序';
 
 
 --
--- TOC entry 205 (class 1259 OID 16541)
+-- TOC entry 206 (class 1259 OID 16541)
 -- Name: sys_dept; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -465,16 +518,16 @@ CREATE TABLE admin.sys_dept (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    dept_id bigint NOT NULL,
+    id bigint NOT NULL,
     dept_name character varying NOT NULL,
-    parent_dept bigint DEFAULT 0 NOT NULL,
+    parent_id bigint DEFAULT 0 NOT NULL,
     sort smallint DEFAULT 0 NOT NULL
 );
 
 
 --
--- TOC entry 3202 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3211 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -482,8 +535,8 @@ COMMENT ON COLUMN admin.sys_dept.create_time IS '创建时间';
 
 
 --
--- TOC entry 3203 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3212 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -491,8 +544,8 @@ COMMENT ON COLUMN admin.sys_dept.update_time IS '修改时间';
 
 
 --
--- TOC entry 3204 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3213 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -500,8 +553,8 @@ COMMENT ON COLUMN admin.sys_dept.create_user IS '创建人';
 
 
 --
--- TOC entry 3205 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3214 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -509,17 +562,17 @@ COMMENT ON COLUMN admin.sys_dept.update_user IS '修改人';
 
 
 --
--- TOC entry 3206 (class 0 OID 0)
--- Dependencies: 205
--- Name: COLUMN sys_dept.dept_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3215 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: COLUMN sys_dept.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_dept.dept_id IS '主键';
+COMMENT ON COLUMN admin.sys_dept.id IS '主键';
 
 
 --
--- TOC entry 3207 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3216 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.dept_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -527,17 +580,17 @@ COMMENT ON COLUMN admin.sys_dept.dept_name IS '部门名称';
 
 
 --
--- TOC entry 3208 (class 0 OID 0)
--- Dependencies: 205
--- Name: COLUMN sys_dept.parent_dept; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3217 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: COLUMN sys_dept.parent_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_dept.parent_dept IS '上级部门';
+COMMENT ON COLUMN admin.sys_dept.parent_id IS '上级部门';
 
 
 --
--- TOC entry 3209 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3218 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: COLUMN sys_dept.sort; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -545,28 +598,28 @@ COMMENT ON COLUMN admin.sys_dept.sort IS '排序';
 
 
 --
--- TOC entry 206 (class 1259 OID 16549)
+-- TOC entry 207 (class 1259 OID 16549)
 -- Name: sys_dept_ancestors; Type: TABLE; Schema: admin; Owner: -
 --
 
 CREATE TABLE admin.sys_dept_ancestors (
-    dept_id bigint NOT NULL,
+    fk_dept_id bigint NOT NULL,
     ancestors bigint NOT NULL
 );
 
 
 --
--- TOC entry 3210 (class 0 OID 0)
--- Dependencies: 206
--- Name: COLUMN sys_dept_ancestors.dept_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3219 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: COLUMN sys_dept_ancestors.fk_dept_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_dept_ancestors.dept_id IS '部门id';
+COMMENT ON COLUMN admin.sys_dept_ancestors.fk_dept_id IS '部门id';
 
 
 --
--- TOC entry 3211 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 3220 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: COLUMN sys_dept_ancestors.ancestors; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -574,7 +627,7 @@ COMMENT ON COLUMN admin.sys_dept_ancestors.ancestors IS '部门id的上级id和�
 
 
 --
--- TOC entry 207 (class 1259 OID 16552)
+-- TOC entry 208 (class 1259 OID 16552)
 -- Name: sys_dict_data; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -594,8 +647,8 @@ CREATE TABLE admin.sys_dict_data (
 
 
 --
--- TOC entry 3212 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3221 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: TABLE sys_dict_data; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -603,8 +656,8 @@ COMMENT ON TABLE admin.sys_dict_data IS '字典数据表';
 
 
 --
--- TOC entry 3213 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3222 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -612,8 +665,8 @@ COMMENT ON COLUMN admin.sys_dict_data.create_time IS '创建时间';
 
 
 --
--- TOC entry 3214 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3223 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -621,8 +674,8 @@ COMMENT ON COLUMN admin.sys_dict_data.update_time IS '修改时间';
 
 
 --
--- TOC entry 3215 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3224 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -630,8 +683,8 @@ COMMENT ON COLUMN admin.sys_dict_data.create_user IS '创建人';
 
 
 --
--- TOC entry 3216 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3225 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -639,8 +692,8 @@ COMMENT ON COLUMN admin.sys_dict_data.update_user IS '修改人';
 
 
 --
--- TOC entry 3217 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3226 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.dict_code; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -648,8 +701,8 @@ COMMENT ON COLUMN admin.sys_dict_data.dict_code IS '字典编码';
 
 
 --
--- TOC entry 3218 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3227 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.dict_sort; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -657,8 +710,8 @@ COMMENT ON COLUMN admin.sys_dict_data.dict_sort IS '字典排序';
 
 
 --
--- TOC entry 3219 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3228 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.dict_label; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -666,8 +719,8 @@ COMMENT ON COLUMN admin.sys_dict_data.dict_label IS '字典标签';
 
 
 --
--- TOC entry 3220 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3229 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.dict_value; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -675,8 +728,8 @@ COMMENT ON COLUMN admin.sys_dict_data.dict_value IS '字典值';
 
 
 --
--- TOC entry 3221 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3230 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.dict_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -684,8 +737,8 @@ COMMENT ON COLUMN admin.sys_dict_data.dict_type IS '字典类型';
 
 
 --
--- TOC entry 3222 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3231 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.status; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -693,8 +746,8 @@ COMMENT ON COLUMN admin.sys_dict_data.status IS '字典状态(0:正常 1:停用)
 
 
 --
--- TOC entry 3223 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3232 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: COLUMN sys_dict_data.remark; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -702,7 +755,7 @@ COMMENT ON COLUMN admin.sys_dict_data.remark IS '备注';
 
 
 --
--- TOC entry 208 (class 1259 OID 16560)
+-- TOC entry 209 (class 1259 OID 16560)
 -- Name: sys_dict_type; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -711,7 +764,7 @@ CREATE TABLE admin.sys_dict_type (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    dict_type_id bigint NOT NULL,
+    id bigint NOT NULL,
     dict_name character varying NOT NULL,
     dict_type character varying NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
@@ -720,8 +773,8 @@ CREATE TABLE admin.sys_dict_type (
 
 
 --
--- TOC entry 3224 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3233 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: TABLE sys_dict_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -729,8 +782,8 @@ COMMENT ON TABLE admin.sys_dict_type IS '字典类型';
 
 
 --
--- TOC entry 3225 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3234 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -738,8 +791,8 @@ COMMENT ON COLUMN admin.sys_dict_type.create_time IS '创建时间';
 
 
 --
--- TOC entry 3226 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3235 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -747,8 +800,8 @@ COMMENT ON COLUMN admin.sys_dict_type.update_time IS '修改时间';
 
 
 --
--- TOC entry 3227 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3236 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -756,8 +809,8 @@ COMMENT ON COLUMN admin.sys_dict_type.create_user IS '创建人';
 
 
 --
--- TOC entry 3228 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3237 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -765,8 +818,8 @@ COMMENT ON COLUMN admin.sys_dict_type.update_user IS '修改人';
 
 
 --
--- TOC entry 3229 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3238 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.dict_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -774,8 +827,8 @@ COMMENT ON COLUMN admin.sys_dict_type.dict_name IS '字典名称';
 
 
 --
--- TOC entry 3230 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3239 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.dict_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -783,8 +836,8 @@ COMMENT ON COLUMN admin.sys_dict_type.dict_type IS '字典类型';
 
 
 --
--- TOC entry 3231 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3240 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.status; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -792,8 +845,8 @@ COMMENT ON COLUMN admin.sys_dict_type.status IS '字典状态 0:正常 1:停用'
 
 
 --
--- TOC entry 3232 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3241 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: COLUMN sys_dict_type.remark; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -801,7 +854,7 @@ COMMENT ON COLUMN admin.sys_dict_type.remark IS '备注';
 
 
 --
--- TOC entry 209 (class 1259 OID 16567)
+-- TOC entry 210 (class 1259 OID 16567)
 -- Name: sys_i18n; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -819,8 +872,8 @@ CREATE TABLE admin.sys_i18n (
 
 
 --
--- TOC entry 3233 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3242 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: TABLE sys_i18n; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -828,8 +881,8 @@ COMMENT ON TABLE admin.sys_i18n IS 'i18n数据管理';
 
 
 --
--- TOC entry 3234 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3243 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -837,8 +890,8 @@ COMMENT ON COLUMN admin.sys_i18n.id IS '主键';
 
 
 --
--- TOC entry 3235 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3244 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.i18n_key; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -846,8 +899,8 @@ COMMENT ON COLUMN admin.sys_i18n.i18n_key IS 'i18n编码';
 
 
 --
--- TOC entry 3236 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3245 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.i18n_value; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -855,8 +908,8 @@ COMMENT ON COLUMN admin.sys_i18n.i18n_value IS 'i18n值';
 
 
 --
--- TOC entry 3237 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3246 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.language; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -864,8 +917,8 @@ COMMENT ON COLUMN admin.sys_i18n.language IS 'i18n地区编码(字典:i18n:langu
 
 
 --
--- TOC entry 3238 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3247 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.i18n_tag; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -873,8 +926,8 @@ COMMENT ON COLUMN admin.sys_i18n.i18n_tag IS 'i18n标签(字典:i18n:tag)';
 
 
 --
--- TOC entry 3239 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3248 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -882,8 +935,8 @@ COMMENT ON COLUMN admin.sys_i18n.create_time IS '创建时间';
 
 
 --
--- TOC entry 3240 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3249 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -891,8 +944,8 @@ COMMENT ON COLUMN admin.sys_i18n.update_time IS '修改时间';
 
 
 --
--- TOC entry 3241 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3250 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -900,8 +953,8 @@ COMMENT ON COLUMN admin.sys_i18n.create_user IS '创建人';
 
 
 --
--- TOC entry 3242 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3251 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: COLUMN sys_i18n.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -909,7 +962,7 @@ COMMENT ON COLUMN admin.sys_i18n.update_user IS '修改人';
 
 
 --
--- TOC entry 210 (class 1259 OID 16573)
+-- TOC entry 211 (class 1259 OID 16573)
 -- Name: sys_menu; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -918,13 +971,13 @@ CREATE TABLE admin.sys_menu (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    menu_id bigint NOT NULL,
+    id bigint NOT NULL,
     label character varying NOT NULL,
     name character varying,
     path character varying,
     open_type smallint DEFAULT 1 NOT NULL,
     auth character varying,
-    parent_menu_id bigint DEFAULT 0,
+    parent_id bigint DEFAULT 0,
     type smallint,
     sort smallint DEFAULT 0,
     component character varying,
@@ -937,8 +990,8 @@ CREATE TABLE admin.sys_menu (
 
 
 --
--- TOC entry 3243 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3252 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: TABLE sys_menu; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -946,8 +999,8 @@ COMMENT ON TABLE admin.sys_menu IS '菜单/权限表';
 
 
 --
--- TOC entry 3244 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3253 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -955,8 +1008,8 @@ COMMENT ON COLUMN admin.sys_menu.create_time IS '创建时间';
 
 
 --
--- TOC entry 3245 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3254 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -964,8 +1017,8 @@ COMMENT ON COLUMN admin.sys_menu.update_time IS '修改时间';
 
 
 --
--- TOC entry 3246 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3255 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -973,8 +1026,8 @@ COMMENT ON COLUMN admin.sys_menu.create_user IS '创建人';
 
 
 --
--- TOC entry 3247 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3256 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -982,8 +1035,8 @@ COMMENT ON COLUMN admin.sys_menu.update_user IS '修改人';
 
 
 --
--- TOC entry 3248 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3257 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.label; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -991,8 +1044,8 @@ COMMENT ON COLUMN admin.sys_menu.label IS '菜单标题';
 
 
 --
--- TOC entry 3249 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3258 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1000,8 +1053,8 @@ COMMENT ON COLUMN admin.sys_menu.name IS '菜单名称';
 
 
 --
--- TOC entry 3250 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3259 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.path; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1009,8 +1062,8 @@ COMMENT ON COLUMN admin.sys_menu.path IS '路由地址';
 
 
 --
--- TOC entry 3251 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3260 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.open_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1018,8 +1071,8 @@ COMMENT ON COLUMN admin.sys_menu.open_type IS '打开方式 1:当前窗口 2:新
 
 
 --
--- TOC entry 3252 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3261 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.auth; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1027,17 +1080,17 @@ COMMENT ON COLUMN admin.sys_menu.auth IS '菜单权限码';
 
 
 --
--- TOC entry 3253 (class 0 OID 0)
--- Dependencies: 210
--- Name: COLUMN sys_menu.parent_menu_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3262 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: COLUMN sys_menu.parent_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_menu.parent_menu_id IS '上级菜单id';
+COMMENT ON COLUMN admin.sys_menu.parent_id IS '上级菜单id';
 
 
 --
--- TOC entry 3254 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3263 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1045,8 +1098,8 @@ COMMENT ON COLUMN admin.sys_menu.type IS '菜单类型  0:目录 1:侧边菜单 
 
 
 --
--- TOC entry 3255 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3264 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.sort; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1054,8 +1107,8 @@ COMMENT ON COLUMN admin.sys_menu.sort IS '排序';
 
 
 --
--- TOC entry 3256 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3265 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.component; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1063,8 +1116,8 @@ COMMENT ON COLUMN admin.sys_menu.component IS '组件路径';
 
 
 --
--- TOC entry 3257 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3266 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.icon; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1072,8 +1125,8 @@ COMMENT ON COLUMN admin.sys_menu.icon IS '目录图标';
 
 
 --
--- TOC entry 3258 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3267 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.is_cache; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1081,8 +1134,8 @@ COMMENT ON COLUMN admin.sys_menu.is_cache IS '是否开启缓存 0:关闭  1:开
 
 
 --
--- TOC entry 3259 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3268 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.is_display; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1090,8 +1143,8 @@ COMMENT ON COLUMN admin.sys_menu.is_display IS '是否显示在菜单  0:显示 
 
 
 --
--- TOC entry 3260 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3269 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.is_outside; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1099,8 +1152,8 @@ COMMENT ON COLUMN admin.sys_menu.is_outside IS '是否外链  0:否  1:是';
 
 
 --
--- TOC entry 3261 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3270 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: COLUMN sys_menu.query; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1108,7 +1161,7 @@ COMMENT ON COLUMN admin.sys_menu.query IS '路由参数';
 
 
 --
--- TOC entry 211 (class 1259 OID 16585)
+-- TOC entry 212 (class 1259 OID 16585)
 -- Name: sys_role; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1117,18 +1170,18 @@ CREATE TABLE admin.sys_role (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    role_id bigint NOT NULL,
+    id bigint NOT NULL,
     role_name character varying NOT NULL,
     describe character varying,
     role_code character varying NOT NULL,
     data_scope smallint DEFAULT 0 NOT NULL,
-    dept_id bigint
+    fk_dept_id bigint
 );
 
 
 --
--- TOC entry 3262 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3271 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: TABLE sys_role; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1136,8 +1189,8 @@ COMMENT ON TABLE admin.sys_role IS '角色表';
 
 
 --
--- TOC entry 3263 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3272 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1145,8 +1198,8 @@ COMMENT ON COLUMN admin.sys_role.create_time IS '创建时间';
 
 
 --
--- TOC entry 3264 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3273 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1154,8 +1207,8 @@ COMMENT ON COLUMN admin.sys_role.update_time IS '修改时间';
 
 
 --
--- TOC entry 3265 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3274 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1163,8 +1216,8 @@ COMMENT ON COLUMN admin.sys_role.create_user IS '创建人';
 
 
 --
--- TOC entry 3266 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3275 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1172,17 +1225,17 @@ COMMENT ON COLUMN admin.sys_role.update_user IS '修改人';
 
 
 --
--- TOC entry 3267 (class 0 OID 0)
--- Dependencies: 211
--- Name: COLUMN sys_role.role_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3276 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: COLUMN sys_role.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_role.role_id IS '角色id';
+COMMENT ON COLUMN admin.sys_role.id IS '角色id';
 
 
 --
--- TOC entry 3268 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3277 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.role_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1190,8 +1243,8 @@ COMMENT ON COLUMN admin.sys_role.role_name IS '角色名';
 
 
 --
--- TOC entry 3269 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3278 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.describe; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1199,8 +1252,8 @@ COMMENT ON COLUMN admin.sys_role.describe IS '描述';
 
 
 --
--- TOC entry 3270 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3279 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.role_code; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1208,8 +1261,8 @@ COMMENT ON COLUMN admin.sys_role.role_code IS '角色标识';
 
 
 --
--- TOC entry 3271 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3280 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: COLUMN sys_role.data_scope; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1217,57 +1270,57 @@ COMMENT ON COLUMN admin.sys_role.data_scope IS '数据范围(0:全部数据权�
 
 
 --
--- TOC entry 3272 (class 0 OID 0)
--- Dependencies: 211
--- Name: COLUMN sys_role.dept_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3281 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: COLUMN sys_role.fk_dept_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_role.dept_id IS '所属部门';
+COMMENT ON COLUMN admin.sys_role.fk_dept_id IS '所属部门';
 
 
 --
--- TOC entry 212 (class 1259 OID 16592)
+-- TOC entry 213 (class 1259 OID 16592)
 -- Name: sys_role_dept; Type: TABLE; Schema: admin; Owner: -
 --
 
 CREATE TABLE admin.sys_role_dept (
-    role_id bigint NOT NULL,
-    dept_id bigint NOT NULL
+    fk_role_id bigint NOT NULL,
+    fk_dept_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3273 (class 0 OID 0)
--- Dependencies: 212
--- Name: COLUMN sys_role_dept.role_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3282 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: COLUMN sys_role_dept.fk_role_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_role_dept.role_id IS '角色id';
-
-
---
--- TOC entry 3274 (class 0 OID 0)
--- Dependencies: 212
--- Name: COLUMN sys_role_dept.dept_id; Type: COMMENT; Schema: admin; Owner: -
---
-
-COMMENT ON COLUMN admin.sys_role_dept.dept_id IS '部门id';
+COMMENT ON COLUMN admin.sys_role_dept.fk_role_id IS '角色id';
 
 
 --
--- TOC entry 213 (class 1259 OID 16595)
+-- TOC entry 3283 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: COLUMN sys_role_dept.fk_dept_id; Type: COMMENT; Schema: admin; Owner: -
+--
+
+COMMENT ON COLUMN admin.sys_role_dept.fk_dept_id IS '部门id';
+
+
+--
+-- TOC entry 214 (class 1259 OID 16595)
 -- Name: sys_role_menu; Type: TABLE; Schema: admin; Owner: -
 --
 
 CREATE TABLE admin.sys_role_menu (
-    menu_id bigint NOT NULL,
-    role_id bigint NOT NULL
+    fk_menu_id bigint NOT NULL,
+    fk_role_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3275 (class 0 OID 0)
--- Dependencies: 213
+-- TOC entry 3284 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: TABLE sys_role_menu; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1275,25 +1328,25 @@ COMMENT ON TABLE admin.sys_role_menu IS '角色菜单关系表';
 
 
 --
--- TOC entry 3276 (class 0 OID 0)
--- Dependencies: 213
--- Name: COLUMN sys_role_menu.menu_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3285 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: COLUMN sys_role_menu.fk_menu_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_role_menu.menu_id IS '菜单id';
-
-
---
--- TOC entry 3277 (class 0 OID 0)
--- Dependencies: 213
--- Name: COLUMN sys_role_menu.role_id; Type: COMMENT; Schema: admin; Owner: -
---
-
-COMMENT ON COLUMN admin.sys_role_menu.role_id IS '角色id';
+COMMENT ON COLUMN admin.sys_role_menu.fk_menu_id IS '菜单id';
 
 
 --
--- TOC entry 214 (class 1259 OID 16598)
+-- TOC entry 3286 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: COLUMN sys_role_menu.fk_role_id; Type: COMMENT; Schema: admin; Owner: -
+--
+
+COMMENT ON COLUMN admin.sys_role_menu.fk_role_id IS '角色id';
+
+
+--
+-- TOC entry 215 (class 1259 OID 16598)
 -- Name: sys_user; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1302,21 +1355,21 @@ CREATE TABLE admin.sys_user (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    user_id bigint NOT NULL,
+    id bigint NOT NULL,
     user_name character varying NOT NULL,
     account character varying NOT NULL,
     password character varying NOT NULL,
     sex smallint NOT NULL,
     email character varying,
-    dept_id bigint,
+    fk_dept_id bigint,
     language character varying,
     salt character varying
 );
 
 
 --
--- TOC entry 3278 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3287 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: TABLE sys_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1324,8 +1377,8 @@ COMMENT ON TABLE admin.sys_user IS '用户表';
 
 
 --
--- TOC entry 3279 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3288 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1333,8 +1386,8 @@ COMMENT ON COLUMN admin.sys_user.create_time IS '创建时间';
 
 
 --
--- TOC entry 3280 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3289 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1342,8 +1395,8 @@ COMMENT ON COLUMN admin.sys_user.update_time IS '修改时间';
 
 
 --
--- TOC entry 3281 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3290 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1351,8 +1404,8 @@ COMMENT ON COLUMN admin.sys_user.create_user IS '创建人';
 
 
 --
--- TOC entry 3282 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3291 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1360,17 +1413,17 @@ COMMENT ON COLUMN admin.sys_user.update_user IS '修改人';
 
 
 --
--- TOC entry 3283 (class 0 OID 0)
--- Dependencies: 214
--- Name: COLUMN sys_user.user_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3292 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: COLUMN sys_user.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_user.user_id IS '用户id';
+COMMENT ON COLUMN admin.sys_user.id IS '用户id';
 
 
 --
--- TOC entry 3284 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3293 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.user_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1378,8 +1431,8 @@ COMMENT ON COLUMN admin.sys_user.user_name IS '用户名';
 
 
 --
--- TOC entry 3285 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3294 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.account; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1387,8 +1440,8 @@ COMMENT ON COLUMN admin.sys_user.account IS '账号';
 
 
 --
--- TOC entry 3286 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3295 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.password; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1396,8 +1449,8 @@ COMMENT ON COLUMN admin.sys_user.password IS '密码';
 
 
 --
--- TOC entry 3287 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3296 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.sex; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1405,8 +1458,8 @@ COMMENT ON COLUMN admin.sys_user.sex IS '性别 0:男性 1:女性 2:其他';
 
 
 --
--- TOC entry 3288 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3297 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.email; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1414,17 +1467,17 @@ COMMENT ON COLUMN admin.sys_user.email IS '邮箱';
 
 
 --
--- TOC entry 3289 (class 0 OID 0)
--- Dependencies: 214
--- Name: COLUMN sys_user.dept_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3298 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: COLUMN sys_user.fk_dept_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_user.dept_id IS '部门id';
+COMMENT ON COLUMN admin.sys_user.fk_dept_id IS '部门id';
 
 
 --
--- TOC entry 3290 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3299 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.language; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1432,8 +1485,8 @@ COMMENT ON COLUMN admin.sys_user.language IS '语言';
 
 
 --
--- TOC entry 3291 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3300 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: COLUMN sys_user.salt; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1441,36 +1494,36 @@ COMMENT ON COLUMN admin.sys_user.salt IS '密码加密盐值';
 
 
 --
--- TOC entry 215 (class 1259 OID 16604)
+-- TOC entry 216 (class 1259 OID 16604)
 -- Name: sys_user_role; Type: TABLE; Schema: admin; Owner: -
 --
 
 CREATE TABLE admin.sys_user_role (
-    user_id bigint NOT NULL,
-    role_id bigint NOT NULL
+    fk_user_id bigint NOT NULL,
+    fk_role_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3292 (class 0 OID 0)
--- Dependencies: 215
--- Name: COLUMN sys_user_role.user_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3301 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: COLUMN sys_user_role.fk_user_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.sys_user_role.user_id IS '用户id';
-
-
---
--- TOC entry 3293 (class 0 OID 0)
--- Dependencies: 215
--- Name: COLUMN sys_user_role.role_id; Type: COMMENT; Schema: admin; Owner: -
---
-
-COMMENT ON COLUMN admin.sys_user_role.role_id IS '角色id';
+COMMENT ON COLUMN admin.sys_user_role.fk_user_id IS '用户id';
 
 
 --
--- TOC entry 216 (class 1259 OID 16607)
+-- TOC entry 3302 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: COLUMN sys_user_role.fk_role_id; Type: COMMENT; Schema: admin; Owner: -
+--
+
+COMMENT ON COLUMN admin.sys_user_role.fk_role_id IS '角色id';
+
+
+--
+-- TOC entry 217 (class 1259 OID 16607)
 -- Name: system_parameter; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1487,8 +1540,8 @@ CREATE TABLE admin.system_parameter (
 
 
 --
--- TOC entry 3294 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3303 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: TABLE system_parameter; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1496,8 +1549,8 @@ COMMENT ON TABLE admin.system_parameter IS '系统参数配置';
 
 
 --
--- TOC entry 3295 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3304 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1505,8 +1558,8 @@ COMMENT ON COLUMN admin.system_parameter.create_time IS '创建时间';
 
 
 --
--- TOC entry 3296 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3305 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1514,8 +1567,8 @@ COMMENT ON COLUMN admin.system_parameter.update_time IS '修改时间';
 
 
 --
--- TOC entry 3297 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3306 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1523,8 +1576,8 @@ COMMENT ON COLUMN admin.system_parameter.create_user IS '创建人';
 
 
 --
--- TOC entry 3298 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3307 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1532,8 +1585,8 @@ COMMENT ON COLUMN admin.system_parameter.update_user IS '修改人';
 
 
 --
--- TOC entry 3299 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3308 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.key; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1541,8 +1594,8 @@ COMMENT ON COLUMN admin.system_parameter.key IS '参数key';
 
 
 --
--- TOC entry 3300 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3309 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.value; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1550,8 +1603,8 @@ COMMENT ON COLUMN admin.system_parameter.value IS '参数值';
 
 
 --
--- TOC entry 3301 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3310 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: COLUMN system_parameter.describe; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1559,7 +1612,7 @@ COMMENT ON COLUMN admin.system_parameter.describe IS '描述';
 
 
 --
--- TOC entry 220 (class 1259 OID 16713)
+-- TOC entry 221 (class 1259 OID 16713)
 -- Name: tenant; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1568,19 +1621,19 @@ CREATE TABLE admin.tenant (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    tenant_id bigint NOT NULL,
+    id bigint NOT NULL,
     admin_user bigint,
     describe character varying,
     status smallint DEFAULT 0 NOT NULL,
     expires timestamp without time zone NOT NULL,
     tenant_name character varying NOT NULL,
-    group_id bigint NOT NULL
+    fk_group_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3302 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3311 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: TABLE tenant; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1588,8 +1641,8 @@ COMMENT ON TABLE admin.tenant IS '租户信息表';
 
 
 --
--- TOC entry 3303 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3312 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1597,8 +1650,8 @@ COMMENT ON COLUMN admin.tenant.create_time IS '创建时间';
 
 
 --
--- TOC entry 3304 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3313 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1606,8 +1659,8 @@ COMMENT ON COLUMN admin.tenant.update_time IS '修改时间';
 
 
 --
--- TOC entry 3305 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3314 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1615,8 +1668,8 @@ COMMENT ON COLUMN admin.tenant.create_user IS '创建人';
 
 
 --
--- TOC entry 3306 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3315 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1624,17 +1677,17 @@ COMMENT ON COLUMN admin.tenant.update_user IS '修改人';
 
 
 --
--- TOC entry 3307 (class 0 OID 0)
--- Dependencies: 220
--- Name: COLUMN tenant.tenant_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3316 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: COLUMN tenant.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant.tenant_id IS '租户id';
+COMMENT ON COLUMN admin.tenant.id IS '租户id';
 
 
 --
--- TOC entry 3308 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3317 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.admin_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1642,8 +1695,8 @@ COMMENT ON COLUMN admin.tenant.admin_user IS '租户管理员';
 
 
 --
--- TOC entry 3309 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3318 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.describe; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1651,8 +1704,8 @@ COMMENT ON COLUMN admin.tenant.describe IS '描述';
 
 
 --
--- TOC entry 3310 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3319 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.status; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1660,8 +1713,8 @@ COMMENT ON COLUMN admin.tenant.status IS '状态(0:正常  1:停用)';
 
 
 --
--- TOC entry 3311 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3320 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.expires; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1669,8 +1722,8 @@ COMMENT ON COLUMN admin.tenant.expires IS '到期时间';
 
 
 --
--- TOC entry 3312 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3321 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: COLUMN tenant.tenant_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1678,28 +1731,28 @@ COMMENT ON COLUMN admin.tenant.tenant_name IS '租户名';
 
 
 --
--- TOC entry 3313 (class 0 OID 0)
--- Dependencies: 220
--- Name: COLUMN tenant.group_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3322 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: COLUMN tenant.fk_group_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant.group_id IS '权限组id';
+COMMENT ON COLUMN admin.tenant.fk_group_id IS '权限组id';
 
 
 --
--- TOC entry 219 (class 1259 OID 16677)
+-- TOC entry 220 (class 1259 OID 16677)
 -- Name: tenant_group_menu; Type: TABLE; Schema: admin; Owner: -
 --
 
 CREATE TABLE admin.tenant_group_menu (
-    tenant_menu_id bigint NOT NULL,
-    group_id bigint NOT NULL
+    fk_menu_id bigint NOT NULL,
+    fk_group_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3314 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3323 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: TABLE tenant_group_menu; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1707,25 +1760,25 @@ COMMENT ON TABLE admin.tenant_group_menu IS '商户角色菜单关系表';
 
 
 --
--- TOC entry 3315 (class 0 OID 0)
--- Dependencies: 219
--- Name: COLUMN tenant_group_menu.tenant_menu_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3324 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN tenant_group_menu.fk_menu_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant_group_menu.tenant_menu_id IS '菜单id';
-
-
---
--- TOC entry 3316 (class 0 OID 0)
--- Dependencies: 219
--- Name: COLUMN tenant_group_menu.group_id; Type: COMMENT; Schema: admin; Owner: -
---
-
-COMMENT ON COLUMN admin.tenant_group_menu.group_id IS '权限组id';
+COMMENT ON COLUMN admin.tenant_group_menu.fk_menu_id IS '菜单id';
 
 
 --
--- TOC entry 217 (class 1259 OID 16659)
+-- TOC entry 3325 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN tenant_group_menu.fk_group_id; Type: COMMENT; Schema: admin; Owner: -
+--
+
+COMMENT ON COLUMN admin.tenant_group_menu.fk_group_id IS '权限组id';
+
+
+--
+-- TOC entry 218 (class 1259 OID 16659)
 -- Name: tenant_menu; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1734,13 +1787,13 @@ CREATE TABLE admin.tenant_menu (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    tenant_menu_id bigint NOT NULL,
+    id bigint NOT NULL,
     label character varying NOT NULL,
     name character varying,
     path character varying,
     open_type smallint DEFAULT 1 NOT NULL,
     auth character varying,
-    parent_tenant_menu_id bigint DEFAULT 0,
+    parent_id bigint DEFAULT 0,
     type smallint,
     sort smallint DEFAULT 0,
     component character varying,
@@ -1753,8 +1806,8 @@ CREATE TABLE admin.tenant_menu (
 
 
 --
--- TOC entry 3317 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3326 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: TABLE tenant_menu; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1762,8 +1815,8 @@ COMMENT ON TABLE admin.tenant_menu IS '商户菜单表';
 
 
 --
--- TOC entry 3318 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3327 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1771,8 +1824,8 @@ COMMENT ON COLUMN admin.tenant_menu.create_time IS '创建时间';
 
 
 --
--- TOC entry 3319 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3328 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1780,8 +1833,8 @@ COMMENT ON COLUMN admin.tenant_menu.update_time IS '修改时间';
 
 
 --
--- TOC entry 3320 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3329 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1789,8 +1842,8 @@ COMMENT ON COLUMN admin.tenant_menu.create_user IS '创建人';
 
 
 --
--- TOC entry 3321 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3330 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1798,8 +1851,8 @@ COMMENT ON COLUMN admin.tenant_menu.update_user IS '修改人';
 
 
 --
--- TOC entry 3322 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3331 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.label; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1807,8 +1860,8 @@ COMMENT ON COLUMN admin.tenant_menu.label IS '菜单标题';
 
 
 --
--- TOC entry 3323 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3332 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1816,8 +1869,8 @@ COMMENT ON COLUMN admin.tenant_menu.name IS '菜单名称';
 
 
 --
--- TOC entry 3324 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3333 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.path; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1825,8 +1878,8 @@ COMMENT ON COLUMN admin.tenant_menu.path IS '路由地址';
 
 
 --
--- TOC entry 3325 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3334 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.open_type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1834,8 +1887,8 @@ COMMENT ON COLUMN admin.tenant_menu.open_type IS '打开方式 1:当前窗口 2:
 
 
 --
--- TOC entry 3326 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3335 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.auth; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1843,17 +1896,17 @@ COMMENT ON COLUMN admin.tenant_menu.auth IS '菜单权限码';
 
 
 --
--- TOC entry 3327 (class 0 OID 0)
--- Dependencies: 217
--- Name: COLUMN tenant_menu.parent_tenant_menu_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3336 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: COLUMN tenant_menu.parent_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant_menu.parent_tenant_menu_id IS '上级菜单id';
+COMMENT ON COLUMN admin.tenant_menu.parent_id IS '上级菜单id';
 
 
 --
--- TOC entry 3328 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3337 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.type; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1861,8 +1914,8 @@ COMMENT ON COLUMN admin.tenant_menu.type IS '菜单类型  0:目录 1:侧边菜�
 
 
 --
--- TOC entry 3329 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3338 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.sort; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1870,8 +1923,8 @@ COMMENT ON COLUMN admin.tenant_menu.sort IS '排序';
 
 
 --
--- TOC entry 3330 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3339 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.component; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1879,8 +1932,8 @@ COMMENT ON COLUMN admin.tenant_menu.component IS '组件路径';
 
 
 --
--- TOC entry 3331 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3340 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.icon; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1888,8 +1941,8 @@ COMMENT ON COLUMN admin.tenant_menu.icon IS '目录图标';
 
 
 --
--- TOC entry 3332 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3341 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.is_cache; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1897,8 +1950,8 @@ COMMENT ON COLUMN admin.tenant_menu.is_cache IS '是否开启缓存 0:关闭  1:
 
 
 --
--- TOC entry 3333 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3342 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.is_display; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1906,8 +1959,8 @@ COMMENT ON COLUMN admin.tenant_menu.is_display IS '是否显示在菜单  0:显�
 
 
 --
--- TOC entry 3334 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3343 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.is_outside; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1915,8 +1968,8 @@ COMMENT ON COLUMN admin.tenant_menu.is_outside IS '是否外链  0:否  1:是';
 
 
 --
--- TOC entry 3335 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3344 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: COLUMN tenant_menu.query; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1924,7 +1977,7 @@ COMMENT ON COLUMN admin.tenant_menu.query IS '路由参数';
 
 
 --
--- TOC entry 218 (class 1259 OID 16671)
+-- TOC entry 219 (class 1259 OID 16671)
 -- Name: tenant_permission_group; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -1933,15 +1986,15 @@ CREATE TABLE admin.tenant_permission_group (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    group_id bigint NOT NULL,
+    id bigint NOT NULL,
     group_name character varying NOT NULL,
     describe character varying
 );
 
 
 --
--- TOC entry 3336 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3345 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: TABLE tenant_permission_group; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1949,8 +2002,8 @@ COMMENT ON TABLE admin.tenant_permission_group IS '商户权限组表';
 
 
 --
--- TOC entry 3337 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3346 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1958,8 +2011,8 @@ COMMENT ON COLUMN admin.tenant_permission_group.create_time IS '创建时间';
 
 
 --
--- TOC entry 3338 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3347 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1967,8 +2020,8 @@ COMMENT ON COLUMN admin.tenant_permission_group.update_time IS '修改时间';
 
 
 --
--- TOC entry 3339 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3348 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1976,8 +2029,8 @@ COMMENT ON COLUMN admin.tenant_permission_group.create_user IS '创建人';
 
 
 --
--- TOC entry 3340 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3349 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -1985,17 +2038,17 @@ COMMENT ON COLUMN admin.tenant_permission_group.update_user IS '修改人';
 
 
 --
--- TOC entry 3341 (class 0 OID 0)
--- Dependencies: 218
--- Name: COLUMN tenant_permission_group.group_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3350 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: COLUMN tenant_permission_group.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant_permission_group.group_id IS '权限组id';
+COMMENT ON COLUMN admin.tenant_permission_group.id IS '权限组id';
 
 
 --
--- TOC entry 3342 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3351 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.group_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2003,8 +2056,8 @@ COMMENT ON COLUMN admin.tenant_permission_group.group_name IS '角色名';
 
 
 --
--- TOC entry 3343 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3352 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: COLUMN tenant_permission_group.describe; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2012,7 +2065,7 @@ COMMENT ON COLUMN admin.tenant_permission_group.describe IS '描述';
 
 
 --
--- TOC entry 221 (class 1259 OID 16722)
+-- TOC entry 222 (class 1259 OID 16722)
 -- Name: tenant_user; Type: TABLE; Schema: admin; Owner: -
 --
 
@@ -2021,7 +2074,7 @@ CREATE TABLE admin.tenant_user (
     update_time timestamp without time zone,
     create_user bigint,
     update_user bigint,
-    tenant_user_id bigint NOT NULL,
+    id bigint NOT NULL,
     user_name character varying NOT NULL,
     account character varying NOT NULL,
     password character varying NOT NULL,
@@ -2030,13 +2083,13 @@ CREATE TABLE admin.tenant_user (
     dept_id bigint,
     language character varying,
     salt character varying,
-    tenant_id bigint NOT NULL
+    fk_tenant_id bigint NOT NULL
 );
 
 
 --
--- TOC entry 3344 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3353 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: TABLE tenant_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2044,8 +2097,8 @@ COMMENT ON TABLE admin.tenant_user IS '租户用户表';
 
 
 --
--- TOC entry 3345 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3354 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.create_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2053,8 +2106,8 @@ COMMENT ON COLUMN admin.tenant_user.create_time IS '创建时间';
 
 
 --
--- TOC entry 3346 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3355 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.update_time; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2062,8 +2115,8 @@ COMMENT ON COLUMN admin.tenant_user.update_time IS '修改时间';
 
 
 --
--- TOC entry 3347 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3356 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.create_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2071,8 +2124,8 @@ COMMENT ON COLUMN admin.tenant_user.create_user IS '创建人';
 
 
 --
--- TOC entry 3348 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3357 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.update_user; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2080,17 +2133,17 @@ COMMENT ON COLUMN admin.tenant_user.update_user IS '修改人';
 
 
 --
--- TOC entry 3349 (class 0 OID 0)
--- Dependencies: 221
--- Name: COLUMN tenant_user.tenant_user_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3358 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: COLUMN tenant_user.id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant_user.tenant_user_id IS '用户id';
+COMMENT ON COLUMN admin.tenant_user.id IS '用户id';
 
 
 --
--- TOC entry 3350 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3359 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.user_name; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2098,8 +2151,8 @@ COMMENT ON COLUMN admin.tenant_user.user_name IS '用户名';
 
 
 --
--- TOC entry 3351 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3360 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.account; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2107,8 +2160,8 @@ COMMENT ON COLUMN admin.tenant_user.account IS '账号';
 
 
 --
--- TOC entry 3352 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3361 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.password; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2116,8 +2169,8 @@ COMMENT ON COLUMN admin.tenant_user.password IS '密码';
 
 
 --
--- TOC entry 3353 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3362 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.sex; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2125,8 +2178,8 @@ COMMENT ON COLUMN admin.tenant_user.sex IS '性别 0:男性 1:女性 2:其他';
 
 
 --
--- TOC entry 3354 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3363 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.email; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2134,8 +2187,8 @@ COMMENT ON COLUMN admin.tenant_user.email IS '邮箱';
 
 
 --
--- TOC entry 3355 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3364 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.dept_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2143,8 +2196,8 @@ COMMENT ON COLUMN admin.tenant_user.dept_id IS '部门id';
 
 
 --
--- TOC entry 3356 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3365 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.language; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2152,8 +2205,8 @@ COMMENT ON COLUMN admin.tenant_user.language IS '语言';
 
 
 --
--- TOC entry 3357 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3366 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: COLUMN tenant_user.salt; Type: COMMENT; Schema: admin; Owner: -
 --
 
@@ -2161,33 +2214,33 @@ COMMENT ON COLUMN admin.tenant_user.salt IS '密码加密盐值';
 
 
 --
--- TOC entry 3358 (class 0 OID 0)
--- Dependencies: 221
--- Name: COLUMN tenant_user.tenant_id; Type: COMMENT; Schema: admin; Owner: -
+-- TOC entry 3367 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: COLUMN tenant_user.fk_tenant_id; Type: COMMENT; Schema: admin; Owner: -
 --
 
-COMMENT ON COLUMN admin.tenant_user.tenant_id IS '租户id';
+COMMENT ON COLUMN admin.tenant_user.fk_tenant_id IS '租户id';
 
 
 --
--- TOC entry 3133 (class 0 OID 16517)
--- Dependencies: 203
+-- TOC entry 3142 (class 0 OID 16517)
+-- Dependencies: 204
 -- Data for Name: gen_table; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 
 
 --
--- TOC entry 3134 (class 0 OID 16526)
--- Dependencies: 204
+-- TOC entry 3143 (class 0 OID 16526)
+-- Dependencies: 205
 -- Data for Name: gen_table_column; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 
 
 --
--- TOC entry 3135 (class 0 OID 16541)
--- Dependencies: 205
+-- TOC entry 3144 (class 0 OID 16541)
+-- Dependencies: 206
 -- Data for Name: sys_dept; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2196,8 +2249,8 @@ INSERT INTO admin.sys_dept VALUES ('2023-09-06 15:00:54.796371', '2023-10-20 11:
 
 
 --
--- TOC entry 3136 (class 0 OID 16549)
--- Dependencies: 206
+-- TOC entry 3145 (class 0 OID 16549)
+-- Dependencies: 207
 -- Data for Name: sys_dept_ancestors; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2207,8 +2260,8 @@ INSERT INTO admin.sys_dept_ancestors VALUES (58737314673807360, 0);
 
 
 --
--- TOC entry 3137 (class 0 OID 16552)
--- Dependencies: 207
+-- TOC entry 3146 (class 0 OID 16552)
+-- Dependencies: 208
 -- Data for Name: sys_dict_data; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2220,11 +2273,14 @@ INSERT INTO admin.sys_dict_data VALUES ('2023-11-19 18:26:46.885', '2023-11-20 1
 INSERT INTO admin.sys_dict_data VALUES ('2023-10-19 11:21:22.964', '2023-12-10 15:59:18.033169', 43511453924630528, 43511453924630528, 72455199380094976, 0, 'English', 'en', 'i18n:language', 0, '默认,英语国家,排序第一的为默认语言,一般来说需要国际化语言的英语都应作为默认语言');
 INSERT INTO admin.sys_dict_data VALUES ('2023-10-19 11:21:22.964', '2023-12-10 15:59:18.046175', 43511453924630528, 43511453924630528, 72454842784563200, 1, '简体中文', 'zh-CN', 'i18n:language', 0, NULL);
 INSERT INTO admin.sys_dict_data VALUES ('2023-10-19 11:33:40.479', '2023-12-10 16:12:56.383003', 43511453924630528, 43511453924630528, 72456173201014784, 0, 'dict.i18n:tag.admin', 'admin', 'i18n:tag', 0, '管理端标签');
+INSERT INTO admin.sys_dict_data VALUES ('2023-12-20 19:47:40.069237', NULL, 43511453924630528, NULL, 95047962094612480, 0, 'dict.sex.0', '0', 'sex', 0, NULL);
+INSERT INTO admin.sys_dict_data VALUES ('2023-12-20 19:47:47.774144', NULL, 43511453924630528, NULL, 95047994411724800, 0, 'dict.sex.1', '1', 'sex', 0, NULL);
+INSERT INTO admin.sys_dict_data VALUES ('2023-12-20 19:47:52.659204', NULL, 43511453924630528, NULL, 95048014900899840, 0, 'dict.sex.2', '2', 'sex', 0, NULL);
 
 
 --
--- TOC entry 3138 (class 0 OID 16560)
--- Dependencies: 208
+-- TOC entry 3147 (class 0 OID 16560)
+-- Dependencies: 209
 -- Data for Name: sys_dict_type; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2232,11 +2288,12 @@ INSERT INTO admin.sys_dict_type VALUES ('2023-10-16 15:08:28.174624', '2023-11-0
 INSERT INTO admin.sys_dict_type VALUES ('2023-11-19 18:26:03.663684', '2023-11-20 15:46:23.943798', 43511453924630528, 43511453924630528, 83793401237344256, '商户脚本标签', 'saas:script:tag', 0, '');
 INSERT INTO admin.sys_dict_type VALUES ('2023-10-19 11:21:22.964129', '2023-12-10 15:59:17.983813', 43511453924630528, 43511453924630528, 72452503608655872, 'dict.i18n:language', 'i18n:language', 0, '维护国际化编码');
 INSERT INTO admin.sys_dict_type VALUES ('2023-10-19 11:33:40.479917', '2023-12-10 16:09:19.765817', 43511453924630528, 43511453924630528, 72455596979142656, 'dict.i18n:tag', 'i18n:tag', 0, '');
+INSERT INTO admin.sys_dict_type VALUES ('2023-12-20 19:46:02.944682', NULL, 43511453924630528, NULL, 95047554714447872, 'dict.sex', 'sex', 0, '');
 
 
 --
--- TOC entry 3139 (class 0 OID 16567)
--- Dependencies: 209
+-- TOC entry 3148 (class 0 OID 16567)
+-- Dependencies: 210
 -- Data for Name: sys_i18n; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2694,23 +2751,50 @@ INSERT INTO admin.sys_i18n VALUES (91818833001971712, 'head.systemSetting', 'Sys
 INSERT INTO admin.sys_i18n VALUES (91818833060691968, 'head.systemSetting', '系统设置', 'zh-CN', 'admin', '2023-12-11 21:56:15.713321', NULL, 43511453924630528, NULL);
 INSERT INTO admin.sys_i18n VALUES (91820277914533888, 'head.Setting', 'Setting', 'en', 'admin', '2023-12-11 22:02:00.193439', '2023-12-11 22:02:19.733357', 43511453924630528, 43511453924630528);
 INSERT INTO admin.sys_i18n VALUES (91820277960671232, 'head.Setting', '个人中心', 'zh-CN', 'admin', '2023-12-11 22:02:00.204521', '2023-12-11 22:02:19.753368', 43511453924630528, 43511453924630528);
+INSERT INTO admin.sys_i18n VALUES (95047627183632384, 'dict.sex', 'gender', 'en', 'admin', '2023-12-20 19:46:20.221248', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95047627250741248, 'dict.sex', '性别', 'zh-CN', 'admin', '2023-12-20 19:46:20.236236', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95048077022736384, 'dict.sex.0', 'man', 'en', 'admin', '2023-12-20 19:48:07.470722', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95048077077262336, 'dict.sex.0', '男', 'zh-CN', 'admin', '2023-12-20 19:48:07.483169', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95048114159104000, 'dict.sex.1', 'woman', 'en', 'admin', '2023-12-20 19:48:16.324409', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95048114209435648, 'dict.sex.1', '女', 'zh-CN', 'admin', '2023-12-20 19:48:16.33639', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95048153170325504, 'dict.sex.2', 'other', 'en', 'admin', '2023-12-20 19:48:25.625022', '2023-12-20 19:54:28.549819', 43511453924630528, 43511453924630528);
+INSERT INTO admin.sys_i18n VALUES (95048153224851456, 'dict.sex.2', '其他', 'zh-CN', 'admin', '2023-12-20 19:48:25.638023', '2023-12-20 19:54:28.573429', 43511453924630528, 43511453924630528);
+INSERT INTO admin.sys_i18n VALUES (95053704885334016, 'common.loading', 'loading', 'en', 'admin', '2023-12-20 20:10:29.258016', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95053704956637184, 'common.loading', '加载中', 'zh-CN', 'admin', '2023-12-20 20:10:29.274017', NULL, 43511453924630528, NULL);
+INSERT INTO admin.sys_i18n VALUES (95412442301333504, 'profile.userInfo', 'Personal Information', 'en', 'admin', '2023-12-21 19:55:58.925353', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95412442381025280, 'profile.userInfo', '个人信息', 'zh-CN', 'admin', '2023-12-21 19:55:58.94135', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95413495121969152, 'profile.base', 'Basic information', 'en', 'admin', '2023-12-21 20:00:09.934898', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95413495168106496, 'profile.base', '基本资料', 'zh-CN', 'admin', '2023-12-21 20:00:09.945941', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414494544920576, 'profile.editPassword', 'Change password', 'en', 'admin', '2023-12-21 20:04:08.215306', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414494603640832, 'profile.editPassword', '修改密码', 'zh-CN', 'admin', '2023-12-21 20:04:08.2294', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414642717097984, 'profile.oldPassword', 'old password', 'en', 'admin', '2023-12-21 20:04:43.542839', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414642780012544, 'profile.oldPassword', '旧密码', 'zh-CN', 'admin', '2023-12-21 20:04:43.557182', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414769225695232, 'profile.newPassword', 'New password', 'en', 'admin', '2023-12-21 20:05:13.704662', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414769288609792, 'profile.newPassword', '新密码', 'zh-CN', 'admin', '2023-12-21 20:05:13.719508', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414913379729408, 'profile.surePassword', 'Confirm new password', 'en', 'admin', '2023-12-21 20:05:48.073879', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95414913442643968, 'profile.surePassword', '确定新密码', 'zh-CN', 'admin', '2023-12-21 20:05:48.088512', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415502608138240, 'profile.pl.newPassword', 'Please enter a new password', 'en', 'admin', '2023-12-21 20:08:08.55655', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415502658469888, 'profile.pl.newPassword', '请输入新密码', 'zh-CN', 'admin', '2023-12-21 20:08:08.568813', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415630068842496, 'profile.pl.surePassword', 'Please re-enter the password again', 'en', 'admin', '2023-12-21 20:08:38.945948', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415630123368448, 'profile.pl.surePassword', '请重复输入密码', 'zh-CN', 'admin', '2023-12-21 20:08:38.958948', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415769563004928, 'profile.pl.oldPassword', 'Please input old password', 'en', 'admin', '2023-12-21 20:09:12.203251', NULL, 47161488860700672, NULL);
+INSERT INTO admin.sys_i18n VALUES (95415769617530880, 'profile.pl.oldPassword', '请输入旧密码', 'zh-CN', 'admin', '2023-12-21 20:09:12.216543', NULL, 47161488860700672, NULL);
 
 
 --
--- TOC entry 3140 (class 0 OID 16573)
--- Dependencies: 210
+-- TOC entry 3149 (class 0 OID 16573)
+-- Dependencies: 211
 -- Data for Name: sys_menu; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
-INSERT INTO admin.sys_menu VALUES ('2023-09-05 12:15:26.191703', '2023-12-11 21:19:17.864866', 43511453924630528, 43511453924630528, 56521040461266944, 'menu:system:dept', 'dept', 'dept', 1, 'dept', 1, 1, 1, 'system/dept/index.vue', 'usergroup', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES (NULL, '2023-12-25 21:27:17.621411', NULL, 43511453924630528, 2, 'menu:system:menu', 'menu', 'menu', 1, 'menu', 1, 1, 0, 'system/menu/index.vue', 'menu', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:33:43.079945', '2023-12-11 21:31:35.046998', 43511453924630528, 43511453924630528, 61885961797746688, 'menu:system:role:add', NULL, NULL, 1, 'role:add', 54868755092041728, 2, 0, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-14 12:21:22.506393', '2023-12-11 20:34:54.13856', 43511453924630528, 43511453924630528, 81889685696999424, 'menu:tenantManage:tenantMenu', 'tenantMenu', 'tenantMenu', 1, 'tenantMenu', 81889425893421056, 1, 0, 'tenant/menu/index.vue', 'calendar-edit', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-10-16 00:02:54.422018', '2023-12-11 21:18:17.512842', 43511453924630528, 43511453924630528, 71194596011335680, 'menu:system:menu:edit', NULL, NULL, 1, 'menu:edit', 2, 2, 1, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES (NULL, '2023-12-11 21:14:30.854842', NULL, 43511453924630528, 1, 'menu:system', 'system', 'system', 1, 'system', 0, 0, 0, 'LAYOUT', 'menu', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES (NULL, '2023-12-11 21:16:02.722004', NULL, 43511453924630528, 2, 'menu:system:menu', 'menu', 'menu', 1, 'menu', 1, 1, 0, 'system/menu/index.vue', 'menu', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-09-05 12:15:26.191703', '2023-12-25 21:27:17.64342', 43511453924630528, 43511453924630528, 56521040461266944, 'menu:system:dept', 'dept', 'dept', 1, 'dept', 1, 1, 1, 'system/dept/index.vue', 'usergroup', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-05 15:16:38.623969', '2023-12-11 21:12:52.611166', 43511453924630528, 43511453924630528, 78672302695456768, 'menu:systemSetting:systemParameter:edit', NULL, NULL, 1, 'systemParameter:edit', 78667674553647104, 2, 1, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-11-05 13:58:36.116057', '2023-12-11 21:08:29.813084', 43511453924630528, 43511453924630528, 78652662837620736, 'menu:systemSetting:i18n', 'i18n', 'i18n', 1, 'i18n', 78652370372997120, 1, 0, 'systemSetting/i18n/index.vue', 'map-grid', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-11-05 14:58:15.190638', '2023-12-11 21:11:36.08947', 43511453924630528, 43511453924630528, 78667674553647104, 'menu:systemSetting:systemParameter', 'systemParameter', 'systemParameter', 1, 'systemParameter', 78652370372997120, 1, 1, 'systemSetting/systemParameter/index.vue', 'setting', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-08-31 22:49:50.658071', '2023-12-25 21:27:17.652412', 43511453924630528, 43511453924630528, 54868755092041728, 'menu:system:role', 'role', 'role', 1, 'role', 1, 1, 2, 'system/role/index.vue', 'add-circle', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-11-05 14:58:15.190638', '2023-12-25 21:27:17.690403', 43511453924630528, 43511453924630528, 78667674553647104, 'menu:systemSetting:systemParameter', 'systemParameter', 'systemParameter', 1, 'systemParameter', 1, 1, 6, 'system/systemParameter/index.vue', 'setting', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-08-26 20:27:38.199485', '2023-12-11 21:18:06.69516', 43511453924630528, 43511453924630528, 53021028150870016, 'menu:system:menu:info', 'detailPage', 'detailPage', 1, '', 2, 1, 3, 'system/menu/detailPage.vue', '', 0, 1, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-17 16:06:44.452402', '2023-12-11 20:38:29.817368', 43511453924630528, 43511453924630528, 83033564434034688, 'menu:tenantManage:permissionGroup', 'permissionGroup', 'permissionGroup', 1, 'permissionGroup', 81889425893421056, 1, 1, 'tenant/permissionGroup/index.vue', 'usergroup', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-17 16:07:51.225882', '2023-12-11 20:36:02.388879', 43511453924630528, 43511453924630528, 83033844508684288, 'menu:tenantManage:tenantMenu:add', NULL, NULL, 1, 'tenantMenu:add', 81889685696999424, 2, 0, '', '', 0, 0, 0, NULL);
@@ -2719,7 +2803,6 @@ INSERT INTO admin.sys_menu VALUES ('2023-11-28 14:13:39.429579', '2023-12-11 20:
 INSERT INTO admin.sys_menu VALUES ('2023-12-01 22:22:30.168971', '2023-12-11 21:04:49.814666', 43511453924630528, 43511453924630528, 88201558143479808, 'menu:tenantManage:add', NULL, NULL, 1, 'tenant:add', 86991372514975744, 2, 0, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-12-02 02:11:24.133621', '2023-12-11 21:05:18.93812', 43511453924630528, 43511453924630528, 88259162567790592, 'menu:tenantManage:edit', NULL, NULL, 1, 'tenant:edit', 86991372514975744, 2, 0, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-17 16:08:11.835701', '2023-12-11 20:36:42.57721', 43511453924630528, 43511453924630528, 83033930953289728, 'menu:tenantManage:tenantMenu:edit', NULL, NULL, 1, 'tenantMenu:edit', 81889685696999424, 2, 1, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-11-05 13:57:26.388083', '2023-12-11 21:07:43.458724', 43511453924630528, 43511453924630528, 78652370372997120, 'menu:systemSetting', 'systemSetting', 'systemSetting', 1, NULL, 0, 0, 1, 'LAYOUT', 'data-base', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-17 16:09:48.500262', '2023-12-11 20:40:07.135701', 43511453924630528, 43511453924630528, 83034336395685888, 'menu:tenantManage:permissionGroup:edit', NULL, NULL, 1, 'permissionGroup:edit', 83033564434034688, 2, 1, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-17 16:10:04.616614', '2023-12-11 20:40:36.0427', 43511453924630528, 43511453924630528, 83034403991089152, 'menu:tenantManage:permissionGroup:remove', NULL, NULL, 1, 'permissionGroup:remove', 83033564434034688, 2, 2, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-11-05 14:16:34.24195', '2023-12-11 21:09:30.186925', 43511453924630528, 43511453924630528, 78657184821612544, 'menu:systemSetting:i18n:remove', NULL, NULL, 1, 'i18n:remove', 78652662837620736, 2, 2, '', '', 0, 0, 0, NULL);
@@ -2735,45 +2818,48 @@ INSERT INTO admin.sys_menu VALUES ('2023-08-26 13:48:01.071347', '2023-12-11 21:
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:10:15.708015', '2023-12-11 21:21:09.385254', 43511453924630528, 43511453924630528, 61880058860097536, 'menu:system:dept:remove', NULL, NULL, 1, 'dept:remove', 56521040461266944, 2, 2, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:09:59.222276', '2023-12-11 21:21:15.579426', 43511453924630528, 43511453924630528, 61879989708607488, 'menu:system:dept:edit', NULL, NULL, 1, 'dept:edit', 56521040461266944, 2, 1, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:09:42.724969', '2023-12-11 21:21:20.816855', 43511453924630528, 43511453924630528, 61879920510980096, 'menu:system:dept:add', NULL, NULL, 1, 'dept:add', 56521040461266944, 2, 0, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-08-31 22:49:50.658071', '2023-12-11 21:30:30.365021', 43511453924630528, 43511453924630528, 54868755092041728, 'menu:system:role', 'role', 'role', 1, 'role', 1, 1, 2, 'system/role/index.vue', 'add-circle', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:34:35.797543', '2023-12-11 21:31:30.563102', 43511453924630528, 43511453924630528, 61886182917259264, 'menu:system:role:remove', NULL, NULL, 1, 'role:remove', 54868755092041728, 2, 2, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:34:21.246774', '2023-12-11 21:31:39.493079', 43511453924630528, 43511453924630528, 61886121885941760, 'menu:system:role:edit', NULL, NULL, 1, 'role:edit', 54868755092041728, 2, 1, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-09-03 10:55:34.853426', '2023-12-11 21:32:11.07327', 43511453924630528, 43511453924630528, 55776168548691968, 'menu:system:user', 'user', 'user', 1, 'user', 1, 1, 3, 'system/user/index.vue', 'personal-information', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:37:14.381184', '2023-12-11 21:32:59.398295', 43511453924630528, 43511453924630528, 61886848066764800, 'menu:system:user:remove', NULL, NULL, 1, 'user:remove', 55776168548691968, 2, 2, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:36:22.628288', '2023-12-11 21:33:04.499686', 43511453924630528, 43511453924630528, 61886630998949888, 'menu:system:user:edit', NULL, NULL, 1, 'user:edit', 55776168548691968, 2, 1, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-09-20 07:36:04.574444', '2023-12-11 21:33:08.555929', 43511453924630528, 43511453924630528, 61886555274985472, 'menu:system:user:add', NULL, NULL, 1, 'user:add', 55776168548691968, 2, 0, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.sys_menu VALUES ('2023-10-16 13:49:19.685255', '2023-12-11 21:34:12.985355', 43511453924630528, 43511453924630528, 71402571640487936, 'menu:system:dict', 'dict', 'dict', 1, 'dict', 1, 1, 4, 'system/dict/index.vue', 'address-book', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-10-18 15:33:58.652014', '2023-12-11 21:35:56.118773', 43511453924630528, 43511453924630528, 72153683310071808, 'menu:system:dict:data', 'dictData', 'dictData', 1, 'dict', 71402571640487936, 1, 2, 'system/dict/dictData.vue', '', 0, 1, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-10-16 13:51:09.427797', '2023-12-11 21:36:02.723996', 43511453924630528, 43511453924630528, 71403031977934848, 'menu:system:dict:remove', NULL, NULL, 1, 'dict:remove', 71402571640487936, 2, 3, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-10-16 13:50:11.321704', '2023-12-11 21:36:07.178236', 43511453924630528, 43511453924630528, 71402788263706624, 'menu:system:dict:add', NULL, NULL, 1, 'dict:add', 71402571640487936, 2, 0, '', '', 0, 0, 0, NULL);
 INSERT INTO admin.sys_menu VALUES ('2023-10-16 13:50:40.957978', '2023-12-11 21:36:11.827036', 43511453924630528, 43511453924630528, 71402912566099968, 'menu:system:dict:edit', NULL, NULL, 1, 'dict:edit', 71402571640487936, 2, 1, '', '', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES (NULL, '2023-12-24 12:56:18.411892', NULL, 43511453924630528, 1, 'menu:system', 'system', 'system', 1, 'system', 0, 0, 0, 'LAYOUT', 'menu', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-09-03 10:55:34.853426', '2023-12-25 21:27:17.662423', 43511453924630528, 43511453924630528, 55776168548691968, 'menu:system:user', 'user', 'user', 1, 'user', 1, 1, 3, 'system/user/index.vue', 'personal-information', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-10-16 13:49:19.685255', '2023-12-25 21:27:17.671412', 43511453924630528, 43511453924630528, 71402571640487936, 'menu:system:dict', 'dict', 'dict', 1, 'dict', 1, 1, 4, 'system/dict/index.vue', 'address-book', 0, 0, 0, NULL);
+INSERT INTO admin.sys_menu VALUES ('2023-11-05 13:58:36.116057', '2023-12-25 21:27:17.681435', 43511453924630528, 43511453924630528, 78652662837620736, 'menu:systemSetting:i18n', 'i18n', 'i18n', 1, 'i18n', 1, 1, 5, 'system/i18n/index.vue', 'map-grid', 0, 0, 0, NULL);
 
 
 --
--- TOC entry 3141 (class 0 OID 16585)
--- Dependencies: 211
+-- TOC entry 3150 (class 0 OID 16585)
+-- Dependencies: 212
 -- Data for Name: sys_role; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 INSERT INTO admin.sys_role VALUES ('2023-08-10 16:22:00.297211', '2023-08-11 16:12:08.738062', NULL, NULL, 47161007073583104, '超级管理员', '', 'admin', 0, 56925072011030528);
 INSERT INTO admin.sys_role VALUES ('2023-09-18 20:37:47.961258', '2023-09-19 06:10:04.672331', 43511453924630528, 43511453924630528, 61358506599022592, 'admin1', '', '2011', 3, 56925072011030528);
-INSERT INTO admin.sys_role VALUES ('2023-08-11 16:12:38.450753', '2023-10-16 00:05:37.298946', 43511453924630528, 43511453924630528, 47521038386257920, '普通用户1', '普通用户', 'normal', 2, 56925072011030528);
 INSERT INTO admin.sys_role VALUES ('2023-09-19 06:02:01.424283', '2023-10-16 00:05:48.241063', 61478072612352000, 43511453924630528, 61500498322751488, 'demo1创建的角色', '', 'd1r', 4, 56925072011030528);
 INSERT INTO admin.sys_role VALUES ('2023-10-16 00:09:04.477519', NULL, 43511453924630528, NULL, 71196148142891008, 'demo', '1', '1', 4, 56925072011030528);
-INSERT INTO admin.sys_role VALUES ('2023-10-21 14:43:22.528032', NULL, 43511453924630528, NULL, 73228112484085760, 'a', '', 'a', 4, 56925072011030528);
+INSERT INTO admin.sys_role VALUES ('2023-08-11 16:12:38.450753', '2023-12-25 21:31:09.415019', 43511453924630528, 43511453924630528, 47521038386257920, '普通用户1', '普通用户', 'normal', 1, 56925072011030528);
+INSERT INTO admin.sys_role VALUES ('2023-10-21 14:43:22.528032', '2024-01-13 18:54:30.751616', 43511453924630528, 43511453924630528, 73228112484085760, 'a', '', 'a', 4, 56925072011030528);
 
 
 --
--- TOC entry 3142 (class 0 OID 16592)
--- Dependencies: 212
+-- TOC entry 3151 (class 0 OID 16592)
+-- Dependencies: 213
 -- Data for Name: sys_role_dept; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
+INSERT INTO admin.sys_role_dept VALUES (47521038386257920, 56925072011030528);
+INSERT INTO admin.sys_role_dept VALUES (47521038386257920, 58737314673807360);
 
 
 --
--- TOC entry 3143 (class 0 OID 16595)
--- Dependencies: 213
+-- TOC entry 3152 (class 0 OID 16595)
+-- Dependencies: 214
 -- Data for Name: sys_role_menu; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2828,23 +2914,10 @@ INSERT INTO admin.sys_role_menu VALUES (52920460807962624, 55773234062618624);
 INSERT INTO admin.sys_role_menu VALUES (56521040461266944, 55773234062618624);
 INSERT INTO admin.sys_role_menu VALUES (54868755092041728, 55773234062618624);
 INSERT INTO admin.sys_role_menu VALUES (55776168548691968, 55773234062618624);
-INSERT INTO admin.sys_role_menu VALUES (55776168548691968, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (1, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61886630998949888, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (2, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (71194717532905472, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61885961797746688, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61879920510980096, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61880058860097536, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (71194596011335680, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61886121885941760, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61886555274985472, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61886848066764800, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (54868755092041728, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (52920460807962624, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61886182917259264, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (61879989708607488, 47521038386257920);
-INSERT INTO admin.sys_role_menu VALUES (56521040461266944, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (81889425893421056, 73228112484085760);
+INSERT INTO admin.sys_role_menu VALUES (88259162567790592, 73228112484085760);
+INSERT INTO admin.sys_role_menu VALUES (86991372514975744, 73228112484085760);
+INSERT INTO admin.sys_role_menu VALUES (88201558143479808, 73228112484085760);
 INSERT INTO admin.sys_role_menu VALUES (55776168548691968, 61500498322751488);
 INSERT INTO admin.sys_role_menu VALUES (1, 61500498322751488);
 INSERT INTO admin.sys_role_menu VALUES (61886630998949888, 61500498322751488);
@@ -2882,23 +2955,68 @@ INSERT INTO admin.sys_role_menu VALUES (52920460807962624, 71196148142891008);
 INSERT INTO admin.sys_role_menu VALUES (61886182917259264, 71196148142891008);
 INSERT INTO admin.sys_role_menu VALUES (61879989708607488, 71196148142891008);
 INSERT INTO admin.sys_role_menu VALUES (56521040461266944, 71196148142891008);
+INSERT INTO admin.sys_role_menu VALUES (0, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (1, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71402912566099968, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (2, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61886630998949888, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (88259162567790592, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (86991372514975744, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83034183253258240, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61880058860097536, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71194596011335680, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (72153683310071808, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61886121885941760, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83033930953289728, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78657184821612544, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78672302695456768, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61886848066764800, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71402571640487936, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78667674553647104, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (54868755092041728, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (86926707332177920, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (52920460807962624, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61879989708607488, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (56521040461266944, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78672383138013184, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (55776168548691968, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (81889425893421056, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83033749130211328, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (81889685696999424, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71194717532905472, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61885961797746688, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71402788263706624, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61879920510980096, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (88201558143479808, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83034336395685888, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78652662837620736, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (53021028150870016, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61886555274985472, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (61886182917259264, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83033564434034688, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83033844508684288, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78657126579507200, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (83034403991089152, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (71403031977934848, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78656287945199616, 47521038386257920);
+INSERT INTO admin.sys_role_menu VALUES (78672235477540864, 47521038386257920);
 
 
 --
--- TOC entry 3144 (class 0 OID 16598)
--- Dependencies: 214
+-- TOC entry 3153 (class 0 OID 16598)
+-- Dependencies: 215
 -- Data for Name: sys_user; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 INSERT INTO admin.sys_user VALUES ('2023-09-19 04:38:33.27902', '2023-11-05 00:20:25.254128', 43511453924630528, 43511453924630528, 61479492635906048, 'demo2', 'demo2', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 58737314673807360, NULL, '59efffe60e734b12a8117fc2b653e0a2');
-INSERT INTO admin.sys_user VALUES ('2023-08-10 16:23:55.162084', '2023-08-11 16:13:15.012373', 43511453924630528, 43511453924630528, 47161488860700672, 'aaaa', 'aaaa', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, NULL, '59efffe60e734b12a8117fc2b653e0a2');
-INSERT INTO admin.sys_user VALUES ('2023-09-19 04:32:54.718347', NULL, 43511453924630528, NULL, 61478072612352000, 'demo', 'demo1', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, NULL, '59efffe60e734b12a8117fc2b653e0a2');
-INSERT INTO admin.sys_user VALUES ('2023-07-31 14:39:59.020972', '2023-12-16 13:50:07.175452', NULL, 43511453924630528, 43511453924630528, 'admin', 'admin', '8aead456e79fa8829bf2d2ea177e5445', 0, '', 56925072011030528, 'zh-CN', '59efffe60e734b12a8117fc2b653e0a2');
+INSERT INTO admin.sys_user VALUES ('2023-07-31 14:39:59.020972', '2023-12-20 20:49:41.044524', NULL, 43511453924630528, 43511453924630528, 'admin', 'admin', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, 'zh-CN', '59efffe60e734b12a8117fc2b653e0a2');
+INSERT INTO admin.sys_user VALUES ('2023-09-19 04:32:54.718347', '2024-01-13 19:27:17.898089', 43511453924630528, 43511453924630528, 61478072612352000, 'demo', 'demo1', '8aead456e79fa8829bf2d2ea177e5445', 0, '837713748@qq.com', 56925072011030528, NULL, '59efffe60e734b12a8117fc2b653e0a2');
+INSERT INTO admin.sys_user VALUES ('2023-08-10 16:23:55.162084', '2024-01-13 19:27:29.162777', 43511453924630528, 43511453924630528, 47161488860700672, 'aaaa', 'aaaa', '01b34ec38625dd962a61e4dbdbebe802', 0, '837713748@qq.com', 58737314673807360, 'zh-CN', 'baebdc377ba74cdc84342cc53189f974');
 
 
 --
--- TOC entry 3145 (class 0 OID 16604)
--- Dependencies: 215
+-- TOC entry 3154 (class 0 OID 16604)
+-- Dependencies: 216
 -- Data for Name: sys_user_role; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2907,22 +3025,24 @@ INSERT INTO admin.sys_user_role VALUES (43267318545367040, 43149693402112000);
 INSERT INTO admin.sys_user_role VALUES (43271312646848512, 43149693402112000);
 INSERT INTO admin.sys_user_role VALUES (43493071414317056, 43276927817465856);
 INSERT INTO admin.sys_user_role VALUES (43493071414317056, 43280811122212864);
-INSERT INTO admin.sys_user_role VALUES (47161488860700672, 47521038386257920);
 INSERT INTO admin.sys_user_role VALUES (61369900169986048, 47521038386257920);
 INSERT INTO admin.sys_user_role VALUES (61374726488489984, 61358506599022592);
 INSERT INTO admin.sys_user_role VALUES (61380650506711040, 61358506599022592);
-INSERT INTO admin.sys_user_role VALUES (61478072612352000, 47521038386257920);
 INSERT INTO admin.sys_user_role VALUES (61479492635906048, 47521038386257920);
 INSERT INTO admin.sys_user_role VALUES (61500367217197056, 47521038386257920);
 INSERT INTO admin.sys_user_role VALUES (61500367217197056, 61358506599022592);
 INSERT INTO admin.sys_user_role VALUES (71048041284894720, 61500498322751488);
 INSERT INTO admin.sys_user_role VALUES (71048041284894720, 61358506599022592);
 INSERT INTO admin.sys_user_role VALUES (43511453924630528, 47161007073583104);
+INSERT INTO admin.sys_user_role VALUES (61478072612352000, 47521038386257920);
+INSERT INTO admin.sys_user_role VALUES (47161488860700672, 47521038386257920);
+INSERT INTO admin.sys_user_role VALUES (47161488860700672, 61358506599022592);
+INSERT INTO admin.sys_user_role VALUES (47161488860700672, 61500498322751488);
 
 
 --
--- TOC entry 3146 (class 0 OID 16607)
--- Dependencies: 216
+-- TOC entry 3155 (class 0 OID 16607)
+-- Dependencies: 217
 -- Data for Name: system_parameter; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2930,17 +3050,19 @@ INSERT INTO admin.system_parameter VALUES ('2023-11-05 15:57:53.834973', '2023-1
 
 
 --
--- TOC entry 3150 (class 0 OID 16713)
--- Dependencies: 220
+-- TOC entry 3159 (class 0 OID 16713)
+-- Dependencies: 221
 -- Data for Name: tenant; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 INSERT INTO admin.tenant VALUES ('2023-12-02 01:53:29.039885', '2023-12-02 20:57:57.977191', 43511453924630528, 43511453924630528, 88254653284188160, 88254653443571712, 'ddd', 0, '2023-12-16 00:00:00', 'ddd', 83781294429302784);
+INSERT INTO admin.tenant VALUES ('2024-01-12 13:07:18.545499', '2024-01-12 13:07:18.661428', 43511453924630528, 43511453924630528, 103282129420656640, 103282129701675008, '', 0, '2024-01-31 00:00:00', 'aaa', 83781294429302784);
+INSERT INTO admin.tenant VALUES ('2024-01-12 13:14:54.776177', '2024-01-12 13:14:54.876094', 43511453924630528, 43511453924630528, 103284042946048000, 103284043277398016, '', 0, '2024-01-31 00:00:00', 'd1', 83781294429302784);
 
 
 --
--- TOC entry 3149 (class 0 OID 16677)
--- Dependencies: 219
+-- TOC entry 3158 (class 0 OID 16677)
+-- Dependencies: 220
 -- Data for Name: tenant_group_menu; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2966,8 +3088,8 @@ INSERT INTO admin.tenant_group_menu VALUES (56521040461266944, 83781294429302784
 
 
 --
--- TOC entry 3147 (class 0 OID 16659)
--- Dependencies: 217
+-- TOC entry 3156 (class 0 OID 16659)
+-- Dependencies: 218
 -- Data for Name: tenant_menu; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -2988,12 +3110,12 @@ INSERT INTO admin.tenant_menu VALUES ('2023-10-16 00:03:23.393', '2023-10-16 00:
 INSERT INTO admin.tenant_menu VALUES ('2023-08-26 20:27:38.199', '2023-10-16 00:03:52.344', 43511453924630528, 43511453924630528, 53021028150870016, '菜单详情', 'detailPage', 'detailPage', 1, '', 2, 0, 3, 'system/menu/detailPage.vue', '', 0, 1, 0, NULL);
 INSERT INTO admin.tenant_menu VALUES ('2023-08-26 13:48:01.071', '2023-11-05 13:51:24.468', 43511453924630528, 43511453924630528, 52920460807962624, '新增菜单', 'addMenu', 'menuFrom', 1, 'menu:add', 2, 2, 0, 'system/menu/menuFrom.vue', 'add-circle', 0, 1, 0, NULL);
 INSERT INTO admin.tenant_menu VALUES ('2023-09-20 07:34:35.797', '2023-11-05 13:52:05.638', 43511453924630528, 43511453924630528, 61886182917259264, '删除角色', NULL, NULL, 1, 'role:remove', 54868755092041728, 2, 2, '', '', 0, 0, 0, NULL);
-INSERT INTO admin.tenant_menu VALUES (NULL, '2023-11-05 13:57:36.155', NULL, 43511453924630528, 1, '系统管理', 'system', 'system', 1, 'system', 0, 0, 0, 'LAYOUT', 'brightness', 0, 0, 0, NULL);
+INSERT INTO admin.tenant_menu VALUES (NULL, '2023-12-24 13:47:27.576867', NULL, 43511453924630528, 1, '系统管理', 'system', 'system', 1, 'system', 0, 0, 0, 'LAYOUT', 'brightness', 0, 0, 0, NULL);
 
 
 --
--- TOC entry 3148 (class 0 OID 16671)
--- Dependencies: 218
+-- TOC entry 3157 (class 0 OID 16671)
+-- Dependencies: 219
 -- Data for Name: tenant_permission_group; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
@@ -3001,16 +3123,18 @@ INSERT INTO admin.tenant_permission_group VALUES ('2023-11-19 17:37:57.175533', 
 
 
 --
--- TOC entry 3151 (class 0 OID 16722)
--- Dependencies: 221
+-- TOC entry 3160 (class 0 OID 16722)
+-- Dependencies: 222
 -- Data for Name: tenant_user; Type: TABLE DATA; Schema: admin; Owner: -
 --
 
 INSERT INTO admin.tenant_user VALUES ('2023-12-02 01:53:29.073879', NULL, 43511453924630528, NULL, 88254653443571712, 'dd', 'ddd', 'c47fadd7730919354d506a83be40efcd', 2, NULL, NULL, NULL, '4dbbe7a960774881a19e42480f68531d', 88254653284188160);
+INSERT INTO admin.tenant_user VALUES ('2024-01-12 13:07:18.611891', NULL, 43511453924630528, NULL, 103282129701675008, 'aaa', 'adminddd', '10e711b053676dd19a63d86d8e1f02b9', 2, NULL, NULL, NULL, '25d6a1fcb20a4427a790f28539da36e1', 103282129420656640);
+INSERT INTO admin.tenant_user VALUES ('2024-01-12 13:14:54.842445', NULL, 43511453924630528, NULL, 103284043277398016, 'd1', 'd1', '959d5fe3951276ce91284d920d3e00f5', 2, NULL, NULL, NULL, '2f5977a3100947ad9c9a6504fcff098d', 103284042946048000);
 
 
 --
--- TOC entry 2969 (class 2606 OID 16614)
+-- TOC entry 2974 (class 2606 OID 16614)
 -- Name: gen_table_column gen_table_column_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
@@ -3019,7 +3143,7 @@ ALTER TABLE ONLY admin.gen_table_column
 
 
 --
--- TOC entry 2967 (class 2606 OID 16616)
+-- TOC entry 2972 (class 2606 OID 16616)
 -- Name: gen_table gen_table_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
@@ -3028,160 +3152,160 @@ ALTER TABLE ONLY admin.gen_table
 
 
 --
--- TOC entry 2973 (class 2606 OID 16618)
--- Name: sys_dept_ancestors poem_dept_ancestors_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_dept_ancestors
-    ADD CONSTRAINT poem_dept_ancestors_pk PRIMARY KEY (dept_id, ancestors);
-
-
---
--- TOC entry 2971 (class 2606 OID 16620)
--- Name: sys_dept poem_dept_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_dept
-    ADD CONSTRAINT poem_dept_pk PRIMARY KEY (dept_id);
-
-
---
--- TOC entry 2975 (class 2606 OID 16622)
--- Name: sys_dict_data poem_dict_data_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_dict_data
-    ADD CONSTRAINT poem_dict_data_pk PRIMARY KEY (dict_code);
-
-
---
--- TOC entry 2977 (class 2606 OID 16624)
--- Name: sys_dict_type poem_dict_type_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_dict_type
-    ADD CONSTRAINT poem_dict_type_pk PRIMARY KEY (dict_type_id);
-
-
---
--- TOC entry 2979 (class 2606 OID 16626)
--- Name: sys_dict_type poem_dict_type_un; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_dict_type
-    ADD CONSTRAINT poem_dict_type_un UNIQUE (dict_type);
-
-
---
--- TOC entry 2981 (class 2606 OID 16628)
--- Name: sys_i18n poem_i18n_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_i18n
-    ADD CONSTRAINT poem_i18n_pk PRIMARY KEY (id);
-
-
---
--- TOC entry 2984 (class 2606 OID 16630)
--- Name: sys_menu poem_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_menu
-    ADD CONSTRAINT poem_menu_pk PRIMARY KEY (menu_id);
-
-
---
--- TOC entry 2988 (class 2606 OID 16632)
--- Name: sys_role_dept poem_role_dept_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_role_dept
-    ADD CONSTRAINT poem_role_dept_pk PRIMARY KEY (role_id, dept_id);
-
-
---
--- TOC entry 2990 (class 2606 OID 16634)
--- Name: sys_role_menu poem_role_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_role_menu
-    ADD CONSTRAINT poem_role_menu_pk PRIMARY KEY (menu_id, role_id);
-
-
---
--- TOC entry 2986 (class 2606 OID 16636)
--- Name: sys_role poem_role_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.sys_role
-    ADD CONSTRAINT poem_role_pk PRIMARY KEY (role_id);
-
-
---
--- TOC entry 3004 (class 2606 OID 16710)
--- Name: tenant_group_menu poem_tenant_group_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
---
-
-ALTER TABLE ONLY admin.tenant_group_menu
-    ADD CONSTRAINT poem_tenant_group_menu_pk PRIMARY KEY (tenant_menu_id, group_id);
-
-
---
--- TOC entry 3000 (class 2606 OID 16712)
+-- TOC entry 3006 (class 2606 OID 16712)
 -- Name: tenant_menu poem_tenant_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.tenant_menu
-    ADD CONSTRAINT poem_tenant_menu_pk PRIMARY KEY (tenant_menu_id);
+    ADD CONSTRAINT poem_tenant_menu_pk PRIMARY KEY (id);
 
 
 --
--- TOC entry 3002 (class 2606 OID 16708)
+-- TOC entry 3008 (class 2606 OID 16708)
 -- Name: tenant_permission_group poem_tenant_permission_group_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.tenant_permission_group
-    ADD CONSTRAINT poem_tenant_permission_group_pk PRIMARY KEY (group_id);
+    ADD CONSTRAINT poem_tenant_permission_group_pk PRIMARY KEY (id);
 
 
 --
--- TOC entry 3006 (class 2606 OID 16729)
--- Name: tenant poem_tenant_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+-- TOC entry 2978 (class 2606 OID 16618)
+-- Name: sys_dept_ancestors sys_dept_ancestors_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_dept_ancestors
+    ADD CONSTRAINT sys_dept_ancestors_pk PRIMARY KEY (fk_dept_id, ancestors);
+
+
+--
+-- TOC entry 2976 (class 2606 OID 16620)
+-- Name: sys_dept sys_dept_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_dept
+    ADD CONSTRAINT sys_dept_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2981 (class 2606 OID 16622)
+-- Name: sys_dict_data sys_dict_data_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_dict_data
+    ADD CONSTRAINT sys_dict_data_pk PRIMARY KEY (dict_code);
+
+
+--
+-- TOC entry 2983 (class 2606 OID 16624)
+-- Name: sys_dict_type sys_dict_type_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_dict_type
+    ADD CONSTRAINT sys_dict_type_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2985 (class 2606 OID 16626)
+-- Name: sys_dict_type sys_dict_type_un; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_dict_type
+    ADD CONSTRAINT sys_dict_type_un UNIQUE (dict_type);
+
+
+--
+-- TOC entry 2987 (class 2606 OID 16628)
+-- Name: sys_i18n sys_i18n_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_i18n
+    ADD CONSTRAINT sys_i18n_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2990 (class 2606 OID 16630)
+-- Name: sys_menu sys_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_menu
+    ADD CONSTRAINT sys_menu_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2994 (class 2606 OID 16632)
+-- Name: sys_role_dept sys_role_dept_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_role_dept
+    ADD CONSTRAINT sys_role_dept_pk PRIMARY KEY (fk_role_id, fk_dept_id);
+
+
+--
+-- TOC entry 2996 (class 2606 OID 16634)
+-- Name: sys_role_menu sys_role_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_role_menu
+    ADD CONSTRAINT sys_role_menu_pk PRIMARY KEY (fk_menu_id, fk_role_id);
+
+
+--
+-- TOC entry 2992 (class 2606 OID 16636)
+-- Name: sys_role sys_role_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.sys_role
+    ADD CONSTRAINT sys_role_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3010 (class 2606 OID 16710)
+-- Name: tenant_group_menu sys_tenant_group_menu_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+--
+
+ALTER TABLE ONLY admin.tenant_group_menu
+    ADD CONSTRAINT sys_tenant_group_menu_pk PRIMARY KEY (fk_menu_id, fk_group_id);
+
+
+--
+-- TOC entry 3012 (class 2606 OID 16729)
+-- Name: tenant sys_tenant_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.tenant
-    ADD CONSTRAINT poem_tenant_pk PRIMARY KEY (tenant_id);
+    ADD CONSTRAINT sys_tenant_pk PRIMARY KEY (id);
 
 
 --
--- TOC entry 2992 (class 2606 OID 16638)
--- Name: sys_user poem_user_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+-- TOC entry 2998 (class 2606 OID 16638)
+-- Name: sys_user sys_user_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.sys_user
-    ADD CONSTRAINT poem_user_pk PRIMARY KEY (user_id);
+    ADD CONSTRAINT sys_user_pk PRIMARY KEY (id);
 
 
 --
--- TOC entry 2996 (class 2606 OID 16640)
--- Name: sys_user_role poem_user_role_pk; Type: CONSTRAINT; Schema: admin; Owner: -
+-- TOC entry 3002 (class 2606 OID 16640)
+-- Name: sys_user_role sys_user_role_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.sys_user_role
-    ADD CONSTRAINT poem_user_role_pk PRIMARY KEY (user_id, role_id);
+    ADD CONSTRAINT sys_user_role_pk PRIMARY KEY (fk_user_id, fk_role_id);
 
 
 --
--- TOC entry 2994 (class 2606 OID 16642)
--- Name: sys_user poem_user_un; Type: CONSTRAINT; Schema: admin; Owner: -
+-- TOC entry 3000 (class 2606 OID 16642)
+-- Name: sys_user sys_user_un; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
 ALTER TABLE ONLY admin.sys_user
-    ADD CONSTRAINT poem_user_un UNIQUE (account);
+    ADD CONSTRAINT sys_user_un UNIQUE (account);
 
 
 --
--- TOC entry 2998 (class 2606 OID 16644)
+-- TOC entry 3004 (class 2606 OID 16644)
 -- Name: system_parameter system_parameter_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
@@ -3190,14 +3314,39 @@ ALTER TABLE ONLY admin.system_parameter
 
 
 --
--- TOC entry 2982 (class 1259 OID 16645)
--- Name: poem_i18n_unique; Type: INDEX; Schema: admin; Owner: -
+-- TOC entry 3015 (class 2606 OID 16869)
+-- Name: tenant_user tenant_user_pk; Type: CONSTRAINT; Schema: admin; Owner: -
 --
 
-CREATE UNIQUE INDEX poem_i18n_unique ON admin.sys_i18n USING btree (i18n_key, i18n_tag, language);
+ALTER TABLE ONLY admin.tenant_user
+    ADD CONSTRAINT tenant_user_pk PRIMARY KEY (id);
 
 
--- Completed on 2023-12-16 15:36:13
+--
+-- TOC entry 2979 (class 1259 OID 16867)
+-- Name: sys_dict_data_dict_type_idx; Type: INDEX; Schema: admin; Owner: -
+--
+
+CREATE INDEX sys_dict_data_dict_type_idx ON admin.sys_dict_data USING btree (dict_type);
+
+
+--
+-- TOC entry 2988 (class 1259 OID 16645)
+-- Name: sys_i18n_unique; Type: INDEX; Schema: admin; Owner: -
+--
+
+CREATE UNIQUE INDEX sys_i18n_unique ON admin.sys_i18n USING btree (i18n_key, i18n_tag, language);
+
+
+--
+-- TOC entry 3013 (class 1259 OID 16870)
+-- Name: tenant_user_account_idx; Type: INDEX; Schema: admin; Owner: -
+--
+
+CREATE UNIQUE INDEX tenant_user_account_idx ON admin.tenant_user USING btree (account);
+
+
+-- Completed on 2024-01-13 21:24:02
 
 --
 -- PostgreSQL database dump complete
