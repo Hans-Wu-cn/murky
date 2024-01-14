@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * 租户视图类
@@ -31,7 +32,7 @@ public class TenantVo {
     private Long adminUser;
 
     @ApiModelProperty("到期时间")
-    private LocalDateTime expires;
+    private ZonedDateTime expires;
 
     @ApiModelProperty("描述")
     private String describe;
@@ -40,5 +41,5 @@ public class TenantVo {
     private CommonStatus status;
 
     @ApiModelProperty("创建时间")
-    private LocalDateTime createTime;
+    private ZonedDateTime createTime;
 }

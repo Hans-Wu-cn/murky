@@ -10,6 +10,7 @@ import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * 商户菜单表单类
@@ -34,7 +35,7 @@ public class TenantFromDTO {
 
     @ApiModelProperty("到期时间")
     @NotNull
-    private LocalDateTime expires;
+    private ZonedDateTime expires;
 
     @ApiModelProperty("描述")
     private String describe;

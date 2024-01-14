@@ -57,7 +57,7 @@ public class TenantController extends BaseController<ITenantService> {
     @Post
     @Mapping
     @SaCheckPermission("tenant:add")
-    public ApiResult<Boolean> add(@Validated(Insert.class) @Body TenantFromDTO tenantFromDTO) {
+    public ApiResult<Boolean> add( @Body TenantFromDTO tenantFromDTO) {
         return ApiResult.ok(baseService.add(tenantFromDTO));
     }
 

@@ -59,13 +59,6 @@
             <artifactId>murky-admin-flex</artifactId>
         </dependency>
 
-        <!--pgsql驱动-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.verion}</version>
-        </dependency>
-
         <!--redisx 依赖-->
         <dependency>
             <groupId>org.noear</groupId>
