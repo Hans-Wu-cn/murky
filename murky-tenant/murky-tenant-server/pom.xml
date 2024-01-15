@@ -4,32 +4,48 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.murky.admin</groupId>
-        <artifactId>murky-admin-library</artifactId>
+        <groupId>cn.murky.tenant</groupId>
+        <artifactId>murky-tenant</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
-    <artifactId>murky-admin-flex</artifactId>
-
+    <artifactId>murky-tenant-server</artifactId>
+    <packaging>jar</packaging>
+    <name>murky-tenant</name>
     <dependencies>
-        <!--mybatis-flex 依赖-->
+        <!--单元测试依赖-->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>mybatis-flex-solon-plugin</artifactId>
+            <artifactId>solon-test-junit5</artifactId>
+            <scope>test</scope>
         </dependency>
 
-        <!--poem-common 公共依赖-->
-        <dependency>
-            <groupId>cn.murky.admin</groupId>
-            <artifactId>murky-admin-common</artifactId>
-        </dependency>
-
+        <!-- 内核 -->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>dami-solon-plugin</artifactId>
+            <artifactId>solon</artifactId>
+        </dependency>
+
+        <!--solon 依赖-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-lib</artifactId>
+        </dependency>
+
+        <!--solon api-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-api</artifactId>
+        </dependency>
+
+        <!--配置读取yml-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.config.yaml</artifactId>
         </dependency>
     </dependencies>
+
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -64,6 +80,35 @@
                     </annotationProcessorPaths>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
+            </plugin>
+
+            <!-- 配置打包插件（设置主类，并打包成胖包） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <finalName>${project.name}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <!-- 此处，要改成自己的程序入口（即 main 函数类） -->
+                        <manifest>
+                            <mainClass>cn.murky.admin.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

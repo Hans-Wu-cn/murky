@@ -8,13 +8,11 @@
         <artifactId>murky</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <groupId>cn.murky.tenant</groupId>
     <artifactId>murky-tenant</artifactId>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <packaging>pom</packaging>
+    <modules>
+        <module>murky-tenant-server</module>
+    </modules>
 
 </project>

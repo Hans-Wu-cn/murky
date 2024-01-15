@@ -12,8 +12,6 @@
     <artifactId>murky-core</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <mybatis-flex.version>1.6.5</mybatis-flex.version>
-        <postgresql.verion>42.7.2</postgresql.verion>
         <redisx.verion>1.4.9</redisx.verion>
     </properties>
 
@@ -65,8 +63,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.verion}</version>
-            <scope>system</scope>
-            <systemPath>D:/project/pgjdbc/pgjdbc/build/libs/postgresql-42.7.2-SNAPSHOT.jar</systemPath>
         </dependency>
         <!--单元测试 依赖-->
         <dependency>

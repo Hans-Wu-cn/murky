@@ -28,6 +28,9 @@
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <skipTests>true</skipTests>
+        <mybatis-flex.version>1.6.5</mybatis-flex.version>
+        <HikariCP.verion>5.0.1</HikariCP.verion>
+        <postgresql.verion>42.7.1</postgresql.verion>
     </properties>
     <dependencyManagement>
 

@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main</module>
+        <module>murky-admin-server</module>
         <module>murky-admin-auth</module>
         <module>murky-admin-library</module>
         <module>murky-admin-tenant</module>

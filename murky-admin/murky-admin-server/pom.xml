@@ -10,7 +10,7 @@
     </parent>
 
     <name>murky-admin</name>
-    <artifactId>main</artifactId>
+    <artifactId>murky-admin-server</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
