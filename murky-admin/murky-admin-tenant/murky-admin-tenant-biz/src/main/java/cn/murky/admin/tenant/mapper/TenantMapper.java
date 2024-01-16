@@ -12,6 +12,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.UpdateEntity;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 /**
@@ -73,7 +74,7 @@ public interface TenantMapper extends BaseMapper<Tenant> {
      * @param groupId 分组ID
      * @return 更新的租户数量
      */
-    default int updateNameAndExpiresAndGroupByTenantId(Long tenantId, String tenantName, ZonedDateTime expires, Long groupId) {
+    default int updateNameAndExpiresAndGroupByTenantId(Long tenantId, String tenantName, OffsetDateTime expires, Long groupId) {
         Tenant tenant = UpdateEntity.of(Tenant.class, tenantId)
                 .setTenantName(tenantName)
                 .setExpires(expires)

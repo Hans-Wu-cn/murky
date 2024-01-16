@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 /***
@@ -36,7 +37,7 @@ public class Tenant extends BaseEntity<Tenant> {
     private Long adminUser;
 
     @ApiModelProperty("到期时间")
-    private ZonedDateTime expires;
+    private OffsetDateTime expires;
 
     @ApiModelProperty("描述")
     private String describe;
