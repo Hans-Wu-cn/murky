@@ -27,43 +27,37 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--poem-admin-security 安全模块-->
-            <dependency>
-                <groupId>cn.murky.admin</groupId>
-                <artifactId>murky-admin-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!--poem-admin-core 核心模块-->
+            <!--murky-admin-core 核心模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--poem-admin-flex mybatis-flex配置模块-->
+            <!--murky-admin-flex mybatis-flex配置模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-flex</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--poem-admin-common 公共配置模块-->
+            <!--murky-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--poem-admin-system 系统模块模块-->
+            <!--murky-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-system-biz</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--poem-admin-system 系统模块模块-->
+            <!--murky-admin-system 系统模块模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-system-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--poem-admin-common 公共配置模块-->
+            <!--murky-admin-common 公共配置模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-auth</artifactId>

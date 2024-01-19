@@ -1,6 +1,6 @@
 package cn.murky.admin.core;
 
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.security.entity.SecurityUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.noear.snack.ONode;

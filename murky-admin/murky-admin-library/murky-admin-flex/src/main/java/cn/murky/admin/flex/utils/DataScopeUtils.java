@@ -1,8 +1,8 @@
 package cn.murky.admin.flex.utils;
 
-import cn.murky.admin.common.constant.BusTopicConstant;
-import cn.murky.admin.common.entity.SecurityUserInfo;
-import cn.murky.admin.common.enums.DataScope;
+import cn.murky.common.constant.BusTopicConstant;
+import cn.murky.common.enums.DataScope;
+import cn.murky.security.entity.SecurityUserInfo;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;

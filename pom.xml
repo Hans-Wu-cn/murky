@@ -31,14 +31,27 @@
         <mybatis-flex.version>1.6.5</mybatis-flex.version>
         <HikariCP.verion>5.0.1</HikariCP.verion>
         <postgresql.verion>42.7.1</postgresql.verion>
+        <dami.version>0.54</dami.version>
     </properties>
     <dependencyManagement>
-
         <dependencies>
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--dami 依赖-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>dami-solon-plugin</artifactId>
+                <version>${dami.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

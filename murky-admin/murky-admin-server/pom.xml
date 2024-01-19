@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <name>murky-admin</name>
+    <name>murky-admin-server</name>
     <artifactId>murky-admin-server</artifactId>
     <packaging>jar</packaging>
 

@@ -2,7 +2,7 @@ package cn.murky.admin.auth.service;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.murky.admin.auth.domain.dto.LoginDto;
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.security.entity.SecurityUserInfo;
 
 
 /**

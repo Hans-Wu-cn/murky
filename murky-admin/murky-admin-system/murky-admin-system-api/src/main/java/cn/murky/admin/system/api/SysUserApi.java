@@ -1,7 +1,7 @@
 package cn.murky.admin.system.api;
 
 
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.flex.domin.SysUser;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;

@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.security.utils.SecurityUtils;
+import cn.murky.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysMenuDropDTO;
 import cn.murky.admin.system.biz.domain.entity.table.SysMenuTableDef;
 import cn.murky.admin.system.biz.domain.entity.table.SysRoleMenuTableDef;

@@ -18,10 +18,16 @@
             <artifactId>mybatis-flex-solon-plugin</artifactId>
         </dependency>
 
-        <!--poem-common 公共依赖-->
+        <!--murky-common 公共依赖-->
         <dependency>
             <groupId>cn.murky.admin</groupId>
             <artifactId>murky-admin-common</artifactId>
+        </dependency>
+
+        <!--murky-security 公共依赖-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-security</artifactId>
         </dependency>
 
         <dependency>

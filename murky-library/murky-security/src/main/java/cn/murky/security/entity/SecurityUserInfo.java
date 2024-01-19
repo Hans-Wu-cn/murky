@@ -1,6 +1,6 @@
-package cn.murky.admin.common.entity;
+package cn.murky.security.entity;
 
-import cn.murky.admin.common.enums.DataScope;
+import cn.murky.common.enums.DataScope;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.mapper;
 
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.system.biz.domain.entity.SysDept;
 import cn.murky.admin.flex.utils.DataScopeUtils;
 import cn.murky.admin.system.biz.domain.entity.table.SysDeptTableDef;

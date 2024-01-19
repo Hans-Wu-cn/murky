@@ -26,6 +26,12 @@
             <groupId>org.noear</groupId>
             <artifactId>mybatis-flex-solon-plugin</artifactId>
         </dependency>
+
+        <!--murky-common 公共依赖-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

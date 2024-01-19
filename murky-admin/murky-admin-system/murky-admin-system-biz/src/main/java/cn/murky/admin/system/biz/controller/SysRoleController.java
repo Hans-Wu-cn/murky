@@ -2,7 +2,6 @@ package cn.murky.admin.system.biz.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.murky.admin.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysRoleFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysRolePageDTO;
 import cn.murky.admin.system.biz.domain.entity.table.SysRoleTableDef;
@@ -14,6 +13,7 @@ import cn.murky.common.utils.ApiResult;
 import cn.murky.core.extension.BaseController;
 import cn.murky.core.validat.Insert;
 import cn.murky.core.validat.Update;
+import cn.murky.security.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;

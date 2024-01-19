@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.common.enums.DataScope;
+import cn.murky.common.enums.DataScope;
 import cn.murky.admin.system.biz.domain.convert.SysRoleConvert;
 import cn.murky.admin.system.biz.domain.entity.SysRole;
 import cn.murky.core.validat.Update;

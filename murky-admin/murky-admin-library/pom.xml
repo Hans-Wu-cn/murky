@@ -16,7 +16,6 @@
         <module>murky-admin-flex</module>
         <module>murky-admin-core</module>
         <module>murky-admin-common</module>
-        <module>murky-admin-security</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -28,6 +27,11 @@
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.vo;
 
-import cn.murky.admin.common.enums.DataScope;
+import cn.murky.common.enums.DataScope;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

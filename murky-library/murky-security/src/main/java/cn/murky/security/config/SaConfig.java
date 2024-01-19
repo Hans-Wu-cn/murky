@@ -1,4 +1,4 @@
-package cn.murky.admin.security.config;
+package cn.murky.security.config;
 
 import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.solon.dao.SaTokenDaoOfRedis;

@@ -1,9 +1,9 @@
 package cn.murky.admin.flex;
 
 
-import cn.murky.admin.common.constant.BusTopicConstant;
-import cn.murky.admin.common.entity.SecurityUserInfo;
 import cn.murky.admin.flex.utils.DataScopeUtils;
+import cn.murky.common.constant.BusTopicConstant;
+import cn.murky.security.entity.SecurityUserInfo;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;

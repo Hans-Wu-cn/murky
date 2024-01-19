@@ -4,7 +4,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.admin.auth.domain.dto.LoginDto;
 import cn.murky.admin.auth.service.IMurkyLoginService;
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.flex.domin.SysUser;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.core.exception.ServiceException;

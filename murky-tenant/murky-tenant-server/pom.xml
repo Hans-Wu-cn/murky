@@ -10,7 +10,7 @@
     </parent>
     <artifactId>murky-tenant-server</artifactId>
     <packaging>jar</packaging>
-    <name>murky-tenant</name>
+    <name>murky-tenant-server</name>
     <dependencies>
         <!--单元测试依赖-->
         <dependency>

@@ -1,12 +1,12 @@
 package cn.murky.admin.auth.controller;
 
 import cn.murky.admin.auth.domain.dto.EditPasswordDTO;
-import cn.murky.admin.security.utils.SecurityUtils;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.murky.common.utils.ApiResult;
 import cn.murky.core.extension.BaseController;
+import cn.murky.security.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;

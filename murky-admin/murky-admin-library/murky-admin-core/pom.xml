@@ -43,12 +43,6 @@
             <artifactId>solon.validation</artifactId>
         </dependency>
 
-        <!-- poem-admin-security 安全公共依赖-->
-        <dependency>
-            <groupId>cn.murky.admin</groupId>
-            <artifactId>murky-admin-security</artifactId>
-        </dependency>
-
         <!--mybatis-flex 依赖-->
         <dependency>
             <groupId>cn.murky.admin</groupId>
@@ -79,6 +73,12 @@
         <dependency>
             <groupId>cn.murky</groupId>
             <artifactId>murky-core</artifactId>
+        </dependency>
+
+        <!-- security -->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-security</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
 package cn.murky.admin.flex;
 
-import cn.murky.admin.common.constant.BusTopicConstant;
 import cn.murky.admin.common.entity.BaseEntity;
+import cn.murky.common.constant.BusTopicConstant;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
 import com.mybatisflex.core.dialect.KeywordWrap;

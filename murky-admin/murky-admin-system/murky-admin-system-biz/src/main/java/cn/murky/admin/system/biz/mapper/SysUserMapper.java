@@ -2,12 +2,12 @@ package cn.murky.admin.system.biz.mapper;
 
 import cn.murky.admin.flex.domin.SysUser;
 import cn.murky.admin.flex.domin.table.SysUserTableDef;
-import cn.murky.admin.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
 import cn.murky.admin.system.biz.domain.entity.table.SysDeptTableDef;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
 import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.flex.utils.DataScopeUtils;
+import cn.murky.security.utils.SecurityUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;

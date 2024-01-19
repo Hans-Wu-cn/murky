@@ -9,7 +9,7 @@ import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import cn.murky.admin.system.biz.service.ISysUserService;
 import cn.murky.admin.flex.domin.SysDeptAncestors;
 import cn.murky.admin.flex.domin.SysUser;
-import cn.murky.admin.security.utils.SecurityUtils;
+import cn.murky.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
 import cn.murky.admin.system.biz.domain.entity.SysUserRole;
 import cn.murky.admin.system.biz.mapper.SysDeptAncestorsMapper;

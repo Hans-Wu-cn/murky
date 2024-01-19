@@ -1,4 +1,4 @@
-package cn.murky.admin.common.constant;
+package cn.murky.common.constant;
 
 public class BusTopicConstant {
 

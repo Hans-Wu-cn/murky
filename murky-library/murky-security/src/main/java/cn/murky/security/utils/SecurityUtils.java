@@ -1,9 +1,9 @@
-package cn.murky.admin.security.utils;
+package cn.murky.security.utils;
 
 
 import cn.dev33.satoken.exception.NotLoginException;
-import cn.murky.admin.common.entity.SecurityUserInfo;
-import cn.murky.admin.security.SecurityCache;
+import cn.murky.security.SecurityCache;
+import cn.murky.security.entity.SecurityUserInfo;
 import org.noear.solon.Solon;
 
 

@@ -1,9 +1,9 @@
-package cn.murky.admin.security;
+package cn.murky.security;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.murky.admin.common.constant.BusTopicConstant;
-import cn.murky.admin.common.entity.SecurityUserInfo;
+import cn.murky.common.constant.BusTopicConstant;
+import cn.murky.security.entity.SecurityUserInfo;
 import org.noear.dami.Dami;
 import org.noear.redisx.RedisClient;
 import org.noear.snack.ONode;
@@ -12,7 +12,6 @@ import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * 该系统的安全工具扩展
@@ -107,7 +106,7 @@ public class SecurityCache  {
         });
 
         //挂载获取用户详情事件
-        Dami.<String, SecurityUserInfo>bus().listen(BusTopicConstant.USER_INFO_TOPIC,payload -> {
+        Dami.<String, SecurityUserInfo>bus().listen(BusTopicConstant.USER_INFO_TOPIC, payload -> {
             if (payload.isRequest()) {
                 payload.reply(this.getUserInfo()); // sendAndResponse 只接收第一个
             }

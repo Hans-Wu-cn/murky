@@ -1,7 +1,7 @@
-package cn.murky.admin.security;
+package cn.murky.security;
 
 import cn.dev33.satoken.stp.StpInterface;
-import cn.murky.admin.security.utils.SecurityUtils;
+import cn.murky.security.utils.SecurityUtils;
 import org.noear.solon.annotation.Component;
 
 import java.util.List;

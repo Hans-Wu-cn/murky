@@ -16,6 +16,7 @@
         <module>murky-common</module>
         <module>murky-core</module>
         <module>murky-flex</module>
+        <module>murky-security</module>
     </modules>
 
 
@@ -34,6 +35,11 @@
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -4,15 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.murky.admin</groupId>
-        <artifactId>murky-admin-library</artifactId>
+        <groupId>cn.murky</groupId>
+        <artifactId>murky-library</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>murky-admin-security</artifactId>
-
-    <properties>
-    </properties>
+    <artifactId>murky-security</artifactId>
 
     <dependencies>
         <!--sa-token-->
@@ -20,20 +17,19 @@
             <groupId>org.noear</groupId>
             <artifactId>sa-token-solon-plugin</artifactId>
         </dependency>
-        <!--poem-common-->
-        <dependency>
-            <groupId>cn.murky.admin</groupId>
-            <artifactId>murky-admin-common</artifactId>
-        </dependency>
         <!--redisx 依赖-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>redisx</artifactId>
-            <version>${redisx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>dami-solon-plugin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-common</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
