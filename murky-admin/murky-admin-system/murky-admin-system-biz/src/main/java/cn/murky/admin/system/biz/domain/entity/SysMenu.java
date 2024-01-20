@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.entity;
 
-import cn.murky.admin.common.entity.BaseEntity;
+import cn.murky.common.entity.BaseEntity;
 import cn.murky.admin.system.biz.enums.MenuCacheType;
 import cn.murky.admin.system.biz.enums.MenuDisplayType;
 import cn.murky.admin.system.biz.enums.MenuOpenType;

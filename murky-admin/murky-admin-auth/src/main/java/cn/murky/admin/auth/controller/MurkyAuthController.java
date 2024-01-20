@@ -8,7 +8,7 @@ import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.system.api.SysMenuApi;
 import cn.murky.admin.system.api.domian.SysMenuTree;
 import cn.murky.admin.system.api.enums.MenuType;
-import cn.murky.common.utils.ApiResult;
+import cn.murky.core.web.ApiResult;
 import cn.murky.security.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

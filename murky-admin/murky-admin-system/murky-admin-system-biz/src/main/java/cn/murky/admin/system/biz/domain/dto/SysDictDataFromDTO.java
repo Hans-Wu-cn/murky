@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.core.enums.CommonStatus;
+import cn.murky.admin.common.enums.CommonStatus;
 import cn.murky.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

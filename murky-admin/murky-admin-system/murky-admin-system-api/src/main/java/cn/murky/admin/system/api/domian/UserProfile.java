@@ -1,10 +1,10 @@
 package cn.murky.admin.system.api.domian;
 
-import cn.murky.admin.flex.enums.Sex;
+import cn.murky.admin.system.api.enums.Sex;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -41,5 +41,5 @@ public class UserProfile {
     /**
      * 创建日期
      */
-    private LocalDateTime createTime;
+    private OffsetDateTime createTime;
 }

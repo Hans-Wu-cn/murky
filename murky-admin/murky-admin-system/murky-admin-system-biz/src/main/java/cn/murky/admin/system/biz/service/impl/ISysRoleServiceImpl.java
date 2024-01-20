@@ -1,11 +1,11 @@
 package cn.murky.admin.system.biz.service.impl;
 
 import cn.murky.common.enums.DataScope;
-import cn.murky.admin.flex.MurkyServiceImpl;
+import cn.murky.admin.core.MurkyServiceImpl;
 import cn.murky.admin.system.biz.domain.dto.SysRoleFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysRoleVo;
 import cn.murky.admin.system.biz.service.ISysRoleService;
-import cn.murky.admin.flex.domin.SysRoleDept;
+import cn.murky.admin.system.biz.domain.entity.SysRoleDept;
 import cn.murky.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.convert.SysRoleConvert;
 import cn.murky.admin.system.biz.domain.entity.SysMenu;

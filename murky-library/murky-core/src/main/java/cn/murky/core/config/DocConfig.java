@@ -3,7 +3,7 @@ package cn.murky.core.config;
 
 
 import cn.murky.common.enums.ApiResultEnum;
-import cn.murky.common.utils.ApiResult;
+import cn.murky.core.web.ApiResult;
 import io.swagger.models.Scheme;
 import org.noear.solon.annotation.*;
 import org.noear.solon.core.handle.Context;

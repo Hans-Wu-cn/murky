@@ -1,7 +1,7 @@
 package cn.murky.admin.system.biz.domain.entity;
 
-import cn.murky.admin.common.entity.BaseEntity;
-import cn.murky.admin.core.enums.CommonStatus;
+import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.entity.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

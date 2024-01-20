@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.service;
 
-import cn.murky.admin.flex.domin.SysUser;
+import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;

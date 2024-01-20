@@ -96,20 +96,20 @@ public class SecurityCache  {
      */
     @Init
     public void init(){
-//        String s = Solon.cfg().get("sa-token.timeout");
-//        expire = Integer.parseInt(s);
-        //挂载获取用户i事件
-        Dami.<String, Long>bus().listen(BusTopicConstant.USER_ID_TOPIC, payload -> {
-            if (payload.isRequest()) {
-                payload.reply(this.getUserId()); // sendAndResponse 只接收第一个
-            }
-        });
-
-        //挂载获取用户详情事件
-        Dami.<String, SecurityUserInfo>bus().listen(BusTopicConstant.USER_INFO_TOPIC, payload -> {
-            if (payload.isRequest()) {
-                payload.reply(this.getUserInfo()); // sendAndResponse 只接收第一个
-            }
-        });
+////        String s = Solon.cfg().get("sa-token.timeout");
+////        expire = Integer.parseInt(s);
+//        //挂载获取用户i事件
+//        Dami.<String, Long>bus().listen(BusTopicConstant.USER_ID_TOPIC, payload -> {
+//            if (payload.isRequest()) {
+//                payload.reply(this.getUserId()); // sendAndResponse 只接收第一个
+//            }
+//        });
+//
+//        //挂载获取用户详情事件
+//        Dami.<String, SecurityUserInfo>bus().listen(BusTopicConstant.USER_INFO_TOPIC, payload -> {
+//            if (payload.isRequest()) {
+//                payload.reply(this.getUserInfo()); // sendAndResponse 只接收第一个
+//            }
+//        });
     }
 }

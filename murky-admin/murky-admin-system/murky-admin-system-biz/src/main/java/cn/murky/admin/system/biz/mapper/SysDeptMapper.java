@@ -2,7 +2,7 @@ package cn.murky.admin.system.biz.mapper;
 
 import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.system.biz.domain.entity.SysDept;
-import cn.murky.admin.flex.utils.DataScopeUtils;
+import cn.murky.admin.core.utils.DataScopeUtils;
 import cn.murky.admin.system.biz.domain.entity.table.SysDeptTableDef;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;

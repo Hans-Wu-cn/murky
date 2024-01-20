@@ -1,7 +1,7 @@
 package cn.murky.admin.system.biz.mapper;
 
-import cn.murky.admin.flex.domin.SysDeptAncestors;
-import cn.murky.admin.flex.domin.table.SysDeptAncestorsTableDef;
+import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
+import cn.murky.admin.system.biz.domain.entity.table.SysDeptAncestorsTableDef;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;

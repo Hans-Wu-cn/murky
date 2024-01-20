@@ -1,6 +1,7 @@
 package cn.murky.admin.system.biz.domain.convert;
 
-import cn.murky.admin.flex.domin.SysUser;
+import cn.murky.admin.system.api.domian.bo.SysUserBO;
+import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import org.mapstruct.Mapper;
@@ -30,5 +31,7 @@ public interface SysUserConvert {
      * 将SysUser转为SysUserVo
      */
     @Mapping(target = "fkRoleIds", ignore = true)
-    SysUserVo toVo(SysUser sysUser);
+    SysUserVo toVO(SysUser sysUser);
+
+    SysUserBO toBO(SysUser sysUser);
 }

@@ -1,13 +1,11 @@
 package cn.murky.admin.tenant.domain.vo;
 
-import cn.murky.admin.core.enums.CommonStatus;
+import cn.murky.admin.common.enums.CommonStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 
 /**
  * 租户视图类

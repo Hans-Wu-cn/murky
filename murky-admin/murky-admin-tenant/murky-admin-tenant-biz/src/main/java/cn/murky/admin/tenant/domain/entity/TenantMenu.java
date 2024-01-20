@@ -1,6 +1,6 @@
 package cn.murky.admin.tenant.domain.entity;
 
-import cn.murky.admin.common.entity.BaseEntity;
+import cn.murky.common.entity.BaseEntity;
 import cn.murky.admin.tenant.enums.*;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

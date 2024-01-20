@@ -1,9 +1,9 @@
-package cn.murky.admin.core.filter;
+package cn.murky.core.filter;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.murky.common.enums.ApiResultEnum;
-import cn.murky.common.utils.ApiResult;
+import cn.murky.core.web.ApiResult;
 import cn.murky.core.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.dami.exception.DamiException;
@@ -37,13 +37,12 @@ public class ExceptionFilter implements Filter {
             ctx.render(ApiResult.fail(ApiResultEnum.NOT_PREMISSION));
         }catch (ServiceException ex){
             // 业务异常处理
-            ctx.render(ApiResult.fail(ex.CODE,ex.getMessage()));
+            ctx.render(ApiResult.fail(ex.getCode(),ex.getMessage()));
         }catch (ValidatorException ex){
             // 表单验证异常处理
             log.error("表单验证异常:{}",ex.getMessage());
             ctx.render(ApiResult.fail(ex.getCode(), "参数错误"));
-        }
-        catch (RuntimeException ex){
+        }catch (RuntimeException ex){
             // 其他异常
             ex.printStackTrace();
             ctx.render(ApiResult.fail(500,ex.getMessage()));

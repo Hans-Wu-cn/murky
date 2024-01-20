@@ -1,6 +1,7 @@
-package cn.murky.common.utils;
+package cn.murky.core.web;
 
 import cn.murky.common.enums.ApiResultEnum;
+import cn.murky.core.exception.ServiceException;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -33,7 +34,9 @@ public class ApiResult<T> implements Serializable {
     public static <T> ApiResult<T> fail(int code, String msg) {
         return restResult(code, msg, null);
     }
-
+    public static <T> ApiResult<T> fail(ServiceException ex) {
+        return restResult(ex.getCode(), ex.getMessage(), null);
+    }
     public static <T> ApiResult<T> fail(ApiResultEnum apiResult, String msg) {
         return restResult(apiResult, msg);
     }

@@ -37,13 +37,22 @@
         <dependencies>
             <dependency>
                 <groupId>cn.murky</groupId>
+                <artifactId>murky-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
                 <artifactId>murky-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>cn.murky</groupId>
                 <artifactId>murky-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-flex</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -57,11 +66,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>snack3</artifactId>
-            <version>3.2.88</version>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

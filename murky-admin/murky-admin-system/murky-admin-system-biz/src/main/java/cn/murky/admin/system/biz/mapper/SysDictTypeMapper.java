@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.mapper;
 
-import cn.murky.admin.core.enums.CommonStatus;
+import cn.murky.admin.common.enums.CommonStatus;
 import cn.murky.admin.system.biz.domain.bo.SysDictBo;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import cn.murky.admin.system.biz.domain.entity.table.SysDictDataTableDef;

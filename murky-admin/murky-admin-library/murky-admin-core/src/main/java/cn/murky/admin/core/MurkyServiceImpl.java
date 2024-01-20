@@ -1,15 +1,14 @@
-package cn.murky.admin.flex;
+package cn.murky.admin.core;
 
 
-import cn.murky.admin.flex.utils.DataScopeUtils;
-import cn.murky.common.constant.BusTopicConstant;
+import cn.murky.admin.core.utils.DataScopeUtils;
 import cn.murky.security.entity.SecurityUserInfo;
+import cn.murky.security.utils.SecurityUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
-import org.noear.dami.Dami;
 import org.noear.solon.core.bean.InitializingBean;
 import java.util.List;
 
@@ -39,13 +38,7 @@ public abstract class MurkyServiceImpl<M extends BaseMapper<T>, T> extends Servi
     }
 
     public Page<T> page(Page<T> page, QueryWrapper query) {
-        QueryWrapper queryWrapper = dataScope(query, getUserInfo());
+        QueryWrapper queryWrapper = dataScope(query, SecurityUtils.getUserInfo());
         return super.page(page,queryWrapper);
     }
-
-    private SecurityUserInfo getUserInfo(){
-        return Dami.<String, SecurityUserInfo>bus().sendAndRequest(BusTopicConstant.USER_INFO_TOPIC,null);
-    }
-
-
 }

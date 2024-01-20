@@ -1,4 +1,4 @@
-package cn.murky.admin.flex.domin;
+package cn.murky.admin.system.biz.domain.entity;
 
 import com.mybatisflex.annotation.Table;
 import lombok.Data;

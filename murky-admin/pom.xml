@@ -21,22 +21,12 @@
         <module>murky-admin-system</module>
     </modules>
 
-    <properties>
-        <dami.version>0.54</dami.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <!--murky-admin-core 核心模块-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!--murky-admin-flex mybatis-flex配置模块-->
-            <dependency>
-                <groupId>cn.murky.admin</groupId>
-                <artifactId>murky-admin-flex</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--murky-admin-common 公共配置模块-->
@@ -62,12 +52,6 @@
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-auth</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-            <!--dami 依赖-->
-            <dependency>
-                <groupId>org.noear</groupId>
-                <artifactId>dami-solon-plugin</artifactId>
-                <version>${dami.version}</version>
             </dependency>
             <!--saas管理模块 依赖-->
             <dependency>

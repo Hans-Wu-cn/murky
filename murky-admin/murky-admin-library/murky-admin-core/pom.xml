@@ -43,12 +43,6 @@
             <artifactId>solon.validation</artifactId>
         </dependency>
 
-        <!--mybatis-flex 依赖-->
-        <dependency>
-            <groupId>cn.murky.admin</groupId>
-            <artifactId>murky-admin-flex</artifactId>
-        </dependency>
-
         <!--redisx 依赖-->
         <dependency>
             <groupId>org.noear</groupId>
@@ -65,8 +59,8 @@
 
         <!-- 公共包 -->
         <dependency>
-            <groupId>cn.murky</groupId>
-            <artifactId>murky-common</artifactId>
+            <groupId>cn.murky.admin</groupId>
+            <artifactId>murky-admin-common</artifactId>
         </dependency>
 
         <!-- core -->
@@ -81,5 +75,42 @@
             <artifactId>murky-security</artifactId>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.mybatis-flex</groupId>
+                            <artifactId>mybatis-flex-processor</artifactId>
+                            <version>${mybatis-flex.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

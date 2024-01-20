@@ -1,8 +1,8 @@
 package cn.murky.admin.system.api;
 
 
+import cn.murky.admin.system.api.domian.bo.SysUserBO;
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.admin.flex.domin.SysUser;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
 
@@ -15,7 +15,7 @@ public interface SysUserApi {
      * @param account
      * @return
      */
-    SysUser getOneByAccount(String account);
+    SysUserBO getOneByAccount(String account);
 
     /**
      * 获取用户详情

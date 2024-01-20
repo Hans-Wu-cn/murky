@@ -70,6 +70,17 @@
             <artifactId>solon-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>sa-token-solon-plugin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>dami-solon-plugin</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

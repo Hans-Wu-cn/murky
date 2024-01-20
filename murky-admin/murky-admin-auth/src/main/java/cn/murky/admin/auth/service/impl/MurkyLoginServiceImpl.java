@@ -4,8 +4,8 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.admin.auth.domain.dto.LoginDto;
 import cn.murky.admin.auth.service.IMurkyLoginService;
+import cn.murky.admin.system.api.domian.bo.SysUserBO;
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.admin.flex.domin.SysUser;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.core.exception.ServiceException;
 import cn.murky.core.record.PasswordRecord;
@@ -23,7 +23,7 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
 
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
-        SysUser user = sysUserApi.getOneByAccount(loginDto.getAccount());
+        SysUserBO user = sysUserApi.getOneByAccount(loginDto.getAccount());
         //如果为空抛出异常
         Optional.ofNullable(user).orElseThrow(() -> new ServiceException("账号或密码错误"));
         String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(user.getSalt(), loginDto.getPassword()));

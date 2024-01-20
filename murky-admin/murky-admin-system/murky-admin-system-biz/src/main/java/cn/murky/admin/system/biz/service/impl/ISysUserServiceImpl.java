@@ -1,14 +1,14 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.flex.MurkyServiceImpl;
+import cn.murky.admin.core.MurkyServiceImpl;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
+import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
 import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import cn.murky.admin.system.biz.service.ISysUserService;
-import cn.murky.admin.flex.domin.SysDeptAncestors;
-import cn.murky.admin.flex.domin.SysUser;
+import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
 import cn.murky.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
 import cn.murky.admin.system.biz.domain.entity.SysUserRole;
@@ -55,7 +55,7 @@ public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser
     @Override
     public SysUserVo info(Long userId) {
         SysUser sysUser = mapper.selectOneById(userId);
-        SysUserVo vo = SysUserConvert.INSTANCES.toVo(sysUser);
+        SysUserVo vo = SysUserConvert.INSTANCES.toVO(sysUser);
         List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
                 .stream().map(SysUserRole::getFkRoleId).toList();
         vo.setFkRoleIds(roleIds);

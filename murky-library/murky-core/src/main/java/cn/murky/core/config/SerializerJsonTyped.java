@@ -1,4 +1,4 @@
-package cn.murky.common.config;
+package cn.murky.core.config;
 
 import org.noear.redisx.Serializer;
 import org.noear.snack.ONode;

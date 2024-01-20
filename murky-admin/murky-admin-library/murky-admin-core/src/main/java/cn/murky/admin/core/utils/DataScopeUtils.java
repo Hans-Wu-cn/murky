@@ -1,8 +1,9 @@
-package cn.murky.admin.flex.utils;
+package cn.murky.admin.core.utils;
 
 import cn.murky.common.constant.BusTopicConstant;
 import cn.murky.common.enums.DataScope;
 import cn.murky.security.entity.SecurityUserInfo;
+import cn.murky.security.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,29 +26,30 @@ public class DataScopeUtils {
 
     /**
      * 数据权限方法，将query绑定数据权限sql
-     * @param query query
+     *
+     * @param query    query
      * @param userInfo 用户信息
      */
-    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo, String deptIdFrom){
-        if(userInfo.getAdmin()){
+    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo, String deptIdFrom) {
+        if (userInfo.getAdmin()) {
             return;
         }
         Set<DataScope> dataScopes = Optional.ofNullable(userInfo.getDataScope()).orElseGet(HashSet::new);
-        if(Utils.isNotEmpty(deptIdFrom)){
-            deptIdFrom=STR."""
+        if (Utils.isNotEmpty(deptIdFrom)) {
+            deptIdFrom = STR."""
                      "\{deptIdFrom}".""";
-        }else{
-            deptIdFrom="";
+        } else {
+            deptIdFrom = "";
         }
-        StringBuilder sql=new StringBuilder();
-        int count=dataScopes.size();
+        StringBuilder sql = new StringBuilder();
+        int count = dataScopes.size();
         for (DataScope dataScope : dataScopes) {
             if (DataScope.ALL.equals(dataScope)) {
                 break;
             }
             if (DataScope.CUSTOMIZE.equals(dataScope)) {
                 sql.append(STR."""
-                          (\{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{StringUtil.join(",",userInfo.getRoleIds().stream().map(Object::toString).toList())})))""");
+                          (\{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{StringUtil.join(",", userInfo.getRoleIds().stream().map(Object::toString).toList())})))""");
             }
             if (DataScope.DEPARTMENT_BELOW.equals(dataScope)) {
                 sql.append(STR."""
@@ -67,35 +69,33 @@ public class DataScopeUtils {
             }
 
             count--;
-            if(count>0){
+            if (count > 0) {
                 sql.append(" or ");
             }
-            if(sql.isEmpty()){
+            if (sql.isEmpty()) {
                 continue;
             }
         }
-        query.and("("+sql+")");
-        log.debug("sql=================="+query.toSQL());
+        query.and("(" + sql + ")");
+        log.debug("sql==================" + query.toSQL());
     }
 
-    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo){
-        dataScope(query,userInfo,null);
+    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo) {
+        dataScope(query, userInfo, null);
     }
-    public static QueryWrapper dataScope(QueryWrapper query){
-        dataScope(query,getUserInfo());
+
+    public static QueryWrapper dataScope(QueryWrapper query) {
+        dataScope(query, SecurityUtils.getUserInfo());
         return query;
     }
 
-    public static QueryWrapper dataScope(QueryWrapper query,String deptIdFrom){
-        dataScope(query,getUserInfo(),deptIdFrom);
+    public static QueryWrapper dataScope(QueryWrapper query, String deptIdFrom) {
+        dataScope(query, SecurityUtils.getUserInfo(), deptIdFrom);
         return query;
     }
 
 
-    private static SecurityUserInfo getUserInfo(){
-        return Dami.<String, SecurityUserInfo>bus().sendAndRequest(BusTopicConstant.USER_INFO_TOPIC,null);
+    private DataScopeUtils() {
     }
-
-    private DataScopeUtils(){}
 
 }

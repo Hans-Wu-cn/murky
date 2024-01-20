@@ -1,7 +1,7 @@
 package cn.murky.admin.tenant.domain.entity;
 
-import cn.murky.admin.common.entity.BaseEntity;
-import cn.murky.admin.core.enums.CommonStatus;
+import cn.murky.common.entity.BaseEntity;
+import cn.murky.admin.common.enums.CommonStatus;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
@@ -9,9 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 
 /***
  * 租户信息表

@@ -1,6 +1,5 @@
-package cn.murky.core.extension;
+package cn.murky.core.web;
 
-import cn.murky.common.utils.ApiResult;
 import com.mybatisflex.core.service.IService;
 import org.noear.solon.annotation.Inject;
 

@@ -1,7 +1,7 @@
 package cn.murky.admin.system.api.domian.dto;
 
 
-import cn.murky.admin.flex.enums.Sex;
+import cn.murky.admin.system.api.enums.Sex;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.NotEmpty;

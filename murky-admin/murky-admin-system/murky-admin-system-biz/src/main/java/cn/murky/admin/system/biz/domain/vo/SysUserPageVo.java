@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.vo;
 
-import cn.murky.admin.flex.enums.Sex;
+import cn.murky.admin.system.api.enums.Sex;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

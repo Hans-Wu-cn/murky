@@ -2,14 +2,15 @@ package cn.murky.admin.system.biz.api;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.murky.admin.system.api.domian.bo.SysUserBO;
+import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
+import cn.murky.admin.system.biz.domain.entity.table.SysUserTableDef;
 import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.common.enums.DataScope;
-import cn.murky.admin.flex.domin.table.SysUserTableDef;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.entity.*;
-import cn.murky.admin.flex.domin.SysDeptAncestors;
-import cn.murky.admin.flex.domin.SysUser;
+import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.murky.admin.system.api.enums.MenuType;
@@ -64,10 +65,10 @@ public class SysUserApiImpl implements SysUserApi {
      * @return 用户
      */
     @Override
-    public SysUser getOneByAccount(String account) {
-        return iSysUserService.getOne(QueryWrapper.create().where(
+    public SysUserBO getOneByAccount(String account) {
+        return SysUserConvert.INSTANCES.toBO(iSysUserService.getOne(QueryWrapper.create().where(
                 SysUserTableDef.SYS_USER.ACCOUNT.eq(account)
-        ));
+        )));
     }
 
     /**

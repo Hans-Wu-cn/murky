@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class SysDeptTreeVO {
     private Integer sort;
 
     @ApiModelProperty("创建事件")
-    private LocalDateTime createTime;
+    private OffsetDateTime createTime;
 
     @ApiModelProperty("子部门")
     private List<SysDeptTreeVO> children;

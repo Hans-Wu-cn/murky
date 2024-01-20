@@ -1,7 +1,7 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.flex.domin.SysUser;
-import cn.murky.admin.flex.enums.Sex;
+import cn.murky.admin.system.biz.domain.entity.SysUser;
+import cn.murky.admin.system.api.enums.Sex;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

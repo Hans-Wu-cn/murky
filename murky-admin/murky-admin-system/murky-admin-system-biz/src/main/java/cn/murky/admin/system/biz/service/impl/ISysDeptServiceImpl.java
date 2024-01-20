@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.flex.domin.SysDeptAncestors;
+import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
 import cn.murky.security.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysDeptFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysDeptTreeVO;

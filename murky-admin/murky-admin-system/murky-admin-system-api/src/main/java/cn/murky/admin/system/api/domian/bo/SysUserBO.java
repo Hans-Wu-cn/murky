@@ -1,21 +1,14 @@
-package cn.murky.admin.flex.domin;
+package cn.murky.admin.system.api.domian.bo;
 
-import cn.murky.admin.common.entity.BaseEntity;
-import cn.murky.admin.flex.enums.Sex;
+import cn.murky.admin.system.api.enums.Sex;
+import cn.murky.common.entity.BaseObj;
 import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * 用户实体类
- *
- * @author hans
- */
 @Data
 @Accessors(chain = true)
-@Table("sys_user")
-public class SysUser extends BaseEntity<SysUser> {
+public class SysUserBO extends BaseObj {
 
     /**
      * 用户id
@@ -62,5 +55,4 @@ public class SysUser extends BaseEntity<SysUser> {
      * 密码加密盐值
      */
     private String salt;
-
 }
