@@ -30,7 +30,6 @@ import java.util.List;
 @Valid
 @Mapping("menu")
 @Api("菜单管理")
-
 public class SysMenuController extends BaseController<ISysMenuService> {
 
     @ApiOperation("获取用户菜单")
