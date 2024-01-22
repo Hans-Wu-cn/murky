@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * @author hans
  */
 @Component
-public class ISysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
     @Inject
     private SysUserRoleMapper sysUserRoleMapper;
 

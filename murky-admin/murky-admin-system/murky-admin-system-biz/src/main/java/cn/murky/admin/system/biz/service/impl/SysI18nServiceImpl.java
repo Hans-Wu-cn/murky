@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * @author hans
  */
 @Component
-public class ISysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> implements ISys18nService {
+public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> implements ISys18nService {
     @Inject
     private ISysDictDataService iSysDictDataService;
     @Inject

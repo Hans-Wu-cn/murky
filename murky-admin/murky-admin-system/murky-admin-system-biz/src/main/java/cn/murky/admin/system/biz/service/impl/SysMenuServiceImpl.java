@@ -28,12 +28,12 @@ import java.util.List;
  * @author hans
  */
 @Component
-public class ISysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
+public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
     @Inject
     private SysRoleMenuMapper sysRoleMenuMapper;
     @Inject
-    private ISysMenuServiceImpl iSysMenuService;
+    private SysMenuServiceImpl iSysMenuService;
 
     /**
      * 菜单排序接口,设置菜单排序并统一设定父级菜单

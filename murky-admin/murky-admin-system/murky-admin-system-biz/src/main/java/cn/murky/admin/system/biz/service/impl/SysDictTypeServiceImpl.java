@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class ISysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
+public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
 
     @Inject
     private RedisClient redisClient;

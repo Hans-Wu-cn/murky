@@ -32,7 +32,7 @@ import java.util.Optional;
  * @author hans
  */
 @Component
-public class ISysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
+public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
     @Inject
     private SysRoleMenuMapper sysRoleMenuMapper;

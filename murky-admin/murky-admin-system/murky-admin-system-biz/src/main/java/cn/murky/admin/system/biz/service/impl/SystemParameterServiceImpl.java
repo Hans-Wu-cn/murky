@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class ISystemParameterServiceImpl extends ServiceImpl<SystemParameterMapper, SystemParameter> implements ISystemParameterService {
+public class SystemParameterServiceImpl extends ServiceImpl<SystemParameterMapper, SystemParameter> implements ISystemParameterService {
 
     @Inject
     private RedisClient redisClient;

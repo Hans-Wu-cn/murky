@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ISysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
+public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
 
     @Inject
     private SysDeptAncestorsMapper SysDeptAncestorsMapper;

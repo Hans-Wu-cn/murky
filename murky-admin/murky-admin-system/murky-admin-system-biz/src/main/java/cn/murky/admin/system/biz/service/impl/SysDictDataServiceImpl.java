@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @Author hans
  */
 @Component
-public class ISysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
+public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
     @Inject
     private RedisClient redisClient;
 
