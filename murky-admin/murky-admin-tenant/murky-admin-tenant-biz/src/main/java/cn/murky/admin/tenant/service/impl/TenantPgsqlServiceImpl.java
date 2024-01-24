@@ -26,7 +26,6 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
         createRoleTable(schemaName);
         createRoleMenuTable(schemaName);
         createUserTable(schemaName);
-        createUserRoleTable(schemaName);
         createRoleDeptTable(schemaName);
     }
 
@@ -90,6 +89,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	create_user int8 NULL,
                 	update_user int8 NULL,
                 	id int8 NOT NULL,
+                	fk_role_id int8 NOT NULL,
                 	user_name varchar NOT NULL,
                 	account varchar NOT NULL,
                 	"password" varchar NOT NULL,
@@ -99,22 +99,6 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	"language" varchar NULL,
                 	salt varchar NULL,
                 	CONSTRAINT tenant_user_pk PRIMARY KEY (id)
-                );
-                """ );
-    }
-
-    /**
-     * 创建租户用户角色关系表
-     *
-     * @param schemaName 模式名称
-     */
-    public void createUserRoleTable(String schemaName) {
-        // 创建租户角色权限关系表
-        Db.updateBySql(STR. """
-                CREATE TABLE \{ schemaName }.tenant_user_role (
-                	fk_user_id int8 NOT NULL,
-                	fk_role_id int8 NOT NULL,
-                	CONSTRAINT tenant_user_role_pk PRIMARY KEY (fk_user_id, fk_role_id)
                 );
                 """ );
     }

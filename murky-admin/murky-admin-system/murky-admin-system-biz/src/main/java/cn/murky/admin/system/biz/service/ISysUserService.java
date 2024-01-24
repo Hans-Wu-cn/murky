@@ -5,7 +5,6 @@ import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
-import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.service.IService;
 
@@ -18,10 +17,11 @@ public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 根据用户id查询用户详细信息，包含角色信息
+     *
      * @param userId 用户id
      * @return 用户视图对象
      */
-    SysUserVo info(Long userId);
+    SysUser info(Long userId);
 
     /**
      * 添加用户并绑定对应的角色关系

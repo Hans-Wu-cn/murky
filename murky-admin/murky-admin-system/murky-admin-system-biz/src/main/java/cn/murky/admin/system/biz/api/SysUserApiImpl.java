@@ -17,7 +17,6 @@ import cn.murky.admin.system.api.enums.MenuType;
 import cn.murky.admin.system.biz.mapper.SysDeptAncestorsMapper;
 import cn.murky.admin.system.biz.mapper.SysMenuMapper;
 import cn.murky.admin.system.biz.mapper.SysRoleMapper;
-import cn.murky.admin.system.biz.mapper.SysUserRoleMapper;
 import cn.murky.admin.system.biz.service.ISysDeptService;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
 import cn.murky.admin.system.biz.service.ISysUserService;
@@ -44,8 +43,6 @@ public class SysUserApiImpl implements SysUserApi {
 
     @Inject
     private ISysUserService iSysUserService;
-    @Inject
-    private SysUserRoleMapper sysUserRoleMapper;
     @Inject
     private SysRoleMapper sysRoleMapper;
     @Inject
@@ -111,9 +108,7 @@ public class SysUserApiImpl implements SysUserApi {
     @Override
     public UserProfile getProfile(Long userId) {
         SysUser sysUser = iSysUserService.getById(userId);
-        List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
-                .stream().map(SysUserRole::getFkRoleId).toList();
-        List<String> roleNameList = sysRoleMapper.selectListByIds(roleIds).stream().map(SysRole::getRoleName).toList();
+        SysRole sysRole = sysRoleMapper.selectOneById(sysUser.getFkRoleId());
         List<Long> deptIds = new java.util.ArrayList<>(sysDeptAncestorsMapper.getListByDeptId(sysUser.getFkDeptId()).stream().map(SysDeptAncestors::getAncestors).toList());
         deptIds.add(sysUser.getFkDeptId());
         List<String> deptNameList = iSysDeptService.listByIds(deptIds).stream().map(SysDept::getDeptName).toList();
@@ -122,7 +117,7 @@ public class SysUserApiImpl implements SysUserApi {
                 .setSex(sysUser.getSex())
                 .setEmail(sysUser.getEmail())
                 .setCreateTime(sysUser.getCreateTime())
-                .setRoleNameList(roleNameList)
+                .setRoleName(sysRole.getRoleName())
                 .setDeptNameList(deptNameList)
                 ;
     }

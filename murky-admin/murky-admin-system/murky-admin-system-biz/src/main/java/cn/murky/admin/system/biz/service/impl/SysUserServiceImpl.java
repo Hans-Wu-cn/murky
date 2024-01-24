@@ -6,15 +6,11 @@ import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
 import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
-import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import cn.murky.admin.system.biz.service.ISysUserService;
 import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
 import cn.murky.security.utils.SecurityUtils;
-import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
-import cn.murky.admin.system.biz.domain.entity.SysUserRole;
 import cn.murky.admin.system.biz.mapper.SysDeptAncestorsMapper;
 import cn.murky.admin.system.biz.mapper.SysUserMapper;
-import cn.murky.admin.system.biz.mapper.SysUserRoleMapper;
 import cn.murky.admin.system.biz.service.ISystemParameterService;
 import cn.murky.core.exception.ServiceException;
 import cn.murky.core.record.PasswordRecord;
@@ -25,8 +21,6 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,9 +31,6 @@ import java.util.stream.Collectors;
  */
 @Component
 public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
-    @Inject
-    private SysUserRoleMapper sysUserRoleMapper;
-
     @Inject
     private SysDeptAncestorsMapper sysDeptAncestorsMapper;
 
@@ -53,13 +44,8 @@ public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser>
      * @return 用户视图对象
      */
     @Override
-    public SysUserVo info(Long userId) {
-        SysUser sysUser = mapper.selectOneById(userId);
-        SysUserVo vo = SysUserConvert.INSTANCES.toVO(sysUser);
-        List<Long> roleIds = sysUserRoleMapper.selectByUserId(userId)
-                .stream().map(SysUserRole::getFkRoleId).toList();
-        vo.setFkRoleIds(roleIds);
-        return vo;
+    public SysUser info(Long userId) {
+        return mapper.selectOneById(userId);
     }
 
     /**

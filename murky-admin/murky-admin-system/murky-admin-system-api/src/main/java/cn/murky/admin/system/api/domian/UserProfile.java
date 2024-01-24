@@ -31,7 +31,7 @@ public class UserProfile {
     /**
      * 所属角色
      */
-    private List<String> roleNameList;
+    private String roleName;
 
     /**
      * 所属部门

@@ -4,8 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.dto.SysUserFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysUserPageDTO;
+import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
-import cn.murky.admin.system.biz.domain.vo.SysUserVo;
 import cn.murky.admin.system.biz.service.ISysUserService;
 import cn.murky.core.web.ApiResult;
 import cn.murky.core.web.BaseController;
@@ -35,7 +35,7 @@ public class SysUserController extends BaseController<ISysUserService> {
     @Get
     @Mapping("{userId}")
     @SaCheckPermission("user")
-    public ApiResult<SysUserVo> info(Long userId) {
+    public ApiResult<SysUser> info(Long userId) {
         return ApiResult.ok(baseService.info(userId));
     }
 
