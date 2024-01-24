@@ -48,7 +48,7 @@ public class SysUserFromDTO {
     private Long fkDeptId;
 
     @ApiModelProperty("角色id")
-    private List<Long> fkRoleIds;
+    private Long fkRoleId;
 
     public SysUser toEntity(){
         return SysUserConvert.INSTANCES.toEntity(this);

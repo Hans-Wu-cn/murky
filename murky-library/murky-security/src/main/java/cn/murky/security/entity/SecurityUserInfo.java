@@ -55,28 +55,21 @@ public class SecurityUserInfo implements Serializable {
     /**
      * 所属部门的数据权限
      */
-    private Set<DataScope> dataScope;
+    private DataScope dataScope;
 
     /**
      * 角色ID集合
      */
-    private Set<Long> roleIds;
+    private Long fkRoleId;
 
     /**
      * 角色code集合
      */
-    private List<String> roleCodes;
+    private String roleCode;
 
     /**
      * 权限码
      */
     private List<String> permissions;
 
-    public void addDataScope(DataScope dataScope) {
-        if(this.dataScope == null){
-            this.dataScope=new HashSet<>();
-            this.dataScope.add(dataScope);
-        }
-        this.dataScope.add(dataScope);
-    }
 }

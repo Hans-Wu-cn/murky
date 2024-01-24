@@ -15,7 +15,7 @@ import java.util.List;
 import static com.mybatisflex.core.query.QueryMethods.exists;
 
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
-    default List<SysMenu> selectByMenuType(List<MenuType> menuTypes, Collection<Long> roleids) {
+    default List<SysMenu> selectByMenuType(List<MenuType> menuTypes, Long roleId) {
 
         SysRoleMenuTableDef SYS_ROLE_MENU = SysRoleMenuTableDef.SYS_ROLE_MENU;
         SysMenuTableDef SYS_MENU = SysMenuTableDef.SYS_MENU;
@@ -29,9 +29,9 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
                                         (
                                                 QueryWrapper.create().select(SYS_ROLE_MENU.FK_MENU_ID)
                                                         .from(SYS_ROLE_MENU)
-                                                        .where(SYS_ROLE_MENU.FK_ROLE_ID.in(roleids))
+                                                        .where(SYS_ROLE_MENU.FK_ROLE_ID.eq(roleId))
                                                         .and(SYS_MENU.ID.eq(SYS_ROLE_MENU.FK_MENU_ID))
-                                        ).when(Utils.isNotEmpty(roleids))
+                                        ).when(roleId!=null)
                         )
                         .orderBy(SYS_MENU.SORT.asc(), SYS_MENU.LABEL.asc())
         );

@@ -14,7 +14,6 @@ import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
 import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.murky.admin.system.api.enums.MenuType;
-import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.system.biz.mapper.SysDeptAncestorsMapper;
 import cn.murky.admin.system.biz.mapper.SysMenuMapper;
 import cn.murky.admin.system.biz.mapper.SysRoleMapper;
@@ -90,29 +89,19 @@ public class SysUserApiImpl implements SysUserApi {
                     .setUserName(sysUser.getUserName())
                     .setLanguage(sysUser.getLanguage())
                     .setDeptId(sysUser.getFkDeptId())
+                    .setFkRoleId(sysUser.getFkRoleId())
                     .setToken(tokenInfo.getTokenValue());
-            //查询角色id列表
-            Set<Long> roleIds = sysUserRoleMapper.selectByUserId(sysUser.getId())
-                    .stream().map(SysUserRole::getFkRoleId)
-                    .collect(Collectors.toSet());
-            userInfo.setRoleIds(roleIds);
             userInfo.setAdmin(false);
             //查询角色code列表
-            List<SysRole> sysRoleList = sysRoleMapper.selectListByIds(roleIds);
-            List<String> roleCodes = sysRoleList.stream().map(item -> {
-                if (SystemContant.ADMIN_ROLE_CODE.equals(item.getRoleCode())) {
-                    userInfo.setAdmin(true);
-                }
-                return item.getRoleCode();
-            }).collect(Collectors.toList());
-            userInfo.setRoleCodes(roleCodes);
+            SysRole sysRole = sysRoleMapper.selectOneById(sysUser.getFkRoleId());
+            userInfo.setRoleCode(sysRole.getRoleCode());
             //查询数据权限信息
-            Set<DataScope> dataScopes = sysRoleList.stream().map(SysRole::getDataScope).collect(Collectors.toSet());
-            dataScopes.forEach(userInfo::addDataScope);
+            userInfo.setDataScope(sysRole.getDataScope());
             //查询权限列表
             List<String> permissions = SysMenuMapper.selectByMenuType(
                     Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
-                    , userInfo.getAdmin() ? null : roleIds).stream().map(SysMenu::getAuth).collect(Collectors.toList());
+                    , userInfo.getAdmin() ? null : sysRole.getId())
+                    .stream().map(SysMenu::getAuth).toList();
             userInfo.setPermissions(permissions);
             SecurityUtils.setUserInfo(userInfo);
             return userInfo;

@@ -61,7 +61,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      */
     @Override
     public List<SysMenuTree> treeSysMenu(List<MenuType> menuTypes) {
-        List<SysMenu> allSysMenuList = mapper.selectByMenuType(menuTypes, SecurityUtils.isAdmin() ? null : SecurityUtils.getUserInfo().getRoleIds());
+        List<SysMenu> allSysMenuList = mapper.selectByMenuType(menuTypes, SecurityUtils.isAdmin() ? null : SecurityUtils.getUserInfo().getFkRoleId());
         List<SysMenuTree> SysMenuTreeVOS = SysMenuConvert.INSTANCES.toEntity(allSysMenuList);
         List<SysMenuTree> list = SysMenuTreeVOS.stream().filter(item -> item.getParentId() == 0).toList();
         buildTreeSysMenu(list, SysMenuTreeVOS);

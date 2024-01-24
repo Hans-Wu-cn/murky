@@ -63,4 +63,9 @@ public class SysUser extends BaseEntity<SysUser> {
      */
     private String salt;
 
+    /**
+     * 角色Id
+     */
+    private Long fkRoleId;
+
 }
