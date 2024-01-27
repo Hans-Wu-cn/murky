@@ -19,8 +19,8 @@
             <t-form-item :label="$t('user.label.dept')" name="fkDeptId">
                 <deptTreeSelect v-model:value="formData.fkDeptId"></deptTreeSelect>
             </t-form-item>
-            <t-form-item :label="$t('user.label.role')" name="fkRoleIds">
-                <userSelect v-model:value="formData.fkRoleIds"></userSelect>
+            <t-form-item :label="$t('user.label.role')" name="fkRoleId">
+                <userSelect v-model:value="formData.fkRoleId"></userSelect>
             </t-form-item>
             <t-form-item>
                 <t-space size="small">
@@ -55,7 +55,7 @@ const FORM_RULES = ref<FormRules>({
 const formData = ref<User>({
     sex: 0,
     fkDeptId: '',
-    fkRoleIds: []
+    fkRoleId: ''
 });
 
 const userFromId = ref('');
@@ -80,7 +80,7 @@ const initFromData = async (id: string) => {
         formData.value = {
             sex: 0,
             fkDeptId: '',
-            fkRoleIds: []
+            fkRoleId: ''
         }
         userFromId.value = undefined
         return

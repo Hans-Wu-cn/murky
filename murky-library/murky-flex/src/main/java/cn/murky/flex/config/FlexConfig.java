@@ -21,8 +21,6 @@ import java.util.List;
  */
 @Configuration
 public class FlexConfig {
-
-
     //typed=true，表示默认数据源。@Db 可不带名字注入
     @Condition(onClass=DataSource.class)
     @Bean(value = "db", typed = true)

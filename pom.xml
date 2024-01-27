@@ -62,10 +62,17 @@
                 <artifactId>dami-solon-plugin</artifactId>
                 <version>${dami.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <!-- snack3 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>snack3</artifactId>
+            <version>3.2.88</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -18,7 +18,7 @@ export interface User extends BaseApiType {
   sex?: number,
   email?: string,
   fkDeptId?: string,
-  fkRoleIds?: string[]
+  fkRoleId?: string
 }
 
 /**

@@ -1,5 +1,5 @@
 <template>
-    <t-select v-model="value" :placeholder="placeholder || $t('user.label.pl.role')" multiple clearable
+    <t-select v-model="value" :placeholder="placeholder || $t('user.label.pl.role')" clearable
         :min-collapsed-num="3">
         <t-option :label="$t('common.label.allSelect')" :check-all="true" />
         <t-option v-for="item in roleData" :key="item.id" :value="item.id" :label="item.roleName"></t-option>
@@ -14,7 +14,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
-    value: string[] | undefined,
+    value: string[] | string | undefined,
     placeholder?: string
 }>()
 const emit = defineEmits<{

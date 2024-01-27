@@ -3,6 +3,7 @@ package cn.murky.admin.system.biz.api;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.admin.system.api.domian.bo.SysUserBO;
+import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
 import cn.murky.admin.system.biz.domain.entity.table.SysUserTableDef;
 import cn.murky.security.entity.SecurityUserInfo;
@@ -88,9 +89,9 @@ public class SysUserApiImpl implements SysUserApi {
                     .setDeptId(sysUser.getFkDeptId())
                     .setFkRoleId(sysUser.getFkRoleId())
                     .setToken(tokenInfo.getTokenValue());
-            userInfo.setAdmin(false);
             //查询角色code列表
             SysRole sysRole = sysRoleMapper.selectOneById(sysUser.getFkRoleId());
+            userInfo.setAdmin(SystemContant.ADMIN_ROLE_CODE.equals(sysRole.getRoleCode()));
             userInfo.setRoleCode(sysRole.getRoleCode());
             //查询数据权限信息
             userInfo.setDataScope(sysRole.getDataScope());

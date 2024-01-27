@@ -181,6 +181,7 @@ const loadData = async (params?: {}) => {
  */
 const onSubmitHook = () => {
   roleFromVisible.value = false
+  datascopeVisible.value = false
   loadData();
 }
 

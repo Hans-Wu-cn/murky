@@ -1,18 +1,17 @@
 package cn.murky.admin.core.utils;
 
-import cn.murky.common.constant.BusTopicConstant;
 import cn.murky.common.enums.DataScope;
 import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.security.utils.SecurityUtils;
+import com.mybatisflex.core.query.CPI;
+import com.mybatisflex.core.query.QueryTable;
 import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.noear.dami.Dami;
 import org.noear.solon.Utils;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 数据权限工具类
@@ -22,7 +21,8 @@ import java.util.Set;
  */
 @Slf4j
 public class DataScopeUtils {
-    public static final String DEPT_TABLE_NAME = "department";
+    public static final String DEPT_ANCESTORS_NAME = "department";
+    public static final String DEPT_TABLE_NAME = "sys_dept";
 
     /**
      * 数据权限方法，将query绑定数据权限sql
@@ -42,25 +42,34 @@ public class DataScopeUtils {
             deptIdFrom = "";
         }
         StringBuilder sql = new StringBuilder();
-        if (DataScope.ALL.equals(dataScope)) {
+        if (DataScope.ALL == dataScope) {
             return;
         }
-        if (DataScope.CUSTOMIZE.equals(dataScope)) {
-            sql.append(STR."""
-                          (\{deptIdFrom}dept_id in (select dept_id from sys_role_dept where role_id in (\{userInfo.getRoleCode()})))""");
+        String deptColum = "fk_dept_id";
+        // 获取表名
+        List<QueryTable> tableList = CPI.getQueryTables(query);
+        if (Utils.isNotEmpty(tableList)) {
+            Set<String> tableNameSet = tableList.stream().map(QueryTable::getName).collect(Collectors.toSet());
+            if (Utils.isNotEmpty(tableNameSet) && tableNameSet.contains(DEPT_TABLE_NAME)) {
+                deptColum = "id";
+            }
         }
-        if (DataScope.DEPARTMENT_BELOW.equals(dataScope)) {
+        if (DataScope.CUSTOMIZE == dataScope) {
             sql.append(STR."""
-                         (\{deptIdFrom}dept_id in (select \{DEPT_TABLE_NAME}.dept_id from sys_dept_ancestors as \{DEPT_TABLE_NAME} where \{DEPT_TABLE_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}dept_id=\{userInfo.getDeptId()})
+                          (\{deptIdFrom}\{deptColum} in (select fk_dept_id from sys_role_dept where fk_role_id = (\{userInfo.getFkRoleId()})))""");
+        }
+        if (DataScope.DEPARTMENT_BELOW == dataScope) {
+            sql.append(STR."""
+                         (\{deptIdFrom}\{deptColum} in (select \{DEPT_ANCESTORS_NAME}.fk_dept_id from sys_dept_ancestors as \{DEPT_ANCESTORS_NAME} where \{DEPT_ANCESTORS_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}\{deptColum}=\{userInfo.getDeptId()})
                           """);
 
         }
-        if (DataScope.DEPARTMENT.equals(dataScope)) {
+        if (DataScope.DEPARTMENT == dataScope) {
             sql.append(STR."""
-                         (\{deptIdFrom}dept_id=\{userInfo.getDeptId().toString()})
+                         (\{deptIdFrom}\{deptColum}=\{userInfo.getDeptId().toString()})
                         """);
         }
-        if (DataScope.ONESELF.equals(dataScope)) {
+        if (DataScope.ONESELF == dataScope) {
             sql.append(STR."""
                          (\{deptIdFrom}create_user = \{userInfo.getUserId().toString()})
                         """);
@@ -69,8 +78,8 @@ public class DataScopeUtils {
         if (sql.isEmpty()) {
             return;
         }
-        query.and(STR."(\{sql})");
-        log.debug("[DataScopeUtils]->dataScope sql:{}",query.toSQL());
+        query.and(sql.toString());
+        log.debug("[DataScopeUtils]->dataScope sql:{}", query.toSQL());
     }
 
     public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo) {

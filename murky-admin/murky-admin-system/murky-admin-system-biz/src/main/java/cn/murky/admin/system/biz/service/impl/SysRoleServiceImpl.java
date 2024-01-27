@@ -21,10 +21,8 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 角色service
@@ -41,7 +39,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
     private SysRoleDeptMapper sysRoleDeptMapper;
 
     @Inject
-    private SysMenuMapper SysMenuMapper;
+    private SysMenuMapper sysMenuMapper;
 
     /**
      * 查询角色以及角色菜单关系
@@ -56,7 +54,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
             return null;
         }
         SysRoleVo vo = SysRoleConvert.INSTANCES.toVo(sysRole);
-        List<SysMenu> sysRoleMenus = SysMenuMapper.selectByRoleId(roleId);
+        List<SysMenu> sysRoleMenus = sysMenuMapper.selectByRoleId(roleId);
         List<Long> menuIds=new ArrayList<>();
         for (SysMenu SysMenu : sysRoleMenus) {
             Long menuId = SysMenu.getId();
@@ -110,7 +108,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
         //如果有配置菜单则添加菜单信息
         if (Utils.isNotEmpty(sysRoleFromDTO.getFkMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).toList();
+            List<Long> parentMenuIds = sysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).toList();
             HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getFkMenuIds());
             menuIds.addAll(parentMenuIds);
             List<SysRoleMenu> sysRoleMenuList = menuIds.stream().map(menuId -> new SysRoleMenu()
@@ -137,7 +135,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
     public boolean update(SysRoleFromDTO sysRoleFromDTO) {
         SysRole entity = sysRoleFromDTO.toEntity();
         sysRoleFromDTO.setRoleCode(null);
-        //判断角色名称与角色码是否重复
+        // 判断角色名称与角色码是否重复
         SysRole sysRole = mapper.selectByNameOrCode(entity.getId(), entity.getRoleName(), entity.getRoleCode());
         Optional.ofNullable(sysRole).map(item -> {
             if (item.getRoleCode().equals(entity.getRoleCode())) {
@@ -159,8 +157,12 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
         sysRoleMenuMapper.deleteByRoleId(sysRoleFromDTO.getId());
         if (Utils.isNotEmpty(sysRoleFromDTO.getFkMenuIds())) {
             //补充不完全一定存在的父级元素
-            List<Long> parentMenuIds = SysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).toList();
-            HashSet<Long> menuIds = new HashSet<>(sysRoleFromDTO.getFkMenuIds());
+            Set<Long> parentMenuIds = sysMenuMapper.selectByListByIds(sysRoleFromDTO.getFkMenuIds()).stream().map(SysMenu::getParentId).collect(Collectors.toSet());
+            while (!parentMenuIds.contains(0L)){
+                Set<Long> pmid = sysMenuMapper.selectByListByIds(parentMenuIds).stream().map(SysMenu::getParentId).collect(Collectors.toSet());
+                parentMenuIds.addAll(pmid);
+            }
+            Set<Long> menuIds = new HashSet<>(sysRoleFromDTO.getFkMenuIds());
             menuIds.addAll(parentMenuIds);
             List<SysRoleMenu> sysRoleMenuList = menuIds.stream().map(menuId -> new SysRoleMenu()
                     .setFkRoleId(entity.getId())

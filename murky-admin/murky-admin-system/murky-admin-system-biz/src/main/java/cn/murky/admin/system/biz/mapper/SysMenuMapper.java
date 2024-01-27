@@ -37,7 +37,12 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
         );
     }
 
-    default List<SysMenu> selectByListByIds(List<Long> menuIds) {
+    /**
+     * 根据菜单Id查询菜单
+     * @param menuIds
+     * @return
+     */
+    default List<SysMenu> selectByListByIds(Collection<Long> menuIds) {
 
         SysMenuTableDef SYS_MENU = SysMenuTableDef.SYS_MENU;
         return this.selectListByQuery(
@@ -65,4 +70,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
                         .orderBy(SYS_MENU.SORT.asc(), SYS_MENU.LABEL.asc())
         );
     }
+
 }

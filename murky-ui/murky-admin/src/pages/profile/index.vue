@@ -22,8 +22,8 @@
         <t-divider></t-divider>
         <div>
           <span class="label">{{ $t('user.label.role') }}</span>
-          <span class="value" v-for="(item, index) in userInfo.roleNameList">{{ index ==
-            userInfo.roleNameList.length - 1 ? item : "/" + item }}</span>
+          <span class="value">{{ userInfo?.roleName }}</span>
+        
         </div>
         <t-divider></t-divider>
         <div>
@@ -126,7 +126,7 @@ const userInfo = ref<ProfileInfo>({
   userName: '',
   email: '',
   sex: 2,
-  roleNameList: [],
+  roleName: '',
   deptNameList: [],
   createTime: 0,
 });

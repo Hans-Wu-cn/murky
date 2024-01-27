@@ -39,7 +39,8 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     public List<SysDeptTreeVO> treeDept() {
         List<SysDept> allSysDept = mapper.getSelectByCreate(SecurityUtils.getUserInfo());
         List<SysDeptTreeVO> SysDeptTreeVOList = SysDeptConvert.INSTANCES.toVOs(allSysDept);
-        List<SysDeptTreeVO> list = SysDeptTreeVOList.stream().filter(item -> item.getParentId() == 0).toList();
+        long minPid = SysDeptTreeVOList.stream().mapToLong(SysDeptTreeVO::getParentId).min().getAsLong();
+        List<SysDeptTreeVO> list = SysDeptTreeVOList.stream().filter(item -> item.getParentId() == minPid).toList();
         buildTreeSysDept(list,SysDeptTreeVOList);
         return list;
     }
