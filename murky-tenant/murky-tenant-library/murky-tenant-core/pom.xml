@@ -4,13 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.murky.admin</groupId>
-        <artifactId>murky-admin-library</artifactId>
+        <groupId>cn.murky.tenant</groupId>
+        <artifactId>murky-tenant-library</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>murky-admin-core</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>murky-tenant-core</artifactId>
 
     <dependencies>
         <dependency>
@@ -50,12 +49,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 公共包 -->
-        <dependency>
-            <groupId>cn.murky.admin</groupId>
-            <artifactId>murky-admin-common</artifactId>
-        </dependency>
-
         <!-- core -->
         <dependency>
             <groupId>cn.murky</groupId>
@@ -76,8 +69,8 @@
                 <version>3.11.0</version>
                 <configuration>
                     <compilerArgument>-parameters</compilerArgument>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>21</source>
+                    <target>21</target>
                     <encoding>UTF-8</encoding>
                     <annotationProcessorPaths>
                         <path>

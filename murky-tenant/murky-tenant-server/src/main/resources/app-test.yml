@@ -32,10 +32,10 @@ redis:
   serializer: "cn.murky.common.config.SerializerJsonTyped"
 
 postgres.db:
-  jdbcUrl: jdbc:postgresql://119.29.203.51:5432/poem-solon?currentSchema=admin
+  jdbcUrl: jdbc:postgresql://149.88.71.199:5432/murky?currentSchema=admin
   driverClassName: org.postgresql.Driver
-  username: postgres
-  password: 123456
+  username: murky
+  password: mN58c8rTxkbWznEX
   connection-timeout: 10000
   validation-timeout: 3000
   idle-timeout: 60000
@@ -79,7 +79,6 @@ sa-token:
   is-log: true
 
 solon.serialization.json:
-#  dateAsFormat: "yyyy-MM-dd HH:mm:ss" #配置日期格式（默认输出为时间戳）
   dateAsFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" #配置日期格式（默认输出为时间戳）
   dateAsTimeZone: 'GMT+8' #配置时区
   dateAsTicks: false #将date转为毫秒数（和 dateAsFormat 二选一）
@@ -96,9 +95,9 @@ solon.serialization.json:
 
 doc:
   enable: true
-  groupName: murky-admin接口
+  groupName: murky-tenant接口
   title: 在线文档
-  description: murky-admin在线API文档
+  description: murky-tenant在线API文档
   termsOfService: https://gitee.com/wu-zhihao/murky
   name: murky-admin
   url: https://gitee.com/wu-zhihao/murky

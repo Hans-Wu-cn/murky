@@ -11,4 +11,7 @@
 
     <artifactId>murky-tenant-library</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>murky-tenant-core</module>
+    </modules>
 </project>
