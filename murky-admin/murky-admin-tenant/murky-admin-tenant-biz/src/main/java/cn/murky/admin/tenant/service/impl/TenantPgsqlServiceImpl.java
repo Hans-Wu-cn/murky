@@ -53,7 +53,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	"describe" varchar NULL,
                 	role_code varchar NOT NULL,
                 	data_scope int2 NOT NULL DEFAULT 0,
-                	dept_id int8 NULL,
+                	fk_dept_id int8 NULL,
                 	CONSTRAINT tenant_role_pk PRIMARY KEY (id)
                 );
                 """ );
@@ -90,12 +90,12 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	update_user int8 NULL,
                 	id int8 NOT NULL,
                 	fk_role_id int8 NOT NULL,
+                	fk_dept_id int8 NULL,
                 	user_name varchar NOT NULL,
                 	account varchar NOT NULL,
                 	"password" varchar NOT NULL,
                 	sex int2 NOT NULL,
                 	email varchar NULL,
-                	fk_dept_id int8 NULL,
                 	"language" varchar NULL,
                 	salt varchar NULL,
                 	CONSTRAINT tenant_user_pk PRIMARY KEY (id)
