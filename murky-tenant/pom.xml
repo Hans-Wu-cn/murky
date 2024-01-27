@@ -14,6 +14,30 @@
     <modules>
         <module>murky-tenant-server</module>
         <module>murky-tenant-library</module>
+        <module>murky-tenant-system</module>
+        <module>murky-tenant-auth</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <!--murky-tenant-core 核心模块-->
+            <dependency>
+                <groupId>cn.murky.tenant</groupId>
+                <artifactId>murky-tenant-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--murky-tenant-system-biz 系统模块-->
+            <dependency>
+                <groupId>cn.murky.tenant</groupId>
+                <artifactId>murky-tenant-system-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--murky-tenant-system-api 系统模块-->
+            <dependency>
+                <groupId>cn.murky.tenant</groupId>
+                <artifactId>murky-tenant-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
