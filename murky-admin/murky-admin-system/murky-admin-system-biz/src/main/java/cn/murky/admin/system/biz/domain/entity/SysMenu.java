@@ -1,11 +1,7 @@
 package cn.murky.admin.system.biz.domain.entity;
 
+import cn.murky.admin.system.api.enums.*;
 import cn.murky.common.entity.BaseEntity;
-import cn.murky.admin.system.biz.enums.MenuCacheType;
-import cn.murky.admin.system.biz.enums.MenuDisplayType;
-import cn.murky.admin.system.biz.enums.MenuOpenType;
-import cn.murky.admin.system.biz.enums.MenuOutside;
-import cn.murky.admin.system.api.enums.MenuType;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

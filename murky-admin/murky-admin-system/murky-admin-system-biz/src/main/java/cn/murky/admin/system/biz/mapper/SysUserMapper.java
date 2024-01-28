@@ -7,7 +7,7 @@ import cn.murky.admin.system.biz.domain.entity.table.SysUserTableDef;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
 import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.core.utils.DataScopeUtils;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;

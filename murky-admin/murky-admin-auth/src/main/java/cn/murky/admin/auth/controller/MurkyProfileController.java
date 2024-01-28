@@ -6,7 +6,7 @@ import cn.murky.admin.system.api.domian.UserProfile;
 import cn.murky.admin.system.api.domian.dto.ProfileFromDTO;
 import cn.murky.core.web.ApiResult;
 import cn.murky.core.web.BaseController;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;

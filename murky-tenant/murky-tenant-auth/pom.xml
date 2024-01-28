@@ -16,5 +16,10 @@
             <groupId>cn.murky.tenant</groupId>
             <artifactId>murky-tenant-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.murky.tenant</groupId>
+            <artifactId>murky-tenant-system-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

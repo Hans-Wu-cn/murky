@@ -3,7 +3,7 @@ package cn.murky.admin.core;
 
 import cn.murky.admin.core.utils.DataScopeUtils;
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;

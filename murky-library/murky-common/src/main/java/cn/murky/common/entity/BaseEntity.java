@@ -4,6 +4,7 @@ import com.mybatisflex.core.activerecord.Model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -16,6 +17,8 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 public class BaseEntity<T extends Model<T>> extends Model<T>implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     /**
      * 创建时间
      */

@@ -13,7 +13,7 @@ import cn.murky.core.web.ApiResult;
 import cn.murky.core.web.BaseController;
 import cn.murky.core.validat.Insert;
 import cn.murky.core.validat.Update;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.If;
 import com.mybatisflex.core.query.QueryWrapper;

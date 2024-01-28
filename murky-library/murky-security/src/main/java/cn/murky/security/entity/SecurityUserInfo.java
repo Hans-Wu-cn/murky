@@ -1,6 +1,7 @@
 package cn.murky.security.entity;
 
 import cn.murky.common.enums.DataScope;
+import cn.murky.security.SecurityUser;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 @Data
 @Accessors(chain = true)
-public class SecurityUserInfo implements Serializable {
+public class SecurityUserInfo extends SecurityUser implements Serializable {
     /**
      * 用户id
      */

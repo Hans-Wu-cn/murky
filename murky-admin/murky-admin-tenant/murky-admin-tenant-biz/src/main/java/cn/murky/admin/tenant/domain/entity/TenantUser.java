@@ -40,7 +40,7 @@ public class TenantUser extends BaseEntity<TenantUser> {
     private String email;
 
     @ApiModelProperty("部门id")
-    private Long deptId;
+    private Long fkDeptId;
 
     @ApiModelProperty("语言")
     private String language;

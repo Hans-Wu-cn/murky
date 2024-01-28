@@ -7,7 +7,6 @@ import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
 import cn.murky.admin.system.biz.domain.entity.table.SysUserTableDef;
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.common.enums.DataScope;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
 import cn.murky.admin.system.biz.domain.entity.*;
@@ -24,7 +23,7 @@ import cn.murky.admin.system.biz.service.ISysUserService;
 import cn.murky.core.exception.ServiceException;
 import cn.murky.core.record.PasswordRecord;
 import cn.murky.core.utils.EncryptionUtil;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
@@ -33,8 +32,6 @@ import org.noear.solon.annotation.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * UserApi

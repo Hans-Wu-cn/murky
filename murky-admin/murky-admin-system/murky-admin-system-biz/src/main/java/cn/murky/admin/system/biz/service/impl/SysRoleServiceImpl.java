@@ -6,7 +6,7 @@ import cn.murky.admin.system.biz.domain.dto.SysRoleFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysRoleVo;
 import cn.murky.admin.system.biz.service.ISysRoleService;
 import cn.murky.admin.system.biz.domain.entity.SysRoleDept;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.convert.SysRoleConvert;
 import cn.murky.admin.system.biz.domain.entity.SysMenu;
 import cn.murky.admin.system.biz.domain.entity.SysRole;

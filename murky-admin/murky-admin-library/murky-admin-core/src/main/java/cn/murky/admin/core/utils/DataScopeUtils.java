@@ -2,7 +2,6 @@ package cn.murky.admin.core.utils;
 
 import cn.murky.common.enums.DataScope;
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.security.utils.SecurityUtils;
 import com.mybatisflex.core.query.CPI;
 import com.mybatisflex.core.query.QueryTable;
 import com.mybatisflex.core.query.QueryWrapper;

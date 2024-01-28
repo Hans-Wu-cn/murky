@@ -1,18 +1,19 @@
-package cn.murky.security.utils;
+package cn.murky.tenant.core.utils;
 
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.murky.security.SecurityCache;
 import cn.murky.security.entity.SecurityUserInfo;
+import cn.murky.tenant.core.SecurityTenantUserInfo;
 import org.noear.solon.Solon;
 
 
 public class SecurityUtils {
-    static SecurityCache securityCache;
+    static SecurityCache<SecurityTenantUserInfo> securityCache;
 
     static {
-        Solon.context().getBeanAsync(SecurityCache.class,SystemSecurityCache ->{
-            securityCache=SystemSecurityCache;
+        Solon.context().getBeanAsync(SecurityCache.class, systemSecurityCache ->{
+            securityCache=systemSecurityCache;
         });
     }
 
@@ -28,7 +29,7 @@ public class SecurityUtils {
      * 获取当前登录用户信息
      * @return  当前登录用户信息
      */
-    public static SecurityUserInfo getUserInfo() throws NotLoginException {
+    public static SecurityTenantUserInfo getUserInfo() throws NotLoginException {
         return securityCache.getUserInfo();
     }
 
@@ -36,7 +37,7 @@ public class SecurityUtils {
      * 保存当前登录用户信息
      * @param securityUser 登录用户信息
      */
-    public static void setUserInfo(SecurityUserInfo securityUser){
+    public static void setUserInfo(SecurityTenantUserInfo securityUser){
         securityCache.setUserInfo(securityUser);
     }
 

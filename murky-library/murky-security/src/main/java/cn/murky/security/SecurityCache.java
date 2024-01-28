@@ -19,7 +19,7 @@ import java.util.Collections;
  * @author hans
  */
 @Component
-public class SecurityCache  {
+public class SecurityCache <T extends SecurityUser> {
     @Inject
     private RedisClient redisClient;
 
@@ -44,7 +44,7 @@ public class SecurityCache  {
      *
      * @param securityUser 用户信息对象
      */
-    public void setUserInfo(SecurityUserInfo securityUser) {
+    public void setUserInfo(T securityUser) {
         redisClient.open(session -> {
             String serialize = ONode.stringify(securityUser);
             session.key(USER_KEY + getUserId()).expire(expire).set(serialize);
@@ -56,7 +56,7 @@ public class SecurityCache  {
      *
      * @return 用户信息对象
      */
-    public SecurityUserInfo getUserInfo() throws NotLoginException {
+    public T getUserInfo() throws NotLoginException {
         String json = redisClient.openAndGet(session -> session.key(USER_KEY + getUserId()).get());
         return ONode.deserialize(json, SecurityUserInfo.class);
     }

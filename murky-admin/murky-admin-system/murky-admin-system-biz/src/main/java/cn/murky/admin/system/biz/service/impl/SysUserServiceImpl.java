@@ -8,7 +8,7 @@ import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.admin.system.biz.domain.vo.SysUserPageVo;
 import cn.murky.admin.system.biz.service.ISysUserService;
 import cn.murky.admin.system.biz.domain.entity.SysDeptAncestors;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import cn.murky.admin.system.biz.mapper.SysDeptAncestorsMapper;
 import cn.murky.admin.system.biz.mapper.SysUserMapper;
 import cn.murky.admin.system.biz.service.ISystemParameterService;

@@ -2,8 +2,8 @@ package cn.murky.tenant.core;
 
 
 import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.security.utils.SecurityUtils;
 import cn.murky.tenant.core.utils.DataScopeUtils;
+import cn.murky.tenant.core.utils.SecurityUtils;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public abstract class MurkyServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements IService<T>, InitializingBean {
 
-    protected QueryWrapper dataScope(QueryWrapper query, SecurityUserInfo userInfo){
+    protected QueryWrapper dataScope(QueryWrapper query, SecurityTenantUserInfo userInfo){
 
         DataScopeUtils.dataScope(query,userInfo,null);
         return query;
@@ -25,7 +25,7 @@ public abstract class MurkyServiceImpl<M extends BaseMapper<T>, T> extends Servi
         return DataScopeUtils.dataScope(query);
     }
 
-    public List<T> list(QueryWrapper query,SecurityUserInfo userInfo) {
+    public List<T> list(QueryWrapper query,SecurityTenantUserInfo userInfo) {
         return getMapper().selectListByQuery(dataScope(query,userInfo));
     }
 
@@ -33,7 +33,7 @@ public abstract class MurkyServiceImpl<M extends BaseMapper<T>, T> extends Servi
         return getMapper().selectListByQuery(dataScope(query));
     }
 
-    public Page<T> page(Page<T> page, QueryWrapper query,SecurityUserInfo userInfo) {
+    public Page<T> page(Page<T> page, QueryWrapper query,SecurityTenantUserInfo userInfo) {
         QueryWrapper queryWrapper = dataScope(query, userInfo);
         return super.page(page,queryWrapper);
     }

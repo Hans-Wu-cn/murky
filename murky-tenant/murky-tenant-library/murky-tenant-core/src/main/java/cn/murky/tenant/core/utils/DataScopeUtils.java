@@ -1,8 +1,7 @@
 package cn.murky.tenant.core.utils;
 
 import cn.murky.common.enums.DataScope;
-import cn.murky.security.entity.SecurityUserInfo;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.tenant.core.SecurityTenantUserInfo;
 import com.mybatisflex.core.query.CPI;
 import com.mybatisflex.core.query.QueryTable;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -32,7 +31,7 @@ public class DataScopeUtils {
      * @param query    query
      * @param userInfo 用户信息
      */
-    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo, String deptIdFrom) {
+    public static void dataScope(QueryWrapper query, SecurityTenantUserInfo userInfo, String deptIdFrom) {
         if (userInfo.getAdmin()) {
             return;
         }
@@ -84,7 +83,7 @@ public class DataScopeUtils {
         log.debug("[DataScopeUtils]->dataScope sql:{}", query.toSQL());
     }
 
-    public static void dataScope(QueryWrapper query, SecurityUserInfo userInfo) {
+    public static void dataScope(QueryWrapper query, SecurityTenantUserInfo userInfo) {
         dataScope(query, userInfo, null);
     }
 

@@ -9,7 +9,7 @@ import cn.murky.admin.system.api.SysMenuApi;
 import cn.murky.admin.system.api.domian.SysMenuTree;
 import cn.murky.admin.system.api.enums.MenuType;
 import cn.murky.core.web.ApiResult;
-import cn.murky.security.utils.SecurityUtils;
+import cn.murky.admin.core.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.noear.solon.annotation.*;

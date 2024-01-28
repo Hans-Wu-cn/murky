@@ -1,4 +1,4 @@
-package cn.murky.admin.system.biz.enums;
+package cn.murky.tenant.system.api.enums;
 
 
 import com.mybatisflex.annotation.EnumValue;

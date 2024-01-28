@@ -1,10 +1,9 @@
 package cn.murky.security;
 
 import cn.dev33.satoken.stp.StpInterface;
-import cn.murky.security.utils.SecurityUtils;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,14 +14,16 @@ import java.util.List;
  */
 @Component
 public class StpInterfaceImpl implements StpInterface {
+    @Inject
+    private SecurityCache securityCache;
 
     @Override
     public List<String> getPermissionList(Object o, String s) {
-        return SecurityUtils.getUserInfo().getPermissions();
+        return securityCache.getUserInfo().getPermissions();
     }
 
     @Override
     public List<String> getRoleList(Object o, String s) {
-        return Collections.singletonList(SecurityUtils.getUserInfo().getRoleCode());
+        return Collections.singletonList(securityCache.getUserInfo().getRoleCode());
     }
 }
