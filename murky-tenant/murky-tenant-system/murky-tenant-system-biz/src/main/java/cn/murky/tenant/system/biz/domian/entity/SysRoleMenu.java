@@ -13,8 +13,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @ApiModel("角色菜单关系实体类")
-@Table(value = "tenant_role_menu")
-public class TenantRoleMenu {
+@Table(value = "sys_role_menu")
+public class SysRoleMenu {
 
     /**
      * 角色id

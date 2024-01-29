@@ -4,11 +4,17 @@ import cn.murky.common.enums.DataScope;
 import lombok.Data;
 
 @Data
-public class TenantRoleBO {
+public class SysRoleBO {
+
     /**
      * ID
      */
     private Long id;
+
+    /**
+     * 角色名
+     */
+    private String roleName;
 
     /**
      * 角色码
@@ -16,12 +22,17 @@ public class TenantRoleBO {
     private String roleCode;
 
     /**
-     * 是否是租户管理员
+     * 部门id
      */
-    private Boolean admin;
+    private Long fkDeptId;
 
     /**
      * 所属部门的数据权限
      */
     private DataScope dataScope;
+
+    /**
+     * 描述
+     */
+    private String describe;
 }

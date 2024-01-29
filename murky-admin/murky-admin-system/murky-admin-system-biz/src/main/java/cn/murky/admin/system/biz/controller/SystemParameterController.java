@@ -4,7 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaMode;
 import cn.murky.admin.system.biz.domain.dto.SystemParameterDTO;
 import cn.murky.admin.system.biz.domain.dto.SystemParameterPageDTO;
-import cn.murky.admin.system.biz.domain.convert.SystemParameterConvert;
+import cn.murky.admin.system.biz.convert.SystemParameterConvert;
 import cn.murky.admin.system.biz.domain.entity.SystemParameter;
 import cn.murky.admin.system.biz.domain.entity.table.SystemParameterTableDef;
 import cn.murky.admin.system.biz.service.ISystemParameterService;

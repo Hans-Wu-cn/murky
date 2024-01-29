@@ -1,13 +1,9 @@
 package cn.murky.admin.system.biz.domain.dto;
 
 
-import cn.murky.admin.system.api.enums.MenuType;
-import cn.murky.admin.system.biz.domain.convert.SysMenuConvert;
+import cn.murky.admin.system.api.enums.*;
+import cn.murky.admin.system.biz.convert.SysMenuConvert;
 import cn.murky.admin.system.biz.domain.entity.SysMenu;
-import cn.murky.admin.system.biz.enums.MenuCacheType;
-import cn.murky.admin.system.biz.enums.MenuDisplayType;
-import cn.murky.admin.system.biz.enums.MenuOpenType;
-import cn.murky.admin.system.biz.enums.MenuOutside;
 import cn.murky.core.validat.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -4,7 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaMode;
 import cn.murky.admin.system.biz.domain.dto.SysDictTypeFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysDictTypePageDTO;
-import cn.murky.admin.system.biz.domain.convert.SysDictConvert;
+import cn.murky.admin.system.biz.convert.SysDictConvert;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import cn.murky.admin.system.biz.domain.entity.table.SysDictTypeTableDef;
 import cn.murky.admin.system.biz.service.ISysDictTypeService;

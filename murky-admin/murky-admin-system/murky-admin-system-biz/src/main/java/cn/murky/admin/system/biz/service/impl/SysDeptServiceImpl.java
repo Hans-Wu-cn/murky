@@ -5,7 +5,7 @@ import cn.murky.admin.core.utils.SecurityUtils;
 import cn.murky.admin.system.biz.domain.dto.SysDeptFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysDeptTreeVO;
 import cn.murky.admin.system.biz.service.ISysDeptService;
-import cn.murky.admin.system.biz.domain.convert.SysDeptConvert;
+import cn.murky.admin.system.biz.convert.SysDeptConvert;
 import cn.murky.admin.system.biz.domain.entity.SysDept;
 import cn.murky.admin.system.biz.mapper.SysDeptMapper;
 import cn.murky.admin.system.biz.mapper.SysUserMapper;

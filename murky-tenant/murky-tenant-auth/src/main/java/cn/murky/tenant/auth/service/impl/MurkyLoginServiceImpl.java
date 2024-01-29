@@ -14,7 +14,7 @@ import cn.murky.tenant.system.api.TenantMenuApi;
 import cn.murky.tenant.system.api.TenantRoleApi;
 import cn.murky.tenant.system.api.TenantUserApi;
 import cn.murky.tenant.system.api.domain.bo.TenantMenuBO;
-import cn.murky.tenant.system.api.domain.bo.TenantRoleBO;
+import cn.murky.tenant.system.api.domain.bo.SysRoleBO;
 import cn.murky.tenant.system.api.domain.bo.TenantUserBO;
 import cn.murky.tenant.system.api.enums.MenuType;
 import org.noear.solon.annotation.Component;
@@ -67,13 +67,13 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
             SecurityTenantUserInfo userInfo =  new SecurityTenantUserInfo()
                     .setUserId(loginId)
                     .setEmail(tenantUser.getEmail())
-                    .setUserName(tenantUser.getUserName())
-                    .setLanguage(tenantUser.getLanguage())
-                    .setDeptId(tenantUser.getFkDeptId())
-                    .setFkRoleId(tenantUser.getFkRoleId())
-                    .setToken(tokenInfo.getTokenValue())
-                    .setTenantId(tenantUser.getFkTenantId())
-                    .setAdmin(tenantUser.getAdmin());
+                            .setUserName(tenantUser.getUserName())
+                            .setLanguage(tenantUser.getLanguage())
+                            .setFkDeptId(tenantUser.getFkDeptId())
+                            .setFkRoleId(tenantUser.getFkRoleId())
+                            .setToken(tokenInfo.getTokenValue())
+                            .setTenantId(tenantUser.getFkTenantId())
+                            .setAdmin(tenantUser.getAdmin());
             if (tenantUser.getAdmin()) {
                 userInfo.setRoleCode(TENANT_SYSTEM_ADMIN_ROLE_CODE);
                 userInfo.setFkRoleId(TENANT_SYSTEM_ADMIN_FK_ROLE_ID);
@@ -83,14 +83,14 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
                 userInfo.setPermissions(permissions);
             }else {
                 //查询角色code列表
-                TenantRoleBO tenantRoleBO = tenantRoleApi.getTenantRoleById(tenantUser.getFkRoleId());
-                userInfo.setRoleCode(tenantRoleBO.getRoleCode());
+                SysRoleBO sysRoleBO = tenantRoleApi.getSysRoleById(tenantUser.getFkRoleId());
+                userInfo.setRoleCode(sysRoleBO.getRoleCode());
                 //查询数据权限信息
-                userInfo.setDataScope(tenantRoleBO.getDataScope());
+                userInfo.setDataScope(sysRoleBO.getDataScope());
                 //查询权限列表
                 List<String> permissions = tenantMenuApi.getByFkRoleId(
                                 Arrays.asList(MenuType.BUTTON, MenuType.MENU, MenuType.DIRECTORY)
-                                , tenantRoleBO.getId())
+                                , sysRoleBO.getId())
                         .stream().map(TenantMenuBO::getAuth).toList();
                 userInfo.setPermissions(permissions);
             }

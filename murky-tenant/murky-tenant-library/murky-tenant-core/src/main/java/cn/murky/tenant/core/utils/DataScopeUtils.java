@@ -61,13 +61,13 @@ public class DataScopeUtils {
         }
         if (DataScope.DEPARTMENT_BELOW == dataScope) {
             sql.append(STR."""
-                         (\{deptIdFrom}\{deptColum} in (select \{DEPT_ANCESTORS_NAME}.fk_dept_id from sys_dept_ancestors as \{DEPT_ANCESTORS_NAME} where \{DEPT_ANCESTORS_NAME}.ancestors = \{userInfo.getDeptId()}) or \{deptIdFrom}\{deptColum}=\{userInfo.getDeptId()})
+                         (\{deptIdFrom}\{deptColum} in (select \{DEPT_ANCESTORS_NAME}.fk_dept_id from sys_dept_ancestors as \{DEPT_ANCESTORS_NAME} where \{DEPT_ANCESTORS_NAME}.ancestors = \{userInfo.getFkDeptId()}) or \{deptIdFrom}\{deptColum}=\{userInfo.getFkDeptId()})
                           """);
 
         }
         if (DataScope.DEPARTMENT == dataScope) {
             sql.append(STR."""
-                         (\{deptIdFrom}\{deptColum}=\{userInfo.getDeptId().toString()})
+                         (\{deptIdFrom}\{deptColum}=\{userInfo.getFkDeptId().toString()})
                         """);
         }
         if (DataScope.ONESELF == dataScope) {

@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.system.biz.domain.convert.SysUserConvert;
+import cn.murky.admin.system.biz.convert.SysUserConvert;
 import cn.murky.admin.system.api.enums.Sex;
 import cn.murky.admin.system.biz.domain.entity.SysUser;
 import cn.murky.core.validat.Update;
@@ -11,8 +11,6 @@ import lombok.experimental.Accessors;
 import org.noear.solon.validation.annotation.Email;
 import org.noear.solon.validation.annotation.NotBlank;
 import org.noear.solon.validation.annotation.NotNull;
-
-import java.util.List;
 
 /**
  * 用户表单类

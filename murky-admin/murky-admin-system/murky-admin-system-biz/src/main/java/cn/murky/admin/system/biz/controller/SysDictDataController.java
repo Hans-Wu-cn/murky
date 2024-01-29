@@ -3,7 +3,7 @@ package cn.murky.admin.system.biz.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataPageDTO;
-import cn.murky.admin.system.biz.domain.convert.SysDictConvert;
+import cn.murky.admin.system.biz.convert.SysDictConvert;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.table.SysDictDataTableDef;
 import cn.murky.admin.system.biz.service.ISysDictDataService;

@@ -1,4 +1,4 @@
-package cn.murky.admin.system.biz.domain.convert;
+package cn.murky.admin.system.biz.convert;
 
 import cn.murky.admin.system.api.domian.bo.SysUserBO;
 import cn.murky.admin.system.biz.domain.entity.SysUser;

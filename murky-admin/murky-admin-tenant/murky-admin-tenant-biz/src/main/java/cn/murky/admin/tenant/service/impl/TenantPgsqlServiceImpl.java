@@ -3,8 +3,11 @@ package cn.murky.admin.tenant.service.impl;
 import cn.murky.admin.tenant.service.ITenantDDLService;
 import com.mybatisflex.core.row.Db;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
+import org.postgresql.jdbc.PgSQLXML;
 
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -13,6 +16,8 @@ import java.util.Optional;
 @Component
 @Tran
 public class TenantPgsqlServiceImpl implements ITenantDDLService {
+    @Inject("${postgres.db.jdbcUrl}")
+    private String jdbcUrl;
     @Override
     public void createSchema(String schemaName) {
         assertSchema(schemaName);
@@ -41,7 +46,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      * @param schemaName 模式名称
      */
     public void createRoleTable(String schemaName) {
-        String tableName="tenant_role";
+        String tableName="sys_role";
         // 创建租户角色表
         Db.updateBySql(STR."""
                 CREATE TABLE \{schemaName}.\{tableName} (
@@ -72,7 +77,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      * @param schemaName 模式名称
      */
     public void createRoleMenuTable(String schemaName) {
-        String tableName="tenant_role_menu";
+        String tableName="sys_role_menu";
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
                 CREATE TABLE \{schemaName}.\{tableName} (
@@ -91,7 +96,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      * @param schemaName 模式名称
      */
     public void createUserTable(String schemaName) {
-        String tableName="tenant_user";
+        String tableName="sys_user";
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
                 CREATE TABLE \{schemaName}.\{tableName} (
@@ -110,7 +115,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 	"language" varchar NULL,
                 	salt varchar NULL,
                 	CONSTRAINT tenant_user_pk PRIMARY KEY (id)
-                );
+                )INHERITS(\{getCurrentSchema()}.tenant_user);
                 """);
         commonColumComment(schemaName,tableName);
         columComment(schemaName,tableName,"fk_role_id","角色id");
@@ -130,7 +135,7 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
      * @param schemaName 模式名称
      */
     public void createRoleDeptTable(String schemaName) {
-        String tableName="tenant_role_dept";
+        String tableName="sys_role_dept";
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
                 CREATE TABLE \{schemaName}.\{tableName} (
@@ -159,4 +164,21 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                COMMENT ON COLUMN \{schemaName}.\{tableName}.\{columName} IS '\{comment}';
                 """);
     }
+
+    /**
+     * 获取当前系统得schema
+     * @return
+     */
+    private String getCurrentSchema(){
+        URI uri = URI.create(jdbcUrl);
+        if (uri.getQuery().startsWith("currentSchema")) {
+            for (String str : uri.getQuery().split("&")) {
+                if (str.startsWith("currentSchema")) {
+                    return str.split("=")[1];
+                }
+            }
+        }
+        return "public";
+    }
+
 }

@@ -7,7 +7,7 @@ import cn.murky.admin.system.biz.domain.entity.table.SysRoleMenuTableDef;
 import cn.murky.admin.system.biz.service.ISysMenuService;
 import cn.murky.admin.system.api.domian.SysMenuTree;
 import cn.murky.admin.system.api.enums.MenuType;
-import cn.murky.admin.system.biz.domain.convert.SysMenuConvert;
+import cn.murky.admin.system.biz.convert.SysMenuConvert;
 import cn.murky.admin.system.biz.domain.entity.SysMenu;
 import cn.murky.admin.system.biz.mapper.SysMenuMapper;
 import cn.murky.admin.system.biz.mapper.SysRoleMenuMapper;

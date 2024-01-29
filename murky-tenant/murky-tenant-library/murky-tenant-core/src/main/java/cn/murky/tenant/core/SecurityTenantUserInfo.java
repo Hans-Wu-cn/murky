@@ -43,7 +43,7 @@ public class SecurityTenantUserInfo extends SecurityUser {
     /**
      * 所属部门id
      */
-    private Long deptId;
+    private Long fkDeptId;
 
     /**
      * 所属部门的数据权限

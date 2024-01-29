@@ -1,7 +1,9 @@
 package cn.murky.tenant.system.biz.api;
 
 import cn.murky.tenant.system.api.TenantRoleApi;
-import cn.murky.tenant.system.api.domain.bo.TenantRoleBO;
+import cn.murky.tenant.system.api.domain.bo.SysRoleBO;
+import cn.murky.tenant.system.biz.convert.SysRoleConvert;
+import cn.murky.tenant.system.biz.domian.entity.SysRole;
 import org.noear.solon.annotation.Component;
 
 /**
@@ -11,8 +13,9 @@ import org.noear.solon.annotation.Component;
 public class TenantRoleApiImpl implements TenantRoleApi {
 
     @Override
-    public TenantRoleBO getTenantRoleById(Long fkRoleId){
-        return null;
+    public SysRoleBO getSysRoleById(Long fkRoleId){
+        SysRole sysRole = new SysRole().where(SysRole::getId).eq(fkRoleId).oneById();
+        return SysRoleConvert.INSTANCES.toBO(sysRole);
 
     }
 }

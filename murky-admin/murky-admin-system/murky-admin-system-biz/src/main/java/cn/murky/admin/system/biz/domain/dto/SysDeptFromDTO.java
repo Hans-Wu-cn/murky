@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.system.biz.domain.convert.SysDeptConvert;
+import cn.murky.admin.system.biz.convert.SysDeptConvert;
 import cn.murky.admin.system.biz.domain.entity.SysDept;
 import cn.murky.core.validat.Update;
 import io.swagger.annotations.ApiModel;
