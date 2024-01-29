@@ -99,34 +99,18 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
         String tableName="sys_user";
         // 创建租户角色权限关系表
         Db.updateBySql(STR."""
-                CREATE TABLE \{schemaName}.\{tableName} (
-                	create_time timestamp NULL,
-                	update_time timestamp NULL,
-                	create_user int8 NULL,
-                	update_user int8 NULL,
-                	id int8 NOT NULL,
-                	fk_role_id int8 NOT NULL,
-                	fk_dept_id int8 NULL,
-                	user_name varchar NOT NULL,
-                	account varchar NOT NULL,
-                	"password" varchar NOT NULL,
-                	sex int2 NOT NULL,
-                	email varchar NULL,
-                	"language" varchar NULL,
-                	salt varchar NULL,
-                	CONSTRAINT tenant_user_pk PRIMARY KEY (id)
-                )INHERITS(\{getCurrentSchema()}.tenant_user);
+                CREATE TABLE \{schemaName}.\{tableName} ()INHERITS(\{getCurrentSchema()}.tenant_user);
                 """);
         commonColumComment(schemaName,tableName);
-        columComment(schemaName,tableName,"fk_role_id","角色id");
-        columComment(schemaName,tableName,"fk_dept_id","部门id");
-        columComment(schemaName,tableName,"user_name","用户名称");
-        columComment(schemaName,tableName,"account","账号");
-        columComment(schemaName,tableName,"password","密码");
-        columComment(schemaName,tableName,"sex","性别");
-        columComment(schemaName,tableName,"email","邮箱");
-        columComment(schemaName,tableName,"language","语言");
-        columComment(schemaName,tableName,"salt","密码盐值");
+//        columComment(schemaName,tableName,"fk_role_id","角色id");
+//        columComment(schemaName,tableName,"fk_dept_id","部门id");
+//        columComment(schemaName,tableName,"user_name","用户名称");
+//        columComment(schemaName,tableName,"account","账号");
+//        columComment(schemaName,tableName,"password","密码");
+//        columComment(schemaName,tableName,"sex","性别");
+//        columComment(schemaName,tableName,"email","邮箱");
+//        columComment(schemaName,tableName,"language","语言");
+//        columComment(schemaName,tableName,"salt","密码盐值");
     }
 
     /**
