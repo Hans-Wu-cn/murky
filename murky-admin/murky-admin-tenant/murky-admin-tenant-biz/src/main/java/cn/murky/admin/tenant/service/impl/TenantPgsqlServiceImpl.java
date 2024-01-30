@@ -1,13 +1,12 @@
 package cn.murky.admin.tenant.service.impl;
 
 import cn.murky.admin.tenant.service.ITenantDDLService;
+import cn.murky.common.utils.StringUtils;
 import com.mybatisflex.core.row.Db;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
-import org.postgresql.jdbc.PgSQLXML;
 
-import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -16,6 +15,18 @@ import java.util.Optional;
 @Component
 @Tran
 public class TenantPgsqlServiceImpl implements ITenantDDLService {
+    /**
+     * 数据库schema字段
+     */
+    private final static String SCHEMA_COLUMN ="currentSchema";
+    /**
+     * 默认的schema
+     */
+    private final static String DEFAULT_SCHEMA ="public";
+    /**
+     * 当前schema
+     */
+    private static String CURRENT_SCHEMA = "";
     @Inject("${postgres.db.jdbcUrl}")
     private String jdbcUrl;
     @Override
@@ -102,15 +113,6 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
                 CREATE TABLE \{schemaName}.\{tableName} ()INHERITS(\{getCurrentSchema()}.tenant_user);
                 """);
         commonColumComment(schemaName,tableName);
-//        columComment(schemaName,tableName,"fk_role_id","角色id");
-//        columComment(schemaName,tableName,"fk_dept_id","部门id");
-//        columComment(schemaName,tableName,"user_name","用户名称");
-//        columComment(schemaName,tableName,"account","账号");
-//        columComment(schemaName,tableName,"password","密码");
-//        columComment(schemaName,tableName,"sex","性别");
-//        columComment(schemaName,tableName,"email","邮箱");
-//        columComment(schemaName,tableName,"language","语言");
-//        columComment(schemaName,tableName,"salt","密码盐值");
     }
 
     /**
@@ -151,18 +153,23 @@ public class TenantPgsqlServiceImpl implements ITenantDDLService {
 
     /**
      * 获取当前系统得schema
-     * @return
+     * @return 当前系统数据库的schema
      */
     private String getCurrentSchema(){
-        URI uri = URI.create(jdbcUrl);
-        if (uri.getQuery().startsWith("currentSchema")) {
-            for (String str : uri.getQuery().split("&")) {
-                if (str.startsWith("currentSchema")) {
-                    return str.split("=")[1];
+        if (StringUtils.isNotEmpty(CURRENT_SCHEMA)){
+            return CURRENT_SCHEMA;
+        }
+        String currentSchema = jdbcUrl.substring(jdbcUrl.indexOf("?") + 1);
+        if(StringUtils.isNotEmpty(currentSchema)){
+            for (String str : currentSchema.split("&")) {
+                String[] spt = str.split("=");
+                if (spt[0].equals(SCHEMA_COLUMN)) {
+                    CURRENT_SCHEMA = spt[1];
+                    return spt[1];
                 }
             }
         }
-        return "public";
+        return DEFAULT_SCHEMA;
     }
 
 }

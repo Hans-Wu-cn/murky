@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   request:
     maxBodySize: 2mb
     maxFileSize: 2mb
@@ -27,9 +27,10 @@ solon.logging.logger:
     level: info
 
 redis:
-  server: 119.29.203.51:6379
-  db: 0
-  serializer: "cn.murky.common.config.SerializerJsonTyped"
+  server: 149.88.71.199:6379
+  db: 1
+  password: jhkdjhkjdhsIUTYURTU_nC3AF2
+  serializer: "cn.murky.core.config.SerializerJsonTyped"
 
 postgres.db:
   jdbcUrl: jdbc:postgresql://149.88.71.199:5432/murky?currentSchema=admin

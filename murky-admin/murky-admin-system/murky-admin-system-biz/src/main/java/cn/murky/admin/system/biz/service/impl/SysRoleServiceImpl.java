@@ -24,6 +24,11 @@ import org.noear.solon.data.annotation.Tran;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static cn.murky.admin.system.api.constant.ErrorConstant.ROLE_CODE_ALREADY;
+import static cn.murky.admin.system.api.constant.ErrorConstant.ROLE_NAME_ALREADY;
+import static cn.murky.core.constant.ErrorConstant.ADD_ERROR;
+import static cn.murky.core.constant.ErrorConstant.EDIT_ERROR;
+
 /**
  * 角色service
  *
@@ -92,10 +97,10 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
         SysRole sysRole = mapper.selectByRoleNameAndRoleCode(entity.getRoleName(), entity.getRoleCode());
         Optional.ofNullable(sysRole).map(item -> {
             if (item.getRoleCode().equals(entity.getRoleCode())) {
-                throw new ServiceException("角色码已存在");
+                throw new ServiceException(ROLE_CODE_ALREADY);
             }
             if (item.getRoleName().equals(entity.getRoleName())) {
-                throw new ServiceException("角色名已存在");
+                throw new ServiceException(ROLE_NAME_ALREADY);
             }
             return null;
         });
@@ -116,7 +121,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
                     .setFkMenuId(menuId)).toList();
             int i = sysRoleMenuMapper.insertBatch(sysRoleMenuList);
             if (i <= 0) {
-                throw new ServiceException("添加失败");
+                throw new ServiceException(ADD_ERROR);
             }
 
         }
@@ -139,10 +144,10 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
         SysRole sysRole = mapper.selectByNameOrCode(entity.getId(), entity.getRoleName(), entity.getRoleCode());
         Optional.ofNullable(sysRole).map(item -> {
             if (item.getRoleCode().equals(entity.getRoleCode())) {
-                throw new ServiceException("角色码已存在");
+                throw new ServiceException(ROLE_CODE_ALREADY);
             }
             if (item.getRoleName().equals(entity.getRoleName())) {
-                throw new ServiceException("角色名已存在");
+                throw new ServiceException(ROLE_NAME_ALREADY);
             }
             return null;
         });
@@ -169,7 +174,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
                     .setFkMenuId(menuId)).toList();
             int i = sysRoleMenuMapper.insertBatch(sysRoleMenuList);
             if (i <= 0) {
-                throw new ServiceException("修改失败");
+                throw new ServiceException(EDIT_ERROR);
             }
         }
         //删除角色部门关系数据,准备重载
@@ -181,7 +186,7 @@ public class SysRoleServiceImpl extends MurkyServiceImpl<SysRoleMapper, SysRole>
             }).toList();
             int i = sysRoleDeptMapper.insertBatch(sysRoleDepts);
             if (i != sysRoleFromDTO.getFkDeptIds().size()) {
-                throw new ServiceException("修改失败");
+                throw new ServiceException(EDIT_ERROR);
             }
         }
         return true;

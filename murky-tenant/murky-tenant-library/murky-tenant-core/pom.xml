@@ -42,13 +42,6 @@
             <artifactId>solon.validation</artifactId>
         </dependency>
 
-        <!--单元测试 依赖-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-test-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- core -->
         <dependency>
             <groupId>cn.murky</groupId>

@@ -12,7 +12,11 @@
     <artifactId>murky-admin-tenant-biz</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-
+        <dependency>
+            <groupId>cn.murky.admin</groupId>
+            <artifactId>murky-admin-tenant-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

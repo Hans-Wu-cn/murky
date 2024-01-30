@@ -6,6 +6,7 @@ import cn.murky.admin.system.api.domian.bo.SysUserBO;
 import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.system.biz.convert.SysUserConvert;
 import cn.murky.admin.system.biz.domain.entity.table.SysUserTableDef;
+import cn.murky.core.record.ErrorRecord;
 import cn.murky.security.entity.SecurityUserInfo;
 import cn.murky.admin.system.api.SysUserApi;
 import cn.murky.admin.system.biz.domain.dto.ResetPasswordDto;
@@ -32,6 +33,9 @@ import org.noear.solon.annotation.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static cn.murky.admin.system.api.constant.ErrorConstant.LANGUAGE_NOT_SUPPORT;
+import static cn.murky.admin.system.api.constant.ErrorConstant.OLD_PASSWORD_ERROR;
 
 /**
  * UserApi
@@ -141,7 +145,7 @@ public class SysUserApiImpl implements SysUserApi {
         SysUser sysUser = iSysUserService.getById(userId);
         String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(sysUser.getSalt(), oldPassword));
         if(!sysUser.getPassword().equals(encryPassword)){
-            throw new ServiceException("旧密码不正确");
+            throw new ServiceException(OLD_PASSWORD_ERROR);
         }
         return iSysUserService.resetPassword(new ResetPasswordDto()
                 .setPassword(password)
@@ -158,7 +162,7 @@ public class SysUserApiImpl implements SysUserApi {
     public boolean setLanguage(String language) {
         List<SysDictData> list = iSysDictDataService.getI18nDict().stream().filter(item -> item.getDictValue().equals(language)).toList();
         if (Utils.isEmpty(list)) {
-            throw new ServiceException("系统暂不支持该语言");
+            throw new ServiceException(LANGUAGE_NOT_SUPPORT);
         }
         SysUser sysUser = new SysUser().setId(SecurityUtils.getUserId()).setLanguage(language);
         boolean b = iSysUserService.updateById(sysUser);

@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static cn.murky.admin.system.api.constant.ErrorConstant.*;
+
 /**
  * i18n Service
  *
@@ -84,16 +86,16 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
     public boolean save(SysI18nFromDTO sysI18nFromDTO) {
         long l = mapper.selectByKeyAndTag(sysI18nFromDTO.getI18nKey(), sysI18nFromDTO.getI18nTag());
         if (l > 0) {
-            throw new ServiceException("当前i18nKey已存在");
+            throw new ServiceException(I18N_KEY_ALREADY);
         }
         List<SysDictData> i18nDict = iSysDictDataService.getI18nDict();
         Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(SysDictData::getDictValue, SysDictData::getDictValue));
         SysDictData defaultI18n = i18nDict.get(0);
         List<SysI18n> sysI18ns = new ArrayList<>();
         for (SysI18nFromDTO.I18nInput i18nInput : sysI18nFromDTO.getI18nInputs()) {
-            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException("非法的i18n语言"));
+            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException(ILLEGAL_LANGUAGE));
             if (i18nInput.getI18nValue().equals(defaultI18n.getDictValue())) {
-                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
+                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException(DEFAULT_LANGUAGE_NOT_SET));
             }
             SysI18n sysI18n = new SysI18n()
                     .setI18nTag(sysI18nFromDTO.getI18nTag())
@@ -118,9 +120,9 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
         SysDictData defaultI18n = i18nDict.get(0);
         List<SysI18n> list = new ArrayList<>();
         for (SysI18nFromDTO.I18nInput i18nInput : sysI18nFromDTO.getI18nInputs()) {
-            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException("非法的i18n语言"));
+            Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException(ILLEGAL_LANGUAGE));
             if (i18nInput.getLanguage().equals(defaultI18n.getDictValue())) {
-                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException("默认语言必须设置"));
+                Optional.ofNullable(i18nInput.getI18nValue()).orElseThrow(() -> new ServiceException(DEFAULT_LANGUAGE_NOT_SET));
             }
             SysI18n sysI18n = new SysI18n()
                     .setId(i18nInput.getId())

@@ -42,6 +42,18 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.config.yaml</artifactId>
         </dependency>
+
+        <!-- 租户系统管理模块 -->
+        <dependency>
+            <groupId>cn.murky.tenant</groupId>
+            <artifactId>murky-tenant-system-biz</artifactId>
+        </dependency>
+
+        <!-- 租户系统管理模块 -->
+        <dependency>
+            <groupId>cn.murky.tenant</groupId>
+            <artifactId>murky-tenant-auth</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -46,7 +46,7 @@ public class SecurityCache <T extends SecurityUser> {
      */
     public void setUserInfo(T securityUser) {
         redisClient.open(session -> {
-            String serialize = ONode.stringify(securityUser);
+            String serialize = ONode.serialize(securityUser);
             session.key(USER_KEY + getUserId()).expire(expire).set(serialize);
         });
     }
@@ -58,7 +58,7 @@ public class SecurityCache <T extends SecurityUser> {
      */
     public T getUserInfo() throws NotLoginException {
         String json = redisClient.openAndGet(session -> session.key(USER_KEY + getUserId()).get());
-        return ONode.deserialize(json, SecurityUserInfo.class);
+        return ONode.deserialize(json);
     }
 
     /**

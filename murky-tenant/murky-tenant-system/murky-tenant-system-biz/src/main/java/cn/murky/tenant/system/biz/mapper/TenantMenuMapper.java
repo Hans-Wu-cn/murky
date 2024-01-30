@@ -2,8 +2,8 @@ package cn.murky.tenant.system.biz.mapper;
 
 import cn.murky.tenant.system.api.enums.MenuType;
 import cn.murky.tenant.system.biz.domian.entity.TenantMenu;
+import cn.murky.tenant.system.biz.domian.entity.table.SysRoleMenuTableDef;
 import cn.murky.tenant.system.biz.domian.entity.table.TenantMenuTableDef;
-import cn.murky.tenant.system.biz.domian.entity.table.TenantRoleMenuTableDef;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 
@@ -13,14 +13,14 @@ import static com.mybatisflex.core.query.QueryMethods.exists;
 
 public interface TenantMenuMapper extends BaseMapper<TenantMenu> {
     /**
-     * 根据角色id贺菜单类型查询对应权限
+     * 根据角色id和菜单类型查询对应权限
      * @param menuTypes 菜单类型
      * @param fkRoleId 角色id
      * @return
      */
     default List<TenantMenu> selectByMenuTypeAndfkRoleid(List<MenuType> menuTypes, Long fkRoleId) {
 
-        TenantRoleMenuTableDef TENANT_ROLE_MENU = TenantRoleMenuTableDef.TENANT_ROLE_MENU;
+        SysRoleMenuTableDef SYS_ROLE_MENU = SysRoleMenuTableDef.SYS_ROLE_MENU;
         TenantMenuTableDef TENANT_MENU = TenantMenuTableDef.TENANT_MENU;
         return this.selectListByQuery(
                 QueryWrapper.create()
@@ -30,10 +30,10 @@ public interface TenantMenuMapper extends BaseMapper<TenantMenu> {
                         .and(
                                 exists
                                         (
-                                                QueryWrapper.create().select(TENANT_ROLE_MENU.FK_MENU_ID)
-                                                        .from(TENANT_ROLE_MENU)
-                                                        .where(TENANT_ROLE_MENU.FK_ROLE_ID.eq(fkRoleId))
-                                                        .and(TENANT_MENU.ID.eq(TENANT_ROLE_MENU.FK_MENU_ID))
+                                                QueryWrapper.create().select(SYS_ROLE_MENU.FK_MENU_ID)
+                                                        .from(SYS_ROLE_MENU)
+                                                        .where(SYS_ROLE_MENU.FK_ROLE_ID.eq(fkRoleId))
+                                                        .and(TENANT_MENU.ID.eq(SYS_ROLE_MENU.FK_MENU_ID))
                                         )
                         )
                         .orderBy(TENANT_MENU.SORT.asc(), TENANT_MENU.LABEL.asc())

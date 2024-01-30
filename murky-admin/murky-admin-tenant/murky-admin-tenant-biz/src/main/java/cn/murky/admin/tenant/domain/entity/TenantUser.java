@@ -51,4 +51,6 @@ public class TenantUser extends BaseEntity<TenantUser> {
     @ApiModelProperty("租户id")
     private Long fkTenantId;
 
+    @ApiModelProperty("租户管理员")
+    private Boolean admin;
 }

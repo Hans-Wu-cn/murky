@@ -53,10 +53,16 @@
                 <artifactId>murky-admin-auth</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--saas管理模块 依赖-->
+            <!--tenant管理模块 依赖-->
             <dependency>
                 <groupId>cn.murky.admin</groupId>
                 <artifactId>murky-admin-tenant-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--tenant管理模块 依赖-->
+            <dependency>
+                <groupId>cn.murky.admin</groupId>
+                <artifactId>murky-admin-tenant-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

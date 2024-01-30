@@ -19,6 +19,11 @@ import org.noear.solon.data.annotation.Tran;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cn.murky.admin.system.api.constant.ErrorConstant.DEPT_HAS_CHILD;
+import static cn.murky.admin.system.api.constant.ErrorConstant.DEPT_IS_USED;
+import static cn.murky.core.constant.ErrorConstant.ADD_ERROR;
+import static cn.murky.core.constant.ErrorConstant.EDIT_ERROR;
+
 @Component
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
 
@@ -72,7 +77,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             if(i == SysDeptAncestors.size()){
                 return true;
             }
-            throw new ServiceException("新增部门失败");
+            throw new ServiceException(ADD_ERROR);
         }
         return false;
     }
@@ -110,7 +115,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             if(i == SysDeptAncestors.size()){
                 return true;
             }
-            throw new ServiceException("修改部门失败");
+            throw new ServiceException(EDIT_ERROR);
         }
         return false;
     }
@@ -125,11 +130,11 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     public Boolean remove(Long deptId) {
         Long countByAncestors = SysDeptAncestorsMapper.getCountByAncestors(deptId);
         if(countByAncestors>0){
-            throw new ServiceException("该部门下仍有子部门无法删除");
+            throw new ServiceException(DEPT_HAS_CHILD);
         }
         Long countByDeptId = sysUserMapper.getCountByDeptId(deptId);
         if(countByDeptId>0){
-            throw new ServiceException("该部门正在被使用,无法删除");
+            throw new ServiceException(DEPT_IS_USED);
         }
         SysDeptAncestorsMapper.deleteByDeptId(deptId);
         mapper.deleteById(deptId);

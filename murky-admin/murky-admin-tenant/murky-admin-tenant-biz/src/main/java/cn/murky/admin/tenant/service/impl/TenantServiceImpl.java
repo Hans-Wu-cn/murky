@@ -21,6 +21,9 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
+import static cn.murky.admin.tenant.api.constant.ErrorConstants.*;
+import static cn.murky.core.constant.ErrorConstant.ADD_ERROR;
+
 /**
  * TenantService
  *
@@ -28,7 +31,8 @@ import org.noear.solon.data.annotation.Tran;
  */
 @Component
 public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implements ITenantService {
-
+    @Inject("${murky.tenant.schemaPrefix}")
+    private String tenantSchemaNamePrefix;
     @Inject
     private TenantUserMapper tenantUserMapper;
 
@@ -71,24 +75,24 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     public Boolean add(TenantFromDTO tenantFromDTO) {
         // 检测密码是否一致
         if (!tenantFromDTO.getPassword().equals(tenantFromDTO.getConfirmPassword())) {
-            throw new ServiceException("两次输入密码不一致");
+            throw new ServiceException(REPEATED_PASSWORD_ERROR);
         }
         // 检测租户名称是否已存在
         long tenantNameCount = mapper.selectCountByTenantName(tenantFromDTO.getTenantName());
         if (tenantNameCount > 0) {
-            throw new ServiceException("该租户名称已存在");
+            throw new ServiceException(TENANT_NAME_ALREADY);
         }
         // 校验账号是否重复
         long accountCount = tenantUserMapper.selectCountByAccount(tenantFromDTO.getAccount());
         if (accountCount > 0) {
-            throw new ServiceException("该账号已存在");
+            throw new ServiceException(ACCOUNT_ALREADY);
         }
         // 添加租户
         Tenant tenantEntity = TenantConvert.INSTANCES.toEntity(tenantFromDTO)
                 .setStatus(CommonStatus.NORMAL);
         boolean tenantSaveB = tenantEntity.save();
         if (!tenantSaveB) {
-            throw new ServiceException("添加租户失败");
+            throw new ServiceException(ADD_ERROR);
         }
         // 密码加密
         PasswordRecord passwordRecord = EncryptionUtil.userEncryption(tenantFromDTO.getPassword());
@@ -98,16 +102,17 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
                 .setPassword(passwordRecord.password())
                 .setSalt(passwordRecord.salt())
                 .setSex(Sex.OTHER)
+                .setAdmin(true)
                 .setFkTenantId(tenantEntity.getId());
         boolean userSaveB = tenantUser.save();
         if (!userSaveB) {
-            throw new ServiceException("添加租户失败");
+            throw new ServiceException(ADD_ERROR);
         }
         // 绑定租户与租户管理员
         tenantEntity.setAdminUser(tenantUser.getId());
         int count = mapper.update(tenantEntity);
         if (count <= 0) {
-            throw new ServiceException("添加租户失败");
+            throw new ServiceException(ADD_ERROR);
         }
         // 生成schema名称
         String schemaName = generateSchemaName(tenantEntity.getId());
@@ -131,7 +136,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         // 检测租户名称是否已存在
         long tenantNameCount = mapper.selectCountByTenantName(tenantFromDTO.getTenantName());
         if (tenantNameCount > 0) {
-            throw new ServiceException("该租户名称已存在");
+            throw new ServiceException(TENANT_NAME_ALREADY);
         }
         int i = mapper.updateNameAndExpiresAndGroupByTenantId(tenantFromDTO.getId()
                 , tenantFromDTO.getTenantName()
@@ -141,6 +146,6 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     }
 
     public String generateSchemaName(Long tenantId){
-        return STR."tenant_\{tenantId}";
+        return STR."\{tenantSchemaNamePrefix}_\{tenantId}";
     }
 }

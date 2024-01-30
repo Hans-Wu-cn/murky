@@ -22,6 +22,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static cn.murky.admin.tenant.api.constant.ErrorConstants.PERMISSION_GROUP_NAME_ALREADY;
+import static cn.murky.core.constant.ErrorConstant.ADD_ERROR;
+import static cn.murky.core.constant.ErrorConstant.EDIT_ERROR;
+
 /**
  * 商户权限组service
  *
@@ -78,7 +82,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
         TenantPermissionGroup tenantPermissionGroup = mapper.selectByRoleNameAndRoleCode(entity.getGroupName());
         Optional.ofNullable(tenantPermissionGroup).map(item -> {
             if (item.getGroupName().equals(entity.getGroupName())) {
-                throw new ServiceException("权限组名已存在");
+                throw new ServiceException(PERMISSION_GROUP_NAME_ALREADY);
             }
             return null;
         });
@@ -104,7 +108,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
             }
             int i = tenantGroupMenuMapper.insertBatch(groupMenuList);
             if (i != saasMenuIds.size()) {
-                throw new ServiceException("添加失败");
+                throw new ServiceException(ADD_ERROR);
             }
 
         }
@@ -126,7 +130,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
                 , entity.getGroupName());
         Optional.ofNullable(tenantRole).map(item -> {
             if (item.getGroupName().equals(entity.getGroupName())) {
-                throw new ServiceException("权限组名已存在");
+                throw new ServiceException(PERMISSION_GROUP_NAME_ALREADY);
             }
             return null;
         });
@@ -153,7 +157,7 @@ public class TenantPermissionGroupServiceImpl extends ServiceImpl<TenantPermissi
                     .setFkMenuId(item)).toList();
             int i = tenantGroupMenuMapper.insertBatch(tenantGroupMenus);
             if (i <= 0) {
-                throw new ServiceException("修改失败");
+                throw new ServiceException(EDIT_ERROR);
             }
         }
         return true;

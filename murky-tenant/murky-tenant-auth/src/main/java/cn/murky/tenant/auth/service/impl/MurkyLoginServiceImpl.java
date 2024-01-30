@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static cn.murky.tenant.auth.constant.ErrorConstant.ACCOUNT_PASSWORD_ERROR;
 import static cn.murky.tenant.system.api.constant.TenantSystemConstant.TENANT_SYSTEM_ADMIN_FK_ROLE_ID;
 import static cn.murky.tenant.system.api.constant.TenantSystemConstant.TENANT_SYSTEM_ADMIN_ROLE_CODE;
 
@@ -35,14 +36,15 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
     private TenantUserApi tenantUserApi;
     @Inject
     private TenantMenuApi tenantMenuApi;
+
     @Override
     public SaTokenInfo login(LoginDto loginDto) {
         TenantUserBO tenantUser = tenantUserApi.getOneByAccount(loginDto.getAccount());
         //如果为空抛出异常
-        Optional.ofNullable(tenantUser).orElseThrow(() -> new ServiceException("账号或密码错误"));
+        Optional.ofNullable(tenantUser).orElseThrow(() -> new ServiceException(ACCOUNT_PASSWORD_ERROR));
         String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(tenantUser.getSalt(), loginDto.getPassword()));
-        if(!tenantUser.getPassword().equals(encryPassword)){
-            throw new ServiceException("账号或密码错误");
+        if (!tenantUser.getPassword().equals(encryPassword)) {
+            throw new ServiceException(ACCOUNT_PASSWORD_ERROR);
         }
         // 第1步，先登录
         StpUtil.login(tenantUser.getId());
@@ -64,16 +66,16 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Long loginId = StpUtil.getLoginIdAsLong();
             TenantUserBO tenantUser = tenantUserApi.getById(loginId);
-            SecurityTenantUserInfo userInfo =  new SecurityTenantUserInfo()
+            SecurityTenantUserInfo userInfo = new SecurityTenantUserInfo()
                     .setUserId(loginId)
                     .setEmail(tenantUser.getEmail())
-                            .setUserName(tenantUser.getUserName())
-                            .setLanguage(tenantUser.getLanguage())
-                            .setFkDeptId(tenantUser.getFkDeptId())
-                            .setFkRoleId(tenantUser.getFkRoleId())
-                            .setToken(tokenInfo.getTokenValue())
-                            .setTenantId(tenantUser.getFkTenantId())
-                            .setAdmin(tenantUser.getAdmin());
+                    .setUserName(tenantUser.getUserName())
+                    .setLanguage(tenantUser.getLanguage())
+                    .setFkDeptId(tenantUser.getFkDeptId())
+                    .setFkRoleId(tenantUser.getFkRoleId())
+                    .setToken(tokenInfo.getTokenValue())
+                    .setTenantId(tenantUser.getFkTenantId())
+                    .setAdmin(tenantUser.getAdmin());
             if (tenantUser.getAdmin()) {
                 userInfo.setRoleCode(TENANT_SYSTEM_ADMIN_ROLE_CODE);
                 userInfo.setFkRoleId(TENANT_SYSTEM_ADMIN_FK_ROLE_ID);
@@ -81,7 +83,7 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
                 List<String> permissions = tenantMenuApi.getByFkTenantId(tenantUser.getFkTenantId())
                         .stream().map(TenantMenuBO::getAuth).toList();
                 userInfo.setPermissions(permissions);
-            }else {
+            } else {
                 //查询角色code列表
                 SysRoleBO sysRoleBO = tenantRoleApi.getSysRoleById(tenantUser.getFkRoleId());
                 userInfo.setRoleCode(sysRoleBO.getRoleCode());

@@ -1,8 +1,12 @@
 package cn.murky.security;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class SecurityUser {
+public abstract class SecurityUser implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public abstract List<String> getPermissions();
 

@@ -129,7 +129,9 @@ const transform: AxiosTransform = {
   // 响应拦截器处理
   responseInterceptors: (res) => {
     const { code, message } = res.data
-    switch (res.data.code) {
+    switch (code) {
+      case ResultEnum.SUCCESS:
+        break;
       case ResultEnum.NOT_LOGIN:
         console.log('跳转登录页');
         // token过期清空store中的存储的token和user信息
@@ -147,9 +149,7 @@ const transform: AxiosTransform = {
         break;
       case ResultEnum.NOT_PERMISSION:
         MessagePlugin.error(message);
-      case ResultEnum.ERROR:
-        MessagePlugin.error(message);
-      default: ;
+      default: MessagePlugin.error(message);;
     }
     return res;
   },

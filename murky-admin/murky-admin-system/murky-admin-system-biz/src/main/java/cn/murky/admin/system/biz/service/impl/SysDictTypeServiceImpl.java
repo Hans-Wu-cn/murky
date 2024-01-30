@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static cn.murky.core.constant.ErrorConstant.EDIT_ERROR;
+
 /**
  * 字典类型service
  *
@@ -69,7 +71,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             }
             return iSysDictDataService.updateBatch(dictList);
         }
-        throw new ServiceException("修改失败");
+        throw new ServiceException(EDIT_ERROR);
     }
 
     /**

@@ -25,6 +25,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static cn.murky.admin.system.api.constant.ErrorConstant.*;
+import static cn.murky.core.constant.ErrorConstant.ADD_ERROR;
+import static cn.murky.core.constant.ErrorConstant.EDIT_ERROR;
+
 /**
  * userService
  * @author hans
@@ -60,7 +64,7 @@ public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser>
         SysUser entity = sysUserFromDTO.toEntity();
         Long countByAccount = mapper.getCountByAccount(entity.getAccount());
         if (countByAccount > 0) {
-            throw new ServiceException("添加失败:账号已存在");
+            throw new ServiceException(ACCOUNT_ALREADY);
         }
         // 获取系统默认密码
         String defaultUserPassword = iSystemParameterService.getDefaultUserPassword();
@@ -71,7 +75,7 @@ public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser>
 
         int insert = mapper.insert(entity);
         if (insert <= 0) {
-            throw new ServiceException("添加失败");
+            throw new ServiceException(ADD_ERROR);
         }
         return true;
     }
@@ -87,7 +91,7 @@ public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser>
         SysUser entity = sysUserFromDTO.toEntity();
         int update = mapper.update(entity);
         if (update <= 0) {
-            throw new ServiceException("添加失败");
+            throw new ServiceException(EDIT_ERROR);
         }
         return true;
     }
@@ -100,12 +104,12 @@ public class SysUserServiceImpl extends MurkyServiceImpl<SysUserMapper, SysUser>
     @Override
     public boolean resetPassword(ResetPasswordDto resetPasswordDto) {
         if (!resetPasswordDto.getPassword().equals(resetPasswordDto.getConfirmPassword())) {
-            throw new ServiceException("确认密码不一致");
+            throw new ServiceException(CONFIRM_PASSWORD_ERROR);
         }
         Long userId = resetPasswordDto.getId();
         SysUser sysUser = mapper.selectOneById(userId);
         // 校验账号是否正确
-        Optional.ofNullable(sysUser).orElseThrow(() -> new ServiceException("该用户不存在"));
+        Optional.ofNullable(sysUser).orElseThrow(() -> new ServiceException(USER_NOT_EXIST));
         // 加密获取新的密码和盐值
         PasswordRecord passwordRecord = EncryptionUtil.userEncryption(resetPasswordDto.getPassword());
         int count = mapper.resetPassword(userId, passwordRecord.password(),passwordRecord.salt());

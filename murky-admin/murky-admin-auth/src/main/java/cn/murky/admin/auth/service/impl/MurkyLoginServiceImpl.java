@@ -15,6 +15,8 @@ import org.noear.solon.annotation.Inject;
 
 import java.util.*;
 
+import static cn.murky.admin.auth.constant.ErrorConstant.ACCOUNT_PASSWORD_ERROR;
+
 @Component
 public class MurkyLoginServiceImpl implements IMurkyLoginService {
 
@@ -25,10 +27,10 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
     public SaTokenInfo login(LoginDto loginDto) {
         SysUserBO user = sysUserApi.getOneByAccount(loginDto.getAccount());
         //如果为空抛出异常
-        Optional.ofNullable(user).orElseThrow(() -> new ServiceException("账号或密码错误"));
+        Optional.ofNullable(user).orElseThrow(() -> new ServiceException(ACCOUNT_PASSWORD_ERROR));
         String encryPassword = EncryptionUtil.userEncryption(new PasswordRecord(user.getSalt(), loginDto.getPassword()));
         if(!user.getPassword().equals(encryPassword)){
-            throw new ServiceException("账号或密码错误");
+            throw new ServiceException(ACCOUNT_PASSWORD_ERROR);
         }
         // 第1步，先登录
         StpUtil.login(user.getId());

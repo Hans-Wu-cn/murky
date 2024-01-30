@@ -22,6 +22,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cn.murky.admin.system.api.constant.ErrorConstant.MENU_HAS_CHILD;
+import static cn.murky.admin.system.api.constant.ErrorConstant.MENU_IS_USED;
+
 /**
  * 菜单service实现
  *
@@ -81,13 +84,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 QueryWrapper.create().from(SysMenuTableDef.SYS_MENU).where(SysMenuTableDef.SYS_MENU.PARENT_ID.eq(id))
         );
         if (count > 0) {
-            throw new ServiceException("删除失败,请保证该菜单没有子级菜单");
+            throw new ServiceException(MENU_HAS_CHILD);
         }
         long l = sysRoleMenuMapper.selectCountByQuery(QueryWrapper.create().where(
                 SysRoleMenuTableDef.SYS_ROLE_MENU.FK_MENU_ID.eq(id)
         ));
         if (l > 0) {
-            throw new ServiceException("删除失败,请保证该菜单没有被角色引用");
+            throw new ServiceException(MENU_IS_USED);
         }
         return super.removeById(id);
     }
