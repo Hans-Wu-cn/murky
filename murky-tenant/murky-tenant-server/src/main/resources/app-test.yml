@@ -19,6 +19,10 @@ solon:
     validateAll: true
 
 
+murky:
+  admin:
+    host: sd:tcp://localhost:28080
+
 # 记录器级别的配置示例
 solon.logging.logger:
   root: #默认记录器配置
@@ -27,13 +31,13 @@ solon.logging.logger:
     level: info
 
 redis:
-  server: 149.88.71.199:6379
+  server: 149.88.71.199:63790
   db: 1
   password: jhkdjhkjdhsIUTYURTU_nC3AF2
   serializer: "cn.murky.core.config.SerializerJsonTyped"
 
 postgres.db:
-  jdbcUrl: jdbc:postgresql://149.88.71.199:5432/murky?currentSchema=admin
+  jdbcUrl: jdbc:postgresql://149.88.71.199:54320/murky?currentSchema=admin
   driverClassName: org.postgresql.Driver
   username: murky
   password: mN58c8rTxkbWznEX

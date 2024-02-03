@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel("字典数据实体类")
 @Table(value = "sys_dict_data")
-public class SysDictData extends BaseEntity implements Serializable {
+public class SysDictData extends BaseEntity<SysDictData> {
 
     @Id
     @ApiModelProperty("字典编码")

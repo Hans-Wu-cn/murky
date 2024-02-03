@@ -17,6 +17,8 @@
         <module>murky-core</module>
         <module>murky-flex</module>
         <module>murky-security</module>
+        <module>murky-socketd</module>
+        <module>murky-redismq</module>
     </modules>
 
 

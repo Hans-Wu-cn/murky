@@ -22,6 +22,11 @@
             <groupId>cn.murky.tenant</groupId>
             <artifactId>murky-tenant-system-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-socketd</artifactId>
+        </dependency>
     </dependencies>
 
 

@@ -53,6 +53,13 @@ const columns: Array<PrimaryTableCol<DictData>> = [
     colKey: 'dictLabel',
     title: () => i18n.global.t('dictData.attribute.dictLabel'),
     minWidth: 100,
+    cell: (h, { col, row }) => (
+      <div>
+        {
+          i18n.global.t(row.dictLabel)
+        }
+      </div>
+    ),
   },
   {
     colKey: 'dictValue',
@@ -198,7 +205,7 @@ const searchOptions = ref<SearchOption[]>([
   },
   {
     name: 'dictType',
-    value: '',
+    value: route.query.dictType as string,
     label: () => i18n.global.t('dict.label.dictType'),
     type: 'input',
     placeholder: computed(() => i18n.global.t('dict.label.pl.dictType')),

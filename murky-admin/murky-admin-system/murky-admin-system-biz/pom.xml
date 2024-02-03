@@ -12,10 +12,20 @@
     <artifactId>murky-admin-system-biz</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        <!--poem 事件包-->
+        <!--murky 事件包-->
         <dependency>
             <groupId>cn.murky.admin</groupId>
             <artifactId>murky-admin-system-api</artifactId>
+        </dependency>
+        <!--socketd 库-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-socketd</artifactId>
+        </dependency>
+        <!--redismq 库-->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-redismq</artifactId>
         </dependency>
     </dependencies>
     <build>

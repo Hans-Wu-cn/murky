@@ -55,6 +55,17 @@
                 <artifactId>murky-flex</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-socketd</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--redismq 库-->
+            <dependency>
+                <groupId>cn.murky</groupId>
+                <artifactId>murky-redismq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!--dami 依赖-->
             <dependency>
@@ -97,4 +108,18 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

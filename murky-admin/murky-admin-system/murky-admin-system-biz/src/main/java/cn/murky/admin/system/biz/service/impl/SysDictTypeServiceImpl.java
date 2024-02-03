@@ -49,6 +49,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
         redisHash.clear();
         for (SysDictBo sysDictBo : sysDictBos) {
+            sysDictBo.getSysDictDataList().forEach(item->item.setDictType(sysDictBo.getDictType()));
             redisHash.putAndSerialize(sysDictBo.getDictType(), sysDictBo.getSysDictDataList());
         }
         log.info("初始化字典缓存");
@@ -87,6 +88,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         List<SysDictBo> sysDictBos = mapper.selectSysDict();
         Map<String,String> hashMap = new HashMap<>();
         for (SysDictBo sysDictBo : sysDictBos) {
+            sysDictBo.getSysDictDataList().forEach(item->item.setDictType(sysDictBo.getDictType()));
             hashMap.put(sysDictBo.getDictType(), ONode.serialize(sysDictBo.getSysDictDataList()));
         }
         redisHash.putAll(hashMap);

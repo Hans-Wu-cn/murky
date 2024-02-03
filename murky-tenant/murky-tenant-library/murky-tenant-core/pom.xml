@@ -53,6 +53,12 @@
             <groupId>cn.murky</groupId>
             <artifactId>murky-security</artifactId>
         </dependency>
+
+        <!-- socketd -->
+        <dependency>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-socketd</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

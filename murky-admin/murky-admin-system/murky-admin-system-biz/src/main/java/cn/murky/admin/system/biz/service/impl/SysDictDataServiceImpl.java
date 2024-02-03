@@ -1,10 +1,13 @@
 package cn.murky.admin.system.biz.service.impl;
 
+import cn.murky.admin.system.biz.mq.DictRedisMqTemplate;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
 import cn.murky.admin.system.biz.contant.DictContant;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.mapper.SysDictDataMapper;
 import cn.murky.admin.system.biz.mapper.SysDictTypeMapper;
+import cn.murky.admin.system.biz.service.ISysDictTypeService;
+import cn.murky.core.exception.ServiceException;
 import com.mybatisflex.core.util.SqlUtil;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
 import org.noear.redisx.RedisClient;
@@ -14,11 +17,10 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static cn.murky.core.constant.ErrorConstant.DELETE_ERROR;
 
 /**
  * 字典数据Service
@@ -32,6 +34,12 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
 
     @Inject
     private SysDictTypeMapper sysDictTypeMapper;
+
+    @Inject
+    private DictRedisMqTemplate dictRedisMqTemplate;
+
+    @Inject
+    private ISysDictTypeService iSysDictTypeService;
 
     /**
      * 重写save方法加入缓存机制
@@ -110,5 +118,51 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
             }).getClass());
         }
         return sysDictTypeMapper.selectSysDict(dictType).getSysDictDataList();
+    }
+
+    @Override
+    public List<SysDictData> getAllDict() {
+        RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
+        List<SysDictData> result=new ArrayList<>();
+        if(redisHash!=null){
+            for (String key : redisHash.keySet()) {
+                List<SysDictData>  sysDictDataList = redisHash.getAndDeserialize(key, (new ArrayList<SysDictData>() {
+                }).getClass());
+                result.addAll(sysDictDataList);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean updateDict(SysDictData sysDictData) {
+        boolean b = updateById(sysDictData);
+        if(b){
+            iSysDictTypeService.refreshDict();
+            dictRedisMqTemplate.publish();
+        }
+        return b;
+    }
+
+    @Override
+    public boolean addDict(SysDictData sysDictData) {
+        boolean b = save(sysDictData);
+        if (b) {
+            iSysDictTypeService.refreshDict();
+            dictRedisMqTemplate.publish();
+        }
+        return b;
+    }
+
+    @Override
+    public boolean removeDict(Long id) {
+        SysDictData sysDictData = getById(id);
+        Optional.ofNullable(sysDictData).orElseThrow(()->new ServiceException(DELETE_ERROR));
+        boolean b = removeById(id);
+        if (b) {
+            iSysDictTypeService.refreshDict();
+            dictRedisMqTemplate.publish();
+        }
+        return b;
     }
 }

@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>murky-common</artifactId>
+    <artifactId>murky-socketd</artifactId>
 
     <dependencies>
         <!-- socket.d 的 solon 服务启动插件 -->
@@ -25,24 +25,25 @@
             <version>${socketd.version}</version>
         </dependency>
 
-        <!--序列化框架-->
+        <!-- 使用哪个（或多个）传输包（按需选择）//这些传输包，会使用独立的端口 -->
         <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon.serialization.snack3</artifactId>
-        </dependency>
-
-        <!--mybatis-flex 依赖-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>mybatis-flex-solon-plugin</artifactId>
-        </dependency>
-
-
-        <!--redisx 依赖-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>redisx</artifactId>
-            <version>${redisx.version}</version>
+            <groupId>cn.murky</groupId>
+            <artifactId>murky-common</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                    <compilerArgs>-parameters</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
