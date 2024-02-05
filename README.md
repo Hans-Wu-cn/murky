@@ -10,12 +10,12 @@
 
 1. 基于MIT协议完整开源
 2. 前端采用[TDesign](https://tdesign.tencent.com/vue-next/overview)模板适配
-3. 前端技术栈:vue3 + vite + pina
+3. 前端技术栈:Vue3 + Ts + Vite + Pina
 4. 后端技术栈:Solon + Mybaits-Flex + Satoken + SocketD + DamiBus
 5. 数据库使用postgresql,redis
 6. jdk支持默认21
 7. 系统内置了国际化功能,采用了字典+国际化语言包数据化的管理方式,可以自由拓展需要的语言
-
+8. 菜单采用动态管理的方案
 ### 功能简介
 
 1. 菜单管理

@@ -27,6 +27,10 @@
             <groupId>cn.murky</groupId>
             <artifactId>murky-redismq</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.murky.admin</groupId>
+            <artifactId>murky-admin-tenant-api</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

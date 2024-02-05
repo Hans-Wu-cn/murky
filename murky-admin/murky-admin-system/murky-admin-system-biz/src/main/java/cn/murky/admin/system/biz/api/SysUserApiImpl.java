@@ -2,6 +2,7 @@ package cn.murky.admin.system.biz.api;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.api.domian.bo.SysUserBO;
 import cn.murky.admin.system.biz.contant.SystemContant;
 import cn.murky.admin.system.biz.convert.SysUserConvert;
@@ -160,7 +161,8 @@ public class SysUserApiImpl implements SysUserApi {
      */
     @Override
     public boolean setLanguage(String language) {
-        List<SysDictData> list = iSysDictDataService.getI18nDict().stream().filter(item -> item.getDictValue().equals(language)).toList();
+        List<SysDictDataBO> list = iSysDictDataService.getI18nDict()
+                .stream().filter(item -> item.getDictValue().equals(language)).toList();
         if (Utils.isEmpty(list)) {
             throw new ServiceException(LANGUAGE_NOT_SUPPORT);
         }

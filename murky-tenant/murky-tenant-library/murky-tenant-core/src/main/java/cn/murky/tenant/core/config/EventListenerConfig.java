@@ -17,7 +17,7 @@ import static java.lang.StringTemplate.STR;
 public class EventListenerConfig {
 
 
-    @Bean
+//    @Bean
     public List<ClientSession> clientSession(
             @Inject("${murky.admin.host}") String host,
             @Inject List<MurkyEventListener> murkyEventListeners) throws IOException {

@@ -28,10 +28,10 @@ public class DictRedisMqTemplate implements RedisMqTemplate {
         redisClient.getBus().publish(getTopic(),"");
     }
 
-    @Override
-    public void subscribe() {
-        log.info("[DictRedisMqTemplate] -> 订阅主题 -> topic:{}",getTopic());
-        redisClient.getBus().subscribe((topic, msg) -> {
+        @Override
+        public void subscribe() {
+            log.info("[DictRedisMqTemplate] -> 订阅主题 -> topic:{}",getTopic());
+            redisClient.getBus().subscribe((topic, msg) -> {
             log.info("[DictRedisMqTemplate] -> 消费消息 -> topic:{}",getTopic());
             try {
                 adminDataEndpoint.publishOnDict();

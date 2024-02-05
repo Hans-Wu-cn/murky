@@ -1,5 +1,6 @@
 package cn.murky.admin.system.biz.domain.vo;
 
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.SysI18n;
 import io.swagger.annotations.ApiModel;
@@ -42,6 +43,16 @@ public class SysI18nVo implements Serializable {
     }
 
     public void pushI18nInputs(SysDictData sysDictData){
+        if(i18nInputs==null){
+            i18nInputs=new ArrayList<>();
+        }
+        i18nInputs.add(new I18nInput()
+                .setLanguage(sysDictData.getDictValue())
+                .setI18nValue(null)
+        );
+    }
+
+    public void pushI18nInputs(SysDictDataBO sysDictData){
         if(i18nInputs==null){
             i18nInputs=new ArrayList<>();
         }

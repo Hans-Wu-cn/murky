@@ -1,5 +1,6 @@
 package cn.murky.admin.system.biz.service;
 
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import com.mybatisflex.core.service.IService;
 
@@ -15,17 +16,17 @@ public interface ISysDictDataService extends IService<SysDictData> {
     /**
      * 获取国际化字典内容
      */
-    List<SysDictData> getI18nDict();
+    List<SysDictDataBO> getI18nDict();
 
     /**
      * 获取指定标签列表
      */
-    List<SysDictData> getDict(String dictType);
+    List<SysDictDataBO> getDict(String dictType);
 
     /**
      * 获取所有字典
      */
-    List<SysDictData> getAllDict();
+    List<SysDictDataBO> getAllDict();
 
     /**
      * 修改字典

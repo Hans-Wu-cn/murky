@@ -1,5 +1,6 @@
 package cn.murky.admin.system.biz.convert;
 
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysDictTypeFromDTO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
@@ -32,5 +33,13 @@ public interface SysDictConvert {
     SysDictData toEntity(SysDictDataFromDTO sysDictDataFromDTO);
 
 
-    List<SysDictDataSDO> toSDO(List<SysDictData> list);
+    List<SysDictDataSDO> toSDO(List<SysDictDataBO> list);
+    @Mapping(target = "updateUser", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    SysDictData toEntity(SysDictDataBO sysDictDataBO);
+    List<SysDictData> toEntity(List<SysDictDataBO> sysDictDataBOList);
+
+    SysDictDataBO toBO(SysDictData sysDictData);
 }

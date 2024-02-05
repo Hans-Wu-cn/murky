@@ -1,5 +1,6 @@
 package cn.murky.admin.system.biz.service.impl;
 
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.dto.SysI18nFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysI18nVo;
 import cn.murky.admin.system.biz.service.ISys18nService;
@@ -45,7 +46,8 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
      */
     @Override
     public Page<Map> page(SysI18nDTO sysI18nDTO) {
-        List<String> i18nDict = iSysDictDataService.getI18nDict().stream().map(SysDictData::getDictValue).toList();
+        List<String> i18nDict = iSysDictDataService.getI18nDict().stream()
+                .map(SysDictDataBO::getDictValue).toList();
         SysI18nPageQuery sysI18nPageQuery = new SysI18nPageQuery().setSysI18nDTO(sysI18nDTO).setI18nKeys(i18nDict);
         return mapper.page(sysI18nPageQuery);
     }
@@ -57,11 +59,11 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
      */
     @Override
     public SysI18nVo info(SysI18nDTO sysI18nDTO) {
-        List<SysDictData> i18nDict = iSysDictDataService.getI18nDict();
-        List<String> i18nDictStrList = i18nDict.stream().map(SysDictData::getDictValue).toList();
+        List<SysDictDataBO> i18nDict = iSysDictDataService.getI18nDict();
+        List<String> i18nDictStrList = i18nDict.stream().map(SysDictDataBO::getDictValue).toList();
         SysI18nPageQuery sysI18nPageQuery = new SysI18nPageQuery().setSysI18nDTO(sysI18nDTO).setI18nKeys(i18nDictStrList);
         SysI18nVo info = mapper.info(sysI18nPageQuery);
-        for (SysDictData sysDictData : i18nDict) {
+        for (SysDictDataBO sysDictData : i18nDict) {
             boolean have = false;
             for (SysI18nVo.I18nInput i18nInput : info.getI18nInputs()) {
                 if (i18nInput.getLanguage().equals(sysDictData.getDictValue())) {
@@ -88,9 +90,11 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
         if (l > 0) {
             throw new ServiceException(I18N_KEY_ALREADY);
         }
-        List<SysDictData> i18nDict = iSysDictDataService.getI18nDict();
-        Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(SysDictData::getDictValue, SysDictData::getDictValue));
-        SysDictData defaultI18n = i18nDict.get(0);
+        List<SysDictDataBO> i18nDict = iSysDictDataService.getI18nDict();
+        Map<String, String> i18nMap = i18nDict.stream()
+                .collect(Collectors.toMap(SysDictDataBO::getDictValue,
+                        SysDictDataBO::getDictValue));
+        SysDictDataBO defaultI18n = i18nDict.get(0);
         List<SysI18n> sysI18ns = new ArrayList<>();
         for (SysI18nFromDTO.I18nInput i18nInput : sysI18nFromDTO.getI18nInputs()) {
             Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException(ILLEGAL_LANGUAGE));
@@ -115,9 +119,10 @@ public class SysI18nServiceImpl extends ServiceImpl<SysI18nMapper, SysI18n> impl
     @Tran
     @Override
     public boolean edit(SysI18nFromDTO sysI18nFromDTO) {
-        List<SysDictData> i18nDict = iSysDictDataService.getI18nDict();
-        Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.toMap(SysDictData::getDictValue, SysDictData::getDictValue));
-        SysDictData defaultI18n = i18nDict.get(0);
+        List<SysDictDataBO> i18nDict = iSysDictDataService.getI18nDict();
+        Map<String, String> i18nMap = i18nDict.stream().collect(Collectors.
+                toMap(SysDictDataBO::getDictValue, SysDictDataBO::getDictValue));
+        SysDictDataBO defaultI18n = i18nDict.get(0);
         List<SysI18n> list = new ArrayList<>();
         for (SysI18nFromDTO.I18nInput i18nInput : sysI18nFromDTO.getI18nInputs()) {
             Optional.ofNullable(i18nMap.get(i18nInput.getLanguage())).orElseThrow(() -> new ServiceException(ILLEGAL_LANGUAGE));

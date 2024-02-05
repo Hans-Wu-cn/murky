@@ -1,4 +1,4 @@
-package cn.murky.admin.system.biz.contant;
+package cn.murky.admin.system.api.constant;
 
 public class DictContant {
 

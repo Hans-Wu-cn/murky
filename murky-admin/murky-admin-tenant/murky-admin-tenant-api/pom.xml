@@ -10,5 +10,11 @@
     </parent>
 
     <artifactId>murky-admin-tenant-api</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>cn.murky.admin</groupId>
+            <artifactId>murky-admin-system-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

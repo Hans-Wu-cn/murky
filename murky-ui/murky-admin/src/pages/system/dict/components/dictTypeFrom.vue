@@ -44,7 +44,7 @@ const FORM_RULES = ref<FormRules>({
 })
 // 表单对象
 const formData = ref<DictType>({
-  dictTypeId: '',
+  id: '',
   dictName: '',
   dictType: '',
   status: 0,
@@ -70,10 +70,9 @@ const onReset = () => {
  * @param dictTypeId 字典类型Id
  */
 const initFromData = async (dictTypeId: string) => {
-  console.log(dictTypeId)
   if (!dictTypeId) {
     formData.value = {
-      dictTypeId: '',
+      id: '',
       dictName: '',
       dictType: '',
       status: 0,
@@ -97,7 +96,7 @@ const initFromData = async (dictTypeId: string) => {
 const onSubmit = async ({ validateResult }: SubmitContext<DictType>) => {
   if (validateResult === true) {
     loading.value = true
-    const api = formData.value.dictTypeId ? editDictType : addDictType
+    const api = formData.value.id ? editDictType : addDictType
     const res = await api(formData.value);
     if (res.code === ResultEnum.SUCCESS) {
       MessagePlugin.success(i18n.global.t('common.message.submitSuccess'));

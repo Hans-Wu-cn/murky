@@ -1,6 +1,7 @@
 package cn.murky.admin.system.biz.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataPageDTO;
 import cn.murky.admin.system.biz.convert.SysDictConvert;
@@ -56,7 +57,7 @@ public class SysDictDataController extends BaseController<ISysDictDataService> {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dictType", value = "字典类型")
     })
-    public ApiResult<List<SysDictData>> list(String dictType) {
+    public ApiResult<List<SysDictDataBO>> list(String dictType) {
         return ApiResult.ok(baseService.getDict(dictType));
     }
 

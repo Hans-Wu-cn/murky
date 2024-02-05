@@ -1,12 +1,16 @@
 package cn.murky.admin.system.biz.service.impl;
 
+import cn.murky.admin.system.api.domian.bo.SysDictBO;
+import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
+import cn.murky.admin.system.biz.convert.SysDictConvert;
 import cn.murky.admin.system.biz.mq.DictRedisMqTemplate;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
-import cn.murky.admin.system.biz.contant.DictContant;
+import cn.murky.admin.system.api.constant.DictContant;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.mapper.SysDictDataMapper;
 import cn.murky.admin.system.biz.mapper.SysDictTypeMapper;
 import cn.murky.admin.system.biz.service.ISysDictTypeService;
+import cn.murky.admin.tenant.api.TenantEnvApi;
 import cn.murky.core.exception.ServiceException;
 import com.mybatisflex.core.util.SqlUtil;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
@@ -40,6 +44,8 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
 
     @Inject
     private ISysDictTypeService iSysDictTypeService;
+    @Inject
+    private TenantEnvApi tenantEnvApi;
 
     /**
      * 重写save方法加入缓存机制
@@ -77,13 +83,14 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         boolean bool = this.updateById(sysDictData, true);
         if (bool) {
             RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
-            List<SysDictData> dictList = redisHash.getAndDeserialize(dictType, (new ArrayList<SysDictData>(){}).getClass());
+            List<SysDictDataBO> dictList = redisHash.getAndDeserialize(dictType, (new ArrayList<SysDictDataBO>(){}).getClass());
             dictList.forEach(item->{
                 if (item.getDictCode().equals(sysDictData.getDictCode())){
-                    item=sysDictData;
+                    SysDictDataBO bo = SysDictConvert.INSTANCES.toBO(sysDictData);
+                    item=bo;
                 }
             });
-            dictList.sort(Comparator.comparing(SysDictData::getDictSort));
+            dictList.sort(Comparator.comparing(SysDictDataBO::getDictSort));
             redisHash.putAndSerialize(dictType,dictList);
         }
         return bool;
@@ -106,27 +113,27 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
     }
 
     @Override
-    public List<SysDictData> getI18nDict() {
+    public List<SysDictDataBO> getI18nDict() {
         return getDict(DictContant.I18N_LANGUAGE_DICT_KEY);
     }
 
     @Override
-    public List<SysDictData> getDict(String dictType) {
+    public List<SysDictDataBO> getDict(String dictType) {
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
         if(redisHash!=null){
-            return redisHash.getAndDeserialize(dictType, (new ArrayList<SysDictData>() {
+            return redisHash.getAndDeserialize(dictType, (new ArrayList<SysDictDataBO>() {
             }).getClass());
         }
         return sysDictTypeMapper.selectSysDict(dictType).getSysDictDataList();
     }
 
     @Override
-    public List<SysDictData> getAllDict() {
+    public List<SysDictDataBO> getAllDict() {
         RedisHash redisHash = redisClient.getHash(DictContant.DICT_CACHE_KEY);
-        List<SysDictData> result=new ArrayList<>();
+        List<SysDictDataBO> result=new ArrayList<>();
         if(redisHash!=null){
             for (String key : redisHash.keySet()) {
-                List<SysDictData>  sysDictDataList = redisHash.getAndDeserialize(key, (new ArrayList<SysDictData>() {
+                List<SysDictDataBO>  sysDictDataList = redisHash.getAndDeserialize(key, (new ArrayList<SysDictDataBO>() {
                 }).getClass());
                 result.addAll(sysDictDataList);
             }
@@ -138,8 +145,9 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
     public boolean updateDict(SysDictData sysDictData) {
         boolean b = updateById(sysDictData);
         if(b){
-            iSysDictTypeService.refreshDict();
-            dictRedisMqTemplate.publish();
+            List<SysDictBO> sysDictBOList = iSysDictTypeService.refreshDict();
+            tenantEnvApi.refreshDict(sysDictBOList);
+//            dictRedisMqTemplate.publish();
         }
         return b;
     }
@@ -148,8 +156,9 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
     public boolean addDict(SysDictData sysDictData) {
         boolean b = save(sysDictData);
         if (b) {
-            iSysDictTypeService.refreshDict();
-            dictRedisMqTemplate.publish();
+            List<SysDictBO> sysDictBOList = iSysDictTypeService.refreshDict();
+            tenantEnvApi.refreshDict(sysDictBOList);
+//            dictRedisMqTemplate.publish();
         }
         return b;
     }
@@ -160,8 +169,9 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         Optional.ofNullable(sysDictData).orElseThrow(()->new ServiceException(DELETE_ERROR));
         boolean b = removeById(id);
         if (b) {
-            iSysDictTypeService.refreshDict();
-            dictRedisMqTemplate.publish();
+            List<SysDictBO> sysDictBOS = iSysDictTypeService.refreshDict();
+            tenantEnvApi.refreshDict(sysDictBOS);
+//            dictRedisMqTemplate.publish();
         }
         return b;
     }

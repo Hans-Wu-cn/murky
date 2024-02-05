@@ -1,7 +1,6 @@
-package cn.murky.admin.system.biz.domain.bo;
+package cn.murky.admin.system.api.domian.bo;
 
 import cn.murky.admin.common.enums.CommonStatus;
-import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class SysDictBo {
+public class SysDictBO {
     /**
      * 主键
      */
@@ -41,5 +40,5 @@ public class SysDictBo {
     /**
      * 字典数据
      */
-    private List<SysDictData> sysDictDataList;
+    private List<SysDictDataBO> sysDictDataList;
 }

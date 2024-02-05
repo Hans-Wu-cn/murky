@@ -1,7 +1,10 @@
 package cn.murky.admin.system.biz.service;
 
+import cn.murky.admin.system.api.domian.bo.SysDictBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import com.mybatisflex.core.service.IService;
+
+import java.util.List;
 
 /**
  * 字典类型Service
@@ -13,7 +16,7 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     /**
      * 刷新缓存
      */
-    void refreshDict();
+    List<SysDictBO> refreshDict();
 
     /**
      * 重写修改方法
