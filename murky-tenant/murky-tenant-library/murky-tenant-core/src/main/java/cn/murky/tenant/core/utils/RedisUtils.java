@@ -1,5 +1,7 @@
 package cn.murky.tenant.core.utils;
 
+import cn.dev33.satoken.context.SaHolder;
+import cn.murky.tenant.system.api.TenantEnvApi;
 import org.noear.redisx.RedisClient;
 import org.noear.solon.Solon;
 
@@ -7,21 +9,20 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static cn.murky.tenant.core.constant.Constants.TENANT_ID_HEADER;
+
 /**
  * 在租户端不同租户使用的redis服务可能不一致
  * 租户端所有租户的redisClient统一在此处获取
  */
 public class RedisUtils {
     private static final Map<Long, RedisClient> REDIS_CLIENT_MAP = new ConcurrentHashMap<>();
+    private static TenantEnvApi tenantEnvApi;
 
-    /**
-     * 为指定租户设置reidsClient
-     *
-     * @param tenantId    租户id
-     * @param redisClient redisClient
-     */
-    public static void put(Long tenantId, RedisClient redisClient) {
-        REDIS_CLIENT_MAP.put(tenantId, redisClient);
+    static {
+        Solon.context().getBeanAsync(TenantEnvApi.class,bean->{
+            tenantEnvApi=bean;
+        });
     }
 
     /**
@@ -31,7 +32,7 @@ public class RedisUtils {
      * @return redisClient
      */
     public static RedisClient get(Long tenantId) {
-        return Optional.ofNullable(REDIS_CLIENT_MAP.get(tenantId)).
+        return Optional.ofNullable(tenantEnvApi.getRedisClientByTenantId(tenantId)).
                 orElseGet(() -> Solon.context().getBean(RedisClient.class));
     }
 
@@ -41,7 +42,7 @@ public class RedisUtils {
      * @return reidsClient
      */
     public static RedisClient get() {
-        return get(SecurityUtils.getUserInfo().getTenantId());
+        return get(SecurityUtils.getTenantId());
     }
 
 }

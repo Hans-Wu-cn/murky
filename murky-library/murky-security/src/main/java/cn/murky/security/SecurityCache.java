@@ -1,6 +1,7 @@
 package cn.murky.security;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.common.constant.BusTopicConstant;
 import cn.murky.security.entity.SecurityUserInfo;
@@ -45,10 +46,8 @@ public class SecurityCache <T extends SecurityUser> {
      * @param securityUser 用户信息对象
      */
     public void setUserInfo(T securityUser) {
-        redisClient.open(session -> {
-            String serialize = ONode.serialize(securityUser);
-            session.key(USER_KEY + getUserId()).expire(expire).set(serialize);
-        });
+        SaSession session = StpUtil.getSession();
+        session.set(USER_KEY,securityUser);
     }
 
     /**
@@ -57,17 +56,16 @@ public class SecurityCache <T extends SecurityUser> {
      * @return 用户信息对象
      */
     public T getUserInfo() throws NotLoginException {
-        String json = redisClient.openAndGet(session -> session.key(USER_KEY + getUserId()).get());
-        return ONode.deserialize(json);
+        SaSession session = StpUtil.getSession();
+        return (T) session.get(USER_KEY);
     }
 
     /**
      * 删除用户信息
      */
     public void delUserInfo() {
-        redisClient.open(session -> {
-            session.deleteKeys(Collections.singleton(USER_KEY + getUserId()));
-        });
+        SaSession session = StpUtil.getSession();
+        session.delete(USER_KEY);
     }
 
     /**
@@ -83,9 +81,8 @@ public class SecurityCache <T extends SecurityUser> {
      * 缓存用户菜单
      */
     public void delUserMenu() throws NotLoginException {
-        redisClient.open(session -> {
-            session.deleteKeys(Collections.singleton(MENU_KEY + getUserId()));
-        });
+        SaSession session = StpUtil.getSession();
+        session.delete(MENU_KEY);
     }
 
 

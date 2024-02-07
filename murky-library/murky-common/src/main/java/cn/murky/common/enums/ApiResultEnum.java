@@ -13,6 +13,7 @@ public enum ApiResultEnum {
     FAil(500,"失败","请求错误,根据具体的错误响应不同的状态码"),
     NOT_LOGIN(401,"登录状态过期，请重新登录","token过期，未登录等错误"),
     NOT_PREMISSION(403,"无此权限","无此权限"),
+    NOT_TENANT_PREMISSION(403,"无该租户权限","无该租户权限"),
 
     ;
     /*响应码*/

@@ -1,2 +1,9 @@
 solon:
   env: test
+
+security:
+  path-ignore:
+    - /swagger-resources
+    - /auth/login
+    - /auth/logout
+    - /i18n/language

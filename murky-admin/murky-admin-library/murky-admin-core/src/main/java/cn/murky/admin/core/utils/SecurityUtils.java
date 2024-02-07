@@ -4,15 +4,20 @@ package cn.murky.admin.core.utils;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.murky.security.SecurityCache;
 import cn.murky.security.entity.SecurityUserInfo;
+import org.noear.redisx.RedisClient;
 import org.noear.solon.Solon;
 
 
 public class SecurityUtils {
     static SecurityCache<SecurityUserInfo> securityCache;
+    static RedisClient redisClient;
 
     static {
         Solon.context().getBeanAsync(SecurityCache.class, systemSecurityCache ->{
             securityCache=systemSecurityCache;
+        });
+        Solon.context().getBeanAsync(RedisClient.class, bean ->{
+            redisClient=bean;
         });
     }
 
@@ -21,7 +26,7 @@ public class SecurityUtils {
      * @return 用户id
      */
     public static Long getUserId(){
-        return securityCache.getUserId();
+        return getUserInfo().getUserId();
     }
 
     /**
@@ -48,7 +53,7 @@ public class SecurityUtils {
     }
 
     public static Boolean isAdmin() throws NotLoginException {
-        return securityCache.admin();
+        return getUserInfo().getAdmin();
     }
 
 

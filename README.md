@@ -74,8 +74,8 @@ cn.murky
 | 密码加密   | 已完成 | 规划中 |
 | 接口数据脱敏 | 规划中 | 规划中 |
 | 代码生成   | 规划中 | 规划中 |
-| 租户环境隔离 |     | 开发中 |
-
+| 租户环境隔离 |     | 已完成 |
+**租户环境隔离目前数据库采用schema隔离,redis采用按个人需求,可以为租户配置需要隔离的redis的配置,若不配置则采用系统默认的redis**  
 #### 文件上传
 
 solon对文件上传做了一些抽象,所以使用不同的文件服务替换很简单,如果需要加入,可以参考文档[http://solon.noear.org/article/family-solon-cloud-file](http://solon.noear.org/article/family-solon-cloud-file)

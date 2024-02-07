@@ -16,7 +16,9 @@ import org.noear.solon.annotation.*;
 import org.noear.solon.validation.annotation.Valid;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /***
  * 登录Controller
@@ -37,9 +39,12 @@ public class MurkyAuthController {
     @Post
     @ApiOperation("登录")
     @Mapping("login")
-    public ApiResult<String> login(@Body LoginDto loginDto) {
+    public ApiResult<Map<String,String>> login(@Body LoginDto loginDto) {
         SaTokenInfo tokenInfo = iMurkyLoginService.login(loginDto);
-        return ApiResult.ok(tokenInfo.getTokenValue());
+        Map<String,String> result=new HashMap<>();
+        result.put("token",tokenInfo.getTokenValue());
+        result.put("tenantId",SecurityUtils.getTenantId().toString());
+        return ApiResult.ok(result);
     }
 
     @Post

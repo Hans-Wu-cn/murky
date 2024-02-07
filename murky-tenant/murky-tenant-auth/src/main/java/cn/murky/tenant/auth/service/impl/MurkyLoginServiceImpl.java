@@ -1,5 +1,6 @@
 package cn.murky.tenant.auth.service.impl;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.murky.common.enums.DataScope;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static cn.murky.tenant.auth.constant.ErrorConstant.ACCOUNT_PASSWORD_ERROR;
+import static cn.murky.tenant.core.constant.Constants.TENANT_ID_HEADER;
 import static cn.murky.tenant.system.api.constant.TenantSystemConstant.TENANT_SYSTEM_ADMIN_FK_ROLE_ID;
 import static cn.murky.tenant.system.api.constant.TenantSystemConstant.TENANT_SYSTEM_ADMIN_ROLE_CODE;
 
@@ -46,9 +48,10 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
         if (!tenantUser.getPassword().equals(encryPassword)) {
             throw new ServiceException(ACCOUNT_PASSWORD_ERROR);
         }
+        SecurityUtils.setTenantId(tenantUser.getFkTenantId());
         // 第1步，先登录
         StpUtil.login(tenantUser.getId());
-//        // 第2步，获取 Token  相关参数
+        // 第2步，获取 Token  相关参数
         return StpUtil.getTokenInfo();
     }
 
@@ -60,7 +63,8 @@ public class MurkyLoginServiceImpl implements IMurkyLoginService {
     @Override
     public SecurityTenantUserInfo userInfo() {
         //判断缓存中是否有，如果有则从缓存中取数据，如果没有则从数据库查询
-        SecurityTenantUserInfo userInfoCache = SecurityUtils.getUserInfo();
+//        SecurityTenantUserInfo userInfoCache = SecurityUtils.getUserInfo();
+        SecurityTenantUserInfo userInfoCache = (SecurityTenantUserInfo)StpUtil.getTokenSession().get("userInfo");
 
         return Optional.ofNullable(userInfoCache).orElseGet(() -> {
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
