@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.domain.dto;
 
-import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.enums.CommonStatus;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import com.mybatisflex.core.paginate.Page;
 import io.swagger.annotations.ApiModel;

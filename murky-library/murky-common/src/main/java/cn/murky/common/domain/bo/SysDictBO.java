@@ -1,6 +1,6 @@
-package cn.murky.admin.system.api.domian.bo;
+package cn.murky.common.domain.bo;
 
-import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.enums.CommonStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

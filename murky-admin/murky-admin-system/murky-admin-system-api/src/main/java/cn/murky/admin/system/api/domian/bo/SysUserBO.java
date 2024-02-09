@@ -1,7 +1,7 @@
 package cn.murky.admin.system.api.domian.bo;
 
 import cn.murky.admin.system.api.enums.Sex;
-import cn.murky.common.entity.BaseObj;
+import cn.murky.common.domain.entity.BaseObj;
 import com.mybatisflex.annotation.Id;
 import lombok.Data;
 import lombok.experimental.Accessors;

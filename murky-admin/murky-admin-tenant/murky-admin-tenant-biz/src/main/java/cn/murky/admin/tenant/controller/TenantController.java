@@ -1,7 +1,7 @@
 package cn.murky.admin.tenant.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.enums.CommonStatus;
 import cn.murky.admin.tenant.domain.dto.TenantFromDTO;
 import cn.murky.admin.tenant.domain.dto.TenantPageDTO;
 import cn.murky.admin.tenant.domain.entity.Tenant;

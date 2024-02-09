@@ -1,4 +1,4 @@
-package cn.murky.common.entity;
+package cn.murky.common.domain.entity;
 
 import com.mybatisflex.core.activerecord.Model;
 import lombok.Getter;

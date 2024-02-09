@@ -1,6 +1,6 @@
 package cn.murky.admin.tenant.domain.vo;
 
-import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.enums.CommonStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;

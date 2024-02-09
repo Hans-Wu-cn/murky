@@ -1,8 +1,8 @@
 package cn.murky.admin.system.biz.domain.vo;
 
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.SysI18n;
+import cn.murky.common.domain.bo.SysDictDataBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package cn.murky.admin.common.enums;
+package cn.murky.common.enums;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;

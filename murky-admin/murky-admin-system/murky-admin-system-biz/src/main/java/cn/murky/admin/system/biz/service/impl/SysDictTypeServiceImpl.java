@@ -1,14 +1,15 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.system.api.domian.bo.SysDictBO;
+import cn.murky.common.domain.bo.SysDictBO;
 import cn.murky.admin.system.api.constant.DictContant;
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.convert.SysDictConvert;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import cn.murky.admin.system.biz.mapper.SysDictTypeMapper;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
 import cn.murky.admin.system.biz.service.ISysDictTypeService;
+import cn.murky.admin.tenant.api.TenantEnvApi;
+import cn.murky.common.domain.bo.SysDictDataBO;
 import cn.murky.common.utils.CollectionUtils;
 import cn.murky.core.exception.ServiceException;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
@@ -42,6 +43,8 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     private ISysDictTypeService iSysDictTypeService;
     @Inject
     private ISysDictDataService iSysDictDataService;
+    @Inject
+    private TenantEnvApi tenantEnvApi;
 
     /**
      * 刷新缓存
@@ -100,6 +103,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             hashMap.put(sysDictBo.getDictType(), ONode.serialize(sysDictBo.getSysDictDataList()));
         }
         redisHash.putAll(hashMap);
-        log.info("初始化字典缓存");
+        log.info("[SysDictTypeServiceImpl] -> 初始化字典缓存");
+        tenantEnvApi.refreshDict(sysDictBos);
     }
 }

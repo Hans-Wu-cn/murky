@@ -1,8 +1,6 @@
 package cn.murky.tenant.core.utils;
 
-import cn.murky.common.sdo.SysDictDataSDO;
-import cn.murky.common.utils.CollectionUtils;
-import org.noear.solon.Utils;
+import cn.murky.common.domain.sdo.SysDictDataSDO;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

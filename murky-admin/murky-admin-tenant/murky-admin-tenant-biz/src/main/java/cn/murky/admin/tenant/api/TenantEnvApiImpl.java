@@ -1,13 +1,12 @@
 package cn.murky.admin.tenant.api;
 
 import cn.murky.admin.system.api.constant.DictContant;
-import cn.murky.admin.system.api.domian.bo.SysDictBO;
+import cn.murky.common.domain.bo.SysDictBO;
 import cn.murky.admin.tenant.service.ITenantEnvService;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.redisx.RedisClient;
 import org.noear.redisx.plus.RedisHash;
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import java.util.List;

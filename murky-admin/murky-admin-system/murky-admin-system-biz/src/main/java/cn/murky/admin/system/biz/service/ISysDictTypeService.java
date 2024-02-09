@@ -1,6 +1,6 @@
 package cn.murky.admin.system.biz.service;
 
-import cn.murky.admin.system.api.domian.bo.SysDictBO;
+import cn.murky.common.domain.bo.SysDictBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
 import com.mybatisflex.core.service.IService;
 

@@ -1,9 +1,11 @@
-package cn.murky.common.sdo;
+package cn.murky.common.domain.bo;
 
+import cn.murky.common.enums.CommonStatus;
 import lombok.Data;
 
 @Data
-public class SysDictDataSDO {
+public class SysDictDataBO {
+
     /**
      * 字典编码
      */
@@ -29,4 +31,13 @@ public class SysDictDataSDO {
      */
     private String dictType;
 
+    /**
+     * 状态
+     */
+    private CommonStatus status;
+
+    /**
+     * 备注
+     */
+    private String remark;
 }

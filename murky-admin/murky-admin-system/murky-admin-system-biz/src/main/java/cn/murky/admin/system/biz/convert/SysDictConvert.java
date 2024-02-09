@@ -1,11 +1,11 @@
 package cn.murky.admin.system.biz.convert;
 
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.dto.SysDictDataFromDTO;
 import cn.murky.admin.system.biz.domain.dto.SysDictTypeFromDTO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.SysDictType;
-import cn.murky.common.sdo.SysDictDataSDO;
+import cn.murky.common.domain.bo.SysDictDataBO;
+import cn.murky.common.domain.sdo.SysDictDataSDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

@@ -1,6 +1,6 @@
 package cn.murky.admin.tenant.service.impl;
 
-import cn.murky.admin.common.enums.CommonStatus;
+import cn.murky.common.enums.CommonStatus;
 import cn.murky.admin.tenant.enums.Sex;
 import cn.murky.admin.tenant.domain.convert.TenantConvert;
 import cn.murky.admin.tenant.domain.dto.TenantFromDTO;

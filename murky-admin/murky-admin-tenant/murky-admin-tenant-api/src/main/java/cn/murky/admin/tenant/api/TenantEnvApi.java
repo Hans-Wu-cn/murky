@@ -1,6 +1,6 @@
 package cn.murky.admin.tenant.api;
 
-import cn.murky.admin.system.api.domian.bo.SysDictBO;
+import cn.murky.common.domain.bo.SysDictBO;
 
 import java.util.List;
 

@@ -1,15 +1,13 @@
 package cn.murky.admin.system.biz.domain.entity;
 
-import cn.murky.admin.common.enums.CommonStatus;
-import cn.murky.common.entity.BaseEntity;
+import cn.murky.common.enums.CommonStatus;
+import cn.murky.common.domain.entity.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * 字典数据实体类

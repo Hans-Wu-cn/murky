@@ -1,15 +1,14 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.dto.SysI18nFromDTO;
 import cn.murky.admin.system.biz.domain.vo.SysI18nVo;
 import cn.murky.admin.system.biz.service.ISys18nService;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
 import cn.murky.admin.system.biz.domain.dto.SysI18nDTO;
-import cn.murky.admin.system.biz.domain.entity.SysDictData;
 import cn.murky.admin.system.biz.domain.entity.SysI18n;
 import cn.murky.admin.system.biz.domain.query.SysI18nPageQuery;
 import cn.murky.admin.system.biz.mapper.SysI18nMapper;
+import cn.murky.common.domain.bo.SysDictDataBO;
 import cn.murky.core.exception.ServiceException;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.solon.service.impl.ServiceImpl;

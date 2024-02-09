@@ -1,6 +1,6 @@
 package cn.murky.admin.tenant.domain.entity;
 
-import cn.murky.common.entity.BaseEntity;
+import cn.murky.common.domain.entity.BaseEntity;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import io.swagger.annotations.ApiModel;

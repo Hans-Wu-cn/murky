@@ -1,6 +1,6 @@
 package cn.murky.admin.core.listener;
 
-import cn.murky.common.entity.BaseEntity;
+import cn.murky.common.domain.entity.BaseEntity;
 import cn.murky.flex.FlexListener;
 import cn.murky.admin.core.utils.SecurityUtils;
 import com.mybatisflex.annotation.InsertListener;

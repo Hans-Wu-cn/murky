@@ -1,6 +1,6 @@
 package cn.murky.tenant.system.biz.listener;
 
-import cn.murky.common.sdo.SysDictDataSDO;
+import cn.murky.common.domain.sdo.SysDictDataSDO;
 import cn.murky.socketd.MurkyEntity;
 import cn.murky.socketd.listener.SystemDataEventListener;
 import cn.murky.tenant.core.utils.DictUtils;

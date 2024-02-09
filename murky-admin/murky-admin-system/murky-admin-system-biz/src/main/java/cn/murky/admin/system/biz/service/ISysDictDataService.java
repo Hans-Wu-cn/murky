@@ -1,7 +1,7 @@
 package cn.murky.admin.system.biz.service;
 
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
 import cn.murky.admin.system.biz.domain.entity.SysDictData;
+import cn.murky.common.domain.bo.SysDictDataBO;
 import com.mybatisflex.core.service.IService;
 
 import java.util.List;

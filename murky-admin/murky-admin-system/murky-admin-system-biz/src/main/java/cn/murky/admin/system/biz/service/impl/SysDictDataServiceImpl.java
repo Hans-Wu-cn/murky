@@ -1,7 +1,6 @@
 package cn.murky.admin.system.biz.service.impl;
 
-import cn.murky.admin.system.api.domian.bo.SysDictBO;
-import cn.murky.admin.system.api.domian.bo.SysDictDataBO;
+import cn.murky.common.domain.bo.SysDictBO;
 import cn.murky.admin.system.biz.convert.SysDictConvert;
 import cn.murky.admin.system.biz.mq.DictRedisMqTemplate;
 import cn.murky.admin.system.biz.service.ISysDictDataService;
@@ -11,6 +10,7 @@ import cn.murky.admin.system.biz.mapper.SysDictDataMapper;
 import cn.murky.admin.system.biz.mapper.SysDictTypeMapper;
 import cn.murky.admin.system.biz.service.ISysDictTypeService;
 import cn.murky.admin.tenant.api.TenantEnvApi;
+import cn.murky.common.domain.bo.SysDictDataBO;
 import cn.murky.core.exception.ServiceException;
 import com.mybatisflex.core.util.SqlUtil;
 import com.mybatisflex.solon.service.impl.ServiceImpl;
