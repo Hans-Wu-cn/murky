@@ -40,6 +40,7 @@ public class TenantFilter implements Filter {
             if (StringUtils.isEmpty(tenantId)) {
                 log.info("[TenantFilter] -> 此次请求未携带租户id ip:{},method:{},uri:{}", ctx.realIp(), ctx.method(), ctx.uri());
                 ctx.render(ApiResult.fail(ApiResultEnum.NOT_LOGIN));
+                return;
             }
             SecurityUtils.setTenantId(Long.parseLong(tenantId));
             SecurityTenantUserInfo userInfo = SecurityUtils.getUserInfo();
@@ -48,6 +49,7 @@ public class TenantFilter implements Filter {
                     SecurityUtils.deleteTenantId();
                     log.info("[TenantFilter] -> 无该租户访问权限id:{} ip:{},method:{},uri:{}", tenantId, ctx.realIp(), ctx.method(), ctx.uri());
                     ctx.render(ApiResult.fail(ApiResultEnum.NOT_TENANT_PREMISSION));
+                    return;
                 }
             }else{
                 TenantUserBO tenantUserBO = tenantUserApi.getById(SecurityUtils.getUserId());
@@ -55,6 +57,7 @@ public class TenantFilter implements Filter {
                     SecurityUtils.deleteTenantId();
                     log.info("[TenantFilter] -> 无该租户访问权限id:{} ip:{},method:{},uri:{}", tenantId, ctx.realIp(), ctx.method(), ctx.uri());
                     ctx.render(ApiResult.fail(ApiResultEnum.NOT_TENANT_PREMISSION));
+                    return;
                 }
             }
         }

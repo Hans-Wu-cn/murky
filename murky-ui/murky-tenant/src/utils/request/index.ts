@@ -115,13 +115,14 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     // 请求之前处理config
     const userStore = useUserStore();
-    const { token } = userStore;
+    const { token,tenantId } = userStore;
 
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
-      (config as Recordable).headers.Authorization = options.authenticationScheme
+        (config as Recordable).headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
         : token;
+        (config as Recordable).headers[`Tenant-Id`] = tenantId;
     }
     return config;
   },

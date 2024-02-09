@@ -7,3 +7,4 @@ security:
     - /auth/login
     - /auth/logout
     - /i18n/language
+    - /dictData/dict/i18n:language

@@ -29,6 +29,7 @@ export type CommonObjType = {
 
 export interface UserInfo {
   userId: string;
+  tenantId: string;
   userName: string;
   language?: string;
   token: string;

@@ -10,6 +10,7 @@ import { useI18nStore } from '@/store/modules/i18n'
 const InitUserInfo: UserInfo = {
   userName: '',
   token: '',
+  tenantId: '',
   roleIds: [],
   roleCodes: [],
   permissions: [],
@@ -20,6 +21,7 @@ const InitUserInfo: UserInfo = {
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: 'main_token', // 默认token不走权限
+    tenantId: '',
     userInfo: { ...InitUserInfo },
   }),
   getters: {
@@ -37,7 +39,8 @@ export const useUserStore = defineStore('user', {
     async login(userInfo: Record<string, unknown>) {
       const { code, message, result } = await login(userInfo);
       if (code === ResultEnum.SUCCESS) {
-        this.token = result;
+        this.token = result.token;
+        this.tenantId = result.tenantId;
       } else {
         throw message;
       }
